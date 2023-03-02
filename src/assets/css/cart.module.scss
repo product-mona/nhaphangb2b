@@ -1,0 +1,337 @@
+/* ===== CartAmount ===== */
+.cartAmountContainer {
+  @apply md:w-full gap-4 md:flex xl:block;
+
+  .statistic {
+    @apply p-4
+			sm:mb-0
+            col-span-1
+            flex 
+            items-center 
+            justify-between
+			max-w-[324px]
+			bg-white;
+  }
+
+  .box {
+    @apply text-center 
+            flex flex-col flex-wrap
+            items-start mr-4;
+  }
+
+  .iconBox {
+    @apply mb-2 
+            md:w-[40px]
+            md:h-[40px]
+			w-[25px]
+			h-[25px]
+            flex items-center justify-center text-[#fff] shadow-lg;
+  }
+
+  .icon {
+    @apply md:text-base text-sm;
+  }
+
+  .iconText {
+    @apply text-xs md:text-sm text-[#595857] tracking-wider font-semibold;
+  }
+
+  .quantity {
+    @apply text-orange lg:text-2xl md:text-xl text-lg text-right;
+  }
+
+  .totalPrice {
+    @apply text-orange text-3xl mr-2 text-center;
+  }
+
+  .totalPriceLabel {
+    @apply text-sm font-bold;
+  }
+}
+
+/* ===== CartNote ===== */
+.cartNoteContainer {
+  @apply flex my-4;
+
+  .icon {
+    @apply mt-1 mr-2 text-orange;
+  }
+
+  .note {
+    @apply text-[#424242];
+  }
+}
+
+/* ===== CartOrder ===== */
+.cartOrderContainer {
+  .heading {
+    @apply grid grid-cols-2 gap-4  bg-[#fafafa] text-[#333] sm:mb-4 mb-4 xl:px-6 px-4 rounded-3xl pt-2;
+  }
+
+  .checkbox {
+    @apply col-span-1 text-left;
+  }
+
+  .label {
+    font-size: 14px;
+    line-height: 22px;
+    @apply col-span-1 text-center font-semibold sm:block hidden;
+  }
+
+  > .footer {
+    @apply w-full sm:p-6 bg-white sm:mb-8 mb-4 rounded-3xl px-6 pt-6 sm:pb-8 pb-20;
+  }
+
+  .title {
+    @apply h-[42px] text-base text-[#727171] pb-2 relative top-px font-medium;
+  }
+
+  .noteContainer {
+    @apply sm:flex justify-between;
+  }
+
+  > .left {
+    @apply grid sm:grid-cols-1 sm:gap-4 mb-6 text-sm sm:w-[40%] grid-cols-2 w-full;
+  }
+  > .right {
+    @apply sm:w-[50%] w-full;
+  }
+
+  .amount {
+    @apply w-full flex items-end justify-between sm:py-4 py-2 border-b border-b-[#c7c5c5];
+  }
+
+  .amountTextLeft {
+    @apply text-sm text-[#636262] mr-1;
+  }
+
+  .amountTextRight {
+    @apply text-sm text-[#636262] font-medium text-right;
+  }
+
+  > .buttonGroup {
+    @apply flex justify-end;
+  }
+
+  > .button {
+    @apply bg-orange sm:mt-8 mx-0 py-2 px-6;
+  }
+}
+
+// ===== CartOrderItem =====
+.cartOrderItemContainer {
+  @apply xl:p-6 p-4;
+
+  .topContainer {
+    @apply rounded-3xl w-full;
+  }
+
+  .index {
+    @apply mr-2 
+        hidden 
+        lg:block 
+ 		w-[27px] h-[27px] rounded-full text-orange text-center leading-[24px];
+  }
+
+  .detail {
+    @apply ml-4;
+  }
+
+  .title {
+    @apply md:text-sm text-xs;
+  }
+
+  .property {
+    @apply md:text-sm text-[14px] mt-1 text-[#141046] font-semibold;
+  }
+
+  .note {
+    @apply flex mt-1;
+  }
+
+  .noteLabel {
+    @apply md:text-sm text-xs mr-1 text-[#000];
+  }
+
+  .noteInput {
+    @apply md:text-sm text-xs text-[#000] outline-0 border-b border-b-[#c2c0c0] rounded-none;
+  }
+
+  .product {
+    @apply grid xs:grid-cols-7 grid-cols-6 xs:gap-4 gap-2 md:py-4 sm:py-3 py-2;
+  }
+
+  .product-1 {
+    @apply xs:col-span-3 col-span-6 flex items-center;
+  }
+
+  .product-2 {
+    @apply xs:col-span-1 col-span-2 flex items-center justify-center;
+  }
+
+  .product-3 {
+    @apply xs:col-span-1 col-span-2 flex flex-col items-center justify-center;
+  }
+
+  .product-4 {
+    @apply xs:col-span-1 col-span-2 flex flex-col items-center justify-center;
+  }
+
+  .product-5 {
+    @apply xs:col-span-1 col-span-6 flex items-center xs:justify-center justify-end;
+  }
+
+  .priceLabel {
+    @apply sm:hidden;
+  }
+
+  .priceValue {
+    @apply text-warning text-center sm:text-sm text-xs sm:leading-6;
+  }
+
+  .actionSpan {
+    @apply cursor-pointer;
+
+    &:hover .removeIcon {
+      @apply text-[#000];
+    }
+  }
+
+  .actionIcon {
+    @apply md:text-sm text-xs transition;
+  }
+
+  .divide {
+    @apply md:pt-6 sm:pt-4 pt-2;
+  }
+
+  .footer {
+    @apply grid grid-cols-2 md:gap-4 gap-2;
+  }
+
+  .left {
+    @apply sm:col-span-1 col-span-2;
+  }
+
+  .leftTitle {
+    @apply col-span-2 mb-2 text-base text-[#626262] relative top-px font-semibold text-[14px];
+  }
+
+  .textarea {
+    @apply border border-[#f0f0f0] w-full h-[66px] rounded-2xl mx-auto p-2 outline-0 hover:border-orange transition;
+  }
+
+  .mid {
+    @apply sm:col-span-1 col-span-2 sm:px-6 px-0 sm:py-0 py-4;
+  }
+
+  .right {
+    @apply sm:col-span-1 col-span-2;
+  }
+
+  .totalPrice {
+    @apply w-full flex items-end justify-between py-2;
+  }
+
+  .totalPriceLeft {
+    @apply text-sm text-[#636262] mr-1;
+  }
+
+  .totalPriceRight {
+    @apply text-sm text-[#636262] font-bold text-right;
+  }
+
+  .buttonGroup {
+    @apply sm:col-span-3 col-span-2 flex justify-end;
+  }
+
+  .sumTotalPrice {
+    @apply md:text-lg sm:text-base text-sm text-right;
+
+    > span {
+      @apply font-bold text-warning md:text-2xl sm:text-xl text-lg;
+    }
+  }
+
+  .button {
+    @apply px-4 mx-0 bg-orange min-w-[80px];
+  }
+}
+
+// ===== CartSteps =====
+.cartStepsContainer {
+  @apply max-w-[700px] relative left-[-14px] mx-auto hidden sm:block mb-2 sm:mb-3 md:mb-4;
+
+  .ant-steps-item-title {
+    line-height: 24px;
+  }
+}
+
+// ==== Bộ lộc =====
+
+.fillterBox {
+  @apply border-2 border-[#f8dfd5] rounded-xl p-4 mb-4;
+}
+
+// table
+
+.tableBox {
+  --tw-bg-opacity: 1;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid rgba(54, 97, 54, 0.3);
+  box-shadow: 0 0 10px 0 #00000026;
+  background-color: #fff;
+}
+
+.tableBoxPag {
+  @apply rounded-xl pb-4 mb-4 bg-top;
+}
+
+.tableBoxNon {
+  @apply bg-[#EDF1F7] rounded-t-xl pt-1 mb-4;
+}
+
+.cardTopTable {
+  @apply flex bg-white rounded-lg p-4 justify-between;
+}
+
+.topTable {
+  @apply h-1 rounded-t-lg bg-[#EDF1F7];
+}
+
+// title
+
+.titleUser {
+  @apply text-lg py-4 text-[#3E3C6A] font-semibold mt-4 md:mt-0;
+}
+
+.TabPanel {
+  @apply border-b border-[#fde6de] bg-[#fff] rounded-b-xl;
+}
+
+.TabPanelSetting {
+  @apply bg-[#fff] rounded-b-xl;
+}
+
+.IconFilter {
+  @apply text-main bg-[#e6ecf6] p-2 text-center shadow-lg;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.IconBoxFilter {
+  @apply pb-2 text-sm mr-4 tracking-wide;
+}
+
+.titlePageUser {
+  @apply text-[28px] py-4 text-[#3E3C6A] font-semibold mt-[50px];
+}
+
+.titleTable {
+  @apply text-[16px] text-[#3E3C6A] pb-4 font-semibold;
+}

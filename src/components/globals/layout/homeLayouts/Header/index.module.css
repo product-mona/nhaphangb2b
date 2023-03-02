@@ -1,0 +1,154 @@
+.fixed {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 4px 0 10px 0 #7e7e7e;
+}
+
+.headerTop {
+  display: flex;
+  transition: all 0.3s ease-in-out;
+  background-color: #fafafa;
+  height: 64px;
+}
+
+.headerBottom {
+  position: relative;
+  background: linear-gradient(180deg, #44b346 0%, rgba(11, 96, 13, 0.95) 100%);
+  box-shadow: 10px 10px 32px rgba(0, 0, 0, 0.1);
+}
+
+.expandInforHeader {
+  @apply rounded-t-sm px-4 py-3 text-center text-xl text-white font-medium;
+  background: linear-gradient(185deg, #716f6f -0.44%, #4a8916 100%);
+}
+
+.headerTopHidden {
+  padding: 0 !important;
+  height: 0 !important;
+}
+
+.headerBottom {
+  position: relative;
+  background-color: #f5f5f5;
+  box-shadow: 0px 0px 16px transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.aLink {
+  border-radius: 100%;
+  background-color: #f5f5f5;
+  margin: 0 5px;
+}
+
+.branchName {
+  color: #44b346;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: inherit;
+  filter: drop-shadow(3px 6px 2px rgba(0, 0, 0, 0.2));
+}
+
+.headerTopInner {
+  @apply justify-between items-center flex;
+  height: 100%;
+}
+
+.headerTopLinkAuth {
+  @apply mr-1 font-[400] hover:!text-[#44b346] !text-[#808080] transition-all duration-300;
+}
+
+.hotline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d81324;
+  width: 270px;
+  position: relative;
+  color: #fff;
+  clip-path: polygon(16% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.logo {
+  width: 4rem;
+}
+
+.logo a {
+  display: flex;
+}
+
+.log .info {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.colorMain {
+  color: #f14f04;
+}
+
+.info span {
+  color: #f14f04;
+}
+
+.boxCial {
+  width: 26px;
+  height: 26px;
+  font-size: 18px;
+  text-align: center;
+  line-height: 25px;
+  transition: 0.3s;
+  color: #957d5d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boxCial:hover {
+  /* background-color: #c7ae8d; */
+  /* color: white; */
+  box-shadow: 0 4px 10px 0 #18181838;
+  transform: scale(1.2);
+}
+
+.dropdownMenu {
+  display: none;
+}
+
+.login-register a {
+  color: white !important;
+}
+@media screen and (max-width: 1024px) {
+  .socialHeader {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .headerBottom .right {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .headerTopInner {
+    flex-direction: column;
+    align-items: baseline;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .headerTop .left {
+    display: none;
+  }
+
+  .logo img {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+.ant-btn-primary {
+  background-color: #f14f04 !important;
+}

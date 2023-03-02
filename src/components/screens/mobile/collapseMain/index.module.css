@@ -1,0 +1,22 @@
+.collapseMain {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.aLink {
+	display: block;
+	width: 100%;
+	padding: 6px 0;
+	border-bottom: 1px solid #00000017;
+}
+
+.aLink::before {
+	content: "\f08e";
+	font-family: "Font Awesome 5 Pro";
+	font-weight: 900;
+	margin-right: 10px;
+}
+
+.aLink:last-child {
+	border: none;
+}

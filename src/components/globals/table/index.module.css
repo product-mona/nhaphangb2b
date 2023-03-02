@@ -1,0 +1,27 @@
+.table table > thead > tr > th {
+	padding: 8px;
+	font-size: small;
+	font-weight: 600;
+	color: #777 !important;
+}
+
+.table table > thead > tr > th::before {
+	content: unset !important;
+}
+
+.maintable table > thead > tr > th {
+	padding: 10px;
+	font-size: small;
+	font-weight: 600;
+	color: #626262 !important;
+	white-space: nowrap;
+}
+
+.table table > tbody > tr > td,
+.maintable table > tbody > tr > td,
+.table table > tfoot > tr > td,
+.maintable table > tfoot > tr > td {
+	color: #6b6f82;
+	padding: 8px;
+	height: 45px;
+}

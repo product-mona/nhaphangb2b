@@ -1,0 +1,160 @@
+.footerTop {
+  padding: 50px 0;
+  background-color: #4e8c1c21;
+}
+
+.inner {
+  @apply grid grid-cols-4 gap-4;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.branchName {
+  color: #44b346;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: inherit;
+  padding-left: 12px;
+  margin-bottom: -3px;
+  letter-spacing: 0.1rem;
+  filter: drop-shadow(3px 6px 2px rgba(0, 0, 0, 0.2));
+}
+
+.logo img {
+  width: 6rem;
+  filter: drop-shadow(3px 6px 2px rgba(0, 0, 0, 0.2));
+}
+
+.logo p {
+  color: #333;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-align: justify;
+}
+
+.contactBox img {
+  filter: brightness(0) saturate(100%) invert(55%) sepia(67%) saturate(6197%)
+    hue-rotate(66deg) brightness(95%) contrast(78%)
+    drop-shadow(3px 6px 2px rgba(0, 0, 0, 0.2));
+}
+
+.title {
+  color: #333;
+}
+
+.cRight {
+  padding: 10px 0;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #f1f1f1;
+  line-height: initial;
+  background: linear-gradient(180deg, #44b346 0%, rgba(11, 96, 13, 0.95) 100%);
+}
+
+.contentFoot {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.colorD {
+  color: #4d4d4d !important;
+}
+
+.contactBox {
+  margin-bottom: 20px;
+}
+
+.contactBox,
+.contactLink {
+  display: flex;
+  align-items: center;
+}
+
+.contactBox img,
+.contactLink img {
+  margin-right: 12px;
+}
+
+.socialFoot {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.socialFoot a {
+  background: #4e8c1c;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 10px 20px 0 #00000078;
+  border-radius: 4px;
+  margin: 5px;
+}
+
+.socialFoot a:hover {
+  box-shadow: 4px 6px 9px 0 transparent;
+  transform: translateY(5px) scale(1.09);
+}
+
+.socialFoot a i {
+  color: #fafafa;
+  font-size: 16px;
+}
+
+.menuItem {
+  @apply text-white text-base py-1.5;
+  transition: all 0.3s ease-in-out;
+  width: 50%;
+  position: relative;
+  cursor: pointer;
+}
+
+.menuItem::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: auto;
+  right: 0;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+  border-bottom: 1px solid #4e8c1d;
+  height: 100%;
+  width: 0;
+}
+
+.menuItem a {
+  text-transform: uppercase;
+}
+
+.menuItem:hover::after {
+  width: 100%;
+  left: 0;
+  right: auto;
+}
+
+.menuItem:hover {
+  padding-left: 10px;
+}
+
+.menuItem:hover a {
+  color: #4e8c1c !important;
+}
+
+@media screen and (max-width: 1024px) {
+  .logo a {
+    justify-content: center;
+  }
+  .inner {
+    @apply grid-cols-2;
+  }
+}

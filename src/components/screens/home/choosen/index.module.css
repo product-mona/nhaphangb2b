@@ -1,0 +1,135 @@
+.ChoosenWrapper {
+  background-color: #faf3ef;
+  padding: 50px 0;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* .ChoosenInner {
+	@apply grid grid-cols-3 gap-4;
+}
+
+.right {
+	@apply col-span-1;
+	z-index: 100;
+	position: relative;
+}
+
+.left {
+	@apply col-span-2;
+	position: relative;
+} */
+
+/* .left::after {
+	content: "";
+	position: absolute;
+	background-color: #faf3ef;
+	width: calc(100% + 10rem);
+	left: calc(100% + 100px);
+	top: 0;
+	height: 100%;
+	z-index: 10;
+}
+
+.right img {
+	margin-left: auto;
+} */
+
+.count {
+  z-index: 100;
+  position: absolute;
+  color: #333;
+  top: 25px;
+  right: 50px;
+  transform: translateY(6%);
+  font-size: 16px;
+}
+
+.boxSlider {
+  @apply shadow-lg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  padding: 40px 24px;
+  background: #fafafa;
+}
+
+.logo {
+  border: 1px solid #808080;
+  border-radius: 120px;
+  padding: 10px;
+}
+
+.logo img {
+  width: 2rem;
+  height: 2rem;
+}
+
+@media screen and (max-width: 1380px) {
+  .boxSlider {
+    width: auto !important;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .ChoosenInner {
+    @apply grid-cols-2;
+  }
+  .left {
+    @apply col-span-1;
+    padding-bottom: 100px;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .right img {
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .ChoosenInner {
+    @apply grid-cols-1;
+  }
+  .right {
+    display: none;
+  }
+
+  .boxSlider {
+    height: fit-content;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .ChoosenWrapper {
+    background-image: url(/choosen.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .boxSlider {
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.24);
+  }
+
+  .boxSlider h3,
+  .boxSlider p {
+    color: #fff;
+  }
+
+  .logo {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%)
+      hue-rotate(288deg) brightness(102%) contrast(102%);
+  }
+
+  .count {
+    background-color: #c7ae8d;
+    padding: 0 10px;
+    transform: translate(10px, 1px);
+    border-radius: 5px;
+    color: #fff;
+  }
+}

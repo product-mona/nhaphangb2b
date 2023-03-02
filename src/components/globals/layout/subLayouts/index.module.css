@@ -1,0 +1,274 @@
+.logo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  justify-content: space-evenly;
+  position: relative;
+  flex-direction: column;
+}
+
+.mainTitle {
+  @apply text-lg font-semibold uppercase text-[#000] m-5;
+  display: none;
+}
+
+.logo .img {
+  max-width: 200px;
+  height: auto;
+  margin: auto;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.logo .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navigation {
+  @appy xl:block hidden !sticky z-[888] top-0 px-[200px];
+  position: relative;
+  width: 100%;
+  transform: translateX(0%);
+  margin-top: -54px;
+  background-color: #fff;
+  z-index: 1000;
+}
+
+.navigation::-webkit-scrollbar {
+  background-color: #fff;
+  width: 2px;
+}
+
+.navigation::-webkit-resizer {
+  height: 300px;
+}
+
+.navigation.expand {
+  transform: translateX(0%);
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  position: relative;
+  border-radius: 0 !important;
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  letter-spacing: 0.7px;
+  transition: 0.3s;
+  line-height: normal;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  padding: 10px 0;
+  height: 100%;
+}
+
+.link.heading:hover {
+  color: #f14f04;
+}
+
+.link.active:not(.heading) {
+  background-color: #326a73;
+  box-shadow: 0px 0px 10px 0 #00000059;
+}
+
+.link:hover:not(.heading) {
+  background-color: #0c59633b;
+}
+
+.link.active i,
+.link.active span {
+  color: #fff !important;
+}
+
+.title {
+  position: relative;
+  width: 100%;
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: none;
+}
+
+.heading .title {
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: default;
+  position: relative;
+}
+
+.span {
+  position: relative;
+  height: inherit;
+}
+
+.spans {
+  position: relative;
+  top: -1px;
+  width: 20px;
+  height: inherit;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.icon {
+  height: inherit;
+  color: #333 !important;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.dots {
+  font-size: 20px;
+}
+
+.arrow {
+  position: relative;
+  margin-left: 10px;
+  transition: all 0.3s ease-in-out;
+  display: none;
+}
+
+.arrow i {
+  font-size: 20px;
+  color: #333;
+  font-weight: 400;
+}
+
+.dropdown {
+  overflow-y: hidden;
+  transition: all 0.3s ease-in-out;
+  background-color: #fff;
+  padding: 20px;
+  width: 100%;
+  min-width: 170px;
+  top: calc(100% + 12px);
+  box-shadow: 5px 5px 10px 0 #00000063;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.dropdown .link {
+  padding: 10px;
+  border-radius: 0;
+  margin: 0;
+}
+
+.dropdown .link:hover {
+  background-color: #a1c0c4;
+  box-shadow: none;
+}
+
+.dropdown .link:hover .title {
+  color: #333 !important;
+}
+
+.navigation.expand {
+  /* overflow-y: auto; */
+  width: auto;
+  transition: 0.3s;
+}
+
+.openMenu {
+  transition: 0.3s;
+  font-size: 22px;
+  color: #141046 !important;
+}
+
+.openUnMenu {
+  transition: 0.3s;
+  font-size: 22px;
+  color: #141046 !important;
+}
+
+.mainUserPage {
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.action {
+  z-index: 999;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #141046 !important;
+  font-size: 22px !important;
+  font-weight: bold;
+  line-height: 14px;
+  display: flex;
+  height: 64px;
+}
+
+.actionInfo {
+  color: #141046;
+  font-size: 14px;
+}
+
+.actionInfo:hover {
+  text-shadow: #ee9a78;
+}
+
+.navigation.expand .mainTitle {
+  display: block;
+}
+
+.navigation.expand .item .title {
+  display: block;
+}
+
+.navigation.expand .link .arrow {
+  display: block;
+}
+
+.toolsExt {
+  color: aliceblue;
+  position: fixed;
+  z-index: 9999999;
+  bottom: 5%;
+  left: 20px;
+}
+
+.toolsExt .icon {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px 0 #00000042;
+  margin-top: 20px;
+  transition: all 0.3s ease-in-out;
+  background-color: #e2e2e2;
+  border: 1px solid #296973;
+}
+
+.toolsExt .icon:hover {
+  transform: scale(1.2);
+  transform-origin: left;
+  background-color: #296973;
+}
+
+@media screen and (max-width: 1280px) {
+  .navigation {
+    display: none;
+  }
+}

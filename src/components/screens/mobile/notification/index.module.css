@@ -1,0 +1,6 @@
+.Notification {
+	padding: 10px 20px;
+	height: 400px;
+	overflow-y: auto;
+	background-color: #ff2a00;
+}

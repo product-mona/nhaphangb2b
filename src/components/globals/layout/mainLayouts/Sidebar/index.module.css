@@ -1,0 +1,235 @@
+.logo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  justify-content: space-evenly;
+  position: relative;
+  flex-direction: column;
+}
+
+.mainTitle {
+  @apply text-lg font-semibold uppercase text-[#000] m-5;
+  display: none;
+}
+
+.logo .img {
+  max-width: 120px;
+  height: auto;
+  margin: auto;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.logo .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: drop-shadow(3px 6px 2px rgba(0, 0, 0, 0.2));
+}
+
+.navigation {
+  position: fixed;
+  top: 0;
+  /* min-width: 280px; */
+  width: 70px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.3s ease-in-out;
+  z-index: 100000;
+  /* transform: translateX(-100%); */
+  transition: 0.3s;
+  background-color: #f7fdff;
+  border-right: 2px solid #0c5963;
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation::-webkit-scrollbar {
+  background-color: #fff;
+  width: 2px;
+}
+
+.navigation::-webkit-resizer {
+  height: 300px;
+}
+
+.navigation.expand {
+  transform: translateX(0%);
+}
+
+.list {
+  position: relative;
+  border-radius: 0 !important;
+  border: none !important;
+  background-color: transparent !important;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.item {
+  position: relative;
+  width: 100%;
+  letter-spacing: 0.7px;
+  transition: 0.3s;
+  height: auto;
+  line-height: normal;
+  padding: 0px 12px;
+  margin: 10px 0;
+}
+
+.link {
+  position: relative;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  color: rgba(70, 69, 69, 0.87);
+  white-space: nowrap;
+  padding: 14px;
+  align-items: center;
+  justify-content: center;
+  height: unset;
+  line-height: initial;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebarFooter {
+  position: relative;
+  border-top: 2px solid #0c5963;
+}
+
+.link.heading:hover {
+  color: #f14f04;
+}
+
+.link:hover:not(.heading) {
+  background-color: #0c59633b;
+}
+
+.link.active {
+  background-color: #0c5963;
+}
+
+.link.active span i,
+.link.active span.title {
+  color: #fff !important;
+}
+
+.title {
+  position: relative;
+  display: block;
+  width: 100%;
+  color: #000;
+  font-weight: 400;
+  margin-left: 12px;
+}
+
+.heading .title {
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: default;
+  position: relative;
+}
+
+.item .title {
+  display: none;
+}
+
+.span {
+  position: relative;
+  height: inherit;
+}
+
+.spans {
+  position: relative;
+  top: -1px;
+  width: 20px;
+  height: inherit;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.icon {
+  height: inherit;
+  color: #366136 !important;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.dots {
+  font-size: 20px;
+}
+
+.arrow {
+  position: relative;
+  font-size: 16px;
+  color: #afafaf;
+  margin-right: 20px;
+  transition: all 0.3s ease-in-out;
+  display: none;
+}
+
+.dropdown {
+  height: 0px;
+  overflow-y: hidden;
+  transition: 0.3s;
+}
+
+.navigation.expand {
+  /* overflow-y: auto; */
+  width: auto;
+  transition: 0.3s;
+  min-width: 280px;
+}
+
+.navigation.expand .mainTitle {
+  display: block;
+}
+
+.navigation.expand .item .title {
+  display: block;
+}
+
+.navigation.expand .link .arrow {
+  display: block;
+}
+
+@media only screen and (max-width: 415px) {
+  .navigation.expand {
+    width: 414px;
+  }
+  .menuChilden {
+    padding-left: 135px;
+  }
+}
+
+@media only screen and (max-width: 376px) {
+  .navigation.expand {
+    width: 376px;
+  }
+  .menuChilden {
+    padding-left: 100px;
+  }
+}
+
+.openMenu {
+  background-color: #fff;
+  width: 60px;
+  transition: 0.3s;
+  font-size: 18px;
+  color: rgb(237, 70, 48);
+  height: 50px;
+}
+
+.openUnMenu {
+  background-color: #fff;
+  width: 270px;
+  transition: 0.3s;
+  font-size: 18px;
+  color: rgb(237, 70, 48);
+  height: 50px;
+}

@@ -1,0 +1,42 @@
+.sidebar {
+}
+
+.sidebarTop {
+	background-color: #333;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.sidebarTop span {
+	margin: 10px 0;
+	font-size: 12px;
+}
+
+.sidebarBottom {
+	overflow-x: clip;
+}
+
+.aLink {
+	text-align: center;
+	width: 100%;
+	padding: 10px;
+	font-size: 16px;
+	text-transform: inherit;
+}
+
+.aLink:first-child {
+	background-color: #fe4e15;
+	color: #fff !important;
+}
+
+.aLink {
+	color: #fe4e15 !important;
+}
+
+.menuSideBarIcon {
+	margin-right: 10px;
+	font-weight: normal;
+	color: #727272;
+}

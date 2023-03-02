@@ -1,0 +1,30 @@
+.toolList {
+	@apply grid grid-cols-2;
+	gap: 2px;
+	padding: 10px 0;
+	margin-bottom: 0;
+}
+
+.toolItem {
+	@apply col-span-1;
+	padding: 20px;
+	background-color: #fbf9f9;
+	display: flex;
+	align-items: center;
+}
+
+.toolIcon {
+	background-color: #0c5963;
+	border-radius: 100%;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 10px;
+}
+
+.toolIcon i {
+	color: #fff;
+	font-size: 12px;
+}

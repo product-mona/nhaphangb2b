@@ -1,0 +1,45 @@
+.sidebar {
+  border-radius: 10px;
+}
+
+.wrapperChuyenMuc {
+  @apply border-[1px] border-[#349537] sticky top-[7%];
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 5px 5px 20px 0 #00000021;
+}
+
+.sidebar ul li a.aMain {
+  display: block;
+  padding: 12px;
+  position: relative;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  @apply text-base;
+  position: relative;
+  color: rgb(58, 57, 57) !important;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.sidebar ul li {
+  padding-right: 10px;
+  transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+  /* color: #f14f04 !important; */
+  margin-left: 2px;
+}
+
+.sidebar ul li a.active {
+  color: #fff !important;
+}
+
+.sidebar ul li a:hover::after {
+  left: 5px;
+}
+
+.sidebar ul {
+  margin: 0;
+}

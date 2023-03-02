@@ -1,0 +1,228 @@
+.banner {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding-top: 16%;
+  padding-bottom: 12%;
+  margin-top: -40px;
+  overflow-y: hidden;
+}
+
+.content {
+  width: 50%;
+  z-index: 2;
+  position: relative;
+}
+
+.containerBanner {
+  @apply shadow-xl;
+  background-color: #c7ae8d;
+  width: 100%;
+  /* transform: translateY(50%); */
+  padding: 20px 40px;
+}
+
+.btnExt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  background: linear-gradient(180deg, #44b346 0%, rgba(11, 96, 13, 0.95) 100%);
+  box-shadow: 0 10px 20px #0000009c;
+  border-radius: 10px;
+}
+
+.tabSearchChild {
+  @apply w-[48%];
+}
+
+.btnExt:hover {
+  background-color: #f5d9b3;
+  box-shadow: 0 4px 10px 0 #18181866;
+  transform: translateY(5px);
+}
+
+.btnExt:last-child {
+  margin-right: 0;
+}
+
+.btnExt span {
+  margin-left: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #fff;
+  line-height: initial;
+}
+
+.tabSearch {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tabSearchTitle {
+  color: #fff;
+  font-weight: 700;
+  display: block;
+  letter-spacing: 0.02em;
+}
+
+.formTracking .inputForm {
+  width: 100%;
+  height: 40px;
+  border: 2px solid rgb(230, 230, 230);
+  border-top-left-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+}
+
+.formTracking .inputForm input:focus {
+  outline: none;
+  box-shadow: 0 0 20px #9ecaed;
+}
+
+.formTracking .inputForm input {
+  width: 100%;
+  height: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  /* border-radius: 10px !important; */
+}
+
+.btnSearch {
+  height: 100%;
+  white-space: nowrap;
+  transition: all 0.3s ease-in-out 0s;
+  position: relative;
+}
+
+.btnSearch span {
+  color: #f14f04;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out 0s;
+  padding: 0px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.btnSearch span i {
+  /* border-radius: 0.4rem 0 0.4rem 0; */
+  transition: all 0.3s ease-in-out;
+}
+
+.btnSearch:hover span i {
+  color: #fff;
+  background-color: #f14f04;
+  /* transform: scale(1.4); */
+  padding: 7px;
+}
+
+.btnHome {
+  display: inline-block;
+  color: rgb(82, 81, 81) !important;
+  border-radius: 10px;
+  padding: 4px 10px;
+  font-size: 18px;
+  position: relative;
+  left: 1058px;
+  bottom: 37px;
+}
+
+.extension {
+  margin-top: 50px;
+}
+
+.btnHome:hover {
+  background-color: white;
+  color: #f14f04 !important;
+}
+
+@media screen and (max-width: 1400px) {
+  .banner {
+    padding: 200px 40px 100px;
+  }
+
+  .content {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .banner {
+    padding-top: 14%;
+    padding-bottom: 30%;
+  }
+  .containerHome {
+    padding: 60px 20px 0;
+  }
+
+  .containerBanner {
+    transform: unset;
+  }
+
+  .tabSearch {
+    flex-direction: column;
+  }
+
+  .tabSearchChild {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .banner {
+    padding: 220px 0 120px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .slogan h1 {
+    font-size: 32px;
+  }
+
+  .containerHome {
+    padding: 60px 20px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .slogan h1 {
+    font-size: 18px;
+  }
+  .extension {
+    margin-top: 15px;
+  }
+
+  .banner {
+    padding: 36% 0 0%;
+  }
+
+  .btnExt img {
+    width: 15px !important;
+    height: 15px !important;
+  }
+  .btnExt span {
+    font-size: 12px;
+  }
+  .btnExt {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .tabSearch .formSearch select {
+    width: 130px;
+    font-size: 14px;
+  }
+  .tabSearch .formSearch .inputForm {
+    width: calc(100% - 130px);
+  }
+  .tabSearchChild {
+    margin-top: 16px;
+  }
+}

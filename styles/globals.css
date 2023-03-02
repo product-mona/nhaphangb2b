@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer component {
+  .words-break {
+    word-break: break-word;
+  }
+}
+
+@layer base {
+  p {
+    margin-bottom: 0 !important;
+  }
+  a {
+    color: #6b6f82 !important;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: revert !important;
+  }
+}
+
+:root {
+  --primary-color: #f14f04;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #366136;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.ant-skeleton.ant-skeleton-element.ant-skeleton-active {
+  width: 100%;
+}
+
+#auth-link {
+  transition: all 0.3s ease-in-out;
+}
+
+#auth-link.submit {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.mr-3 .ant-spin.ant-spin-spinning .ant-spin-dot.ant-spin-dot-spin {
+  display: block;
+}
+
+.mr-3
+  .ant-spin.ant-spin-spinning
+  .ant-spin-dot.ant-spin-dot-spin
+  .ant-spin-dot-item {
+  background-color: #fff;
+}
+
+/* .ant-scrolling-effect {
+	touch-action: auto !important;
+	width: auto !important;
+	overflow: unset !important;
+} */
+
+.ant-modal-confirm-body-wrapper {
+  padding: 30px;
+}
+
+.border {
+  border: 1px solid #36613638;
+}
+
+.borderBottom {
+  border-bottom: 1px solid #36613638;
+}
+
+.boxShadow {
+  box-shadow: 0 0 20px 6px #0000003b;
+}
+
+.bg-chat {
+  background-color: #0275e0;
+}
+
+.breadcrumb-2 {
+  font-size: 24px;
+  text-transform: uppercase;
+  line-height: 29px;
+  margin: 50px 0 20px 0;
+  color: #3e3c6a;
+  font-weight: bolder;
+  transition: 0.3s;
+}
+
+.container {
+  width: 1200px;
+  max-width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 auto;
+}
+
+.container-admin {
+  width: 1700px;
+  max-width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 auto;
+}
+
+.mobileContainer {
+  width: 100%;
+  /* min-height: 100vh;
+  overflow-y: clip; */
+  background-color: #adc0c4;
+}
+
+.mobileHome {
+  height: auto;
+}
+
+body.ant-scrolling-effect {
+  touch-action: unset !important;
+  width: auto !important;
+  overflow: auto !important;
+}
+
+@media screen and (max-width: 1280px) {
+  .container {
+    width: 1024px !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    width: 860px !important;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .container {
+    width: 680px !important;
+  }
+  .mainDes {
+    font-size: 14px !important;
+  }
+}

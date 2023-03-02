@@ -1,0 +1,72 @@
+.customerWrapper {
+  padding: 50px 0;
+}
+
+.customerWrapper h1 {
+  font-weight: 700;
+  font-size: 40px !important;
+  line-height: 56px;
+  letter-spacing: 0.02em;
+  color: #4d4d4d;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.mainDes {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #4d4d4d;
+  width: 40%;
+  margin: auto;
+}
+
+.boxSlider {
+  background: #ffffff;
+  padding: 0px 7px;
+}
+
+.boxSlider:hover .innerBoxSlider {
+  transform: translateY(5px);
+  box-shadow: 0px 20px 14px 0px transparent;
+}
+
+.innerBoxSlider {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  min-height: 300px;
+  padding: 30px 20px;
+  height: 100%;
+  border: 2px solid #4e8c1c29;
+  background: #44b34633;
+  box-shadow: 0px 20px 14px 0px #0000001f;
+  transition: all 0.3s ease-in-out;
+}
+
+.boxSliderImg {
+  @apply w-[6.5rem] h-[6.5rem] rounded-full overflow-hidden m-auto shadow-xl;
+}
+
+.count {
+  z-index: 100;
+  position: absolute;
+  color: #333;
+  left: 50%;
+  bottom: 20px;
+  font-size: 16px;
+  transform: translateX(-50%);
+}
+
+.boxSliderContent {
+  @apply flex-1 flex flex-col items-center justify-center;
+}
+
+@media screen and (max-width: 520px) {
+  .mainDes {
+    width: 100%;
+  }
+}

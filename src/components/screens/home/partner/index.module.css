@@ -1,0 +1,17 @@
+.partnerWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* background: linear-gradient(
+    283.26deg,
+    rgba(81, 142, 31, 0.67) 0%,
+    rgba(81, 142, 31, 0.11) 99.57%
+  ); */
+  background: #ddf1de;
+}
+
+.partnerWrapper img {
+  width: 100px;
+  margin: 0 60px;
+  margin: 20px 30px;
+}

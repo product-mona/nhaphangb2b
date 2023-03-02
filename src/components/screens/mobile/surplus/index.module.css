@@ -1,0 +1,52 @@
+.surplus {
+	background-color: #fbf9f9;
+	padding: 10px 20px;
+	margin-bottom: 10px;
+}
+
+.surplusTop {
+	display: flex;
+	align-items: center;
+}
+
+.surplusIcon {
+	background-color: #0c5963;
+	border-radius: 100%;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 10px;
+}
+.surplusIcon i {
+	color: #fff;
+}
+
+.surplusTitle {
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.surplusBottom {
+	padding-top: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.surplusValue {
+	color: #ff2a00;
+	font-weight: bold;
+}
+
+.surplusButton {
+	@apply shadow-lg;
+	text-transform: uppercase;
+	background-color: #e9303d;
+	color: #fff;
+	border-radius: 23px;
+	border: none;
+	font-size: 10px;
+	padding: 7px 14px;
+}
