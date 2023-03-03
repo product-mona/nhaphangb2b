@@ -1,14 +1,13 @@
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import CartItem from "./CartItem";
-import { Navigation, Grid } from "swiper";
+import React, { useState } from "react";
+import { Grid, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import CartItem from "./CartItem";
 
 // Import Swiper styles
-import "swiper/css/grid";
-import "swiper/css";
-import "swiper/css/pagination";
 import router from "next/router";
+import "swiper/css";
+import "swiper/css/grid";
+import "swiper/css/pagination";
 
 const count = `z-100 absolute text-[#333] bottom-[10px] right-[42px] text-[16px]`;
 
