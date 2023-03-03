@@ -17,7 +17,7 @@ const CartItem: React.FC<TProps> = ({ Title, IMG, Created, Summary }) => {
         cover={
           <img
             alt={Title}
-            src={IMG ?? "/pro-empty.jpg"}
+            src={IMG || "/pro-empty.jpg"}
             style={{ width: "100%", height: "150px" }}
           />
         }

@@ -1,7 +1,9 @@
+import { Tooltip } from "antd";
 import React, { useCallback, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { FormInputNumber } from "~/components";
 import { FormCheckbox } from "~/components/globals/formBase";
+import { toast } from "react-toastify";
 type TProps = {
   loading: boolean;
   data:
@@ -11,12 +13,94 @@ type TProps = {
         FeeWeightCK: number;
         HH: number;
         HHCNY;
+        Id: number;
+        TotalPriceVND: number;
+        Status: number;
       });
   RoleID: number;
 };
 
 const costTitle = "w-1/4 text-sm font-semibold";
 const costBox = "w-3/4 grid grid-cols-2 gap-4";
+
+const ChangeChargeComponent = ({ control, data, RoleID }) => {
+  return (
+    <>
+      <div className="flex items-center mt-4">
+        <div className={costTitle}>Cân nặng - thể tích</div>
+        <div className={costBox}>
+          <div className="col-span-1 flex items-center">
+            {(RoleID === 1 || RoleID === 3) && (
+              <Tooltip title="Check nếu muốn thay đổi cân nặng!">
+                <FormCheckbox
+                  control={control}
+                  name="IsChangeTQVNWeight"
+                  label=""
+                  checkBoxClassName="large"
+                />
+              </Tooltip>
+            )}
+            <FormInputNumber
+              suffix=" KG"
+              control={control}
+              name="TQVNWeight"
+              placeholder=""
+              disabled={!(RoleID === 1 || RoleID === 3)}
+              allowNegative={false}
+            />
+          </div>
+          <div className="col-span-1 flex items-center">
+            {(RoleID === 1 || RoleID === 3) && (
+              <Tooltip title="Check nếu muốn thay đổi thể tích!">
+                <FormCheckbox
+                  control={control}
+                  name="IsChangeTQVNVolume"
+                  label=""
+                  checkBoxClassName="large"
+                />
+              </Tooltip>
+            )}
+            <FormInputNumber
+              suffix=" &#x33A5;"
+              control={control}
+              name="TQVNVolume"
+              placeholder=""
+              disabled={!(RoleID === 1 || RoleID === 3)}
+              allowNegative={false}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center mt-4">
+        <div className={costTitle}>
+          Phí vận chuyển TQ-VN (CK: {data?.FeeWeightCK ?? 0}%)
+        </div>
+        <div className={costBox}>
+          <div className="col-span-2 flex items-center">
+            {(RoleID === 1 || RoleID === 3) && (
+              <Tooltip title="Check nếu muốn thay đổi phí vận chuyển TQ-VN!">
+                <FormCheckbox
+                  control={control}
+                  name="IsChangeFeeWeight"
+                  label=""
+                  checkBoxClassName="large"
+                />
+              </Tooltip>
+            )}
+            <FormInputNumber
+              suffix=" VNĐ"
+              control={control}
+              name="FeeWeight"
+              placeholder=""
+              disabled={!(RoleID === 1 || RoleID === 3)}
+              allowNegative={false}
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
   const { control, watch, setValue, reset, getValues } =
@@ -80,7 +164,15 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
             <FormInputNumber
               prefix="¥ "
               control={control}
-              disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+              disabled={
+                !(
+                  RoleID === 1 ||
+                  RoleID === 3 ||
+                  (RoleID === 4 && !(data?.Status === 5)) ||
+                  RoleID === 8 ||
+                  RoleID === 6
+                )
+              }
               name="TotalPriceRealCNY"
               placeholder="Tổng số tiền mua thật (¥)"
               allowNegative={false}
@@ -122,7 +214,15 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
               prefix="¥ "
               control={control}
               name="FeeShipCNCNY"
-              disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+              disabled={
+                !(
+                  RoleID === 1 ||
+                  RoleID === 3 ||
+                  (RoleID === 4 && !(data?.Status === 5)) ||
+                  RoleID === 8 ||
+                  RoleID === 6
+                )
+              }
               placeholder="Phí ship TQ (¥)"
               allowNegative={false}
               callback={(val) => {
@@ -160,7 +260,15 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
               prefix="¥ "
               control={control}
               name="FeeShipCNRealCNY"
-              disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+              disabled={
+                !(
+                  RoleID === 1 ||
+                  RoleID === 3 ||
+                  (RoleID === 4 && !(data?.Status === 5)) ||
+                  RoleID === 8 ||
+                  RoleID === 6
+                )
+              }
               placeholder="Phí ship TQ thật (¥)"
               allowNegative={false}
               callback={(val) => {
@@ -240,55 +348,23 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
               control={control}
               name="FeeBuyPro"
               placeholder=""
-              disabled
+              disabled={!(RoleID === 1 || RoleID === 3)}
               allowNegative={false}
+              callback={(val) => {
+                if (val !== formValue.FeeBuyPro) {
+                  handleSetValue(
+                    "CKFeeBuyPro",
+                    Math.ceil(val / formValue.CurrentCNYVN)
+                  );
+                }
+              }}
             />
           </div>
         </div>
       </div>
-      <div className="flex items-center mt-4">
-        <div className={costTitle}>Cân nặng - thể tích</div>
-        <div className={costBox}>
-          <div className="col-span-1">
-            <FormInputNumber
-              suffix=" KG"
-              control={control}
-              name="TQVNWeight"
-              placeholder=""
-              disabled
-              allowNegative={false}
-            />
-          </div>
-          <div className="col-span-1">
-            <FormInputNumber
-              suffix=" &#x33A5;"
-              control={control}
-              name="TQVNVolume"
-              placeholder=""
-              disabled
-              allowNegative={false}
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex items-center mt-4">
-        <div className={costTitle}>
-          Phí vận chuyển TQ-VN (CK: {data?.FeeWeightCK ?? 0}%)
-        </div>
-        <div className={costBox}>
-          <div className="col-span-2">
-            <FormInputNumber
-              suffix=" VNĐ"
-              control={control}
-              name="FeeWeight"
-              placeholder=""
-              disabled
-              allowNegative={false}
-            />
-          </div>
-        </div>
-      </div>
-      {/* <div className="flex items-center mt-4">
+      <ChangeChargeComponent control={control} data={data} RoleID={RoleID} />
+
+      {/* ====== <div className="flex items-center mt-4">
 				<div className={costTitle}>Phí lưu kho</div>
 				<div className={costBox}>
 					<div className="col-span-2">
@@ -347,7 +423,8 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
 						/>
 					</div>
 				</div>
-			</div> */}
+			</div> ======*/}
+
       <div className="my-4 text-base font-bold py-2 uppercase border-b border-main">
         Phí tùy chọn
       </div>
@@ -358,7 +435,15 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
             control={control}
             name="IsCheckProduct"
             label=""
-            disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+            disabled={
+              !(
+                RoleID === 1 ||
+                RoleID === 3 ||
+                (RoleID === 4 && !(data?.Status === 5)) ||
+                RoleID === 8 ||
+                RoleID === 6
+              )
+            }
             checkBoxClassName="large"
           />
         </div>
@@ -371,6 +456,7 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
               placeholder=""
               allowNegative={false}
               callback={(val) => {
+                handleSetValue("IsCheckProduct", val > 0 ? true : false);
                 if (val !== formValue.IsCheckProductPriceCNY) {
                   handleSetValue(
                     "IsCheckProductPrice",
@@ -378,7 +464,7 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
                   );
                 }
               }}
-              disabled
+              disabled={!(RoleID === 1 || RoleID === 3)}
             />
           </div>
           <div className="col-span-1">
@@ -409,7 +495,15 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
             name="IsPacked"
             label=""
             checkBoxClassName="large"
-            disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+            disabled={
+              !(
+                RoleID === 1 ||
+                RoleID === 3 ||
+                (RoleID === 4 && !(data?.Status === 5)) ||
+                RoleID === 8 ||
+                RoleID === 6
+              )
+            }
           />
         </div>
         <div className={costBox}>
@@ -430,7 +524,15 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
                   );
                 }
               }}
-              disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+              disabled={
+                !(
+                  RoleID === 1 ||
+                  RoleID === 3 ||
+                  (RoleID === 4 && !(data?.Status === 5)) ||
+                  RoleID === 8 ||
+                  RoleID === 6
+                )
+              }
             />
           </div>
           <div className="col-span-1">
@@ -448,7 +550,15 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
                   );
                 }
               }}
-              disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+              disabled={
+                !(
+                  RoleID === 1 ||
+                  RoleID === 3 ||
+                  (RoleID === 4 && !(data?.Status === 5)) ||
+                  RoleID === 8 ||
+                  RoleID === 6
+                )
+              }
             />
           </div>
         </div>
@@ -461,7 +571,15 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
             name="IsInsurance"
             label=""
             checkBoxClassName="large"
-            disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+            disabled={
+              !(
+                RoleID === 1 ||
+                RoleID === 3 ||
+                (RoleID === 4 && !(data?.Status === 5)) ||
+                RoleID === 8 ||
+                RoleID === 6
+              )
+            }
           />
         </div>
         <div className={costBox}>
@@ -485,7 +603,15 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
             name="IsFastDelivery"
             label=""
             checkBoxClassName="large"
-            disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+            disabled={
+              !(
+                RoleID === 1 ||
+                RoleID === 3 ||
+                (RoleID === 4 && !(data?.Status === 5)) ||
+                RoleID === 8 ||
+                RoleID === 6
+              )
+            }
           />
         </div>
         <div className={costBox}>
@@ -496,10 +622,18 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
               name="IsFastDeliveryPrice"
               placeholder="Nhập phí giao hàng (VNĐ)"
               allowNegative={false}
-              disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
               callback={(val) => {
                 handleSetValue("IsFastDelivery", val > 0 ? true : false);
               }}
+              disabled={
+                !(
+                  RoleID === 1 ||
+                  RoleID === 3 ||
+                  (RoleID === 4 && !(data?.Status === 5)) ||
+                  RoleID === 8 ||
+                  RoleID === 6
+                )
+              }
             />
           </div>
         </div>
@@ -519,9 +653,21 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
               name="AmountDeposit"
               placeholder=""
               allowNegative={false}
-              disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+              disabled={
+                !(
+                  RoleID === 1 ||
+                  RoleID === 3 ||
+                  RoleID === 8 ||
+                  RoleID === 6
+                ) && RoleID === 4
+              }
               callback={(val) => {
                 localStorage.setItem("AmountDeposit", JSON.stringify(val));
+                if (val > data?.TotalPriceVND) {
+                  toast.error(
+                    "Số tiền phải cọc không lớn hơn tổng tiền đơn hàng!"
+                  );
+                }
               }}
             />
           </div>
@@ -539,7 +685,15 @@ export const OrderCost: React.FC<TProps> = ({ loading, data, RoleID }) => {
               name="Deposit"
               placeholder=""
               allowNegative={false}
-              disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+              disabled={
+                !(
+                  RoleID === 1 ||
+                  RoleID === 3 ||
+                  (RoleID === 4 && !(data?.Status === 5)) ||
+                  RoleID === 8 ||
+                  RoleID === 6
+                )
+              }
             />
           </div>
         </div>
