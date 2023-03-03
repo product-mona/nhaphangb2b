@@ -26,7 +26,7 @@ export const ConfirmCompleteForm: React.FC<TProps> = ({
         </span>
       </div>
       <FormCheckbox
-        label="Tôi đồng ý với các điều khoản đặt hàng của MONA MEDIA"
+        label="Tôi đồng ý với các điều khoản đặt hàng của NHAPHANGB2B"
         control={control}
         name="IsAgreement"
         // rules={{ required: 'Vui lòng xác nhận trước khi thanh toán' }}

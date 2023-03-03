@@ -1,6 +1,7 @@
 import router, { useRouter } from "next/router";
 import React from "react";
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 import { mainOrder } from "~/api";
 import {
   MessageControlUser,
@@ -8,9 +9,6 @@ import {
   OrderIDPaymentHistory,
   OrderIDProductList,
   OrderOverView,
-  OrderTransportList,
-  showToast,
-  toast,
   UserLayout,
 } from "~/components";
 import { SEOConfigs } from "~/configs/SEOConfigs";
@@ -32,19 +30,29 @@ const Index: TNextPageWithLayout = () => {
   );
 
   const updatePaid = (type: "deposit" | "payment") => {
+    const id = toast.loading("Đang xử lý ...");
     mainOrder
       .updateOrder([data?.Data?.Id], {
         Status: type === "deposit" ? 2 : 7,
       })
       .then((res) => {
-        console.log(res);
+        toast.update(id, {
+          render:
+            type === "deposit"
+              ? "Đặt cọc thành công!"
+              : "Thanh toán thành công!",
+          isLoading: false,
+          type: "success",
+          autoClose: 1000,
+        });
         refetch();
       })
       .catch((error) => {
-        showToast({
-          title: "Đã xảy ra lỗi!",
-          message: (error as any)?.response?.data?.ResultMessage,
-          type: "error",
+        toast.update(id, {
+          render: (error as any)?.response?.data?.ResultMessage,
+          isLoading: false,
+          type: "success",
+          autoClose: 1000,
         });
       });
   };

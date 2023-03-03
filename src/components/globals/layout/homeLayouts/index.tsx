@@ -25,8 +25,6 @@ export const HomeLayout: React.FC<{}> = ({ children }) => {
         .then((res) => res?.Data?.Items),
   });
 
-  console.log(dataConfig);
-
   return (
     <HomeLayoutProtector>
       <Header dataConfig={dataConfig} dataMenu={dataMenu} />
