@@ -151,7 +151,7 @@ const Index: TNextPageWithLayout = () => {
 
   return (
     <React.Fragment>
-      <div className="titlePageUser">Giỏ hàng</div>
+      <div className="titlePageUser px-4">Giỏ hàng</div>
       <div className="tableBox !w-full xl:!w-[70%] bg-[#fff] !mb-[20px] !h-fit m-auto">
         <span className="titlePageUser text-[18px]">Tìm kiếm sản phẩm</span>
         <div className="flex justify-between mt-4">

@@ -168,15 +168,6 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
       return;
     }
 
-    // if (
-    //   getValuesAddress("address") === null ||
-    //   getValuesAddress("city") === null ||
-    //   getValuesAddress("districts") === null
-    // ) {
-    //   toast.warning("Vui lòng chọn địa chỉ nhân hàng!");
-    //   return;
-    // }
-
     const shopPayments = getValues("ShopPayments");
 
     for (let i in shopPayments) {
@@ -260,12 +251,7 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
                     <div className="p-4">
                       <WareHouseInfo />
                       <StaticUserForm control={control} />
-                      <ReceiveInfoForm
-                        control={control}
-                        // addressControl={addressControl}
-                        // getValuesAddress={getValuesAddress}
-                        // addressWatch={addressWatch}
-                      />
+                      <ReceiveInfoForm control={control} />
                     </div>
                   </Panel>
                 </Collapse>
