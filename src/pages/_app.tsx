@@ -2,6 +2,7 @@ import { ConfigProvider } from "antd";
 // import {getSession, SessionProvider} from "next-auth/react";
 import Head from "next/head";
 import Router from "next/router";
+import { ReactQueryDevtools } from "react-query/devtools";
 import NProgress from "nprogress";
 import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -86,6 +87,7 @@ const MyApp = ({
             <ToastContainer />
           </PersistGate>
         </Provider>
+        <ReactQueryDevtools initialIsOpen={true} />
       </ConfigProvider>
     </QueryClientProvider>
     // </SessionProvider>

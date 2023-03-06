@@ -58,11 +58,11 @@ instance.interceptors.request.use(
 // Intercept all responses
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
-    // console.log(
-    //   `%c ${response?.status} - ${getUrl(response?.config)}:`,
-    //   "color: #008000; font-weight: bold",
-    //   response
-    // );
+    console.log(
+      ` %c ${response.status} - ${getUrl(response.config)}:`,
+      "color: #008000; font-weight: bold",
+      response
+    );
 
     const ResultCodeM =
       response?.data?.ResultCode === 401 &&

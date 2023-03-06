@@ -89,24 +89,42 @@ export const RegisterForm = ({ visible, setOpenModal }) => {
                     name="UserName"
                     rules={{
                       required: "Vui lòng điền thông tin đăng nhập",
-                      minLength: {
-                        value: 6,
-                        message: "username phải ít nhất 6 kí tự",
-                      },
-                      maxLength: {
-                        value: 30,
-                        message: "username phải ít hơn 30 kí tự",
-                      },
                       validate: {
                         check: (value) => {
+                          const specialChar =
+                            /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+                          if (value.match(specialChar)) {
+                            return "Tên đăng nhập không chưa ký tự đặt biệt!";
+                          }
+
+                          if (value.length !== 8) {
+                            return "Tên đăng nhập phải bằng 8 ký tự";
+                          }
+
+                          if (value.trim().includes(" ")) {
+                            return "Tên đăng nhập chứa khoảng trắng giữa 2 chữ!";
+                          }
+
+                          const userNameSplit = value.split("");
+                          const numbers = [];
+                          const strings = [];
+
+                          userNameSplit.forEach((x) => {
+                            if (isNaN(x)) {
+                              strings.push(x);
+                            } else {
+                              numbers.push(x);
+                            }
+                          });
+                          if (numbers.length !== 2 || strings.length !== 6) {
+                            return "Tên đăng nhập phải có 6 ký tự và 2 chữ số!";
+                          }
+
                           const check = _format.checkUserNameVNese(
                             value.trim()
                           );
-                          if (value.trim().includes(" ")) {
-                            return "username chứa khoảng trắng giữa 2 chữ!";
-                          }
                           if (check) {
-                            return "Username không được chứa Tiếng Việt";
+                            return "Tên đăng nhập không được chứa Tiếng Việt";
                           }
                           return checkUnique(value.trim(), EUnique.username);
                         },

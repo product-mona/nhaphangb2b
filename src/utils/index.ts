@@ -3,6 +3,8 @@ import jwt_decode from "jwt-decode";
 import moment from "moment";
 import { baseFile } from "~/api";
 import { toast } from "~/components";
+export * from "./CheckIsArray";
+export * from "./ToastError";
 export * from "./dom";
 
 class Format {
