@@ -82,38 +82,32 @@ const Index: TNextPageWithLayout = () => {
     refetch: refetchCart,
     isLoading,
     isFetching,
-  } = useQuery(["user-cart"], () => orderShopTemp.getList({ UID: UserId }), {
-    onSuccess: (data) => {
-      const newCart = data?.Data?.Items.map((item) => {
-        const parseOrderTemps = JSON.parse(item?.OrderTempsJson);
-        return {
-          ...item,
-          OrderTemps: parseOrderTemps,
-        };
-      });
+  } = useQuery(
+    ["user-cart", UserId],
+    () => orderShopTemp.getList({ UID: UserId }),
+    {
+      onSuccess: (data) => {
+        const newCart = data?.Data?.Items.map((item) => {
+          const parseOrderTemps = JSON.parse(item?.OrderTempsJson);
+          return {
+            ...item,
+            OrderTemps: parseOrderTemps,
+          };
+        });
 
-      setCurrentCart(newCart);
-    },
-    onError: (error) => {
-      showToast({
-        title: (error as any)?.response?.data?.ResultCode,
-        message: (error as any)?.response?.data?.ResultMessage,
-        type: "error",
-      });
-    },
-    enabled: !!UserId,
-    retry: false,
-  });
-
-  // function handleCalTotalPriceSelect(arr) {
-  //   return arr.map((itemId) => {
-  //     for (let i in currentCart) {
-  //       if (itemId === currentCart[i]?.Id) {
-  //         return currentCart[i]?.PriceVND;
-  //       }
-  //     }
-  //   });
-  // }
+        setCurrentCart(newCart);
+      },
+      onError: (error) => {
+        showToast({
+          title: (error as any)?.response?.data?.ResultCode,
+          message: (error as any)?.response?.data?.ResultMessage,
+          type: "error",
+        });
+      },
+      enabled: !!UserId,
+      retry: false,
+    }
+  );
 
   const toggleAllShopId = () => {
     setChosenShopIds(
@@ -219,7 +213,7 @@ const Index: TNextPageWithLayout = () => {
           </div>
         </div>
       </div>
-      <div className=" px-4">
+      <div className="px-4">
         <CartSteps current={1} />
         {isFetching && isLoading ? (
           <span className="bg-[#fff] flex w-full h-[300px] items-center justify-center">

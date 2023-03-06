@@ -1,6 +1,11 @@
 body {
-  font-family: Roboto, sans-serif !important;
+  /* font-family: Roboto, sans-serif !important; */
+  font-family: "SF Pro Display";
+  letter-spacing: 0.02em;
   /* font-family: "Inter", sans-serif !important; */
+}
+.homeindex {
+    font-family: Roboto, sans-serif !important;
 }
 
 .ant-pagination-prev.ant-pagination-disabled:focus-visible

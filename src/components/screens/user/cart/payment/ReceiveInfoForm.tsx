@@ -13,7 +13,7 @@ export const ReceiveInfoForm: React.FC<TProps> = ({
   // addressWatch,
 }) => {
   return (
-    <div className="grid grid-cols-1 gap-4 pb-4">
+    <div className="grid grid-cols-1 gap-4 border-b pb-4">
       <h2 className="col-span-1 text-[#141046] font-semibold !mb-0">
         Người nhận hàng
       </h2>
