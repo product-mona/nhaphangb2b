@@ -7,7 +7,8 @@
     rgba(81, 142, 31, 0.67) 0%,
     rgba(81, 142, 31, 0.11) 99.57%
   ); */
-  background: #ddf1de;
+  /* background: #ddf1de; */
+  background: rgba(41, 108, 46, 0.1);
 }
 
 .partnerWrapper img {
