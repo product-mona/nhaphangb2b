@@ -15,14 +15,22 @@ type TProps = TControl<TUserPayment> & {
 	index: number
 }
 
-const ItemProduct = ({ orderTemp, index }) => {
+const ItemProduct = ({ orderTemp, index, maxLength }) => {
+	//bg-[#e9eff1]
 	return (
-		<div key={orderTemp.Id} className="orderProductItem border">
+		<div
+			style={{
+				// background: !!(index % 2) ? '#e9eff1' : undefined,
+				borderBottom: index < maxLength ? '1px solid rgb(224, 224, 224)' : undefined
+			}}
+			key={orderTemp.Id}
+			className="orderProductItem "
+		>
 			<div className="xl:flex flex-wrap">
 				<div className="xl:flex xl:w-full items-center mb-5 justify-between px-3 borderBottom">
 					<Tooltip title="Link đến sản phẩm">
 						<a href={orderTemp?.LinkOrigin} target="_blank" className="mainTitle">
-							{orderTemp?.TitleOrigin}
+							{orderTemp?.LinkOrigin}
 						</a>
 					</Tooltip>
 				</div>
@@ -92,12 +100,12 @@ export const PaymentOrderInfo: React.FC<TProps> = ({
 }) => {
 	return (
 		<div className="tableBox py-3">
-			<div className="mb-4">
+			<div>
 				<Collapse defaultActiveKey={index} expandIconPosition="right">
 					<Collapse.Panel
 						header={
 							<h2 className="uppercase font-bold !mb-0 text-[#fff]">
-								<Tooltip title="Tên cửa hàng!">{orderShopTempData?.ShopName}</Tooltip>
+								<Tooltip title="Tên cửa hàng!">1{orderShopTempData?.ShopName}</Tooltip>
 							</h2>
 						}
 						key={index}
@@ -105,12 +113,16 @@ export const PaymentOrderInfo: React.FC<TProps> = ({
 						<div className="">
 							{!!orderShopTempData?.OrderTemps?.length &&
 								orderShopTempData?.OrderTemps.map((orderTemp, index) => (
-									<ItemProduct orderTemp={orderTemp} index={index} key={orderTemp.Id} />
+									<ItemProduct
+										maxLength={orderShopTempData?.OrderTemps?.length}
+										orderTemp={orderTemp}
+										index={index}
+										key={orderTemp.Id}
+									/>
 								))}
 						</div>
 					</Collapse.Panel>
 				</Collapse>
-
 				<div className="grid grid-cols-2 gap-6">
 					<div className="col-span-1">
 						<div className="tableBox bg-[#f3f6fa] !py-0 !m-0 !h-fit">
@@ -119,14 +131,14 @@ export const PaymentOrderInfo: React.FC<TProps> = ({
 									<p className="text-[#141046] font-semibold">Tổng tiền hàng</p>
 									<span className="text-blue font-semibold">{_format.getVND(orderShopTempData?.PriceVND)}</span>
 								</div>
-								<div className="flex justify-between w-full mb-1 ">
+								{/* <div className="flex justify-between w-full mb-1 ">
 									<p className="text-[#626262]">Phí ship TQ</p>
 									<span>Chờ cập nhật</span>
 								</div>
 								<div className="flex justify-between w-full mb-1 ">
 									<p className="text-[#626262]">Phí vận chuyển TQ-VN</p>
 									<span className="text-[#626262]">Chờ cập nhật</span>
-								</div>
+								</div> */}
 								<div className="flex justify-between w-full mb-1 ">
 									<p className="text-[#626262]">Phí kiểm đếm</p>
 									<span>

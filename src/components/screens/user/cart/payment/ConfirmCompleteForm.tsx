@@ -4,7 +4,7 @@ import { IconButton } from '~/components/globals/button/IconButton'
 import { FormCheckbox } from '~/components/globals/formBase'
 import { useAppSelector } from '~/store'
 import { TControl } from '~/types/field'
-import { _format } from '~/utils'
+import { numberWithCommas, _format } from '~/utils'
 
 type TProps = TControl<TUserPayment> & {
 	onPress: () => void
@@ -28,13 +28,13 @@ export const ConfirmCompleteForm: React.FC<TProps> = ({ control, onPress, totalP
 	)
 	return (
 		<div className="tableBox">
-			<div className="flex justify-between mb-4 ">
+			<div className="flex justify-between mb-4 items-center">
 				<h2 className="!mb-0 text-[#141046] font-semibold">Tổng tiền hàng</h2>
-				<span className="font-bold text-orange text-[18px]">{_format.getVND(getTotalPriceQuery?.TotalPriceCNY || 0)}</span>
+				<span className="font-bold text-orange text-[18px]">{numberWithCommas(getTotalPriceQuery?.TotalPriceCNY || 0)} ¥</span>
 			</div>
 			<div className="flex justify-between w-full mb-1 ">
 				<p className="text-[#626262]">Phí mua hàng</p>
-				<span>{_format.getVND(getTotalPriceQuery?.FeeBuyProCNY || 0)}</span>
+				<span>{numberWithCommas(getTotalPriceQuery?.FeeBuyProCNY || 0)} ¥</span>
 			</div>
 
 			<div className="flex justify-between w-full mb-1 ">

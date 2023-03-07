@@ -113,22 +113,28 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 
 	const onPress = async (data: TUserPayment) => {
 		console.log(data)
+		const { ShopPayments, ...restData } = data
+		const fmData = {
+			...restData,
+			ShopPayments: ShopPayments.map((x) => x.ShopId)
+		}
+		console.log(fmData)
 		if (!data?.IsAgreement) {
 			toast.warning('Vui lòng xác nhận trước khi thanh toán')
 			return
 		}
 
-		// mutationPayment
-		//   .mutateAsync({ ...data, Address: getValues("Address") })
-		//   .then(() => {
-		//     toast.success("Đặt hàng thành công!");
-		//     queryClient.invalidateQueries({ queryKey: "menuData" });
-		//     router.push("/user/order-list");
-		//     ids.map((id) => dispatch(deleteOrderShopTempById(id)));
-		//   })
-		//   .catch((error) => {
-		//     toast.error("Vui lòng thử lại!");
-		//   });
+		mutationPayment
+			.mutateAsync(fmData)
+			.then(() => {
+				toast.success('Đặt hàng thành công!')
+				queryClient.invalidateQueries({ queryKey: 'menuData' })
+				router.push('/user/order-list')
+				ids.map((id) => dispatch(deleteOrderShopTempById(id)))
+			})
+			.catch((error) => {
+				toast.error('Vui lòng thử lại!')
+			})
 	}
 	const onError = (err: any) => {
 		toastFormError(err)
@@ -169,10 +175,16 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 						</div>
 						<div className="xl:col-span-3 col-span-10 flex flex-col order-2">
 							<Collapse defaultActiveKey={[]} expandIconPosition="right">
-								<Panel header="THÔNG TIN" key="1">
+								<Panel header="THÔNG TIN CHUNG" key="1">
 									<div className="p-4">
 										<StaticUserForm control={control} />
 										<ReceiveInfoForm control={control} />
+									</div>
+								</Panel>
+							</Collapse>
+							<Collapse defaultActiveKey={[]} expandIconPosition="right">
+								<Panel header="THÔNG TIN VẬN CHUYỂN" key="1">
+									<div className="p-4">
 										<WareHouseInfo />
 										<DeliveryInfo control={control} />
 									</div>
