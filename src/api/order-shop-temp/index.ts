@@ -13,7 +13,7 @@ export const orderShopTemp = {
 
 	updateNote: (params: { Note: string; Id: number }) => put('/update-note', undefined, { params }),
 
-	payment: (data: TUserPayment) => post('/payment', data),
+	payment: (data: Omit<TUserPayment, 'ShopPayments'> & { ShopPayments: number[] }) => post('/payment', data),
 
 	getTotalPrice: (params: { orderShopTempIds: string }) => get('/get-total-price', { params }),
 

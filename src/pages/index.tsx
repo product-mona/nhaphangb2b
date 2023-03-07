@@ -68,6 +68,7 @@ const Index: TNextPageWithLayout = () => {
 					{/* <Choosen data={dataBenefits?.filter((item) => item.ItemType === 1)} /> */}
 					{/* <Experience /> */}
 					<Customer />
+
 					<HomeRegister data={dataRegisterSteps} />
 					<Partner />
 					<HomeInfoContact data={dataConfig} />

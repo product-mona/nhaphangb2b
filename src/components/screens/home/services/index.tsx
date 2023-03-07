@@ -70,7 +70,7 @@ export const HomeServices = ({ data }) => {
 		<div className={clsx(styles.servicesWrap)}>
 			<div className="container">
 				<div className={clsx(styles.innerServicesWrap)}>
-					<h1 className={styles.mainTitle}>dịch vụ của chúng tôi</h1>
+					<h1 className={styles.mainTitle}>Dịch vụ của chúng tôi</h1>
 					<InnerContent data={data} />
 				</div>
 			</div>

@@ -1207,10 +1207,10 @@ tr:nth-child(even) {
 
 /* OrderProductList.tsx */
 .orderProductItem {
-  @apply bg-[#e9eff1] py-4 px-4;
-  border: 1px solid #00000033;
+  @apply  py-4 px-4;
+  /* border: 1px solid #00000033; */
   transition: all 0.3s ease-in-out;
-  margin: 10px;
+  /* margin: 10px; */
 }
 
 .orderProductItem .mainTitle {
