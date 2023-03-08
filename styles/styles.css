@@ -230,7 +230,7 @@ body {
 }
 
 .ant-checkbox + span {
-  color: #6b6f82 !important;
+  /* color: #6b6f82 !important; */
 }
 
 .ant-checkbox-checked::after {

@@ -109,10 +109,10 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 								</div>
 							</div>
 							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
-								<div className="text-sm mr-4 text-[#484747] font-semibold">Tổng tiền (VNĐ)</div>
+								<div className="text-sm mr-4 text-[#484747] font-semibold">Giá vốn 1 sản phẩm (VNĐ)</div>
 								<div className="text-orange">
 									<div className="text-sm text-center">
-										<Tooltip title={`Thành tiền + Tổng chi phí trên từng sản phẩm`} placement="bottom">
+										<Tooltip title={`Đơn giá (VNĐ) + Tổng chi phí trên từng sản phẩm`} placement="bottom">
 											<InputNumber
 												size="middle"
 												value={_format.getVND(item?.PriceVND + totalFeeEachOne, '')}

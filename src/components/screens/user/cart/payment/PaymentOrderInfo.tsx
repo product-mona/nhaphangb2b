@@ -67,7 +67,7 @@ const ItemProduct = ({ orderTemp, index, maxLength }) => {
 							Số lượng <br /> (cái)
 						</div>
 						<div className="text-sm text-center">
-							<InputNumber width={'100%'} size="middle" min={1} max={100000} value={orderTemp?.Quantity} disabled />
+							<InputNumber width={'100%'} size="middle" min={1} max={100000} value={orderTemp?.Quantity} readOnly />
 						</div>
 					</div>
 					<div className="xl:block flex justify-between ml-2 xl:w-2/4">
@@ -76,7 +76,7 @@ const ItemProduct = ({ orderTemp, index, maxLength }) => {
 						</div>
 						<div className="text-orange">
 							<div className="text-sm text-center">
-								<InputNumber size="middle" value={_format.getVND(orderTemp?.UPriceBuy, '')} disabled={true} />
+								<InputNumber size="middle" value={_format.getVND(orderTemp?.UPriceBuy, '')} readOnly />
 							</div>
 						</div>
 					</div>

@@ -1,27 +1,22 @@
-import React, { useEffect, useRef } from 'react';
-import { Checkbox } from 'antd';
-import {
-	Control,
-	Controller,
-	FieldValues,
-	Path,
-	RegisterOptions
-} from 'react-hook-form';
-import clsx from 'clsx';
-import { ErrorMessage } from '@hookform/error-message';
+import React, { useEffect, useRef } from 'react'
+import { Checkbox } from 'antd'
+import { Control, Controller, FieldValues, Path, RegisterOptions } from 'react-hook-form'
+import clsx from 'clsx'
+import styles from './FormCheckbox.module.css'
+import { ErrorMessage } from '@hookform/error-message'
 
 type TProps<TFieldValues> = {
-	name: Path<TFieldValues>;
-	label?: string;
-	rules?: RegisterOptions;
-	control: Control<TFieldValues, object>;
-	checkBoxClassName?: string;
-	hideError?: boolean;
-	disabled?: boolean;
-	defaultChecked?: boolean;
-	onChange?: any,
-	valueP?: boolean;
-};
+	name: Path<TFieldValues>
+	label?: string
+	rules?: RegisterOptions
+	control: Control<TFieldValues, object>
+	checkBoxClassName?: string
+	hideError?: boolean
+	disabled?: boolean
+	defaultChecked?: boolean
+	onChange?: any
+	valueP?: boolean
+}
 
 export const FormCheckbox = <TFieldValues extends FieldValues = FieldValues>({
 	label,
@@ -43,25 +38,21 @@ export const FormCheckbox = <TFieldValues extends FieldValues = FieldValues>({
 				<React.Fragment>
 					<Checkbox
 						disabled={disabled}
-						className={clsx(checkBoxClassName, 'text-base')}
+						className={clsx(styles.boxCheckbox, checkBoxClassName, 'text-base')}
 						{...newField}
 						checked={value}
 					>
-						{label}
+						<p className={styles.label}>{label}</p>
 					</Checkbox>
 					{!hideError && (
 						<ErrorMessage
 							errors={errors}
 							name={name as any}
-							render={({ message }) => (
-								<p className="text-warning text-xs font-medium mt-1">
-									{message}
-								</p>
-							)}
+							render={({ message }) => <p className="text-warning text-xs font-medium mt-1">{message}</p>}
 						/>
 					)}
 				</React.Fragment>
 			)}
 		/>
-	);
-};
+	)
+}

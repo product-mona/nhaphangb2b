@@ -281,6 +281,8 @@ type TUserCartOrderShopTemp = Omit<TBaseReponseParams, 'Name' | 'Code' | 'Descri
 	TotalPriceVND: number
 	UID: number
 	OrderTempsJson?: string
+
+	Quantity: number // số lượng SP
 }
 
 type TUserCartOrderTemp = Omit<TBaseReponseParams, 'Name' | 'Code' | 'Description'> & {
