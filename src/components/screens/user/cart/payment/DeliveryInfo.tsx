@@ -16,18 +16,18 @@ export const DeliveryInfo: React.FC<TProps> = ({ control }) => {
 		<div className="grid grid-cols-1 gap-4  pb-4">
 			{/* <h2 className="col-span-1 text-[#141046] font-semibold !mb-0">Thông tin vận chuyển</h2> */}
 			{/* <div className="col-span-1 mb-2">
-				<SecondFormSelect
-					options={warehouseTQ.data || []}
-					name={`warehouseTQ`}
-					label="Chọn kho TQ"
-					placeholder="Chọn kho TQ"
+				<FormSelect
+					data={warehouseVN.data || []}
+					select={{ label: 'Name', value: 'Id' }}
+					name={`warehouseVN`}
+					label="CHUYỂN VỀ KHO"
+					placeholder="CHUYỂN VỀ KHO"
 					control={control}
-					getOptionValue={(x) => x.Id}
-					getOptionLabel={(x) => x.Name}
 				/>
 			</div> */}
 			<div className="col-span-1 mb-2">
 				<SecondFormSelect
+					required
 					options={warehouseVN.data || []}
 					name={`warehouseVN`}
 					label="CHUYỂN VỀ KHO"
@@ -39,6 +39,7 @@ export const DeliveryInfo: React.FC<TProps> = ({ control }) => {
 			</div>
 			<div className="col-span-1 mb-2">
 				<SecondFormSelect
+					required
 					options={shippingTypeToWarehouse.data || []}
 					name={`shippingType`}
 					label="Phương thức vận chuyển"
