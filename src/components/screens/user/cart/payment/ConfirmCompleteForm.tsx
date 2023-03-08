@@ -53,14 +53,17 @@ export const ConfirmCompleteForm: React.FC<TProps> = ({ control, onPress, totalP
 				<p className="text-[#626262]">Phí giao hàng</p>
 				<span>{_format.getVND(getTotalPriceQuery?.FastDeliveryPrice || 0)}</span>
 			</div>
+			<div className="my-4">
+				<FormCheckbox
+					label="Tôi đồng ý với các điều khoản đặt hàng của NHAPHANGB2B"
+					control={control}
+					name="IsAgreement"
+					checkBoxClassName=""
+					// rules={{ required: 'Vui lòng xác nhận trước khi thanh toán' }}
+				/>
+			</div>
+			{/* <div className="text-label my-4 text-[#fa8d14]">Vui lòng xác nhận trước khi hoàn tất đơn hàng.</div> */}
 
-			<FormCheckbox
-				label="Tôi đồng ý với các điều khoản đặt hàng của NHAPHANGB2B"
-				control={control}
-				name="IsAgreement"
-				// rules={{ required: 'Vui lòng xác nhận trước khi thanh toán' }}
-			/>
-			<div className="text-label my-4 text-[#fa8d14]">Vui lòng xác nhận trước khi hoàn tất đơn hàng.</div>
 			<div className="flex justify-end">
 				<IconButton
 					btnClass="w-[120px] text-orange py-2 rounded-xl bg-[#f8dfd5]"

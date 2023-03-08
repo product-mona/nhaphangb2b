@@ -30,7 +30,9 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const queryClient = useQueryClient()
+
 	//---------REDUX---------//
+
 	//get list id orpayment
 	const ids = useAppSelector((state) => state.cart.selectedShopIds)
 
@@ -75,9 +77,10 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 	const schema = yup.object().shape({
 		warehouseTQ: yup.number().required('Kho Trung Quốc không được để trống'),
 		warehouseVN: yup.number().required('Chuyển về kho không được để trống'),
-		shippingType: yup.number().required('Phương thức vận chuyển không được để trống')
+		shippingType: yup.number().required('Phương thức vận chuyển không được để trống'),
+		IsAgreement: yup.boolean()
 	})
-	const { control, handleSubmit, reset, getValues, setValue } = useForm<TUserPayment>({
+	const { control, handleSubmit, reset, getValues, setValue, setError, watch } = useForm<TUserPayment>({
 		mode: 'onBlur',
 		defaultValues: {
 			ShopPayments: orderShopTempsData.map((data) => ({
@@ -86,7 +89,7 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 		},
 		resolver: yupResolver(schema)
 	})
-
+	const allFormState = watch()
 	useDeepEffect(() => {
 		if (!!orderShopTempsData.length && !!orderShopTempsData?.[0]) {
 			const { FullName, Address, Email, Phone } = orderShopTempsData?.[0]
@@ -99,6 +102,8 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 				Address: Address,
 				Email: Email,
 				Phone: Phone,
+				warehouseTQ: warehouseTQ?.[0].Id,
+				shippingType: shippingTypeToWarehouse?.[0].Id,
 				ShopPayments: orderShopTempsData.map((data) => ({
 					ShopId: data?.Id,
 					WarehouseTQ: warehouseTQ?.[0].Id,
@@ -113,38 +118,32 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 
 	const onPress = async (data: TUserPayment) => {
 		console.log(data)
-		const { ShopPayments, ...restData } = data
-		const fmData = {
-			...restData,
-			ShopPayments: ShopPayments.map((x) => x.ShopId)
+		const { ShopPayments, IsAgreement, ...restData } = data
+		if (!IsAgreement) {
+			setError('IsAgreement', { type: 'custom', message: 'Quý khách lòng xác nhận điều khoản đặt hàng trước khi mua hàng.' })
+		} else {
+			const fmData = {
+				...restData,
+				IsAgreement,
+				ShopPayments: ShopPayments.map((x) => x.ShopId)
+			}
+			console.log(fmData)
+			mutationPayment
+				.mutateAsync(fmData)
+				.then(() => {
+					toast.success('Đặt hàng thành công!')
+					queryClient.invalidateQueries({ queryKey: 'menuData' })
+					router.push('/user/order-list')
+					ids.map((id) => dispatch(deleteOrderShopTempById(id)))
+				})
+				.catch((error) => {
+					toast.error('Vui lòng thử lại!')
+				})
 		}
-		console.log(fmData)
-		if (!data?.IsAgreement) {
-			toast.warning('Vui lòng xác nhận trước khi thanh toán')
-			return
-		}
-
-		mutationPayment
-			.mutateAsync(fmData)
-			.then(() => {
-				toast.success('Đặt hàng thành công!')
-				queryClient.invalidateQueries({ queryKey: 'menuData' })
-				router.push('/user/order-list')
-				ids.map((id) => dispatch(deleteOrderShopTempById(id)))
-			})
-			.catch((error) => {
-				toast.error('Vui lòng thử lại!')
-			})
 	}
 	const onError = (err: any) => {
 		toastFormError(err)
 	}
-	// totalPrice Sinh get
-	// const listTotalPrice = orderShopTempsData.map((item) => item?.TotalPriceVND);
-	// let totalPrice = 0;
-	// listTotalPrice.forEach((item) => {
-	//   totalPrice += item;
-	// });
 
 	return (
 		<div className="">
@@ -182,16 +181,15 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 									</div>
 								</Panel>
 							</Collapse>
-							<Collapse defaultActiveKey={[]} expandIconPosition="right">
-								<Panel header="THÔNG TIN VẬN CHUYỂN" key="1">
-									<div className="p-4">
-										<WareHouseInfo />
-										<DeliveryInfo control={control} />
-									</div>
-								</Panel>
-							</Collapse>
+
 							<div className="sticky top-4">
-								{/* <div className="tableBox"></div> */}
+								<Collapse defaultActiveKey={['deliveri']} expandIconPosition="right">
+									<Panel header="THÔNG TIN VẬN CHUYỂN" key="deliveri">
+										<div className="p-4">
+											<DeliveryInfo control={control} />
+										</div>
+									</Panel>
+								</Collapse>
 								<ConfirmCompleteForm
 									totalPrice={1}
 									control={control}

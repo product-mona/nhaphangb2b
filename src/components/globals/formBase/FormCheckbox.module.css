@@ -1,0 +1,9 @@
+
+
+.boxCheckbox > .ant-checkbox {
+    color: red !important;
+  
+}
+.boxCheckbox .label {
+    color: #fa8d14;
+}
