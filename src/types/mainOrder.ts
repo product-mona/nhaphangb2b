@@ -21,6 +21,6 @@ export interface IOrderShop {
 	Site: string
 	TotalItem: number
 	UID: number
-	Orders: any[]
+	Orders: TProduct[]
 }
 export interface IMainOrder {}
