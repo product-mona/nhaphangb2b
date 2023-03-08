@@ -55,6 +55,7 @@ export const SecondFormSelect = <T extends FieldValues = FieldValues, TFieldData
 			)}
 			<div>
 				<Select
+					ref={field.ref}
 					isMulti={isMulti}
 					classNamePrefix="select"
 					menuPosition="fixed"
@@ -83,6 +84,8 @@ export const SecondFormSelect = <T extends FieldValues = FieldValues, TFieldData
 					styles={{ ..._format.customStyles }}
 					{...rest}
 				/>
+
+				{!!fieldState.error && <p className="text-warning text-xs font-medium mt-1">{fieldState.error?.message}</p>}
 			</div>
 		</div>
 	)

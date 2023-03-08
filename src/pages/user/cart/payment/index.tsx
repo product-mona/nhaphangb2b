@@ -76,7 +76,7 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 	//-----------FORM-----------//
 	const schema = yup.object().shape({
 		warehouseTQ: yup.number().required('Kho Trung Quốc không được để trống'),
-		warehouseVN: yup.number().required('Chuyển về kho không được để trống'),
+		warehouseVN: yup.number().required('Kho chuyển về không được để trống'),
 		shippingType: yup.number().required('Phương thức vận chuyển không được để trống'),
 		IsAgreement: yup.boolean()
 	})

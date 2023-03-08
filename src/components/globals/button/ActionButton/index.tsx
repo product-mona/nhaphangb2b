@@ -1,25 +1,26 @@
-import { Tooltip } from 'antd';
-import clsx from 'clsx';
-import React, { FC } from 'react';
+import { Tooltip, TooltipProps } from 'antd'
+import clsx from 'clsx'
+import React, { ComponentProps, FC } from 'react'
 
 type TProps = {
-	icon: string;
-	title: string;
-	onClick?: () => void;
-	iconContainerClassName?: string;
-	btnGreen?: boolean;
-	btnRed?: boolean;
-	btnYellow?: boolean;
-	btnViolet?: boolean;
-	btnBlue?: boolean;
-	disabled?: boolean;
-};
+	icon: string
+	title: string
+	onClick?: () => void
+	iconContainerClassName?: string
+	btnGreen?: boolean
+	btnRed?: boolean
+	btnYellow?: boolean
+	btnViolet?: boolean
+	btnBlue?: boolean
+	disabled?: boolean
+	placement?: ComponentProps<typeof Tooltip>['placement']
+}
 
-const btnStyleGreen = 'text-[#1f8f2b]';
-const btnStyleRed = 'text-[#f02b02] ';
-const btnStyleYellow = 'text-[#edb90e]  ';
-const btnStyleViolet = 'text-[#7410b3]';
-const btnStyleBlue = 'text-[#119ff5]';
+const btnStyleGreen = 'text-[#1f8f2b]'
+const btnStyleRed = 'text-[#f02b02] '
+const btnStyleYellow = 'text-[#edb90e]  '
+const btnStyleViolet = 'text-[#7410b3]'
+const btnStyleBlue = 'text-[#119ff5]'
 
 export const ActionButton: FC<TProps> = ({
 	icon,
@@ -32,14 +33,15 @@ export const ActionButton: FC<TProps> = ({
 	btnViolet,
 	btnBlue,
 	disabled,
+	placement = 'top',
 	...props
 }) => {
 	return (
-		<Tooltip title={disabled ? "" : title}>
+		<Tooltip title={disabled ? '' : title} placement={placement}>
 			<div
 				{...props}
 				className="group inline-block p-1 "
-				style={{ opacity: disabled ? '0.3' : '1', pointerEvents: disabled ? "none" : "all" }}
+				style={{ opacity: disabled ? '0.3' : '1', pointerEvents: disabled ? 'none' : 'all' }}
 			>
 				<div className="cursor-pointer" onClick={onClick}>
 					<div
@@ -53,15 +55,10 @@ export const ActionButton: FC<TProps> = ({
 							btnBlue && btnStyleBlue
 						)}
 					>
-						<i
-							className={clsx(
-								icon,
-								' transition duration-300 h-4 text-[16px]'
-							)}
-						></i>
+						<i className={clsx(icon, ' transition duration-300 h-4 text-[16px]')}></i>
 					</div>
 				</div>
 			</div>
 		</Tooltip>
-	);
-};
+	)
+}

@@ -1,6 +1,6 @@
 import { InputNumber, Tooltip } from 'antd'
-import React, { useMemo } from 'react'
-import { _format } from '~/utils'
+import React, { useCallback, useMemo } from 'react'
+import { numberWithCommas, _format } from '~/utils'
 
 type SecondOrderIDProductListProps = {
 	data: TProduct[]
@@ -22,8 +22,20 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 			dataOrder.IsCheckProductPrice +
 			dataOrder.FeeWeight +
 			dataOrder.FeeBuyPro
-		return totalFee
+		if (!!dataOrder.TotalItem) {
+			return totalFee / dataOrder.TotalItem
+		} else {
+			return 0
+		}
 	}, [dataOrder])
+
+	const renderCostPrice = useCallback(
+		(price: number) => {
+			const resut = price + totalFeeEachOne
+			return numberWithCommas(resut.toFixed(2))
+		},
+		[totalFeeEachOne]
+	)
 	return (
 		<div className="tableBox">
 			<div className="flex justify-between">
@@ -109,15 +121,11 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 								</div>
 							</div>
 							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
-								<div className="text-sm mr-4 text-[#484747] font-semibold">Giá vốn 1 sản phẩm (VNĐ)</div>
+								<div className="text-sm mr-4 text-[#484747]  font-semibold truncate">Giá vốn 1 sản phẩm</div>
 								<div className="text-orange">
 									<div className="text-sm text-center">
 										<Tooltip title={`Đơn giá (VNĐ) + Tổng chi phí trên từng sản phẩm`} placement="bottom">
-											<InputNumber
-												size="middle"
-												value={_format.getVND(item?.PriceVND + totalFeeEachOne, '')}
-												readOnly
-											/>
+											<InputNumber addonAfter="VNĐ" size="middle" value={renderCostPrice(item.PriceVND)} readOnly />
 										</Tooltip>
 									</div>
 								</div>

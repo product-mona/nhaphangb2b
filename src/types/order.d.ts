@@ -3,6 +3,8 @@ type TMainOrderCode = Omit<TBaseReponseParams, 'Name' | 'Description' | 'Code'> 
 	Code: string
 	TotalItem: number
 	OrderTransactionCode: string[]
+	orderShopID: number // ID của shop
+	ShopID: string
 }
 
 type TSmallPackage = Omit<TBaseReponseParams, 'Name'> & {
@@ -318,6 +320,7 @@ type TOrder = Omit<TBaseReponseParams, 'Name' | 'Code' | 'Description'> & {
 	MainOrderCustomID: string
 
 	OrderShops?: IOrderShop[] //IOrderShop
+	TotalItem: number // tổng số lượng tất cả SP trong đơn
 }
 
 type THistoryService = Omit<TBaseReponseParams, 'Name' | 'Code' | 'Description'> & {
