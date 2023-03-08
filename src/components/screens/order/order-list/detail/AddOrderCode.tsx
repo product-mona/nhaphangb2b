@@ -73,7 +73,7 @@ export const AddOrderCode: React.FC<TProps> = ({ add, orderId, dataList }) => {
 				}}
 				inputContainerClassName="max-w-[300px]"
 			/>
-			<div className="ml-2 min-w-[150px] w-auto">
+			<div className="ml-2 min-w-[300px] w-auto">
 				{/* select orderShopId  */}
 				<SecondFormSelect
 					required

@@ -93,7 +93,7 @@ const Index: TNextPageWithLayout = () => {
 			})
 		}
 	})
-
+	// ham update chi tiết đơn hàng
 	const _onUpdate = async (data: TOrder) => {
 		const { HistoryOrderChanges, PayOrderHistories, Complains, ...newData } = data
 		localStorage.removeItem('AmountDeposit')

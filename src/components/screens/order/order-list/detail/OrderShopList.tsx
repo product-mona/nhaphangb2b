@@ -1,7 +1,9 @@
 import { Collapse } from 'antd'
+import { useRouter } from 'next/dist/client/router'
 import React, { FC } from 'react'
 import { order } from '~/api'
 import { IconButton } from '~/components/globals/button/IconButton'
+import { toast } from '~/components/toast'
 import { IOrderShop } from '~/types'
 import { _format } from '~/utils'
 import { OrderProductItem } from './OrderProductItem'
@@ -13,22 +15,28 @@ type OrderIDShopListProps = {
 	refetch: () => void
 }
 export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch }) => {
+	const router = useRouter()
 	const onExportExcel = async () => {
-		// try {
-		//   const res = await order.exportExcel({
-		//     MainOrderID: data?.Id,
-		//   });
-		//   router.push(`${res.Data}`);
-		// } catch (error) {
-		//   toast.error(error);
-		// }
+		try {
+			const res = await order.exportExcel({
+				MainOrderID: data?.Id
+			})
+			router.push(`${res.Data}`)
+		} catch (error) {
+			toast.error(error)
+		}
 	}
 	return (
 		<React.Fragment>
-			<div className="orderProductItem flex justify-between items-center">
-				{/* <div className="flex flex-col">
-					<span className="font-bold">Tổng số lượng: ddang caap nhat </span>
-					<span className="font-bold">Tổng tiền sản phẩm: {_format.getVND(data?.PriceVND)}</span>
+			<div className="orderProductItem  flex justify-between items-center">
+				<div className="flex flex-col">
+					{/* <Typography.Text className="">
+						Tổng số lượng: <span className="text-lg font-semibold text-[#F5851E]">{dataOrderShop.TotalItem}</span>
+					</Typography.Text>
+					<Typography.Text className="">
+						Tổng tiền sản phẩm:{' '}
+						<span className="text-lg font-semibold text-[#2686ED]">{_format.getVND(dataOrderShop?.PriceVND)}</span>{' '}
+					</Typography.Text> */}
 				</div>
 				<div>
 					{(RoleID === 1 || RoleID === 3 || RoleID === 4) && (
@@ -42,7 +50,7 @@ export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch 
 							btnClass="ml-4"
 						/>
 					)}
-				</div> */}
+				</div>
 			</div>
 
 			{/*     max-h-[700px] overflow-y-auto */}

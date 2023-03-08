@@ -125,7 +125,7 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 								<div className="text-orange">
 									<div className="text-sm text-center">
 										<Tooltip title={`Đơn giá (VNĐ) + Tổng chi phí trên từng sản phẩm`} placement="bottom">
-											<InputNumber addonAfter="VNĐ" size="middle" value={renderCostPrice(item.PriceVND)} readOnly />
+											<InputNumber addonBefore="VNĐ" size="middle" value={renderCostPrice(item.PriceVND)} readOnly />
 										</Tooltip>
 									</div>
 								</div>
