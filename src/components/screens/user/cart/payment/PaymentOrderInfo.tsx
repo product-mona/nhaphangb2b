@@ -105,7 +105,7 @@ export const PaymentOrderInfo: React.FC<TProps> = ({
 					<Collapse.Panel
 						header={
 							<h2 className="uppercase font-bold !mb-0 text-[#fff]">
-								<Tooltip title="Tên cửa hàng!">1{orderShopTempData?.ShopName}</Tooltip>
+								<Tooltip title="Tên cửa hàng!">{orderShopTempData?.ShopName}</Tooltip>
 							</h2>
 						}
 						key={index}

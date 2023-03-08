@@ -1,18 +1,45 @@
 import { InputNumber, Tooltip } from 'antd'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { _format } from '~/utils'
 
-export const OrderIDProductList: React.FC<any> = ({ data }) => {
+type SecondOrderIDProductListProps = {
+	data: TProduct[]
+	dataOrder?: TOrder
+}
+export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> = ({ data, dataOrder }) => {
+	// totalCost
+	const totalFeeEachOne = useMemo(() => {
+		//InsuranceMoney  phí bảo hiểm
+		//IsFastDeliveryPrice   Phí giao hàng tận nhà
+		//IsPackedPrice  Phí đóng gỗ
+		//IsCheckProductPrice Phí kiểm đếm
+		//FeeWeight  Phí cân nặng
+		//FeeBuyPro Phí mua hàng
+		const totalFee =
+			dataOrder.InsuranceMoney +
+			dataOrder.IsFastDeliveryPrice +
+			dataOrder.IsPackedPrice +
+			dataOrder.IsCheckProductPrice +
+			dataOrder.FeeWeight +
+			dataOrder.FeeBuyPro
+		return totalFee
+	}, [dataOrder])
 	return (
-		<div className="tableBox mt-4 px-2">
+		<div className="tableBox">
 			<div className="flex justify-between">
-				<div className="titleTable !pb-0">Danh sách sản phẩm</div>
+				<div className="titleTable mb-[-6px]">Danh sách sản phẩm</div>
 			</div>
 			{data?.map((item, index) => (
-				<div key={index} className="orderProductItem border">
+				<div
+					key={index}
+					onClick={() => {
+						console.log('item', item)
+					}}
+					className="orderProductItem border"
+				>
 					<div className="flex flex-wrap">
 						<div className="flex w-full items-center mb-5 justify-between px-3 borderBottom">
-							<Tooltip title="Link đến sản phẩm">
+							<Tooltip placement="topLeft" title="Link đến sản phẩm">
 								<a href={item?.LinkOrigin} target="_blank" className="mainTitle">
 									{item?.LinkOrigin}
 								</a>
@@ -62,27 +89,37 @@ export const OrderIDProductList: React.FC<any> = ({ data }) => {
 								<div className="text-sm mr-4 text-[#484747] font-semibold">Đơn giá (¥)</div>
 								<div className="text-orange">
 									<div className="text-sm text-center">
-										<InputNumber size="middle" value={_format.getVND(item?.UPriceBuy, '')} readOnly />
+										<Tooltip title={`${_format.getVND(item?.PriceVND, '')} VNĐ`} placement="bottom">
+											<InputNumber size="middle" value={_format.getVND(item?.PriceCNY, '')} readOnly />
+										</Tooltip>
 									</div>
 								</div>
 							</div>
 							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
-								<div className="text-sm mr-4 text-[#484747] font-semibold">Đơn giá (VNĐ)</div>
+								<div className="text-sm mr-4 text-[#484747] font-semibold">Thành tiền (¥)</div>
+								<div className="text-sm text-center">
+									<Tooltip title={`${_format.getVND(item?.PriceVND * item?.Quantity, '')} VNĐ`} placement="bottom">
+										<InputNumber
+											size="middle"
+											value={_format.getVND(item?.PriceCNY * item?.Quantity, '')}
+											readOnly
+											className="text-center"
+										/>
+									</Tooltip>
+								</div>
+							</div>
+							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
+								<div className="text-sm mr-4 text-[#484747] font-semibold">Tổng tiền (VNĐ)</div>
 								<div className="text-orange">
 									<div className="text-sm text-center">
-										<InputNumber size="middle" value={_format.getVND(item?.UPriceBuyVN, '')} readOnly />
+										<Tooltip title={`Thành tiền + Tổng chi phí trên từng sản phẩm`} placement="bottom">
+											<InputNumber
+												size="middle"
+												value={_format.getVND(item?.PriceVND + totalFeeEachOne, '')}
+												readOnly
+											/>
+										</Tooltip>
 									</div>
-								</div>
-							</div>
-							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
-								<div className="text-sm mr-4 text-[#484747] font-semibold">Thành tiền (VNĐ)</div>
-								<div className="text-sm text-center">
-									<InputNumber
-										size="middle"
-										value={_format.getVND(item?.UPriceBuyVN * item?.Quantity, '')}
-										disabled={true}
-										className="text-center"
-									/>
 								</div>
 							</div>
 						</div>

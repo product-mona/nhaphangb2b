@@ -161,7 +161,7 @@ body {
 
 .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
   position: relative;
-  bottom: 3px;
+
 }
 
 .ant-collapse > .ant-collapse-item {
@@ -920,6 +920,7 @@ span.create .ant-upload.ant-upload-select-picture-card {
 
 .ant-input-number-input {
   border-radius: 0px !important;
+
 }
 
 .ant-input-number {
