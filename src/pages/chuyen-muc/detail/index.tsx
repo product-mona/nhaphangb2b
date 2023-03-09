@@ -42,13 +42,13 @@ const Index: TNextPageWithLayout = () => {
 	return (
 		<>
 			<MetaTags data={Data} dataConfig={dataConfig} />
-			<div className="categoryhome">
+			<div className="categoryhome fontFamilyRoboto">
 				<div className="col-span-2">
 					<HomeBreadcrumb currentRoute={Data} />
 					<div className="container">
 						<div className="grid grid-cols-12 gap-8 mb-8">
 							{Data?.SideBar && (
-								<div className="order-2 col-span-12 md:col-span-3 md:order-1">
+								<div className="order-2 p-2  col-span-12 md:col-span-3 md:order-1">
 									<HomeSidebar />
 								</div>
 							)}

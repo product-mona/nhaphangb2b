@@ -36,7 +36,7 @@ const Index: TNextPageWithLayout = () => {
 	return (
 		<>
 			<MetaTags data={Data} dataConfig={dataConfig} />
-			<div className="col-span-2">
+			<div className="col-span-2 fontFamilyRoboto">
 				<HomeBreadcrumb currentRoute={Data} />
 				<div className="container min-h-[60vh]">
 					<div className="grid grid-cols-12 gap-8 mb-8">
@@ -44,7 +44,7 @@ const Index: TNextPageWithLayout = () => {
 							<HomeSidebar />
 						</div>
 						<div className="order-1 col-span-12 lg:col-span-9">
-							<h1 className="font-bold uppercase text-center">{Data?.Name}</h1>
+							<h1 className="font-bold uppercase text-left mb-[27px] pl-[10px]">{Data?.Name}</h1>
 							<ContentItem
 								data={Data}
 								code={router?.query?.Code}

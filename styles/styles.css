@@ -1,10 +1,8 @@
 body {
-  /* font-family: Roboto, sans-serif !important; */
-  font-family: "SF Pro Display";
+  font-family: "SF Pro Display" !important;
   letter-spacing: 0.02em;
-  /* font-family: "Inter", sans-serif !important; */
 }
-.homeindex {
+.fontFamilyRoboto {
     font-family: Roboto, sans-serif !important;
 }
 

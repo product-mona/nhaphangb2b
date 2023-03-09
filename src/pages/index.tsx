@@ -60,7 +60,7 @@ const Index: TNextPageWithLayout = () => {
 	return (
 		<>
 			<MetaTags dataConfig={dataConfig} />
-			<div className="homeindex">
+			<div className="fontFamilyRoboto">
 				<div className="col-span-2">
 					<HomeBanner data={dataConfig} />
 					<HomeServices data={dataService} />

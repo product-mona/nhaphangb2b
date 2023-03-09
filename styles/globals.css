@@ -112,8 +112,8 @@
 }
 
 .container {
-  width: 1200px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1230px;
   padding-left: 15px;
   padding-right: 15px;
   margin: 0 auto;
@@ -144,7 +144,7 @@ body.ant-scrolling-effect {
   overflow: auto !important;
 }
 
-@media screen and (max-width: 1280px) {
+/* @media screen and (max-width: 1280px) {
   .container {
     width: 1024px !important;
   }
@@ -154,12 +154,12 @@ body.ant-scrolling-effect {
   .container {
     width: 860px !important;
   }
-}
+} */
 
 @media screen and (max-width: 860px) {
-  .container {
+  /* .container {
     width: 680px !important;
-  }
+  } */
   .mainDes {
     font-size: 14px !important;
   }

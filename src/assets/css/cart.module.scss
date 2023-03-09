@@ -201,9 +201,7 @@
     @apply md:text-sm text-xs transition;
   }
 
-  .divide {
-    @apply md:pt-6 sm:pt-4 pt-2;
-  }
+ 
 
   .footer {
     @apply grid grid-cols-2 md:gap-4 gap-2;
