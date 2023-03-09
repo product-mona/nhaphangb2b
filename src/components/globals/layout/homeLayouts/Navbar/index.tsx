@@ -46,7 +46,7 @@ const Navbar = ({ dataConfig, dataMenu }) => {
 
 	return (
 		<React.Fragment>
-			<div className={styles.mobileHidden}>
+			<div className={`${styles.mobileHidden} fontFamilyRoboto`}>
 				<ul className={styles.MenuList}>
 					<li
 						key={'trang-chu'}

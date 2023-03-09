@@ -1,11 +1,11 @@
 import { Checkbox, Collapse, Spin, Tooltip } from 'antd'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import { orderShopTemp, orderTemp } from '~/api'
-import { ActionButton } from '~/components'
+import { ActionButton, Button } from '~/components'
 import { IconButton } from '~/components/globals/button/IconButton'
 import { showToast, toast } from '~/components/toast'
 import { setSelectedShopIds, useAppDispatch } from '~/store'
@@ -54,21 +54,28 @@ const TopContainer = ({ checked, toggleShopId, cart, onHandleShop, loading, disa
 export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggleShopId, checked, refetchCart }) => {
 	const [loading, setLoading] = useState(false)
 	const [loadingPayment, setLoadingPayment] = useState(false)
-	const { getValues, setValue } = useForm<{
-		IsPacked: boolean
-		IsFastDelivery: boolean
-		IsInsurance: boolean
-		IsCheckProduct: boolean
-	}>({
-		mode: 'onBlur',
-		defaultValues: {
-			IsPacked: cart?.IsPacked,
-			IsFastDelivery: cart?.IsFastDelivery,
-			IsInsurance: cart?.IsInsurance,
-			IsCheckProduct: cart?.IsCheckProduct
-		}
+	// const { getValues, setValue,reset,watch,handleSubmit } = useForm<{
+	// 	IsPacked: boolean
+	// 	IsFastDelivery: boolean
+	// 	IsInsurance: boolean
+	// 	IsCheckProduct: boolean
+	// 	shopCartList: TUserCartOrderShopTemp
+	// }>({
+	// 	mode: 'onBlur',
+	// 	defaultValues: {
+	// 		IsPacked: false, //cart?.IsPacked,
+	// 		IsFastDelivery: false, //cart?.IsFastDelivery,
+	// 		IsInsurance: false,//cart?.IsInsurance,
+	// 		IsCheckProduct: false, //cart?.IsCheckProduct
+	// 	}
+	// })
+	const { getValues, setValue, reset, watch, formState, handleSubmit } = useForm<TUserCartOrderShopTemp>({
+		defaultValues: {}
 	})
-
+	const allFormState = watch()
+	useEffect(() => {
+		reset(cart)
+	}, [cart])
 	const mutationDeleteShop = useMutation(orderShopTemp.delete, {
 		onSuccess: (_, id) => {
 			toast.success('Xoá cửa hàng thành công')
@@ -165,7 +172,7 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 					key={1}
 					showArrow={false}
 				>
-					{cart?.OrderTemps.map((orderTempData, index) => (
+					{allFormState?.OrderTemps?.map((orderTempData, index) => (
 						<Spin
 							key={orderTempData?.Id}
 							spinning={
@@ -184,12 +191,19 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 												Id: orderTempData?.Id,
 												Quantity: 0
 											}),
-										updateProduct: (Quantity, Brand) =>
+										updateProduct: (Quantity, Brand) => {
+											console.log(cart)
+											console.log('upodate', {
+												Id: orderTempData?.Id, //id này là id của sản phẩm
+												Quantity,
+												Brand
+											})
 											onHandleProduct('update', {
 												Id: orderTempData?.Id,
 												Quantity,
 												Brand
 											})
+										}
 									}}
 								/>
 							</div>
@@ -197,7 +211,7 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 					))}
 				</Collapse.Panel>
 			</Collapse>
-			<div className="divide">
+			<div className="">
 				<div className="footer grid col-span-2">
 					<div className="left col-span-1">
 						<div className="flex items-center">
@@ -235,48 +249,28 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 						</div>
 					</div>
 					<div className="mid col-span-1">
-						{/* <div className="leftTitle">Tổng tiền đơn hàng</div> */}
 						<div>
 							<div className="totalPrice">
-								<span className="totalPriceLeft">
-									{/* <i className="fas fa-sack-dollar"></i> */}
-									Tổng tiền:
-								</span>
-								<span className="totalPriceRight">{_format.getVND(cart?.PriceVND)}</span>
+								<span className="totalPriceLeft">Tổng tiền (VNĐ):</span>
+								<span className="totalPriceRight">{_format.getVND(cart?.PriceVND, '')}</span>
 							</div>
-							{/* <div className="totalPrice">
-                <span className="totalPriceLeft">Tổng tính:</span>
-                <span className="totalPriceRight">
-                  {_format.getVND(cart?.PriceVND)}
-                </span>
-              </div> */}
+
 							<div className="totalPrice">
-								<span className="totalPriceLeft">
-									{/* <i className="fas fa-bags-shopping"></i> */}
-									Tổng sản phẩm:
-								</span>
+								<span className="totalPriceLeft">Tổng sản phẩm:</span>
 								<span className="totalPriceRight">{cart?.Quantity}</span>
 							</div>
 						</div>
 					</div>
-					{/* <div className="col-span-1 flex items-end justify-end">
-            <div className="text-right">
-              <IconButton
-                onClick={onPayment}
-                icon={
-                  loadingPayment
-                    ? "fas fa-spinner fa-spin"
-                    : "fas fa-bags-shopping"
-                }
-                title="Tiếp tục đặt hàng"
-                showLoading
-                btnClass="ml-2 !bg-orange !text-white"
-                disabled={loadingPayment}
-                toolip=""
-              />
-            </div>
-          </div> */}
 				</div>
+			</div>
+			<div className="flex justify-end">
+				<Button
+					title="Cập nhật"
+					onClick={() => {
+						console.log(allFormState)
+					}}
+					btnClass="!bg-[#0c5963] rounded-[8px]"
+				/>
 			</div>
 		</div>
 	)
