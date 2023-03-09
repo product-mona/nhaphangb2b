@@ -1,51 +1,61 @@
-import React from "react";
-import {Editor} from "@tinymce/tinymce-react";
-import {Control, Controller, FieldValues, Path, RegisterOptions} from "react-hook-form";
-import {ErrorMessage} from "@hookform/error-message";
-
+import React from 'react'
+import { Editor } from '@tinymce/tinymce-react'
+import { Control, Controller, FieldValues, Path, RegisterOptions } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
+const initSecond = {
+	height: 500,
+	menubar: true,
+	plugins:
+		'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table paste directionality code help wordcount',
+	toolbar:
+		'undo redo |  image | fontSize | bold italic underline | alignleft aligncenter ' +
+		'alignright alignjustforecolorify | bullist numlist outdent indent | ltr rtl ' +
+		'removeformat | help',
+	content_style: 'body { font-family:Times New Roman,Times,sans-serif; font-size:10pt }'
+}
 const init = {
 	height: 600,
 	menubar: true,
 	plugins: [
-		"advlist autolink lists link image charmap print preview anchor",
-		"searchreplace visualblocks code fullscreen",
-		"insertdatetime media table paste code help wordcount",
+		'advlist autolink lists link image charmap print preview anchor',
+		'searchreplace visualblocks code fullscreen',
+		'insertdatetime media table paste code help wordcount'
 	],
 	toolbar:
-		"formatselect | " +
-		"bold italic forecolor backcolor | alignleft aligncenter " +
-		"alignright alignjustify | bullist numlist outdent indent | " +
-		"removeformat | help",
-	content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+		'formatselect | ' +
+		'bold italic forecolor backcolor | alignleft aligncenter ' +
+		'alignright alignjustify | bullist numlist outdent indent | ' +
+		'removeformat | help',
+	content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
 	setup: function (ed) {
-		ed.on("keydown", function (event) {
+		ed.on('keydown', function (event) {
 			if (event.keyCode == 9) {
-				event.preventDefault();
+				event.preventDefault()
 				if (event.shiftKey) {
-					ed.execCommand("Outdent");
+					ed.execCommand('Outdent')
 				} else {
-					ed.execCommand("Indent");
+					ed.execCommand('Indent')
 				}
-				return false;
+				return false
 			}
-		});
-	},
-};
+		})
+	}
+}
 
 type TProps<TFieldValues> = {
-	required?: boolean;
-	name: Path<TFieldValues>;
-	label: string;
-	rules?: RegisterOptions;
-	control: Control<TFieldValues, object>;
-};
+	required?: boolean
+	name: Path<TFieldValues>
+	label: string
+	rules?: RegisterOptions
+	control: Control<TFieldValues, object>
+}
 
 export const FormEditor = <TFieldValues extends FieldValues = FieldValues>({
 	control,
 	label,
 	name,
 	required = true,
-	rules,
+	rules
 }: TProps<TFieldValues>) => {
 	return (
 		<React.Fragment>
@@ -55,17 +65,17 @@ export const FormEditor = <TFieldValues extends FieldValues = FieldValues>({
 			<Controller
 				control={control}
 				name={name}
-				rules={rules}
-				render={({field: {onChange, ...newField}, formState: {errors}}) => (
+				// rules={rules}
+				render={({ field: { onChange, ...newField }, formState: { errors } }) => (
 					<div>
 						<Editor
 							id={name}
-							apiKey={"iac8cfkdevssbiceknww2kkrpmblwb0ywmzork74l3kg1tlc"}
+							apiKey={'iac8cfkdevssbiceknww2kkrpmblwb0ywmzork74l3kg1tlc'}
 							init={{
-								...init,
+								...initSecond,
 								// content_style: "div { border: 5px solid red }",
-								language: "vi",
-								language_url: "/langs/vi.js",
+								language: 'vi',
+								language_url: '/langs/vi.js'
 							}}
 							onEditorChange={onChange}
 							{...newField}
@@ -73,11 +83,11 @@ export const FormEditor = <TFieldValues extends FieldValues = FieldValues>({
 						<ErrorMessage
 							errors={errors}
 							name={name as any}
-							render={({message}) => <p className="text-warning text-xs font-medium mt-1">{message}</p>}
+							render={({ message }) => <p className="text-warning text-xs font-medium mt-1">{message}</p>}
 						/>
 					</div>
 				)}
 			/>
 		</React.Fragment>
-	);
-};
+	)
+}
