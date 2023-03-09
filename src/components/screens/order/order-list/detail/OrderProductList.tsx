@@ -1,3 +1,4 @@
+import { Typography } from 'antd'
 import router from 'next/router'
 import React, { useState } from 'react'
 import { useMutation } from 'react-query'
@@ -42,39 +43,17 @@ export const OrderProductList: React.FC<TProps> = ({ dataOrderShop, loading, ref
 		localStorage.removeItem('changeProduct')
 	}
 
-	const onExportExcel = async () => {
-		// try {
-		// 	const res = await order.exportExcel({
-		// 		MainOrderID: data?.Id
-		// 	})
-		// 	router.push(`${res.Data}`)
-		// } catch (error) {
-		// 	toast.error(error)
-		// }
-	}
-
 	return (
 		<React.Fragment>
 			<div className="orderProductItem  flex justify-between items-center">
 				<div className="flex flex-col">
-					<span className="font-bold">Tổng số lượng: dang cap nhat </span>
-					<span className="font-bold">
-						Tổng tiền sản phẩm: dang cap nhat
-						{/* {_format.getVND(data?.PriceVND)} */}
-					</span>
-				</div>
-				<div>
-					{(RoleID === 1 || RoleID === 3 || RoleID === 4) && (
-						<IconButton
-							onClick={() => onExportExcel()}
-							title="Xuất"
-							icon="fas fa-file-export"
-							showLoading
-							toolip="Xuất thống kê"
-							green
-							btnClass="ml-4"
-						/>
-					)}
+					<Typography.Text className="">
+						Tổng số lượng: <span className="text-lg font-semibold text-[#F5851E]">{dataOrderShop.TotalItem}</span>
+					</Typography.Text>
+					<Typography.Text className="">
+						Tổng tiền sản phẩm:{' '}
+						<span className="text-lg font-semibold text-[#2686ED]">{_format.getVND(dataOrderShop?.PriceVND)}</span>{' '}
+					</Typography.Text>
 				</div>
 			</div>
 			<div className="max-h-[700px] overflow-y-auto">
