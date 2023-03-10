@@ -37,7 +37,7 @@ const ItemProduct = ({ orderTemp, index, maxLength }) => {
 				<div className="flex xl:w-8/12 items-center">
 					<div className="flex">
 						<div className="self-stretch flex items-center">
-							<div className="w-[20px] h-[20px] text-center rounded-full text-orange border">{++index}</div>
+							<div className="w-[20px] h-[20px] text-center rounded-full text-orange border">{index + 1}</div>
 						</div>
 						<div className="w-[75px] h-[75px] border border-[#6969691a] ml-4 rounded-xl overflow-hidden">
 							<a href={orderTemp?.LinkOrigin} target="_blank">

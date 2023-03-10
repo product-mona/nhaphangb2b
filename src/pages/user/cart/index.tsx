@@ -75,7 +75,6 @@ const Index: TNextPageWithLayout = () => {
 					OrderTemps: parseOrderTemps
 				}
 			})
-
 			setCurrentCart(newCart)
 		},
 		onError: (error) => {
@@ -87,6 +86,7 @@ const Index: TNextPageWithLayout = () => {
 		},
 		enabled: !!UserId,
 		retry: false
+		// refetchOnWindowFocus: false
 	})
 
 	const toggleAllShopId = () => {

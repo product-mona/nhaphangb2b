@@ -1,8 +1,8 @@
-import { Checkbox, Collapse, Spin, Tooltip } from 'antd'
+import { Checkbox, Collapse, Spin, Tooltip, Typography, Button as AntButton } from 'antd'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import { orderShopTemp, orderTemp } from '~/api'
 import { ActionButton, Button } from '~/components'
@@ -10,6 +10,7 @@ import { IconButton } from '~/components/globals/button/IconButton'
 import { showToast, toast } from '~/components/toast'
 import { setSelectedShopIds, useAppDispatch } from '~/store'
 import { _format } from '~/utils'
+import styles from './CartOrderItem.module.css'
 import { CheckboxCustom } from './block'
 import { OrderTempItem } from './OrderTempItem'
 
@@ -69,12 +70,12 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 	// 		IsCheckProduct: false, //cart?.IsCheckProduct
 	// 	}
 	// })
-	const { getValues, setValue, reset, watch, formState, handleSubmit } = useForm<TUserCartOrderShopTemp>({
+	const methods = useForm<TUserCartOrderShopTemp>({
 		defaultValues: {}
 	})
-	const allFormState = watch()
+	const allFormState = methods.watch()
 	useEffect(() => {
-		reset(cart)
+		methods.reset(cart)
 	}, [cart])
 	const mutationDeleteShop = useMutation(orderShopTemp.delete, {
 		onSuccess: (_, id) => {
@@ -87,7 +88,6 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 			toast.error
 		}
 	})
-
 	const mutationUpdateProduct = useMutation(orderTemp.updateField, {
 		onSuccess: (data, params) => {
 			toast.success('Cập nhật sản phẩm thành công')
@@ -103,16 +103,22 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 		},
 		onError: toast.error
 	})
-
+	const mutationUpdateByShop = useMutation(orderTemp.updateByShop, {
+		onSuccess: (res) => {
+			toast.success('Cập nhật giỏ hàng thành công')
+			refetchCart()
+		},
+		onError: toast.error
+	})
 	const onPayment = () => {
 		setLoading(true)
 		orderShopTemp
 			.updateField({
 				...cart,
-				IsPacked: getValues('IsPacked'),
-				IsFastDelivery: getValues('IsFastDelivery'),
-				IsInsurance: getValues('IsInsurance'),
-				IsCheckProduct: getValues('IsCheckProduct')
+				IsPacked: methods.getValues('IsPacked'),
+				IsFastDelivery: methods.getValues('IsFastDelivery'),
+				IsInsurance: methods.getValues('IsInsurance'),
+				IsCheckProduct: methods.getValues('IsCheckProduct')
 			})
 			.then(() => {
 				// dispatch(setSelectedShopIds([cart?.Id]));
@@ -125,7 +131,7 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 	}
 
 	const onChangeCheckbox = async (e: CheckboxChangeEvent, type: 'IsPacked' | 'IsFastDelivery' | 'IsInsurance' | 'IsCheckProduct') => {
-		setValue(type, e.target.checked)
+		methods.setValue(type, e.target.checked)
 		onPayment()
 	}
 
@@ -149,129 +155,203 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 		setLoading(true)
 		mutationDeleteShop.mutateAsync(id)
 	}
-
+	const onSubmit = (data: any) => {
+		console.log('onSubmit', data)
+	}
 	return (
-		<div
-			className="cartOrderItemContainer tableBox py-3"
-			style={{
-				pointerEvents: loading ? 'none' : 'all'
-			}}
-		>
-			<Collapse defaultActiveKey={1} collapsible="header" className="collapse-cart-order-item">
-				<Collapse.Panel
-					header={
-						<TopContainer
-							checked={checked}
-							toggleShopId={toggleShopId}
-							cart={cart}
-							onHandleShop={onHandleShop}
-							loading={loading}
-							disabled={loadingPayment}
-						/>
-					}
-					key={1}
-					showArrow={false}
-				>
-					{allFormState?.OrderTemps?.map((orderTempData, index) => (
-						<Spin
-							key={orderTempData?.Id}
-							spinning={
-								(mutationDeleteProduct.isLoading || mutationUpdateProduct.isLoading) &&
-								mutationUpdateProduct.variables?.Id === orderTempData?.Id
-							}
-						>
-							<div key={orderTempData?.Id}>
-								<OrderTempItem
-									{...{
-										orderTempData,
-										index,
-										isLoading: mutationDeleteProduct.isLoading || mutationUpdateProduct.isLoading,
-										deleteProduct: () =>
-											onHandleProduct('delete', {
-												Id: orderTempData?.Id,
-												Quantity: 0
-											}),
-										updateProduct: (Quantity, Brand) => {
-											console.log(cart)
-											console.log('upodate', {
-												Id: orderTempData?.Id, //id này là id của sản phẩm
-												Quantity,
-												Brand
-											})
-											onHandleProduct('update', {
-												Id: orderTempData?.Id,
-												Quantity,
-												Brand
-											})
-										}
-									}}
-								/>
-							</div>
-						</Spin>
-					))}
-				</Collapse.Panel>
-			</Collapse>
-			<div className="">
-				<div className="footer grid col-span-2">
-					<div className="left col-span-1">
-						<div className="flex items-center">
-							<div className="leftTitle">Dịch vụ kèm theo</div>
-						</div>
-						<div className="flex">
-							<div className="col-span-1">
-								<CheckboxCustom
-									defaultChecked={cart?.IsFastDelivery}
-									onChange={(e) => onChangeCheckbox(e, 'IsFastDelivery')}
-									label="Giao tận nhà"
-								/>
-							</div>
-							<div className="col-span-1">
-								<CheckboxCustom
-									defaultChecked={cart?.IsCheckProduct}
-									onChange={(e) => onChangeCheckbox(e, 'IsCheckProduct')}
-									label="Kiểm hàng"
-								/>
-							</div>
-							<div className="col-span-1">
-								<CheckboxCustom
-									defaultChecked={cart?.IsPacked}
-									onChange={(e) => onChangeCheckbox(e, 'IsPacked')}
-									label="Đóng gỗ"
-								/>
-							</div>
-							<div className="col-span-1">
-								<CheckboxCustom
-									defaultChecked={cart?.IsInsurance}
-									onChange={(e) => onChangeCheckbox(e, 'IsInsurance')}
-									label="Bảo hiểm"
-								/>
-							</div>
-						</div>
-					</div>
-					<div className="mid col-span-1">
-						<div>
-							<div className="totalPrice">
-								<span className="totalPriceLeft">Tổng tiền (VNĐ):</span>
-								<span className="totalPriceRight">{_format.getVND(cart?.PriceVND, '')}</span>
-							</div>
-
-							<div className="totalPrice">
-								<span className="totalPriceLeft">Tổng sản phẩm:</span>
-								<span className="totalPriceRight">{cart?.Quantity}</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className="flex justify-end">
-				<Button
-					title="Cập nhật"
-					onClick={() => {
-						console.log(allFormState)
+		<FormProvider {...methods}>
+			<form onSubmit={methods.handleSubmit(onSubmit)}>
+				<div
+					className="cartOrderItemContainer tableBox py-3"
+					style={{
+						pointerEvents: loading ? 'none' : 'all'
 					}}
-					btnClass="!bg-[#0c5963] rounded-[8px]"
-				/>
-			</div>
-		</div>
+				>
+					<Collapse defaultActiveKey={1} collapsible="header" className="collapse-cart-order-item">
+						<Collapse.Panel
+							header={
+								<TopContainer
+									checked={checked}
+									toggleShopId={toggleShopId}
+									cart={cart}
+									onHandleShop={onHandleShop}
+									loading={loading}
+									disabled={loadingPayment}
+								/>
+							}
+							key={1}
+							showArrow={false}
+						>
+							{allFormState?.OrderTemps?.map((orderTempData, index) => (
+								<Spin
+									key={orderTempData?.Id}
+									spinning={
+										(mutationDeleteProduct.isLoading || mutationUpdateProduct.isLoading) &&
+										mutationUpdateProduct.variables?.Id === orderTempData?.Id
+									}
+								>
+									<div key={orderTempData?.Id}>
+										<OrderTempItem
+											{...{
+												orderTempData,
+												index,
+												isLoading: mutationDeleteProduct.isLoading || mutationUpdateProduct.isLoading,
+												deleteProduct: () =>
+													onHandleProduct('delete', {
+														Id: orderTempData?.Id,
+														Quantity: 0
+													}),
+												updateProduct: (Quantity, Brand) => {
+													console.log(cart)
+													console.log('upodate', {
+														Id: orderTempData?.Id, //id này là id của sản phẩm
+														Quantity,
+														Brand
+													})
+													onHandleProduct('update', {
+														Id: orderTempData?.Id,
+														Quantity,
+														Brand
+													})
+												}
+											}}
+										/>
+									</div>
+								</Spin>
+							))}
+						</Collapse.Panel>
+					</Collapse>
+					<div className="">
+						<div className="footer grid col-span-2">
+							<div className="left col-span-1">
+								<div className="flex items-center">
+									<div className="leftTitle">Dịch vụ kèm theo</div>
+								</div>
+								<div className="flex">
+									<div className="col-span-1">
+										<CheckboxCustom
+											defaultChecked={cart?.IsFastDelivery}
+											onChange={(e) => onChangeCheckbox(e, 'IsFastDelivery')}
+											label="Giao tận nhà"
+										/>
+									</div>
+									<div className="col-span-1">
+										<CheckboxCustom
+											defaultChecked={cart?.IsCheckProduct}
+											onChange={(e) => onChangeCheckbox(e, 'IsCheckProduct')}
+											label="Kiểm hàng"
+										/>
+									</div>
+									<div className="col-span-1">
+										<CheckboxCustom
+											defaultChecked={cart?.IsPacked}
+											onChange={(e) => onChangeCheckbox(e, 'IsPacked')}
+											label="Đóng gỗ"
+										/>
+									</div>
+									<div className="col-span-1">
+										<CheckboxCustom
+											defaultChecked={cart?.IsInsurance}
+											onChange={(e) => onChangeCheckbox(e, 'IsInsurance')}
+											label="Bảo hiểm"
+										/>
+									</div>
+								</div>
+							</div>
+							<div className="mid col-span-1">
+								<div>
+									<div className="totalPrice">
+										<span className="totalPriceLeft">Tổng tiền (VNĐ):</span>
+										<span className="totalPriceRight">{_format.getVND(cart?.PriceVND, '')}</span>
+									</div>
+
+									<div className="totalPrice">
+										<span className="totalPriceLeft">Tổng sản phẩm:</span>
+										<span className="totalPriceRight">{cart?.Quantity}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{methods.formState.isDirty ? (
+						<div className="flex justify-center items-center sticky  bottom-[8px]">
+							<div className={styles.snackBar}>
+								<div>
+									<p className={styles.snackBarLabel}>Bạn vừa cập nhật giỏ hàng của shop này. Hãy lưu lại</p>
+								</div>
+								<div className="flex">
+									<Tooltip title="Hoàn tác">
+										<button
+											style={{
+												fill: '#FFF'
+											}}
+											onClick={() => {
+												methods.reset()
+											}}
+										>
+											<svg
+												focusable="false"
+												aria-hidden="true"
+												viewBox="0 0 24 24"
+												data-testid="CloseIcon"
+												width={18}
+												height={18}
+											>
+												<path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+											</svg>
+										</button>
+									</Tooltip>
+									<button
+										className={styles.snackBarSubmitBtn}
+										onClick={() => {
+											const fmData = {
+												orderShopId: allFormState.Id,
+												orders: allFormState.OrderTemps.map((vl) => {
+													return {
+														id: vl.Id,
+														quantity: vl.Quantity,
+														brand: vl.Brand
+													}
+												})
+											}
+											mutationUpdateByShop.mutateAsync(fmData)
+										}}
+									>
+										CẬP NHẬT
+									</button>
+									{/* <Button
+										title="Hoàn tác"
+										onClick={() => {
+											methods.reset()
+										}}
+										disabled={!methods.formState.isDirty}
+										btnClass="bg-[#f14f04] rounded-[8px]"
+									/>
+									<Button
+										title="Cập nhật"
+										onClick={() => {
+											const fmData = {
+												orderShopId: allFormState.Id,
+												orders: allFormState.OrderTemps.map((vl) => {
+													return {
+														id: vl.Id,
+														quantity: vl.Quantity,
+														brand: vl.Brand
+													}
+												})
+											}
+											mutationUpdateByShop.mutateAsync(fmData)
+											// console.log(fmData)
+										}}
+										disabled={!methods.formState.isDirty}
+										btnClass="bg-[#f14f04] rounded-[8px]"
+									/> */}
+								</div>
+							</div>
+						</div>
+					) : null}
+				</div>
+			</form>
+		</FormProvider>
 	)
 }

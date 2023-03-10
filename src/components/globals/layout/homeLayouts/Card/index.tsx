@@ -22,7 +22,7 @@ export const HomeCard: React.FC<TProps> = ({ data }) => {
 
 	return (
 		<>
-			{/* <Swiper
+			<Swiper
 				navigation={true}
 				modules={[Grid, Navigation]}
 				className={`mySwiper homeCard`}
@@ -48,7 +48,6 @@ export const HomeCard: React.FC<TProps> = ({ data }) => {
 						(item) =>
 							item?.Active === true && (
 								<SwiperSlide key={item?.Code}>
-								
 									<a
 										onClick={() =>
 											router.push({
@@ -59,13 +58,12 @@ export const HomeCard: React.FC<TProps> = ({ data }) => {
 									>
 										<CartItem {...item} />
 									</a>
-							
 								</SwiperSlide>
 							)
 					)}
 				{data?.filter((item) => item.Active === true)?.length > 3 && <div className={count}>{cur}</div>}
-			</Swiper> */}
-			<div className="">
+			</Swiper>
+			{/* <div className="">
 				{data
 					?.filter((item) => item.Active === true)
 					?.map(
@@ -80,20 +78,13 @@ export const HomeCard: React.FC<TProps> = ({ data }) => {
 										})
 									}
 								>
-									{/* <a
-										onClick={() =>
-											router.push({
-												pathname: '/chuyen-muc/detail',
-												query: { code: item?.Code }
-											})
-										}
-									> */}
+									
 									<CardNavForNews {...item} />
-									{/* </a> */}
+								
 								</div>
 							)
 					)}
-			</div>
+			</div> */}
 		</>
 	)
 }

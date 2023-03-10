@@ -1,20 +1,23 @@
-import { Skeleton, Tag } from 'antd';
-import React from 'react';
-import { ActionButton } from '~/components';
-import { DataTable } from '~/components/globals/table';
-import { smallPackageStatusData } from '~/configs/appConfigs';
-import { TColumnsType, TTable } from '~/types/table';
-import { _format } from '~/utils';
+import { Skeleton, Tag } from 'antd'
+import React from 'react'
+import { ActionButton } from '~/components'
+import { DataTable } from '~/components/globals/table'
+import { smallPackageStatusData } from '~/configs/appConfigs'
+import { TColumnsType, TTable } from '~/types/table'
+import { _format } from '~/utils'
 
-export const PackageManagementFormTable: React.FC<
-	TTable<TSmallPackage> & { namePackage: string }
-> & {} = ({ data, handleModal, namePackage, loading }) => {
+export const PackageManagementFormTable: React.FC<TTable<TSmallPackage> & { namePackage: string }> & {} = ({
+	data,
+	handleModal,
+	namePackage,
+	loading
+}) => {
 	const columns: TColumnsType<TSmallPackage> = [
 		{
 			dataIndex: 'Id',
 			align: 'center',
 			title: 'STT',
-			render: (_, __, index) => ++index
+			render: (_, __, index) => index + 1
 		},
 		{
 			dataIndex: 'Created',
@@ -73,16 +76,10 @@ export const PackageManagementFormTable: React.FC<
 			dataIndex: 'action',
 			align: 'right',
 			title: 'Thao tác',
-			render: (_, record) => (
-				<ActionButton
-					onClick={() => handleModal(record)}
-					icon="fas fa-edit"
-					title="Cập nhật"
-				/>
-			),
+			render: (_, record) => <ActionButton onClick={() => handleModal(record)} icon="fas fa-edit" title="Cập nhật" />,
 			responsive: ['xl']
 		}
-	];
+	]
 
 	const expandable = {
 		expandedRowRender: (record) => (
@@ -113,35 +110,20 @@ export const PackageManagementFormTable: React.FC<
 				</li>
 				<li className="xl:hidden justify-between flex py-2">
 					<span className="font-medium mr-4">Thao tác:</span>
-					<ActionButton
-						onClick={() => handleModal(record)}
-						icon="fas fa-edit"
-						title="Cập nhật"
-					/>{' '}
+					<ActionButton onClick={() => handleModal(record)} icon="fas fa-edit" title="Cập nhật" />{' '}
 				</li>
 			</ul>
 		)
-	};
+	}
 
 	return (
 		<React.Fragment>
-			<Skeleton
-				loading={loading}
-				title={false}
-				active
-				paragraph={{ rows: 1, width: '100px' }}
-			>
+			<Skeleton loading={loading} title={false} active paragraph={{ rows: 1, width: '100px' }}>
 				<div className="bg-[#f8dfd5] text-[#f14f04] text-center px-[20px] py-[10px] rounded-xl text-sm font-bold uppercase inline-block mb-2">
 					{namePackage}
 				</div>
 			</Skeleton>
-			<DataTable
-				loading={loading}
-				data={data}
-				columns={columns}
-				bordered
-				expandable={expandable}
-			/>
+			<DataTable loading={loading} data={data} columns={columns} bordered expandable={expandable} />
 		</React.Fragment>
-	);
-};
+	)
+}
