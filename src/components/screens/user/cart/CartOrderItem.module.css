@@ -1,0 +1,28 @@
+.snackBar {
+    background-color: rgb(50, 50, 50);  
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 16px;
+    border-radius: 6px;
+    gap: 60px;
+    /* width: 100%; */
+}
+
+.snackBarLabel {
+    color: #FFF;
+    line-height: 1.43;
+    padding: 8px 0;
+}
+
+.snackBarSubmitBtn {
+    margin-left: 8px;
+    /* background-color: #f14f04;
+    color: #FFF; */
+    color: #f14f04;
+    font-weight: bold;
+}
+.snackBarCloseBtn  {
+    fill:#FFF
+}
