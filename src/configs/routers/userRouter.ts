@@ -29,15 +29,15 @@ export const userRouter = [
 				childrens: [
 					{
 						path: '/user/order-list',
-						name: 'Đơn mua hộ'
+						name: 'Đơn hàng trọn gói'
 					},
 					{
 						path: '/user/order-list?q=3',
-						name: 'Đơn mua hộ khác'
+						name: 'Đơn hàng dịch vụ'
 					},
 					{
 						path: '/user/create-order',
-						name: 'Tạo đơn mua hộ khác'
+						name: 'Tạo đơn hàng dịch vụ mới'
 					}
 				]
 			}

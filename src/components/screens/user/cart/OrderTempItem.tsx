@@ -51,12 +51,15 @@ export const OrderTempItem: React.FC<TProps> = ({ index, orderTempData, updatePr
 		>
 			<div className="flex flex-wrap  lg:justify-between">
 				<div className="flex w-full items-center mb-5 justify-between px-3 borderBottom">
-					<Tooltip title="Link đến sản phẩm">
+					<Tooltip title="Link đến sản phẩm" placement="topLeft">
 						<a href={orderTempData?.LinkOrigin} target="_blank" className="mainTitle">
-							{orderTempData?.LinkOrigin.replace('?', '.')}
-							{/* link */}
+							<p className="truncate max-w-[300px] hover:text-[#006BA0]">
+								{/* {orderTempData?.LinkOrigin.replace('?', '.')} */}
+								{orderTempData?.ItemId}
+							</p>
 						</a>
 					</Tooltip>
+
 					<div className="flex items-center">
 						{/* <ActionButton
 							iconContainerClassName="border-none"

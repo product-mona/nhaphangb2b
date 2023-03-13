@@ -1,6 +1,7 @@
 .regisWrap {
   padding: 60px 0;
   background-image: url(/register.png);
+
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -103,7 +104,8 @@
   height: 60px;
   border-radius: 100%;
   margin: auto;
-  background-color: #4e8c1c;
+  /* background-color: #4e8c1c2a; */
+  /* background-color: #4e8c1c; */
 }
 
 .boxRight img {
