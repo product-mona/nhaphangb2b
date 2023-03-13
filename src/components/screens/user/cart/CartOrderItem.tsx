@@ -277,75 +277,53 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 						<div className="flex justify-center items-center sticky  bottom-[8px]">
 							<div className={styles.snackBar}>
 								<div>
-									<p className={styles.snackBarLabel}>Bạn vừa cập nhật giỏ hàng của shop này. Hãy lưu lại</p>
+									<p className={styles.snackBarLabel}>Bạn vừa thay đổi giỏ hàng của shop này. Hãy cập nhật</p>
 								</div>
 								<div className="flex">
+									<Tooltip title="Cập nhật giỏ hàng">
+										<button
+											className={styles.snackBarSubmitBtn}
+											onClick={() => {
+												const fmData = {
+													orderShopId: allFormState.Id,
+													orders: allFormState.OrderTemps.map((vl) => {
+														return {
+															id: vl.Id,
+															quantity: vl.Quantity,
+															brand: vl.Brand
+														}
+													})
+												}
+												mutationUpdateByShop.mutateAsync(fmData)
+											}}
+										>
+											CẬP NHẬT
+										</button>
+									</Tooltip>
 									<Tooltip title="Hoàn tác">
 										<button
 											style={{
-												fill: '#FFF'
+												fill: '#FFF',
+												stroke: '#FFF',
+												color: '#FFF'
 											}}
 											onClick={() => {
 												methods.reset()
 											}}
 										>
+											{/* <i className="fas fa-undo"></i> */}
 											<svg
 												focusable="false"
 												aria-hidden="true"
 												viewBox="0 0 24 24"
 												data-testid="CloseIcon"
-												width={18}
-												height={18}
+												width={20}
+												height={20}
 											>
 												<path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
 											</svg>
 										</button>
 									</Tooltip>
-									<button
-										className={styles.snackBarSubmitBtn}
-										onClick={() => {
-											const fmData = {
-												orderShopId: allFormState.Id,
-												orders: allFormState.OrderTemps.map((vl) => {
-													return {
-														id: vl.Id,
-														quantity: vl.Quantity,
-														brand: vl.Brand
-													}
-												})
-											}
-											mutationUpdateByShop.mutateAsync(fmData)
-										}}
-									>
-										CẬP NHẬT
-									</button>
-									{/* <Button
-										title="Hoàn tác"
-										onClick={() => {
-											methods.reset()
-										}}
-										disabled={!methods.formState.isDirty}
-										btnClass="bg-[#f14f04] rounded-[8px]"
-									/>
-									<Button
-										title="Cập nhật"
-										onClick={() => {
-											const fmData = {
-												orderShopId: allFormState.Id,
-												orders: allFormState.OrderTemps.map((vl) => {
-													return {
-														id: vl.Id,
-														quantity: vl.Quantity,
-														brand: vl.Brand
-													}
-												})
-											}
-											mutationUpdateByShop.mutateAsync(fmData)
-											// console.log(fmData)
-										}}
-										disabled={!methods.formState.isDirty}
-										btnClass="bg-[#f14f04] rounded-[8px]"
-									/> */}
 								</div>
 							</div>
 						</div>

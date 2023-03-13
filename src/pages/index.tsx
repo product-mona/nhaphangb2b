@@ -10,6 +10,7 @@ import { Experience } from '~/components/screens/home/experience'
 import { Partner } from '~/components/screens/home/partner'
 import { PopupNoti } from '~/components/screens/home/popupNoti'
 import { SEOConfigs } from '~/configs/SEOConfigs'
+import { CustomizeOnlyForB2b } from '~/components/screens/home/CustomizeOnlyForB2b'
 import { TNextPageWithLayout } from '~/types/layout'
 
 const Index: TNextPageWithLayout = () => {
@@ -67,8 +68,8 @@ const Index: TNextPageWithLayout = () => {
 					<HomeBenefit data={dataBenefits?.filter((item) => item.ItemType === 2)} />
 					{/* <Choosen data={dataBenefits?.filter((item) => item.ItemType === 1)} /> */}
 					{/* <Experience /> */}
-					<Customer />
-
+					{/* <Customer /> */}
+					<CustomizeOnlyForB2b />
 					<HomeRegister data={dataRegisterSteps} />
 					<Partner />
 					<HomeInfoContact data={dataConfig} />

@@ -28,11 +28,12 @@
 
 .form {
   position: fixed;
+  bottom: 16px;
+  /* top: 42%; */
+  right: 7%;
   background: #fafafa;
   border-radius: 10px;
   padding: 24px;
-  right: 7%;
-  top: 42%;
   max-width: 450px;
   border: 1px solid #4e8c1c;
   z-index: 999;
@@ -42,7 +43,9 @@
 .innerForm {
   @apply grid grid-cols-2 gap-4;
 }
-
+.innerForm textarea {
+  height: 150px
+}
 .InfoContact p {
   font-size: 16px;
   line-height: 24px;
@@ -58,24 +61,34 @@
   box-shadow: 0 10px 20px #0000001c;
   border: 1px solid #4e8c1c;
   border-radius: 4px !important;
+
 }
 
-.button {
+.boxAction {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+.smBtn {
   background: #4e8c1c;
-  margin-left: auto;
+  color: #fff;
   margin-top: 16px;
-  transition: all 0.3s ease-in-out;
+  padding: 8px 24px;
+  font-size: 16px;
   border-radius: 4px;
   box-shadow: 0px 10px 20px 0 #00000075;
+}
+.button {
+  background: #4e8c1c;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 16px;
+
 }
 
 .button a {
   font-weight: bold;
-  padding: 12px 16px;
-  font-size: 16px;
+  
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -84,10 +97,10 @@
   transition: all 0.3s ease-in-out;
 }
 
-.button:hover {
+/* .button:hover {
   box-shadow: 0px 10px 20px 0 transparent;
   transform: translateY(2px);
-}
+} */
 
 .button:hover a {
   color: #fff !important;
@@ -165,13 +178,13 @@
     position: relative;
   }
 
-  .form {
+  /* .form {
     position: absolute;
     top: 50%;
     right: 40px;
     transform: translateY(-50%);
     box-shadow: 0 0 10px 0 #00000059;
-  }
+  } */
 
   .innerContactDetail {
     flex-wrap: wrap;
@@ -190,6 +203,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  .innerForm textarea {
+    height: auto
   }
 }
 

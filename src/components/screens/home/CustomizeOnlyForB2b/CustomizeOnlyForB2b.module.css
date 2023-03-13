@@ -1,0 +1,30 @@
+.BoxCustomize {
+    background-color: #FFF;
+    padding: 60px;
+}
+.BoxCustomizeContent {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.BoxTitle {
+  /* margin-bottom: 40px; */
+}
+.Title {
+    font-weight: 700;
+    font-size: 40px !important;
+    line-height: 56px;
+    letter-spacing: 0.02em;
+    color: #4e8c1c;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+.BoxImage {
+    width: 65%;
+}

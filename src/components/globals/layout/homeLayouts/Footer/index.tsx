@@ -143,19 +143,17 @@ const Footer = ({ dataConfig, dataMenu }) => {
 							</div>
 							<div className={styles.contentFoot}>
 								{dataMenu?.map((item) => (
-									<div key={item.Name} className={styles.menuItem}>
-										<a
-											className={styles.colorD}
-											onClick={() =>
-												router.push({
-													pathname: '/chuyen-muc',
-													query: { code: item?.Code }
-												})
-											}
-										>
-											{item?.Name}
-										</a>
-									</div>
+									<Link
+										href={{
+											pathname: '/chuyen-muc',
+											query: { code: item?.Link }
+										}}
+										passHref
+									>
+										<div key={item.Name} className={styles.menuItem}>
+											<p className={styles.colorD}>{item?.Name}</p>
+										</div>
+									</Link>
 								))}
 							</div>
 						</div>
@@ -164,13 +162,11 @@ const Footer = ({ dataConfig, dataMenu }) => {
 								<p className="uppercase font-bold text-lg !mb-4 mb-5">Blog</p>
 							</div>
 							{blogList.map((blog) => (
-								<div className={`${styles.menuItem} !w-fit`} key={blog?.id}>
-									<Link href={`/chuyen-muc/detail/?code=${blog.code}`}>
-										<a target={'_blank'} className={styles.colorD}>
-											{blog?.title}
-										</a>
-									</Link>
-								</div>
+								<Link href={`/chuyen-muc/detail/?code=${blog.code}`}>
+									<div className={`${styles.menuItem} !w-fit`} key={blog?.id}>
+										<p className={styles.colorD}>{blog?.title}</p>
+									</div>
+								</Link>
 							))}
 							{/* {dataConfig?.FacebookFanpage && (
 								<div className="mt-4">
