@@ -1989,7 +1989,23 @@ export const orderStatus = [
 	{
 		id: -1,
 		name: 'Tất cả đơn',
-		col: 2,
+		col: 3,
+		money: null,
+		value: null
+	},
+	{
+		id: 102,
+		name: 'Chưa yêu cầu báo cọc',
+		color: '#6E6E6E',
+		col: 1,
+		money: null,
+		value: null
+	},
+	{
+		id: 101,
+		name: 'Chờ báo cọc',
+		color: 'cyan',
+		col: 1,
 		money: null,
 		value: null
 	},
@@ -2009,30 +2025,7 @@ export const orderStatus = [
 		money: null,
 		value: null
 	},
-	{
-		id: 101,
-		name: 'Chờ báo cọc',
-		color: 'cyan',
-		col: 1,
-		money: null,
-		value: null
-	},
-	{
-		id: 102,
-		name: 'Chưa yêu cầu báo cọc',
-		color: '#6E6E6E',
-		col: 1,
-		money: null,
-		value: null
-	},
-	{
-		id: 1,
-		name: 'Hủy',
-		color: '#000',
-		col: 1,
-		money: null,
-		value: null
-	},
+
 	{
 		id: 2,
 		name: 'Đã đặt cọc',
@@ -2082,13 +2075,21 @@ export const orderStatus = [
 		value: null
 	},
 	{
-		id: 11,
-		name: 'Đã khiếu nại',
-		color: '#601010',
+		id: 1,
+		name: 'Hủy',
+		color: '#000',
 		col: 1,
 		money: null,
 		value: null
 	}
+	// {
+	// 	id: 11,
+	// 	name: 'Đã khiếu nại',
+	// 	color: '#601010',
+	// 	col: 1,
+	// 	money: null,
+	// 	value: null
+	// }
 ]
 
 export const packageStatus = [

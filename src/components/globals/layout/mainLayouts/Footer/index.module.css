@@ -1,14 +1,19 @@
 .footer {
-
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	font-size: 12px;
-	padding: 16px 20px;
+	padding: 12px 20px;
 	color: #fff;
-	background-color: #056d7b;
-	border-top: 2px solid #92c2ca;
+	/* background-color: #056d7b; */
+	
 	transition: 0.3s;
 	z-index: 100;
-	width: calc(100% - 70px);
+	width: calc(100%);
+
+
+	/* padding: 36px; */
+    background-color: #008d4b	;
+    box-shadow: rgba(159, 162, 191, 0.18) 0px 9px 16px, rgba(159, 162, 191, 0.32) 0px 2px 2px;
+    overflow: hidden;
 }
