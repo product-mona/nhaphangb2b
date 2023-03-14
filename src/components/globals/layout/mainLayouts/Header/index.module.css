@@ -8,10 +8,14 @@
   align-items: center;
   z-index: 888;
   padding: 0 30px;
-  background-color: #0c5963;
-  box-shadow: 1px 10px 10px 10px #e6e3e30d;
-}
+  /* background-color: #0c5963; */
+  /* box-shadow: 1px 10px 10px 10px #e6e3e30d; */
+  background-color: #008d4b;
 
+}
+.headerManager {
+  box-shadow: rgba(164, 191, 159, 0.18) 0px 2px 3px, rgba(165, 191, 159, 0.32) 0px 1px 1px;
+}
 .menu {
   position: relative;
   height: 100%;
@@ -215,7 +219,8 @@
 }
 
 .actionInfo {
-  color: #3e3c6a;
+ 
+
   /* padding-left: 22px;
 	padding-right: 22px; */
   font-size: 14px;
@@ -250,7 +255,9 @@
 }
 
 .btnSwitchManager {
-  background-color: #fffcfcc7;
+  /* background-color: #fffcfcc7; */
+  background-color: #3ab54ac7;
+
   border-radius: 3px;
   padding: 10px;
   transition: all 0.3s ease-in-out;
@@ -280,9 +287,9 @@
 }
 
 .btnSwitchManager i {
-  @apply text-[#0c5964] items-center flex;
+  @apply text-[#FFF] items-center flex;
 }
 
 .btnSwitchManager span {
-  @apply text-[#0c5964] ml-2 font-bold leading-[initial];
+  @apply text-[#FFF] ml-2 font-bold leading-[initial];
 }

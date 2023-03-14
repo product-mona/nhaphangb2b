@@ -57,50 +57,6 @@ export const UserLayout: FC<{}> = ({ children }) => {
 								))}
 							</React.Fragment>
 						))}
-						{/* <Menu>
-							<Menu.SubMenu>
-								<Menu.Item>
-									<Link href={data?.data?.CocCocExtensionLink ?? "/"}>
-										<a target="_blank" className={styles.btnExt}>
-											<img src="/logo-coccoc.png" alt="" width={30} height={30} />
-											<span>Cốc Cốc</span>
-										</a>
-									</Link>
-								</Menu.Item>
-								<Menu.Item>
-									<Link href={data?.data?.ChromeExtensionLink ?? "/"}>
-										<a target="_blank" className={styles.btnExt}>
-											<img src="/logo-chrome.png" alt="" width={30} height={30} />
-											<span>Chrome</span>
-										</a>
-									</Link>
-								</Menu.Item>
-							</Menu.SubMenu>
-						</Menu> */}
-						{/* <Dropdown
-							overlay={
-								<Menu>
-									<Menu.Item>
-										<Link href={data?.data?.CocCocExtensionLink ?? "/"}>
-										<a target="_blank" className={styles.btnExt}>
-											<img src="/logo-coccoc.png" alt="" width={30} height={30} />
-											<span>Cốc Cốc</span>
-										</a>
-										</Link>
-									</Menu.Item>
-									<Menu.Item>
-										<Link href={data?.data?.ChromeExtensionLink ?? "/"}>
-											<a target="_blank" className={styles.btnExt}>
-												<img src="/logo-chrome.png" alt="" width={30} height={30} />
-												<span>Chrome</span>
-											</a>
-										</Link>
-									</Menu.Item>
-								</Menu>
-							}
-						>
-							Cài đặt công cụ
-						</Dropdown> */}
 					</Menu>
 				</div>
 			</div>
@@ -180,7 +136,7 @@ const Menus: FC<TMenu> = ({
 				{!childrens?.length ? (
 					<>
 						<Link href={path}>
-							<a className={clsx(styles.link, activeRouter && styles.active)}>
+							<a className={clsx(styles.link, activeRouter ? styles.active : styles.unActive)}>
 								<span className={clsx(styles.span, 'mb-4')}>
 									<i className={clsx(icon, styles.icon)}></i>
 								</span>
@@ -196,7 +152,7 @@ const Menus: FC<TMenu> = ({
 						</Link>
 					</>
 				) : (
-					<a className={clsx(styles.link, activeRouter && styles.active)}>
+					<a className={clsx(styles.link, activeRouter ? styles.active : styles.unActive)}>
 						<span className={clsx(styles.span, 'mb-4')}>
 							<i className={clsx(icon, styles.icon)}></i>
 						</span>

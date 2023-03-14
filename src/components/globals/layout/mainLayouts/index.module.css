@@ -1,14 +1,20 @@
 .main {
 	position: relative;
 	z-index: 100;
-	padding: 0 30px 0;
 	min-height: 100vh;
-	padding-top: 54px;
-	background-color: #ADC0C4;
+	/* padding: 0 30px 0;
+
+	padding-top: 54px; */
+	
+	/* background-color: #ADC0C4;  */
+	background-color: rgb(242 249 244);
 	width: calc(100vw -  70px);
 	margin-left: auto;
 }
-
+.mainContent {
+	padding: 0 30px 30px;
+	padding-top: 54px; 
+}
 .fixed {
 	background-color: rgba(0, 0, 0, 0.5);
 	position: fixed;
@@ -24,7 +30,8 @@
 	text-transform: uppercase;
 	line-height: 29px;
 	margin: 50px 0 20px 0;
-	color: #3e3c6a;
+	/* color: #3e3c6a; */
+	color:  #225432;
 	font-weight: bolder;
 	transition: 0.3s;
 }

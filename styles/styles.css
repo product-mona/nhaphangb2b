@@ -890,7 +890,7 @@ span.create .ant-upload.ant-upload-select-picture-card {
 .ant-collapse-header {
   color: #fff !important;
   font-weight: 600;
-  background-color: #0c5963;
+  background-color: #008d4b;
 }
 
 .collapse-order .ant-collapse-header > div {
@@ -898,8 +898,8 @@ span.create .ant-upload.ant-upload-select-picture-card {
 }
 
 .ant-collapse-header:hover {
-  color: #f4e5c2 !important;
-  background-color: #1f5372;
+  /* color: #f4e5c2 !important; */
+  background-color: #00743d;
 }
 
 .anticon-caret-right {

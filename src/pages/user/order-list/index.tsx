@@ -210,22 +210,23 @@ const Index: TNextPageWithLayout = () => {
 					<UserAnotherOrderListFilter
 						numberOfOrder={orderStatus}
 						handleFilter={handleFilter}
-						handleDepositAll={() => {
-							type.current = 'deposit'
-							handleModal(
-								data?.Items?.filter((item) => item.Status === ECreatedOrderStatusData.Undeposited),
-								undefined,
-								'all'
-							)
-						}}
-						handlePaymentAll={() => {
-							type.current = 'payment'
-							handleModal(
-								data?.Items?.filter((item) => item.Status === ECreatedOrderStatusData.ArrivedToVietNamWarehouse),
-								undefined,
-								'all'
-							)
-						}}
+						stateFilterStatus={filter.Status}
+						// handleDepositAll={() => {
+						// 	type.current = 'deposit'
+						// 	handleModal(
+						// 		data?.Items?.filter((item) => item.Status === ECreatedOrderStatusData.Undeposited),
+						// 		undefined,
+						// 		'all'
+						// 	)
+						// }}
+						// handlePaymentAll={() => {
+						// 	type.current = 'payment'
+						// 	handleModal(
+						// 		data?.Items?.filter((item) => item.Status === ECreatedOrderStatusData.ArrivedToVietNamWarehouse),
+						// 		undefined,
+						// 		'all'
+						// 	)
+						// }}
 					/>
 					<UserAnotherOrderListTable
 						{...{

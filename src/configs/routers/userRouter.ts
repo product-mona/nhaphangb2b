@@ -43,46 +43,7 @@ export const userRouter = [
 			}
 		]
 	},
-	// {
-	//   group: "ĐƠN KÝ GỬI",
-	//   controllers: [
-	//     {
-	//       path: "javascript:;",
-	//       icon: "far fa-envelope-open-text",
-	//       name: "Ký gửi",
-	//       childrens: [
-	//         {
-	//           path: "/user/deposit-list",
-	//           name: "Danh sách ký gửi",
-	//         },
-	//         {
-	//           path: "/user/create-deposit",
-	//           name: "Tạo đơn ký gửi",
-	//         },
-	//       ],
-	//     },
-	//   ],
-	// },
-	// {
-	//   group: "THANH TOÁN HỘ",
-	//   controllers: [
-	//     {
-	//       path: "javascript:;",
-	//       icon: "far fa-credit-card",
-	//       name: "Thanh toán hộ",
-	//       childrens: [
-	//         {
-	//           path: "/user/request-list",
-	//           name: "Danh sách",
-	//         },
-	//         {
-	//           path: "/user/create-request-payment",
-	//           name: "Tạo thanh toán hộ",
-	//         },
-	//       ],
-	//     },
-	//   ],
-	// },
+
 	{
 		group: 'QUẢN LÝ TÀI CHÍNH',
 		controllers: [
@@ -113,7 +74,7 @@ export const userRouter = [
 			{
 				path: 'javascript:;',
 				icon: 'fas fa-edit',
-				name: 'THÔNG TIN KHÁC',
+				name: 'TRA CỨU',
 				childrens: [
 					{
 						path: '/user/tracking',
