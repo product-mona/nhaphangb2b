@@ -277,9 +277,11 @@
   --tw-bg-opacity: 1;
   padding: 10px;
   background-color: #fff;
-  border: 1px solid rgba(54, 97, 54, 0.3);
-  box-shadow: 0 0 10px 0 #00000026;
+  // border: 1px solid rgba(54, 97, 54, 0.3);
+  // box-shadow: 0 0 10px 0 #00000026;
+  box-shadow: rgba(159, 162, 191, 0.18) 0px 9px 16px, rgba(159, 162, 191, 0.32) 0px 2px 2px;
   background-color: #fff;
+  // border-radius: 10px
 }
 
 .tableBoxPag {
@@ -331,5 +333,5 @@
 }
 
 .titleTable {
-  @apply text-[16px] text-[#3E3C6A] pb-4 font-semibold;
+  @apply text-[16px] text-[#3E3C6A] p-4 font-semibold;
 }

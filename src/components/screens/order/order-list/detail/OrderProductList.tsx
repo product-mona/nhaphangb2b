@@ -8,13 +8,14 @@ import { _format } from '~/utils'
 import { OrderProductItem } from './OrderProductItem'
 
 type TProps = {
-	dataOrderShop: IOrderShop
+	dataOrderShop: TOrder
+	// dataOrderShop: IOrderShop
 	loading?: boolean
 	RoleID: number
 	refetch: () => void
 }
 
-export const OrderProductList: React.FC<TProps> = ({ dataOrderShop, loading, refetch, RoleID }) => {
+export const OrderProductList: React.FC<TProps> = ({ loading, refetch, RoleID, dataOrderShop }) => {
 	const [loadingUpdate, setLoadingUpdate] = useState(false)
 
 	const mutationUpdate = useMutation(order.update, {
@@ -47,9 +48,9 @@ export const OrderProductList: React.FC<TProps> = ({ dataOrderShop, loading, ref
 		<React.Fragment>
 			<div className="orderProductItem  flex justify-between items-center">
 				<div className="flex flex-col">
-					<Typography.Text className="">
+					{/* <Typography.Text className="">
 						Tổng số lượng: <span className="text-lg font-semibold text-[#F5851E]">{dataOrderShop.TotalItem}</span>
-					</Typography.Text>
+					</Typography.Text> */}
 					<Typography.Text className="">
 						Tổng tiền sản phẩm:{' '}
 						<span className="text-lg font-semibold text-[#2686ED]">{_format.getVND(dataOrderShop?.PriceVND)}</span>{' '}

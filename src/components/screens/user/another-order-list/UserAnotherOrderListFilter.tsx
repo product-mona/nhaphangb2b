@@ -34,9 +34,10 @@ const CollapsePanelHeader = ({ setActiveKey, activeKey }) => {
 				title="Bộ lọc nâng cao"
 				showLoading
 				toolip="Bộ lọc nâng cao"
-				btnClass="hover:!bg-[#168f9e]"
+				btnClass="bg-red hover:bg-redDark"
 			/>
 		</div>
+		// <div className="w-[100px] h-auto bg-red">1</div>
 	)
 }
 

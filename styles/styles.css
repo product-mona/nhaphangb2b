@@ -866,7 +866,7 @@ span.create .ant-upload.ant-upload-select-picture-card {
 }
 
 .ant-table-cell-row-hover {
-  background-color: #c6f1f7 !important;
+  background-color: #008d4b2a !important;
 }
 
 .ant-table-container {
@@ -944,7 +944,9 @@ span.create .ant-upload.ant-upload-select-picture-card {
 .ant-table-tbody > tr > td:last-of-type {
   border-right: 1px solid rgba(2, 2, 242, 0.05) !important;
 }
-
+.ant-table-tbody > tr.ant-table-row-selected > td {
+  background-color: rgba(0, 141, 75, 10%) !important;
+}
 .ant-table-summary > tr > td {
   border-bottom: 1px solid rgba(2, 2, 242, 0.05) !important;
 }

@@ -56,7 +56,7 @@ export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch 
 			{/*     max-h-[700px] overflow-y-auto */}
 			<div>
 				<div className="h-full">
-					{data?.OrderShops.map((x, idx) => {
+					{/* {data?.OrderShops.map((x, idx) => {
 						return (
 							<div>
 								<Collapse defaultActiveKey={idx} expandIconPosition="right">
@@ -71,7 +71,7 @@ export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch 
 								</Collapse>
 							</div>
 						)
-					})}
+					})} */}
 					{/* {data?.Orders?.map((order, index) => (
               <OrderProductItem
                 key={`${order.Id}`}
