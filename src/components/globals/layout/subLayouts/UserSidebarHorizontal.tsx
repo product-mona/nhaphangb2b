@@ -131,12 +131,20 @@ const Menus: FC<TMenu> = ({
 	sidebarTabbar
 }) => {
 	return (
-		<ul className="" style={{ width: 'calc(7/12 * 100%)' }}>
+		<ul
+			className=""
+			style={{
+				width: 'calc(7/12 * 100%)'
+				// boxShadow: 'rgba(164, 191, 159, 0.18) 0px 2px 3px, rgba(165, 191, 159, 0.32) 0px 1px 1px'
+				// boxShadow: 'rgba(159, 162, 191, 0.18) 0px 9px 16px, rgba(159, 162, 191, 0.32) 0px 2px 2px'
+			}}
+		>
 			<li onClick={handleDropdown} className={`${styles.item}`}>
 				{!childrens?.length ? (
 					<>
 						<Link href={path}>
 							<a className={clsx(styles.link, activeRouter ? styles.active : styles.unActive)}>
+								{<b className={clsx(`${styles.borderTopLeft}`, activeRouter ? 'block' : 'hidden')}></b>}
 								<span className={clsx(styles.span, 'mb-4')}>
 									<i className={clsx(icon, styles.icon)}></i>
 								</span>
@@ -148,11 +156,13 @@ const Menus: FC<TMenu> = ({
 										</span>
 									)}
 								</span>
+								{<b className={clsx(`${styles.borderTopRight}`, activeRouter ? 'block' : 'hidden')}></b>}
 							</a>
 						</Link>
 					</>
 				) : (
 					<a className={clsx(styles.link, activeRouter ? styles.active : styles.unActive)}>
+						{<b className={clsx(`${styles.borderTopLeft}`, activeRouter ? 'block' : 'hidden')}></b>}
 						<span className={clsx(styles.span, 'mb-4')}>
 							<i className={clsx(icon, styles.icon)}></i>
 						</span>
@@ -169,6 +179,7 @@ const Menus: FC<TMenu> = ({
 								</span>
 							)}
 						</span>
+						{<b className={clsx(`${styles.borderTopRight}`, activeRouter ? 'block' : 'hidden')}></b>}
 					</a>
 				)}
 				{!!childrens?.length && (

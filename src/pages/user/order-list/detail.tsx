@@ -67,9 +67,9 @@ const Index: TNextPageWithLayout = () => {
 					</div>
 				</div>
 				{/* <OrderTransportList data={data?.Data?.SmallPackages} /> */}
-				{/* <OrderIDProductList data={data?.Data?.Orders} /> */}
+				<OrderIDProductList data={data?.Data?.Orders} />
 				{/* danh sách shop*/}
-				<OrderIDShopList dataOrder={data?.Data} orderShopList={data?.Data?.OrderShops || []} />
+				{/* <OrderIDShopList dataOrder={data?.Data} orderShopList={data?.Data?.OrderShops || []} /> */}
 				<OrderIDPaymentHistory data={data?.Data?.PayOrderHistories} />
 				{data && <MessageControlUser clientId={data.Data.UID} mainOrderId={+query?.id} />}
 			</div>

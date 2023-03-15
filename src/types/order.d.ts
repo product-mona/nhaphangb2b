@@ -319,8 +319,8 @@ type TOrder = Omit<TBaseReponseParams, 'Name' | 'Code' | 'Description'> & {
 	CancelDate?: Date
 	MainOrderCustomID: string
 
-	OrderShops?: IOrderShop[] //IOrderShop
-	TotalItem: number // tổng số lượng tất cả SP trong đơn
+	// OrderShops?: IOrderShop[] //IOrderShop
+	// TotalItem: number // tổng số lượng tất cả SP trong đơn
 }
 
 type THistoryService = Omit<TBaseReponseParams, 'Name' | 'Code' | 'Description'> & {

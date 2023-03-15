@@ -70,6 +70,7 @@ const Index: TNextPageWithLayout = () => {
 
 	const { data, isError, isLoading, isFetching, refetch } = useQuery(['order-list', orderId], () => mainOrder.getByID(+query?.id), {
 		onSuccess: (data) => {
+			console.log('data nè', data)
 			if (!data?.Data?.IsCheckNotiPrice && data?.Data?.OrderType === 3) toast.warning('Đơn hàng chưa cập nhật báo giá cho khách!')
 			form.reset(data?.Data)
 		},
@@ -147,11 +148,21 @@ const Index: TNextPageWithLayout = () => {
 									/>
 								</div>
 							</Panel>
-							<Panel header={`Danh sách cửa hàng (${data?.Data?.OrderShops?.length || 0})`} key="3">
+							<Panel header={`Danh sách sản phẩm (${data?.Data?.Orders?.length || 0})`} key="3">
+								<div id="product-list" className={clsx(className, active === 2 && '', '!px-2 !py-0')}>
+									<OrderProductList
+										dataOrderShop={data?.Data}
+										loading={isFetching}
+										refetch={refetch}
+										RoleID={newUser?.UserGroupId}
+									/>
+								</div>
+							</Panel>
+							{/* <Panel header={`Danh sách cửa hàng (${data?.Data?.OrderShops?.length || 0})`} key="3">
 								<div id="product-list" className={clsx(className, active === 2 && '', '!px-2 !py-0')}>
 									<OrderShopList data={data?.Data} refetch={refetch} RoleID={newUser?.UserGroupId} />
 								</div>
-							</Panel>
+							</Panel> */}
 							<Panel header="Chi phí đơn hàng" key="4">
 								<div id="surcharge-list" className={clsx(className, 'p-2 !pt-0', active === 3 && '')}>
 									<OrderSurChargeList

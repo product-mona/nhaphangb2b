@@ -674,6 +674,7 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 				expandable: expandable,
 				scroll: { y: 700 }
 			}}
+			tableId={'secondTable'}
 		/>
 	)
 }

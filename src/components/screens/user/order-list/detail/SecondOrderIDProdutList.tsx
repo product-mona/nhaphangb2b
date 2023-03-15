@@ -8,34 +8,34 @@ type SecondOrderIDProductListProps = {
 }
 export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> = ({ data, dataOrder }) => {
 	// totalCost
-	const totalFeeEachOne = useMemo(() => {
-		//InsuranceMoney  phí bảo hiểm
-		//IsFastDeliveryPrice   Phí giao hàng tận nhà
-		//IsPackedPrice  Phí đóng gỗ
-		//IsCheckProductPrice Phí kiểm đếm
-		//FeeWeight  Phí cân nặng
-		//FeeBuyPro Phí mua hàng
-		const totalFee =
-			dataOrder.InsuranceMoney +
-			dataOrder.IsFastDeliveryPrice +
-			dataOrder.IsPackedPrice +
-			dataOrder.IsCheckProductPrice +
-			dataOrder.FeeWeight +
-			dataOrder.FeeBuyPro
-		if (!!dataOrder.TotalItem) {
-			return totalFee / dataOrder.TotalItem
-		} else {
-			return 0
-		}
-	}, [dataOrder])
+	// const totalFeeEachOne = useMemo(() => {
+	// 	//InsuranceMoney  phí bảo hiểm
+	// 	//IsFastDeliveryPrice   Phí giao hàng tận nhà
+	// 	//IsPackedPrice  Phí đóng gỗ
+	// 	//IsCheckProductPrice Phí kiểm đếm
+	// 	//FeeWeight  Phí cân nặng
+	// 	//FeeBuyPro Phí mua hàng
+	// 	const totalFee =
+	// 		dataOrder.InsuranceMoney +
+	// 		dataOrder.IsFastDeliveryPrice +
+	// 		dataOrder.IsPackedPrice +
+	// 		dataOrder.IsCheckProductPrice +
+	// 		dataOrder.FeeWeight +
+	// 		dataOrder.FeeBuyPro
+	// 	if (!!dataOrder.TotalItem) {
+	// 		return totalFee / dataOrder.TotalItem
+	// 	} else {
+	// 		return 0
+	// 	}
+	// }, [dataOrder])
 
-	const renderCostPrice = useCallback(
-		(price: number) => {
-			const resut = price + totalFeeEachOne
-			return numberWithCommas(resut.toFixed(2))
-		},
-		[totalFeeEachOne]
-	)
+	// const renderCostPrice = useCallback(
+	// 	(price: number) => {
+	// 		const resut = price + totalFeeEachOne
+	// 		return numberWithCommas(resut.toFixed(2))
+	// 	},
+	// 	[totalFeeEachOne]
+	// )
 	return (
 		<div className="tableBox">
 			<div className="flex justify-between">
@@ -120,7 +120,7 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 									</Tooltip>
 								</div>
 							</div>
-							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
+							{/* <div className="block flex md:flex-col justify-between ml-2 w-1/4">
 								<div className="text-sm mr-4 text-[#484747]  font-semibold truncate">Giá vốn 1 sản phẩm</div>
 								<div className="text-orange">
 									<div className="text-sm text-center">
@@ -129,7 +129,7 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 										</Tooltip>
 									</div>
 								</div>
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>

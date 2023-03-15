@@ -127,7 +127,7 @@ const Header: React.FC<TProps> = ({ hover, handleTabbar, handleHover, userPage }
 								<div className={`${styles.img} w-[50px]`}>
 									<Image
 										src={configData?.LogoIMG ? configData?.LogoIMG : '/logo.png'}
-										width={'100%'}
+										width={'5rem'}
 										height={'100%'}
 										alt="logo"
 										preview={false}
