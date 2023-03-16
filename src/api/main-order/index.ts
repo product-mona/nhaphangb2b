@@ -61,5 +61,7 @@ export const mainOrder = {
 
 	getCountOrder: (params: { UID: number; RoleID: number }) => get('/get-count-order', { params }),
 
-	updateDepositStatus: (data: { Id: number; AmountDeposit?: number }) => put('/update-deposit-status', data)
+	updateDepositStatus: (data: { Id: number; AmountDeposit?: number }) => put('/update-deposit-status', data),
+
+	getSubGroupOrder: (params?: TPaginationParams & { id: number }) => get<any>('/get-sub-main-order', { params })
 } as const

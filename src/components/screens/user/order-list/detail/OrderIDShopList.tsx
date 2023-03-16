@@ -4,7 +4,7 @@ import { IOrderShop } from '~/types'
 import { SecondOrderIDProductList } from './SecondOrderIDProdutList'
 
 type OrderIDShopListProps = {
-	orderShopList: IOrderShop[]
+	orderShopList: TOrder[]
 	dataOrder?: TOrder
 }
 export const OrderIDShopList: FC<OrderIDShopListProps> = ({ orderShopList, dataOrder }) => {

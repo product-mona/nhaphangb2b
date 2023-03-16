@@ -181,35 +181,4 @@
 
 /*************/
 
-/* .boxitem {
-  display: flex;
-  align-items: center;
-  padding: 1rem 12px;
-  cursor: pointer;
-  border-radius: 2px;
-  color: #333;
-}
 
-.boxitem:hover {
-  color: #333;
-  background-color: rgba(0, 0, 0, 0.0125);
-}
-
-.bodyNtfAll {
-  max-height: calc(60vh - 99px);
-  overflow-y: auto;
-}
-
-.bodyNtfAll::-webkit-scrollbar {
-  background-color: #fff;
-  width: 3px;
-}
-
-.bodyNtfAll::-webkit-scrollbar-thumb {
-  background-color: rgb(243, 102, 84);
-  border: 2px solid rgb(243, 102, 84);
-}
-
-.bodyNtfAll::-webkit-resizer {
-  height: 300px;
-} */

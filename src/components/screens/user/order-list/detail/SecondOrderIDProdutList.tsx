@@ -1,13 +1,13 @@
 import { InputNumber, Tooltip } from 'antd'
 import React, { useCallback, useMemo } from 'react'
-import { numberWithCommas, _format } from '~/utils'
+
+import { numberWithCommas, _format, onCalTotalNumber } from '~/utils'
 
 type SecondOrderIDProductListProps = {
 	data: TProduct[]
 	dataOrder?: TOrder
 }
 export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> = ({ data, dataOrder }) => {
-	// totalCost
 	// const totalFeeEachOne = useMemo(() => {
 	// 	//InsuranceMoney  phí bảo hiểm
 	// 	//IsFastDeliveryPrice   Phí giao hàng tận nhà
@@ -15,18 +15,22 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 	// 	//IsCheckProductPrice Phí kiểm đếm
 	// 	//FeeWeight  Phí cân nặng
 	// 	//FeeBuyPro Phí mua hàng
-	// 	const totalFee =
-	// 		dataOrder.InsuranceMoney +
-	// 		dataOrder.IsFastDeliveryPrice +
-	// 		dataOrder.IsPackedPrice +
-	// 		dataOrder.IsCheckProductPrice +
-	// 		dataOrder.FeeWeight +
-	// 		dataOrder.FeeBuyPro
-	// 	if (!!dataOrder.TotalItem) {
-	// 		return totalFee / dataOrder.TotalItem
-	// 	} else {
-	// 		return 0
-	// 	}
+	// 	if (!!dataOrder) {
+	// 		const totalItem = onCalTotalNumber(data, 'Quantity')
+	// 		const totalFee =
+	// 			dataOrder.InsuranceMoney + // 0
+	// 			dataOrder.IsFastDeliveryPrice + // 0
+	// 			dataOrder.IsPackedPrice + // 0
+	// 			dataOrder.IsCheckProductPrice + // 0
+	// 			dataOrder.FeeWeight +
+	// 			dataOrder.FeeBuyPro
+	// 		console.log('totalFee', totalFee, 'totalItem', totalItem)
+	// 		if (!!totalItem) {
+	// 			return 2 / totalItem
+	// 		} else {
+	// 			return 0
+	// 		}
+	// 	} else return 0
 	// }, [dataOrder])
 
 	// const renderCostPrice = useCallback(
@@ -53,7 +57,7 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 						<div className="flex w-full items-center mb-5 justify-between px-3 borderBottom">
 							<Tooltip placement="topLeft" title="Link đến sản phẩm">
 								<a href={item?.LinkOrigin} target="_blank" className="mainTitle">
-									{item?.LinkOrigin}
+									<p className="hover:text-main">{item?.ItemId}</p>
 								</a>
 							</Tooltip>
 						</div>
@@ -92,7 +96,7 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 						</div>
 						<div className="flex w-7/12">
 							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
-								<div className="text-sm mr-4 text-[#484747] font-semibold">Số lượng (cái)</div>
+								<div className="text-sm mr-4 text-[#484747] font-semibold">Số lượng</div>
 								<div className="text-sm text-center">
 									<InputNumber size="middle" value={_format.getVND(item?.Quantity, '')} readOnly />
 								</div>
@@ -117,19 +121,24 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 											readOnly
 											className="text-center"
 										/>
-									</Tooltip>
+									</Tooltip>{' '}
 								</div>
 							</div>
-							{/* <div className="block flex md:flex-col justify-between ml-2 w-1/4">
+							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
 								<div className="text-sm mr-4 text-[#484747]  font-semibold truncate">Giá vốn 1 sản phẩm</div>
 								<div className="text-orange">
 									<div className="text-sm text-center">
 										<Tooltip title={`Đơn giá (VNĐ) + Tổng chi phí trên từng sản phẩm`} placement="bottom">
-											<InputNumber addonBefore="VNĐ" size="middle" value={renderCostPrice(item.PriceVND)} readOnly />
+											<InputNumber
+												addonBefore="VNĐ"
+												size="middle"
+												value={_format.getVND(dataOrder.TotalOrderAmount, '')}
+												readOnly
+											/>
 										</Tooltip>
 									</div>
 								</div>
-							</div> */}
+							</div>
 						</div>
 					</div>
 				</div>

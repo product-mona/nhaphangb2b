@@ -1,4 +1,4 @@
-import { Modal, Space, Tag } from 'antd'
+import { Modal, Space, Tag, Typography } from 'antd'
 import { TableRowSelection } from 'antd/lib/table/interface'
 import router from 'next/router'
 import React, { useState } from 'react'
@@ -8,11 +8,13 @@ import { mainOrder, orderShopTemp } from '~/api'
 import { ActionButton, DataTable, showToast } from '~/components'
 import { createdOrderStatusData, ECreatedOrderStatusData, orderStatus } from '~/configs/appConfigs'
 import { TColumnsType, TTable } from '~/types/table'
+import { NestedTableUserItemOrder } from './NestedTable'
 import { toastApiErr, _format } from '~/utils'
+import Link from 'next/link'
 
 export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> = ({
 	data,
-	selectedRowKeys,
+
 	loading,
 	handleModal,
 	type,
@@ -55,19 +57,7 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 			title: 'ID đơn'
 			// width: 60,
 		},
-		{
-			dataIndex: 'ImageOrigin',
-			title: 'Ảnh',
-			align: 'center',
-			render: (img) => {
-				return (
-					<div className="flex justify-center m-auto w-20 h-20">
-						<img src={img ? img : '/pro-empty.jpg'} alt="image" width={75} height={75} style={{ borderRadius: '10px' }} />
-					</div>
-				)
-			}
-			// width: 120,
-		},
+
 		{
 			dataIndex: 'TotalPriceVND',
 			title: 'Tổng tiền (VNĐ)',
@@ -86,11 +76,11 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 		},
 		{
 			dataIndex: 'Deposit',
-			title: 'Số tiền đã cọc (VNĐ)',
+			title: 'Công nợ đơn hàng',
 			// width: 150,
 			align: 'right',
 			responsive: ['lg'],
-			render: (price) => _format.getVND(price, ' ')
+			render: (deposit, record) => _format.getVND(record.TotalPriceVND - record.Deposit, ' ')
 		},
 
 		{
@@ -149,19 +139,20 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 									title="Mua lại đơn hàng này"
 								/>
 							)}
-
-							<ActionButton
-								onClick={() => {
-									router.push({
-										pathname: '/user/order-list/detail',
-										query: {
-											id: record?.Id
-										}
-									})
+							<Link
+								href={{
+									pathname: '/user/order-list/detail',
+									query: {
+										id: record?.Id
+									}
 								}}
-								icon="far fa-info-square"
-								title="Xem chi tiết đơn"
-							/>
+								passHref
+							>
+								<a rel="noopener noreferrer">
+									<ActionButton onClick={() => {}} icon="far fa-info-square" title="Xem chi tiết đơn" />
+								</a>
+							</Link>
+
 							{record?.Status === ECreatedOrderStatusData.Finished && (
 								<ActionButton
 									onClick={() =>
@@ -257,18 +248,19 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 								icon="fas fa-cart-arrow-down"
 								title="Mua lại đơn hàng này"
 							/>
-							<ActionButton
-								onClick={() => {
-									router.push({
-										pathname: '/user/order-list/detail',
-										query: {
-											id: record?.Id
-										}
-									})
+							<Link
+								href={{
+									pathname: '/user/order-list/detail',
+									query: {
+										id: record?.Id
+									}
 								}}
-								icon="far fa-info-square"
-								title="Xem chi tiết đơn"
-							/>
+								passHref
+							>
+								<a rel="noopener noreferrer">
+									<ActionButton icon="far fa-info-square" title="Xem chi tiết đơn" />
+								</a>
+							</Link>
 							{record?.Status === 102 && (
 								<ActionButton
 									onClick={() => {
@@ -359,305 +351,32 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 		}
 	]
 
-	const rowSelection: TableRowSelection<TOrder> = {
-		selectedRowKeys,
-		getCheckboxProps: (record) => {
-			return record.Status === ECreatedOrderStatusData.ArrivedToVietNamWarehouse ||
-				record.Status === ECreatedOrderStatusData.Undeposited
-				? { name: record.Id.toString(), disabled: false }
-				: { name: record.Id.toString(), disabled: true, className: '!hidden' }
-		},
-		onChange: (selectedRowKeys: React.Key[], selectedRows: TOrder[]) => handleModal(selectedRows, undefined, 'some'),
-		hideSelectAll: true
-	}
-
 	const expandable = {
 		expandedRowRender: (record) => (
-			<ul className="px-2 text-xs">
-				<li className="sm:hidden justify-between flex py-2">
-					<span className="font-medium mr-4">Tổng link:</span>
-					{record?.TotalLink}
-				</li>
-				<li className="md:hidden justify-between flex py-2">
-					<span className="font-medium mr-4">Website:</span>
-					{record.Site}
-				</li>
-				<li className="md:hidden justify-between flex py-2">
-					<span className="font-medium mr-4">Tổng tiền:</span>
-					{_format.getVND(record.TotalPriceVND)}
-				</li>
-				<li className="lg:hidden justify-between flex py-2">
-					<span className="font-medium mr-4">Tổng tiền phải cọc:</span>
-					{_format.getVND(record.AmountDeposit)}
-				</li>
-				<li className="lg:hidden justify-between flex py-2">
-					<span className="font-medium mr-4">Số tiền đã cọc:</span>
-					{_format.getVND(record.Deposit)}
-				</li>
-				<li className="xl:hidden flex  justify-between py-2">
-					<span className="font-medium  mr-4">Ngày đặt:</span>
-					<div className="min-w-[30%]">
-						{record.Created && (
-							<p className="flex justify-between">
-								<span>Lên đơn: </span>
-								<span>{_format.getVNDate(record.Created)}</span>
-							</p>
-						)}
-						{record.DepositDate && (
-							<p className="flex justify-between">
-								<span>Đặt cọc:</span>
-								<span>{_format.getVNDate(record.DepositDate)}</span>
-							</p>
-						)}
-						{record.DateBuy && (
-							<p className="flex justify-between">
-								<span>Đặt hàng: </span>
-								<span>{_format.getVNDate(record.DateBuy)}</span>
-							</p>
-						)}
-						{record.DateTQ && (
-							<p className="flex justify-between">
-								<span>Đã về kho TQ: </span>
-								<span>{_format.getVNDate(record.DateTQ)} </span>
-							</p>
-						)}
-						{record.DateVN && (
-							<p className="flex justify-between">
-								<span>Đã về kho VN: </span>
-								<span>{_format.getVNDate(record.DateVN)}</span>
-							</p>
-						)}
-						{record.PayDate && (
-							<p className="flex justify-between">
-								<span>Thanh toán: </span>
-								<span>{_format.getVNDate(record.PayDate)}</span>
-							</p>
-						)}
-						{record.CompleteDate && (
-							<p className="flex justify-between">
-								<span>Hoàn thành: </span>
-								<span>{_format.getVNDate(record.CompleteDate)}</span>
-							</p>
-						)}
-					</div>
-				</li>
-				<li className="xl:hidden justify-between flex py-2">
-					<span className="font-medium mr-4">Trạng thái:</span>
-					<Tag color={createdOrderStatusData.find((x) => x.id === record?.Status)?.color}>{record?.StatusName}</Tag>
-				</li>
-				<li className="xl:hidden justify-between flex py-2">
-					<span className="font-medium mr-4">Thao tác:</span>
-					{Number(q) === 3 ? (
-						<Space
-							style={{
-								pointerEvents: delLoading ? 'none' : 'all',
-								opacity: delLoading ? '0.8' : '1'
-							}}
-							className="justify-end flex-wrap"
-						>
-							<ActionButton
-								onClick={() =>
-									Modal.confirm({
-										title: 'Xác nhận muốn mua lại đơn hàng này?',
-										onOk: () => {
-											const id = toast.loading('Đang thêm ...')
-											orderShopTemp
-												.addSame({ Id: record?.Id })
-												.then((res) => {
-													toast.update(id, {
-														render: 'Thêm đơn thành công, vui lòng kiểm tra giỏ hàng!',
-														type: 'success',
-														autoClose: 1000,
-														closeOnClick: true,
-														isLoading: false
-													})
-												})
-												.catch((error) => {
-													toast.update(id, {
-														render: 'Thêm đơn thất bại!',
-														type: 'error',
-														isLoading: false
-													})
-												})
-										}
-									})
-								}
-								icon="fas fa-cart-arrow-down"
-								title="Mua lại đơn hàng này"
-							/>
-
-							<ActionButton
-								onClick={() =>
-									router.push({
-										pathname: '/user/order-list/detail',
-										query: {
-											id: record?.Id
-										}
-									})
-								}
-								icon="far fa-info-square"
-								title="Xem chi tiết đơn"
-							/>
-							{record?.Status === ECreatedOrderStatusData.Finished && (
-								<ActionButton
-									onClick={() =>
-										router.push({
-											pathname: '/user/report/detail',
-											query: {
-												id: record?.Id
-											}
-										})
-									}
-									icon="fas fa-balance-scale-right"
-									title="Khiếu nại"
-									btnRed
-								/>
-							)}
-							{record.IsCheckNotiPrice && (
-								<>
-									{record?.Status === ECreatedOrderStatusData.Undeposited && (
-										<ActionButton
-											onClick={() => {
-												type.current = 'deposit'
-												handleModal([record], undefined, 'one')
-											}}
-											icon="far fa-dollar-sign"
-											title="Đặt cọc"
-											btnYellow
-										/>
-									)}
-									{record?.Status === ECreatedOrderStatusData.ArrivedToVietNamWarehouse && (
-										<ActionButton
-											onClick={() => {
-												type.current = 'payment'
-												handleModal([record], undefined, 'one')
-											}}
-											icon="fas fa-credit-card"
-											title="Thanh toán"
-											btnBlue
-										/>
-									)}
-								</>
-							)}
-							{record?.Status === 0 && (
-								<ActionButton
-									onClick={() =>
-										Modal.confirm({
-											title: 'Xác nhận xóa đơn hàng?',
-											onOk: () => handleDeleteProd(record?.Id)
-										})
-									}
-									icon="fas fa-trash"
-									title="Hủy đơn hàng!"
-									btnYellow
-								/>
-							)}
-						</Space>
-					) : (
-						<Space
-							style={{
-								pointerEvents: delLoading ? 'none' : 'all',
-								opacity: delLoading ? '0.8' : '1'
-							}}
-							className="justify-end flex-wrap"
-						>
-							<ActionButton
-								onClick={() =>
-									Modal.confirm({
-										title: 'Xác nhận muốn mua lại đơn hàng này?',
-										onOk: () => {
-											const id = toast.loading('Đang thêm ...')
-											orderShopTemp
-												.addSame({ Id: record?.Id })
-												.then((res) => {
-													toast.update(id, {
-														render: 'Thêm đơn thành công, vui lòng kiểm tra giỏ hàng!',
-														type: 'success',
-														autoClose: 1000,
-														closeOnClick: true,
-														isLoading: false
-													})
-												})
-												.catch((error) => {
-													toast.update(id, {
-														render: 'Thêm đơn thất bại!',
-														type: 'error',
-														isLoading: false
-													})
-												})
-										}
-									})
-								}
-								icon="fas fa-cart-arrow-down"
-								title="Mua lại đơn hàng này"
-							/>
-							<ActionButton
-								onClick={() =>
-									router.push({
-										pathname: '/user/order-list/detail',
-										query: {
-											id: record?.Id
-										}
-									})
-								}
-								icon="far fa-info-square"
-								title="Xem chi tiết đơn"
-							/>
-
-							{record?.Status === ECreatedOrderStatusData.Finished && (
-								<ActionButton
-									onClick={() =>
-										router.push({
-											pathname: '/user/report/detail',
-											query: {
-												id: record?.Id
-											}
-										})
-									}
-									icon="fas fa-balance-scale-right"
-									title="Khiếu nại"
-									btnRed
-								/>
-							)}
-							{record?.Status === ECreatedOrderStatusData.Undeposited && (
-								<ActionButton
-									onClick={() => {
-										type.current = 'deposit'
-										handleModal([record], undefined, 'one')
-									}}
-									icon="far fa-dollar-sign"
-									title="Đặt cọc"
-									btnYellow
-								/>
-							)}
-							{record?.Status === ECreatedOrderStatusData.ArrivedToVietNamWarehouse && (
-								<ActionButton
-									onClick={() => {
-										type.current = 'payment'
-										handleModal([record], undefined, 'one')
-									}}
-									icon="fas fa-credit-card"
-									title="Thanh toán"
-									btnBlue
-								/>
-							)}
-							{record?.Status === ECreatedOrderStatusData.Undeposited && (
-								<ActionButton
-									onClick={() =>
-										Modal.confirm({
-											title: 'Xác nhận xóa đơn hàng?',
-											onOk: () => handleDeleteProd(record?.Id)
-										})
-									}
-									icon="fas fa-trash"
-									title="Hủy đơn hàng!"
-									btnYellow
-								/>
-							)}
-						</Space>
-					)}
-				</li>
-			</ul>
+			<div
+				style={{
+					background: 'linear-gradient(90deg, #b53aa5 15%, #d06cc3 60%)'
+				}}
+				className=" p-4"
+			>
+				<div className="mb-4 text-white">
+					<p
+						style={{
+							fontSize: '16px',
+							fontWeight: 600
+						}}
+					>
+						Chi tiết danh sách cửa hàng
+					</p>
+				</div>
+				<NestedTableUserItemOrder
+					handleModal={handleModal}
+					type={type}
+					q={q}
+					GroupMainOrderID={record.Id}
+					expandItemId={record.Id}
+				/>
+			</div>
 		)
 	}
 
@@ -667,11 +386,10 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 				columns,
 				data,
 				bordered: true,
-				rowSelection,
 				loading,
-				// pagination,
-				// onChange: handlePagination,
+				expandOnlyOne: true,
 				expandable: expandable,
+				isExpand: true,
 				scroll: { y: 700 }
 			}}
 			tableId={'secondTable'}

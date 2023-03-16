@@ -131,11 +131,7 @@ export const Layout: TlayoutWithChild & React.FC<TProps> = ({ children, userPage
 					/>
 					<main className={clsx(styles.main, userPage === true && '!p-0 xl:!w-[100%]')}>
 						<div
-							className={clsx(
-								styles.mainContent,
-								'rounded-3xl bg-transparent w-full items-center pb-[70px]',
-								!!userPage && 'pt-[54px]'
-							)}
+							className={clsx(styles.mainContent, 'bg-transparent w-full items-center pb-[70px]', !!userPage && 'pt-[54px]')}
 						>
 							<div className={`${!userPage && 'container-admin'}`}>
 								{breadcrumb && userPage !== true && <div className={clsx(styles.breadcrumb)}>{breadcrumb}</div>}

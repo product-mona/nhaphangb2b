@@ -35,35 +35,35 @@ const templageMethods = [
 		label: 'Phương thức vận chuyển',
 		key: 'ShippingTypeName',
 		icon: 'far fa-shipping-fast'
+	},
+	{
+		id: 4,
+		value: null,
+		label: 'Kiểm đếm',
+		key: 'IsCheckProduct',
+		icon: 'far fa-box-check'
+	},
+	{
+		id: 5,
+		value: null,
+		label: 'Đóng gỗ',
+		key: 'IsPacked',
+		icon: 'far fa-archive'
+	},
+	{
+		id: 6,
+		value: null,
+		label: 'Bảo hiểm',
+		key: 'IsInsurance',
+		icon: 'far fa-id-card'
+	},
+	{
+		id: 7,
+		value: null,
+		label: 'Giao hàng tận nhà',
+		key: 'IsFastDelivery',
+		icon: 'far fa-hand-holding-box'
 	}
-	// {
-	// 	id: 4,
-	// 	value: null,
-	// 	label: 'Kiểm đếm',
-	// 	key: 'IsCheckProduct',
-	// 	icon: 'far fa-box-check'
-	// },
-	// {
-	// 	id: 5,
-	// 	value: null,
-	// 	label: 'Đóng gỗ',
-	// 	key: 'IsPacked',
-	// 	icon: 'far fa-archive'
-	// },
-	// {
-	// 	id: 6,
-	// 	value: null,
-	// 	label: 'Bảo hiểm',
-	// 	key: 'IsInsurance',
-	// 	icon: 'far fa-id-card'
-	// },
-	// {
-	// 	id: 7,
-	// 	value: null,
-	// 	label: 'Giao hàng tận nhà',
-	// 	key: 'IsFastDelivery',
-	// 	icon: 'far fa-hand-holding-box'
-	// }
 ]
 
 const styleLi = `flex items-center justify-between pb-3 border-b border-[#56545454] pt-[10px] last:border-none`
@@ -71,7 +71,7 @@ const styleWrapIcon = `text-sm text-[#000] flex-1`
 const styleIcon = `mr-2 pt-[2px] text-[#ffa500] text-[18px]`
 const styleValue = `text-sm text-[#666565] font-semibold`
 
-export const OrderIDDetail: React.FC<TTable<TFeeSupports> & { dataAll; data2 }> = ({ data, dataAll, data2 }) => {
+export const ShopOrderGeneralInfo: React.FC<TTable<TFeeSupports> & { dataAll; data2 }> = ({ data, dataAll, data2 }) => {
 	const [renderMethods, setRenderMethods] = useState(templageMethods)
 
 	useEffect(() => {
@@ -106,7 +106,7 @@ export const OrderIDDetail: React.FC<TTable<TFeeSupports> & { dataAll; data2 }> 
 		<Collapse defaultActiveKey={[]} expandIconPosition="right">
 			<Panel header="THÔNG TIN" key="1">
 				<div className="p-2">
-					<div className=" pb-4 border-b">
+					<div className="mb-4 pb-4 border-b">
 						<div className="titleTable p-2">Dịch vụ đơn hàng</div>
 
 						<div className="px-[10px]">
@@ -126,50 +126,6 @@ export const OrderIDDetail: React.FC<TTable<TFeeSupports> & { dataAll; data2 }> 
 									{!item.key.includes('Is') && <p className={styleValue}>{item?.value}</p>}
 								</div>
 							))}
-						</div>
-					</div>
-					{/* <div className="tableBox mt-4">
-          <div className="titleTable">Phụ phí</div>
-          <DataTable
-            {...{
-              columns,
-              data,
-              bordered: true,
-            }}
-          />
-        </div> */}
-					<div className="mt-2">
-						<div className="titleTable p-2">Thông tin người nhận</div>
-
-						<div className="px-[10px]">
-							<div className={styleLi}>
-								<div className={styleWrapIcon}>
-									<i className={`far fa-user mr-2 ${styleIcon}`}></i>
-									<span>Tên</span>
-								</div>
-								<div className={styleValue}>{dataAll?.ReceiverFullName}</div>
-							</div>
-							<div className={styleLi}>
-								<div className={styleWrapIcon}>
-									<i className={`far fa-map-marker-alt mr-2 ${styleIcon}`}></i>
-									<span>Địa chỉ</span>
-								</div>
-								<div className={styleValue}>{dataAll?.DeliveryAddress}</div>
-							</div>
-							<div className={styleLi}>
-								<div className={styleWrapIcon}>
-									<i className={`far fa-envelope mr-2 ${styleIcon}`}></i>
-									<span>Email</span>
-								</div>
-								<div className={styleValue}>{dataAll?.ReceiverEmail}</div>
-							</div>
-							<div className={styleLi}>
-								<div className={styleWrapIcon}>
-									<i className={`far fa-phone-alt mr-2 ${styleIcon}`}></i>
-									<span>Số điện thoại</span>
-								</div>
-								<div className={styleValue}>{dataAll?.ReceiverPhone}</div>
-							</div>
 						</div>
 					</div>
 				</div>

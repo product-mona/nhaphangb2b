@@ -12,9 +12,9 @@ export const OrderIDProductList: React.FC<any> = ({ data }) => {
 				<div key={index} className="orderProductItem border">
 					<div className="flex flex-wrap">
 						<div className="flex w-full items-center mb-5 justify-between px-3 borderBottom">
-							<Tooltip title="Link đến sản phẩm">
+							<Tooltip title="Link đến sản phẩm" placement="topLeft">
 								<a href={item?.LinkOrigin} target="_blank" className="mainTitle">
-									{item?.LinkOrigin}
+									<p className="hover:text-main">{item?.ItemId}</p>
 								</a>
 							</Tooltip>
 						</div>

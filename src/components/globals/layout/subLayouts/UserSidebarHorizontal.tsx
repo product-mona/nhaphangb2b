@@ -47,9 +47,11 @@ export const UserLayout: FC<{}> = ({ children }) => {
 												sidebarTabbar: tabbar,
 												sidebarHovered: hover,
 												dropdown: dropdown === subItem.name,
-												handleDropdown: () => handleDropdown(subItem.name),
+												handleDropdown: () => {
+													handleDropdown(subItem.name)
+												},
 												activeRouter:
-													subItem?.childrens?.some((item) => item.path === route) ?? subItem.path === route,
+													subItem?.childrens?.some((item) => route.includes(item.path)) ?? subItem.path === route,
 												subItemName: subItem.name
 											}}
 										></Menus>
