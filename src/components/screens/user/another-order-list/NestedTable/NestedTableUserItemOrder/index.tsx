@@ -1,24 +1,40 @@
-import { Modal, Space, Tag, Typography } from 'antd'
+import { DataTable } from '~/components/globals/table'
+import { Modal, Space, Tag } from 'antd'
 import { TableRowSelection } from 'antd/lib/table/interface'
 import router from 'next/router'
-import React, { useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import React, { FC, useState } from 'react'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { mainOrder, orderShopTemp } from '~/api'
-import { ActionButton, DataTable, showToast } from '~/components'
+import { ActionButton, showToast } from '~/components'
 import { createdOrderStatusData, ECreatedOrderStatusData, orderStatus } from '~/configs/appConfigs'
 import { TColumnsType, TTable } from '~/types/table'
-import { NestedTableUserItemOrder } from './NestedTable'
+
 import { toastApiErr, _format } from '~/utils'
 
-export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> = ({
-	data,
-
-	loading,
-	handleModal,
-	type,
-	q
-}) => {
+export const NestedTableUserItemOrder: FC<any> = ({ handleModal, type, q, GroupMainOrderID, expandItemId }) => {
+	const {
+		data: itemOrderListQuery,
+		isFetching,
+		refetch
+	} = useQuery(
+		['ItemOrderListQuery', GroupMainOrderID],
+		() => mainOrder.getSubGroupOrder({ id: GroupMainOrderID }).then((res) => res.Data),
+		{
+			onSuccess: (data) => {
+				console.log('ItemOrderListQuery', data)
+			},
+			onError: (error) => {
+				showToast({
+					title: 'Đã xảy ra lôi!',
+					message: (error as any)?.response?.data?.ResultMessage,
+					type: 'error'
+				})
+			},
+			retry: true,
+			enabled: !!expandItemId && expandItemId == GroupMainOrderID
+		}
+	)
 	const [delLoading, setDelLoading] = useState(false)
 	const queryClient = useQueryClient()
 
@@ -56,7 +72,19 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 			title: 'ID đơn'
 			// width: 60,
 		},
-
+		{
+			dataIndex: 'ImageOrigin',
+			title: 'Ảnh',
+			align: 'center',
+			render: (img) => {
+				return (
+					<div className="flex justify-center m-auto w-20 h-20">
+						<img src={img ? img : '/pro-empty.jpg'} alt="image" width={75} height={75} style={{ borderRadius: '10px' }} />
+					</div>
+				)
+			}
+			// width: 120,
+		},
 		{
 			dataIndex: 'TotalPriceVND',
 			title: 'Tổng tiền (VNĐ)',
@@ -348,42 +376,17 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 		}
 	]
 
-	const expandable = {
-		expandedRowRender: (record) => (
-			<div className="bg-[#edc6e8] p-4">
-				<p
-					style={{
-						fontSize: '16px',
-						fontWeight: 600,
-						marginBottom: '16px'
-					}}
-				>
-					Chi tiết danh sách cửa hàng
-				</p>
-				<NestedTableUserItemOrder
-					handleModal={handleModal}
-					type={type}
-					q={q}
-					GroupMainOrderID={record.Id}
-					expandItemId={record.Id}
-				/>
-			</div>
-		)
-	}
-
 	return (
 		<DataTable
 			{...{
 				columns,
-				data,
+				data: itemOrderListQuery || [],
 				bordered: true,
-				loading,
-				expandOnlyOne: true,
-				expandable: expandable,
-				isExpand: true,
+				// rowSelection,
+				loading: isFetching,
+
 				scroll: { y: 700 }
 			}}
-			tableId={'secondTable'}
 		/>
 	)
 }

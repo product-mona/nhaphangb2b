@@ -63,24 +63,28 @@ const Index: TNextPageWithLayout = () => {
 		setMoneyOfOrders(createdMoneyOfOrdersData)
 	}, [query?.q, user])
 
-	const { data, isFetching, refetch } = useQuery(['orderList', filter], () => mainOrder.getList(filter).then((res) => res.Data), {
-		onSuccess: (data) =>
-			setFilter({
-				...filter,
-				TotalItems: data?.TotalItem,
-				PageIndex: data?.PageIndex,
-				PageSize: data?.PageSize
-			}),
-		onError: (error) => {
-			showToast({
-				title: 'Đã xảy ra lôi!',
-				message: (error as any)?.response?.data?.ResultMessage,
-				type: 'error'
-			})
-		},
-		retry: true,
-		enabled: !!user?.UserId
-	})
+	const { data, isFetching, refetch } = useQuery(
+		['orderList', filter],
+		() => mainOrder.getList({ ...filter, OrderType: 4 }).then((res) => res.Data),
+		{
+			onSuccess: (data) =>
+				setFilter({
+					...filter,
+					TotalItems: data?.TotalItem,
+					PageIndex: data?.PageIndex,
+					PageSize: data?.PageSize
+				}),
+			onError: (error) => {
+				showToast({
+					title: 'Đã xảy ra lôi!',
+					message: (error as any)?.response?.data?.ResultMessage,
+					type: 'error'
+				})
+			},
+			retry: true,
+			enabled: !!user?.UserId
+		}
+	)
 
 	const mutationUpdateDeposit = useMutation(
 		(data: TOrder[]) =>

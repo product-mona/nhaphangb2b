@@ -866,7 +866,7 @@ span.create .ant-upload.ant-upload-select-picture-card {
 }
 
 .ant-table-cell-row-hover {
-  background-color: #008d4b2a !important;
+  background-color: #c8ffe5 !important;
 }
 
 .ant-table-container {
@@ -945,7 +945,7 @@ span.create .ant-upload.ant-upload-select-picture-card {
   border-right: 1px solid rgba(2, 2, 242, 0.05) !important;
 }
 .ant-table-tbody > tr.ant-table-row-selected > td {
-  background-color: rgba(0, 141, 75, 10%) !important;
+  background-color: #dbffee !important;
 }
 .ant-table-summary > tr > td {
   border-bottom: 1px solid rgba(2, 2, 242, 0.05) !important;
@@ -997,11 +997,7 @@ div.order .ant-drawer-body {
   visibility: visible !important;
 }
 
-@media (min-width: 1200px) {
-  .ant-table-cell button {
-    visibility: hidden !important;
-  }
-}
+
 
 @media (max-width: 1025px) {
   .ant-pagination {
