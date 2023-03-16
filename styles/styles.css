@@ -1059,7 +1059,9 @@ div.order .ant-drawer-body {
 
 .styleScroll::-webkit-scrollbar {
   background-color: #fff;
-  width: 2px;
+  /* width: 2px; */
+  width: 8px;
+  height: 12px; 
 }
 
 .styleScroll::-webkit-scrollbar-thumb {

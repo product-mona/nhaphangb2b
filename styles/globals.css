@@ -33,8 +33,10 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 2px;
-  height: 7px;
+  /* width: 2px;
+  height: 7px; */
+  width: 8px;
+  height: 12px; 
 }
 
 /* Track */
@@ -44,12 +46,13 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #366136;
+  background: #aaa; 
+  border-radius: 20px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: rgb(120, 120, 120); 
 }
 
 .ant-skeleton.ant-skeleton-element.ant-skeleton-active {

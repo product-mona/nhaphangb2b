@@ -1,5 +1,5 @@
 import router, { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { toast } from 'react-toastify'
 import { mainOrder } from '~/api'
@@ -11,45 +11,29 @@ import {
 	OrderOverView,
 	UserLayout,
 	OrderIDShopList,
-	showToast
+	ShopOrderOverView,
+	ShopOrderGeneralInfo,
+	SecondOrderIDProductList
 } from '~/components'
 import { SEOConfigs } from '~/configs/SEOConfigs'
 import { TNextPageWithLayout } from '~/types/layout'
 
-const Index: TNextPageWithLayout = () => {
+export const ShopOrderDetailPage: TNextPageWithLayout = () => {
+	const { id } = router.query
 	const { query } = useRouter()
-	const router = useRouter()
-
-	const id = router.query.id as string | undefined
-
+	// const router = useRouter()
 	const { data, isError, isLoading, refetch } = useQuery(['orderList', +query?.id], () => mainOrder.getByID(+query?.id), {
 		onSuccess: (data) => {
-			// OrderShops
+			console.log('onSuccess', data?.Data?.OrderType)
+			if (data?.Data?.OrderType !== 1) {
+				router.push('/user/order-list')
+			}
 		},
+
 		onError: toast.error,
 		retry: false,
 		enabled: !!+query?.id
 	})
-
-	const { data: itemOrderListQuery, isFetching } = useQuery(
-		['ItemOrderListQuery', id],
-		() => mainOrder.getSubGroupOrder({ id: +id, PageSize: 1000 }),
-		{
-			onSuccess: (data) => {
-				console.log('ItemOrderListQuery', data)
-			},
-			onError: (error) => {
-				showToast({
-					title: 'Đã xảy ra lôi!',
-					message: (error as any)?.response?.data?.ResultMessage,
-					type: 'error'
-				})
-			},
-			retry: true,
-			enabled: !!id,
-			refetchOnWindowFocus: false
-		}
-	)
 
 	const updatePaid = (type: 'deposit' | 'payment') => {
 		const id = toast.loading('Đang xử lý ...')
@@ -78,20 +62,23 @@ const Index: TNextPageWithLayout = () => {
 
 	return (
 		<React.Fragment>
-			<div className="titlePageUser">Chi tiết đơn hàng #{id}</div>
+			<div className="titlePageUser">Chi tiết đơn hàng của shop #{id}</div>
 			<div className="mb-4 ">
 				<div className="sm:grid sm:grid-cols-2 gap-4">
 					<div className="col-span-1">
-						<OrderOverView data={data?.Data} updatePaid={updatePaid} />
+						<ShopOrderOverView data={data?.Data} updatePaid={updatePaid} />
 					</div>
 					<div className="col-span-1">
-						<OrderIDDetail data2={data?.Data?.Orders} dataAll={data?.Data} data={data?.Data?.FeeSupports} />
+						<ShopOrderGeneralInfo data2={data?.Data?.Orders} dataAll={data?.Data} data={data?.Data?.FeeSupports} />
 					</div>
 				</div>
 				{/* <OrderTransportList data={data?.Data?.SmallPackages} /> */}
-
+				<div className="my-4">
+					<SecondOrderIDProductList data={data?.Data?.Orders} dataOrder={data?.Data} />
+				</div>
+				{/* <OrderIDProductList data={data?.Data?.Orders} /> */}
 				{/* danh sách shop*/}
-				{/* <OrderIDShopList dataOrder={data?.Data} orderShopList={itemOrderListQuery.Data || []} /> */}
+				{/* <OrderIDShopList dataOrder={data?.Data} orderShopList={data?.Data?.OrderShops || []} /> */}
 				{/* <OrderIDPaymentHistory data={data?.Data?.PayOrderHistories} /> */}
 				{data && <MessageControlUser clientId={data.Data.UID} mainOrderId={+query?.id} />}
 			</div>
@@ -99,7 +86,5 @@ const Index: TNextPageWithLayout = () => {
 	)
 }
 
-Index.displayName = SEOConfigs.oder.detail
-Index.Layout = UserLayout
-
-export default Index
+ShopOrderDetailPage.displayName = 'Chi tiết đơn cửa hàng'
+ShopOrderDetailPage.Layout = UserLayout

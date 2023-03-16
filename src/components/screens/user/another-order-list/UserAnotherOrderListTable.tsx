@@ -10,6 +10,7 @@ import { createdOrderStatusData, ECreatedOrderStatusData, orderStatus } from '~/
 import { TColumnsType, TTable } from '~/types/table'
 import { NestedTableUserItemOrder } from './NestedTable'
 import { toastApiErr, _format } from '~/utils'
+import Link from 'next/link'
 
 export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> = ({
 	data,
@@ -75,11 +76,11 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 		},
 		{
 			dataIndex: 'Deposit',
-			title: 'Số tiền đã cọc (VNĐ)',
+			title: 'Công nợ đơn hàng',
 			// width: 150,
 			align: 'right',
 			responsive: ['lg'],
-			render: (price) => _format.getVND(price, ' ')
+			render: (deposit, record) => _format.getVND(record.TotalPriceVND - record.Deposit, ' ')
 		},
 
 		{
@@ -138,19 +139,20 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 									title="Mua lại đơn hàng này"
 								/>
 							)}
-
-							<ActionButton
-								onClick={() => {
-									router.push({
-										pathname: '/user/order-list/detail',
-										query: {
-											id: record?.Id
-										}
-									})
+							<Link
+								href={{
+									pathname: '/user/order-list/detail',
+									query: {
+										id: record?.Id
+									}
 								}}
-								icon="far fa-info-square"
-								title="Xem chi tiết đơn"
-							/>
+								passHref
+							>
+								<a rel="noopener noreferrer">
+									<ActionButton onClick={() => {}} icon="far fa-info-square" title="Xem chi tiết đơn" />
+								</a>
+							</Link>
+
 							{record?.Status === ECreatedOrderStatusData.Finished && (
 								<ActionButton
 									onClick={() =>
@@ -246,18 +248,19 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 								icon="fas fa-cart-arrow-down"
 								title="Mua lại đơn hàng này"
 							/>
-							<ActionButton
-								onClick={() => {
-									router.push({
-										pathname: '/user/order-list/detail',
-										query: {
-											id: record?.Id
-										}
-									})
+							<Link
+								href={{
+									pathname: '/user/order-list/detail',
+									query: {
+										id: record?.Id
+									}
 								}}
-								icon="far fa-info-square"
-								title="Xem chi tiết đơn"
-							/>
+								passHref
+							>
+								<a rel="noopener noreferrer">
+									<ActionButton icon="far fa-info-square" title="Xem chi tiết đơn" />
+								</a>
+							</Link>
 							{record?.Status === 102 && (
 								<ActionButton
 									onClick={() => {
@@ -350,16 +353,22 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 
 	const expandable = {
 		expandedRowRender: (record) => (
-			<div className="bg-[#edc6e8] p-4">
-				<p
-					style={{
-						fontSize: '16px',
-						fontWeight: 600,
-						marginBottom: '16px'
-					}}
-				>
-					Chi tiết danh sách cửa hàng
-				</p>
+			<div
+				style={{
+					background: 'linear-gradient(90deg, #b53aa5 15%, #d06cc3 60%)'
+				}}
+				className=" p-4"
+			>
+				<div className="mb-4 text-white">
+					<p
+						style={{
+							fontSize: '16px',
+							fontWeight: 600
+						}}
+					>
+						Chi tiết danh sách cửa hàng
+					</p>
+				</div>
 				<NestedTableUserItemOrder
 					handleModal={handleModal}
 					type={type}

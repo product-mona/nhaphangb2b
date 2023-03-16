@@ -133,7 +133,7 @@ const Index: TNextPageWithLayout = () => {
 							expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
 							defaultActiveKey={['1', '2', '3', '4', '5', '6', '7']}
 						>
-							<Panel header={`Mã đơn hàng (${data?.Data?.MainOrderCodes?.length || 0})`} key="1">
+							{/* <Panel header={`Mã đơn hàng (${data?.Data?.MainOrderCodes?.length || 0})`} key="1">
 								<div id="order-code" className={clsx(className, active === 0 && '', 'px-4')}>
 									<OrderCode data={data?.Data} loading={isFetching} refetch={refetch} RoleID={newUser?.UserGroupId} />
 								</div>
@@ -147,7 +147,7 @@ const Index: TNextPageWithLayout = () => {
 										RoleID={newUser?.UserGroupId}
 									/>
 								</div>
-							</Panel>
+							</Panel> */}
 							<Panel header={`Danh sách sản phẩm (${data?.Data?.Orders?.length || 0})`} key="3">
 								<div id="product-list" className={clsx(className, active === 2 && '', '!px-2 !py-0')}>
 									<OrderProductList
