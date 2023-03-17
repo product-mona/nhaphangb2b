@@ -15,11 +15,11 @@ type TProps = {
 	yellow?: boolean
 	green?: boolean
 	blue?: boolean
+	type?: 'button' | 'submit' | 'reset'
 }
 
 const styleBtn =
 	'bg-main h-[38px] mx-0 py-[6px] px-[12px] rounded-md text-white !font-semibold tracking-wide hover:bg-mainDark hover:shadow'
-
 const styleBtnGreen =
 	'text-white !bg-[#1f8f2b] hover:bg-[#d0f5d5] h-[36px] mx-0 py-[6px] px-[12px] rounded-md font-medium tracking-wide hover:shadow'
 const styleBtnRed = 'text-white !bg-[#f02b02] h-[36px] mx-0 py-[6px] px-[12px] rounded-md font-medium tracking-wide hover:shadow'
@@ -41,7 +41,8 @@ export const IconButton: React.FC<TProps> = ({
 	red,
 	yellow,
 	green,
-	blue
+	blue,
+	type = 'button'
 }) => {
 	const [loading, setLoading] = React.useState(false)
 
@@ -64,6 +65,7 @@ export const IconButton: React.FC<TProps> = ({
 	return (
 		<Tooltip title={toolip || ''}>
 			<button
+				type={type}
 				onClick={!disabled && !loading ? _onPress : undefined}
 				className={clsx(
 					styleBtn,

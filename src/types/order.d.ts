@@ -320,6 +320,7 @@ type TOrder = Omit<TBaseReponseParams, 'Name' | 'Code' | 'Description'> & {
 	MainOrderCustomID: string
 
 	GroupMainOrderID: number // = 0 thì là groupOrder còn lại là order
+	SubMainOrders: any[]
 	// OrderShops?: IOrderShop[] //IOrderShop
 	// TotalItem: number // tổng số lượng tất cả SP trong đơn
 }

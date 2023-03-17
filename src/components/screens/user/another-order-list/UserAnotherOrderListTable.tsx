@@ -54,8 +54,8 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 	const columns: TColumnsType<TOrder> = [
 		{
 			dataIndex: 'MainOrderCustomID',
-			title: 'ID đơn'
-			// width: 60,
+			title: 'ID đơn',
+			width: 100
 		},
 
 		{
@@ -387,9 +387,9 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 				data,
 				bordered: true,
 				loading,
-				expandOnlyOne: true,
+				expandOnlyOne: Number(q) === 3 ? false : true,
 				expandable: expandable,
-				isExpand: true,
+				isExpand: Number(q) === 3 ? false : true,
 				scroll: { y: 700 }
 			}}
 			tableId={'secondTable'}

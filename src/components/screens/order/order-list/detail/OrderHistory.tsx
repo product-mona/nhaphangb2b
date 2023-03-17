@@ -6,7 +6,7 @@ import { _format } from '~/utils'
 import { History } from './History'
 
 type TProps = {
-	data: TOrder
+	data?: TOrder
 	loading: boolean
 }
 
@@ -153,7 +153,7 @@ export const OrderHistory: React.FC<TProps> = ({ data, loading }) => {
 					// expandable={expandablePay}
 				/>
 			</div>
-			{data.OrderType === 4 ? null : (
+			{data?.OrderType === 4 ? null : (
 				<div className="mt-8 border-t pt-4 mx-2">
 					<History
 						title="LỊCH SỬ THAY ĐỔI"
@@ -165,7 +165,7 @@ export const OrderHistory: React.FC<TProps> = ({ data, loading }) => {
 					/>
 				</div>
 			)}
-			{data.OrderType === 4 ? null : (
+			{data?.OrderType === 4 ? null : (
 				<div className="mt-8 border-t pt-4 mx-2">
 					<History
 						title="LỊCH SỬ KHIẾU NẠI"

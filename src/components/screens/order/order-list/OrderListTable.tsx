@@ -417,7 +417,7 @@ export const OrderListTable: React.FC<
 							/>
 						)}
 					<Link href={`/manager/order/order-list/detail/?id=${record?.Id}`}>
-						<a target="_blank">
+						<a>
 							<ActionButton onClick={() => undefined} icon="fas fa-edit" title="Cập nhật" />
 						</a>
 					</Link>

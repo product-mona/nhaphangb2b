@@ -43,7 +43,7 @@ const Index: TNextPageWithLayout = () => {
 		IsNotMainOrderCode: false,
 		sorter: null,
 		TotalItems: null,
-		OrderType: query?.q === '3' ? 3 : 1,
+		OrderType: query?.q === '3' ? 3 : 4,
 		PageIndex: 1,
 		PageSize: 20,
 		OrderBy: 'Id desc',
@@ -63,7 +63,7 @@ const Index: TNextPageWithLayout = () => {
 			IsNotMainOrderCode: false,
 			sorter: null,
 			TotalItems: null,
-			OrderType: query?.q === '3' ? 3 : 1,
+			OrderType: query?.q === '3' ? 3 : 4,
 			PageIndex: 1,
 			PageSize: 20,
 			OrderBy: 'Id desc',
@@ -125,14 +125,14 @@ const Index: TNextPageWithLayout = () => {
 			{
 				UID: newUser?.UserId,
 				RoleID: newUser?.UserGroupId,
-				orderType: query?.q === '3' ? 3 : 1
+				orderType: query?.q === '3' ? 3 : 4
 			}
 		],
 		() =>
 			mainOrder.getNumberOfOrder({
 				UID: newUser?.UserId,
 				RoleID: newUser?.UserGroupId,
-				orderType: query?.q === '3' ? 3 : 1
+				orderType: query?.q === '3' ? 3 : 4
 			}),
 		{
 			onSuccess(res) {

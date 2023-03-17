@@ -1,7 +1,7 @@
 import { Popconfirm } from 'antd'
 import router from 'next/router'
 import React, { useMemo } from 'react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
+import { useFieldArray, useFormContext, useForm } from 'react-hook-form'
 import { smallPackage } from '~/api'
 import { ActionButton, DataTable, FormCheckbox, FormInput, FormInputNumber, FormSelect, IconButton, toast } from '~/components'
 import { ESmallPackageStatusData, smallPackageStatusData } from '~/configs/appConfigs'
@@ -10,7 +10,7 @@ import { TColumnsType } from '~/types/table'
 type TProps = {
 	data: TOrder
 	loading: boolean
-	handleUpdate: (data: TOrder) => Promise<void>
+	handleUpdate: (data: TOrder) => void
 	RoleID: number
 }
 
@@ -18,6 +18,9 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 	const { control, watch, handleSubmit } = useFormContext<TOrder>()
 	const formValue = useMemo(() => watch(), [watch() as TOrder])
 	const SmallPackages = data?.SmallPackages
+	const methods = useForm<TOrder>({
+		mode: 'onBlur'
+	})
 	const { fields, append, remove } = useFieldArray({
 		control,
 		name: 'SmallPackages'
@@ -137,54 +140,6 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 			),
 			width: 120
 		},
-		// {
-		//   dataIndex: "Volume",
-		//   align: "center",
-		//   title: () => (
-		//     <React.Fragment>
-		//       Cân quy
-		//       <br />
-		//       đổi (kg)
-		//     </React.Fragment>
-		//   ),
-		//   render: (_, __, index) => (
-		//     <FormInputNumber
-		//       control={control}
-		//       disabled
-		//       name={`SmallPackages.${index}.Volume` as const}
-		//       placeholder=""
-		//       allowNegative={false}
-		//       hideError
-		//       inputContainerClassName="max-w-[70px] mx-auto"
-		//       inputClassName="text-center"
-		//     />
-		//   ),
-		//   width: 70,
-		// },
-		// {
-		//   dataIndex: "PayableWeight",
-		//   align: "center",
-		//   title: () => (
-		//     <React.Fragment>
-		//       Cân tính
-		//       <br />
-		//       tiền (kg)
-		//     </React.Fragment>
-		//   ),
-		//   render: (_, __, index) => (
-		//     <FormInputNumber
-		//       control={control}
-		//       disabled
-		//       name={`SmallPackages.${index}.PayableWeight` as const}
-		//       placeholder=""
-		//       allowNegative={false}
-		//       hideError
-		//       inputContainerClassName="max-w-[50px] mx-auto"
-		//       inputClassName="text-center"
-		//     />
-		//   ),
-		//   width: 70,
-		// },
 		{
 			dataIndex: 'Status',
 			title: 'Trạng thái',
@@ -272,7 +227,9 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 			toast.error(error)
 		}
 	}
-
+	const onSubmit = (data: any) => {
+		console.log('onSubmit', data)
+	}
 	return (
 		<React.Fragment>
 			<DataTable

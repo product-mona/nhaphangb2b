@@ -1,58 +1,47 @@
-import {Space} from "antd";
-import React from "react";
-import {useFieldArray, useFormContext} from "react-hook-form";
-import {toast} from "react-toastify";
-import {feeSupport} from "~/api";
-import {
-	ActionButton,
-	DataTable,
-	FormInput,
-	FormInputNumber,
-	showToast,
-} from "~/components";
-import {IconButton} from "~/components/globals/button/IconButton";
-import {TColumnsType} from "~/types/table";
+import { Space } from 'antd'
+import React from 'react'
+import { useFieldArray, useFormContext } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import { feeSupport } from '~/api'
+import { ActionButton, DataTable, FormInput, FormInputNumber, showToast } from '~/components'
+import { IconButton } from '~/components/globals/button/IconButton'
+import { TColumnsType } from '~/types/table'
 
 type TProps = {
-	data: TOrder;
-	loading: boolean;
-	handleUpdate: (data: TOrder) => Promise<void>;
-	RoleID: number;
-};
+	data: TOrder
+	loading: boolean
+	handleUpdate: (data: TOrder) => void
+	RoleID: number
+}
 
-export const OrderSurChargeList: React.FC<TProps> = ({
-	data,
-	loading,
-	handleUpdate,
-	RoleID,
-}) => {
-	const FeeSupports = data?.FeeSupports;
-	const {control, reset, handleSubmit} = useFormContext<TOrder>();
+export const OrderSurChargeList: React.FC<TProps> = ({ data, loading, handleUpdate, RoleID }) => {
+	const FeeSupports = data?.FeeSupports
+	const { control, reset, handleSubmit } = useFormContext<TOrder>()
 
-	const {fields, append, remove} = useFieldArray({
+	const { fields, append, remove } = useFieldArray({
 		control,
-		name: "FeeSupports",
-	});
+		name: 'FeeSupports'
+	})
 
 	const columns: TColumnsType<TFeeSupport> = [
 		{
-			dataIndex: "SupportName",
-			title: "Tên phụ phí",
-			align: "center",
+			dataIndex: 'SupportName',
+			title: 'Tên phụ phí',
+			align: 'center',
 			render: (_, __, index) => (
 				<FormInput
 					control={control}
 					name={`FeeSupports.${index}.SupportName` as const}
 					placeholder=""
 					hideError
-					rules={{required: "This field is required "}}
+					rules={{ required: 'This field is required ' }}
 				/>
-			),
+			)
 		},
 		{
-			dataIndex: "SupportInfoVND",
-			title: "Số tiền (VNĐ)",
-			align: "center",
+			dataIndex: 'SupportInfoVND',
+			title: 'Số tiền (VNĐ)',
+			align: 'center',
 			render: (_, __, index) => (
 				<FormInputNumber
 					suffix=" VNĐ"
@@ -60,16 +49,16 @@ export const OrderSurChargeList: React.FC<TProps> = ({
 					name={`FeeSupports.${index}.SupportInfoVND` as const}
 					placeholder=""
 					hideError
-					rules={{required: "This field is required "}}
+					rules={{ required: 'This field is required ' }}
 				/>
-			),
+			)
 			// responsive: ["lg"],
 		},
 		{
-			dataIndex: "action",
-			title: "Thao tác",
-			align: "center",
-			className: `${RoleID === 1 || RoleID === 3 ? "" : "hidden"}`,
+			dataIndex: 'action',
+			title: 'Thao tác',
+			align: 'center',
+			className: `${RoleID === 1 || RoleID === 3 ? '' : 'hidden'}`,
 			render: (_, record: any, index) => {
 				return (
 					<Space>
@@ -77,22 +66,19 @@ export const OrderSurChargeList: React.FC<TProps> = ({
 							icon="fas fa-minus-circle"
 							title="Xóa"
 							onClick={() => {
-								const item: any = FeeSupports?.find(
-									(x: any) => x?.Id === record?.Id
-								);
+								const item: any = FeeSupports?.find((x: any) => x?.Id === record?.Id)
 								if (!!item) {
 									showToast({
-										title: "Thông tin",
-										message:
-											"Đang thực hiện việc, vui lòng đợi trong giây lát...",
-										type: "info",
-									});
+										title: 'Thông tin',
+										message: 'Đang thực hiện việc, vui lòng đợi trong giây lát...',
+										type: 'info'
+									})
 									feeSupport
 										.delete(item.Id)
 										.then(() => {
-											remove(index);
-											toast.success("Xoá phụ phí thành công");
-											handleSubmit(handleUpdate)();
+											remove(index)
+											toast.success('Xoá phụ phí thành công')
+											handleSubmit(handleUpdate)()
 											// const newFeeSupports = FeeSupports.filter(itemx => itemx.Id !== item.Id)
 
 											// const newData = {
@@ -106,20 +92,20 @@ export const OrderSurChargeList: React.FC<TProps> = ({
 											showToast({
 												title: (error as any)?.response?.data?.ResultCode,
 												message: (error as any)?.response?.data?.ResultMessage,
-												type: "error",
+												type: 'error'
 											})
-										);
+										)
 								} else {
-									remove(index);
+									remove(index)
 								}
 							}}
 						/>
 					</Space>
-				);
-			},
+				)
+			}
 			// responsive: ["xl"],
-		},
-	];
+		}
+	]
 
 	// const expandable = {
 	//   expandedRowRender: (record, index) => (
@@ -183,13 +169,13 @@ export const OrderSurChargeList: React.FC<TProps> = ({
 		<div className="mb-4">
 			<div className="mb-4 text-base font-bold py-2 uppercase border-b border-main">Danh sách phụ phí</div>
 			<DataTable
-				rowKey={"id" as any}
+				rowKey={'id' as any}
 				columns={columns}
 				data={fields}
 				style="secondary"
 				// expandable={expandable}
 			/>
-			{(RoleID === 1 || RoleID === 3 || RoleID === 4)&& (
+			{(RoleID === 1 || RoleID === 3 || RoleID === 4) && (
 				<IconButton
 					icon="fas fa-plus"
 					title="Tạo"
@@ -198,7 +184,7 @@ export const OrderSurChargeList: React.FC<TProps> = ({
 							SupportInfoVND: 0,
 							MainOrderId: 0,
 							Id: 0,
-							SupportName: "",
+							SupportName: ''
 						})
 					}
 					btnClass="mt-4"
@@ -207,5 +193,5 @@ export const OrderSurChargeList: React.FC<TProps> = ({
 				/>
 			)}
 		</div>
-	);
-};
+	)
+}
