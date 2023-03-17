@@ -1,27 +1,37 @@
 import { Popconfirm, List, Typography } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
+
 import { useFieldArray, useFormContext } from 'react-hook-form'
+import { useMutation, useQueryClient } from 'react-query'
 import { mainOrderCode } from '~/api'
 import { ActionButton, FormInput } from '~/components'
 import { toast } from '~/components/toast'
 import { useDeepEffect } from '~/hooks'
+import { toastApiErr } from '~/utils'
 import { AddOrderCode } from './AddOrderCode'
 
 type TProps = {
 	data?: TOrder
-	loading: boolean
-	refetch?: any
-	isAdmin?: boolean
 	RoleID: number
 }
 const divStyles = {}
 
-export const OrderCode: React.FC<TProps> = ({ data, loading, refetch, RoleID }) => {
+export const OrderCodeSecond: React.FC<TProps> = ({ data, RoleID }) => {
+	const queryClient = useQueryClient()
 	const { control, getValues, watch } = useFormContext<TOrder>()
 
 	const { fields, append, remove } = useFieldArray({
 		control,
 		name: 'MainOrderCodes'
+	})
+	const mutationDelete = useMutation(mainOrderCode.delete, {
+		onSuccess: (res) => {
+			toast.success('Xoá mã vận đơn thành công')
+			queryClient.invalidateQueries(['OrderShopDetailModal', data.Id])
+		},
+		onError: (err) => {
+			toastApiErr(err)
+		}
 	})
 	const renderViewList = () => {
 		if (!!data) {
@@ -42,18 +52,13 @@ export const OrderCode: React.FC<TProps> = ({ data, loading, refetch, RoleID }) 
 									placement="topLeft"
 									title="Bạn có muốn xoá mã đơn hàng này?"
 									onConfirm={() => {
-										toast.info('Đang thực hiện việc xoá, vui lòng đợi trong giây lát...')
-										mainOrderCode
-											.delete(item.Id)
-											.then(() => {
-												remove(index)
-												toast.success('Xoá mã vận đơn thành công')
-												refetch()
-											})
-											.catch(toast.error)
+										if (!mutationDelete.isLoading) {
+											mutationDelete.mutateAsync(item.Id)
+										}
 									}}
-									okText="Yes"
-									cancelText="No"
+									disabled={mutationDelete.isLoading}
+									okText="Xóa"
+									cancelText="Hủy"
 								>
 									<ActionButton
 										iconContainerClassName="ml-2 border-none"
@@ -71,15 +76,22 @@ export const OrderCode: React.FC<TProps> = ({ data, loading, refetch, RoleID }) 
 				/>
 			)
 		} else {
-			return null
+			return <></>
 		}
 	}
+	const renderBtn = () => {
+		if (data) {
+			if (RoleID == 1 || RoleID == 2 || RoleID == 4) {
+				return <AddOrderCode orderId={data.Id} dataList={data.MainOrderCodes || []} />
+			} else {
+				return <></>
+			}
+		} else return <></>
+	}
 	return (
-		<React.Fragment>
+		<div>
 			<div>{renderViewList()}</div>
-			<div className="mt-4">
-				{(RoleID === 1 || RoleID === 3 || RoleID === 4) && <AddOrderCode dataList={data.MainOrderCodes} orderId={data?.Id} />}
-			</div>
-		</React.Fragment>
+			<div className="mt-4">{renderBtn()}</div>
+		</div>
 	)
 }

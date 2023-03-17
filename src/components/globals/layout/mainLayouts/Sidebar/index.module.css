@@ -39,7 +39,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   transition: all 0.3s ease-in-out;
-  z-index: 100000;
+  z-index: 100;
   /* transform: translateX(-100%); */
   transition: 0.3s;
   background-color: #f7fdff;

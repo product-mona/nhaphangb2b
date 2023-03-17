@@ -35,7 +35,7 @@ const Index: TNextPageWithLayout = () => {
 		PageIndex: 1,
 		PageSize: 20,
 		UID: user?.UserId,
-		OrderType: query?.q === '3' ? 3 : 1,
+		OrderType: query?.q === '3' ? 3 : 4,
 		TotalItems: null
 	})
 
@@ -57,34 +57,30 @@ const Index: TNextPageWithLayout = () => {
 			PageIndex: 1,
 			PageSize: 20,
 			UID: user?.UserId,
-			OrderType: query?.q === '3' ? 3 : 1,
+			OrderType: query?.q === '3' ? 3 : 4,
 			TotalItems: null
 		})
 		setMoneyOfOrders(createdMoneyOfOrdersData)
 	}, [query?.q, user])
 
-	const { data, isFetching, refetch } = useQuery(
-		['orderList', filter],
-		() => mainOrder.getList({ ...filter, OrderType: 4 }).then((res) => res.Data),
-		{
-			onSuccess: (data) =>
-				setFilter({
-					...filter,
-					TotalItems: data?.TotalItem,
-					PageIndex: data?.PageIndex,
-					PageSize: data?.PageSize
-				}),
-			onError: (error) => {
-				showToast({
-					title: 'Đã xảy ra lôi!',
-					message: (error as any)?.response?.data?.ResultMessage,
-					type: 'error'
-				})
-			},
-			retry: true,
-			enabled: !!user?.UserId
-		}
-	)
+	const { data, isFetching, refetch } = useQuery(['orderList', filter], () => mainOrder.getList({ ...filter }).then((res) => res.Data), {
+		onSuccess: (data) =>
+			setFilter({
+				...filter,
+				TotalItems: data?.TotalItem,
+				PageIndex: data?.PageIndex,
+				PageSize: data?.PageSize
+			}),
+		onError: (error) => {
+			showToast({
+				title: 'Đã xảy ra lôi!',
+				message: (error as any)?.response?.data?.ResultMessage,
+				type: 'error'
+			})
+		},
+		retry: true,
+		enabled: !!user?.UserId
+	})
 
 	const mutationUpdateDeposit = useMutation(
 		(data: TOrder[]) =>
@@ -149,10 +145,10 @@ const Index: TNextPageWithLayout = () => {
 	}
 
 	useQuery(
-		['main-order-amount', { OrderType: query?.q === '3' ? 3 : 1 }],
+		['main-order-amount', { OrderType: query?.q === '3' ? 3 : 4 }],
 		() =>
 			mainOrder.getMainOrderAmount({
-				orderType: query?.q === '3' ? 3 : 1
+				orderType: query?.q === '3' ? 3 : 4
 			}),
 		{
 			onSuccess: (res) => {
@@ -178,11 +174,11 @@ const Index: TNextPageWithLayout = () => {
 	)
 
 	useQuery(
-		['number-of-order', { UID: user?.UserId, orderType: query?.q === '3' ? 3 : 1 }],
+		['number-of-order', { UID: user?.UserId, orderType: query?.q === '3' ? 3 : 4 }],
 		() =>
 			mainOrder.getNumberOfOrder({
 				UID: user?.UserId,
-				orderType: query?.q === '3' ? 3 : 1
+				orderType: query?.q === '3' ? 3 : 4
 			}),
 		{
 			onSuccess(res) {
