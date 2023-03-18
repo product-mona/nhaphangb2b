@@ -113,17 +113,6 @@ const Index: TNextPageWithLayout = () => {
 		await mutationUpdate.mutateAsync(newData)
 	}
 
-	const onViewDetailShopOrder = (newId: number) => {
-		//click to see detail
-		router.push({
-			pathname: '/manager/order/order-list/shopOrderDetail',
-			query: {
-				id: orderId,
-				shopOrderId: newId
-			}
-		})
-	}
-
 	// if (isError) {
 	// 	return <Empty description={`Không tìm thấy đơn hàng #${query?.id}`} />
 	// }
@@ -173,12 +162,7 @@ const Index: TNextPageWithLayout = () => {
 				return (
 					<Panel header={`Danh sách cửa hàng (${data?.Data?.SubMainOrders?.length || 0})`} key="3">
 						<div id="product-list" className={clsx(className, active === 2 && '', '!px-2 !py-0')}>
-							<OrderShopList
-								onViewShopOrderDetail={onViewDetailShopOrder} //  view Detail
-								data={data?.Data}
-								refetch={refetch}
-								RoleID={newUser?.UserGroupId}
-							/>
+							<OrderShopList data={data?.Data} refetch={refetch} RoleID={newUser?.UserGroupId} />
 						</div>
 					</Panel>
 				)

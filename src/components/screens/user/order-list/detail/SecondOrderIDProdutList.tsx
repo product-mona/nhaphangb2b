@@ -24,9 +24,9 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 				dataOrder.IsCheckProductPrice + // 0
 				dataOrder.FeeWeight +
 				dataOrder.FeeBuyPro
-			console.log('totalFee', totalFee, 'totalItem', totalItem)
+
 			if (!!totalItem) {
-				return 2 / totalItem
+				return totalFee / totalItem
 			} else {
 				return 0
 			}
@@ -36,6 +36,7 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 	const renderCostPrice = useCallback(
 		(price: number) => {
 			const resut = price + totalFeeEachOne
+
 			return numberWithCommas(resut.toFixed(2))
 		},
 		[totalFeeEachOne]

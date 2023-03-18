@@ -1,5 +1,6 @@
 import { List, Typography } from 'antd'
 import { useRouter } from 'next/dist/client/router'
+import Link from 'next/link'
 import React, { FC } from 'react'
 import { order } from '~/api'
 import { ActionButton } from '~/components/globals/button/ActionButton'
@@ -10,10 +11,10 @@ type OrderIDShopListProps = {
 	data?: TOrder
 	RoleID: number
 	refetch: () => void
-	onViewShopOrderDetail?: (newId: number) => void
 }
-export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch, onViewShopOrderDetail }) => {
+export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch }) => {
 	const router = useRouter()
+	const orderId = Number(router.query.id)
 	const onExportExcel = async () => {
 		try {
 			const res = await order.exportExcel({
@@ -24,6 +25,7 @@ export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch,
 			toast.error(error)
 		}
 	}
+
 	const renderView = () => {
 		if (!!data) {
 			return (
@@ -39,15 +41,25 @@ export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch,
 							}}
 							key={`MainOrderCodes-${index}`}
 							actions={[
-								<ActionButton
-									onClick={() => {
-										onViewShopOrderDetail?.(item?.Id)
+								<Link
+									href={{
+										pathname: '/manager/order/order-list/shopOrderDetail',
+										query: {
+											id: orderId,
+											shopOrderId: item?.Id
+										}
 									}}
-									iconContainerClassName="ml-2 border-none"
-									icon="fas fa-info-square"
-									title="Chi tiết"
-									placement="right"
-								/>
+									passHref
+								>
+									<a rel="noopener noreferrer">
+										<ActionButton
+											iconContainerClassName="ml-2 border-none"
+											icon="fas fa-info-square"
+											title="Chi tiết"
+											placement="right"
+										/>
+									</a>
+								</Link>
 							]}
 						>
 							<Typography.Text mark>{item?.MainOrderCustomID}</Typography.Text>
