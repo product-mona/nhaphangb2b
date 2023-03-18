@@ -603,6 +603,7 @@ export const OrderCost: React.FC<TProps> = ({ data, RoleID }) => {
 			<div>{baseFee()}</div>
 			<div>{renderAttributeFee()}</div>
 			<div>{renderDepositFee()}</div>
+			<div>{renderChargeComponent()}</div>
 			{/* ====== <div className="flex items-center mt-4">
 				<div className={costTitle}>Phí lưu kho</div>
 				<div className={costBox}>

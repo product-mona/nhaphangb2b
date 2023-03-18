@@ -39,13 +39,10 @@ const Index: TNextPageWithLayout = () => {
 	const { current: newUser } = useAppSelector((state) => state.user)
 	if (!newUser) return null
 
-	const detailController = useDisclosure()
 	const { query } = useRouter()
 	const orderId = Number(router.query.id)
 
 	const [active, setActive] = React.useState(0)
-
-	const [orderShopId, setOrderShopId] = useState<number | null>(null)
 
 	const connection = useAppSelector(selectConnection)
 	const connectionId = connection?.connectionId
@@ -118,8 +115,13 @@ const Index: TNextPageWithLayout = () => {
 
 	const onViewDetailShopOrder = (newId: number) => {
 		//click to see detail
-		detailController.onOpen()
-		orderShopId !== newId && setOrderShopId(newId)
+		router.push({
+			pathname: '/manager/order/order-list/shopOrderDetail',
+			query: {
+				id: orderId,
+				shopOrderId: newId
+			}
+		})
 	}
 
 	// if (isError) {
@@ -266,13 +268,13 @@ const Index: TNextPageWithLayout = () => {
 				{data && <MessageControlManager clientId={data.Data.UID} mainOrderId={+query?.id} />}
 			</Spin>
 			<div>
-				<OrderShopDetailModal
+				{/* <OrderShopDetailModal
 					newUser={newUser}
 					orderShopId={orderShopId}
 					isOpen={detailController.isOpen}
 					onClose={detailController.onClose}
 					parentOrderID={orderId}
-				/>
+				/> */}
 			</div>
 		</div>
 	)
