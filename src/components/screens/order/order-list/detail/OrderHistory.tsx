@@ -145,14 +145,16 @@ export const OrderHistory: React.FC<TProps> = ({ data, loading }) => {
 
 	return (
 		<React.Fragment>
-			<div className="mx-2">
-				<History
-					title="LỊCH SỬ THANH TOÁN"
-					columns={paymentHistoryColumns}
-					data={data?.PayOrderHistories}
-					// expandable={expandablePay}
-				/>
-			</div>
+			{data?.OrderType !== 1 ? (
+				<div className="mx-2">
+					<History
+						title="LỊCH SỬ THANH TOÁN"
+						columns={paymentHistoryColumns}
+						data={data?.PayOrderHistories}
+						// expandable={expandablePay}
+					/>
+				</div>
+			) : null}
 			{data?.OrderType === 4 ? null : (
 				<div className="mt-8 border-t pt-4 mx-2">
 					<History

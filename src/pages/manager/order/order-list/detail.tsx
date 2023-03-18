@@ -59,33 +59,42 @@ const Index: TNextPageWithLayout = () => {
 		mode: 'onBlur'
 	})
 
-	useEffect(() => {
-		if (!connectionId) return
-		let timeout = null
-		connection.on('change', (mainOrders: TOrder[]) => {
-			if (!!mainOrders?.length) {
-				const item = mainOrders.some((order) => {
-					return order.Id === +query?.id
-				})
-				if (item) {
-					form.reset(mainOrder[0])
-				}
-			}
-		})
-		return () => clearTimeout(timeout)
-	}, [connectionId])
+	// useEffect(() => {
+	// 	if (!connectionId) return
+	// 	console.log('connection', connection)
+	// 	// let timeout = null
+	// 	connection.on('change', (mainOrders: TOrder[]) => {
+	// 		if (!!mainOrders?.length) {
+	// 			const item = mainOrders.some((order) => {
+	// 				return order.Id === +query?.id
+	// 			})
+	// 			if (item) {
+	// 				form.reset(mainOrder[0])
+	// 			}
+	// 		}
+	// 	})
+	// 	// return () => clearTimeout(timeout)
+	// }, [connectionId])
 
-	const { data, isError, isLoading, isFetching, refetch } = useQuery(['order-list', orderId], () => mainOrder.getByID(+query?.id), {
-		onSuccess: (data) => {
-			if (!data?.Data?.IsCheckNotiPrice && data?.Data?.OrderType === 3) toast.warning('Đơn hàng chưa cập nhật báo giá cho khách!')
-			form.reset(data?.Data)
+	const { data, isError, isLoading, isFetching, refetch } = useQuery(
+		['order-list', orderId],
+		() => {
+			if (orderId) {
+				return mainOrder.getByID(orderId)
+			} else return undefined
 		},
-		onError: toast.error,
-		retry: false,
-		enabled: !!+query?.id
-		// enabled: false,
-		// refetchOnMount: "always",
-	})
+		{
+			onSuccess: (data) => {
+				if (!data?.Data?.IsCheckNotiPrice && data?.Data?.OrderType === 3) toast.warning('Đơn hàng chưa cập nhật báo giá cho khách!')
+				form.reset(data?.Data)
+			},
+			retry: false,
+			enabled: !!orderId,
+			keepPreviousData: true
+			// enabled: false,
+			// refetchOnMount: "always",
+		}
+	)
 
 	const mutationUpdate = useMutation(mainOrder.update, {
 		onSuccess: () => {
@@ -108,14 +117,91 @@ const Index: TNextPageWithLayout = () => {
 	}
 
 	const onViewDetailShopOrder = (newId: number) => {
+		//click to see detail
 		detailController.onOpen()
 		orderShopId !== newId && setOrderShopId(newId)
 	}
 
-	if (isError) {
-		return <Empty description={`Không tìm thấy đơn hàng #${query?.id}`} />
+	// if (isError) {
+	// 	return <Empty description={`Không tìm thấy đơn hàng #${query?.id}`} />
+	// }
+	const renderShippingCode = () => {
+		if (data?.Data) {
+			if (data?.Data.OrderType == 3) {
+				return (
+					<React.Fragment>
+						<Panel header={`Mã đơn hàng (${data?.Data?.MainOrderCodes?.length || 0})`} key="1">
+							<div id="order-code" className={clsx(className, active === 0 && '', 'px-4')}>
+								<OrderCode data={data?.Data} loading={isFetching} refetch={refetch} RoleID={newUser?.UserGroupId} />
+							</div>
+						</Panel>
+						<Panel header={`Mã vận đơn (${data?.Data?.SmallPackages.length || 0})`} key="2">
+							<div id="transfer-code-list" className={clsx(className, '!p-2 !py-0', active === 1 && '')}>
+								<OrderTransferCodeList
+									data={data?.Data}
+									loading={isFetching}
+									handleUpdate={_onUpdate}
+									RoleID={newUser?.UserGroupId}
+								/>
+							</div>
+						</Panel>
+					</React.Fragment>
+				)
+			} else {
+				return null
+			}
+		}
 	}
-
+	const renderShopOrProductList = () => {
+		if (!!data?.Data) {
+			if (data?.Data.OrderType == 3) {
+				return (
+					<Panel header={`Danh sách sản phẩm (${data?.Data?.Orders?.length || 0})`} key="3">
+						<div id="product-list" className={clsx(className, active === 2 && '', '!px-2 !py-0')}>
+							<OrderProductList
+								dataOrderShop={data?.Data}
+								// loading={isFetching}
+								// refetch={refetch}
+								RoleID={newUser?.UserGroupId}
+							/>
+						</div>
+					</Panel>
+				)
+			} else {
+				return (
+					<Panel header={`Danh sách cửa hàng (${data?.Data?.SubMainOrders?.length || 0})`} key="3">
+						<div id="product-list" className={clsx(className, active === 2 && '', '!px-2 !py-0')}>
+							<OrderShopList
+								onViewShopOrderDetail={onViewDetailShopOrder} //  view Detail
+								data={data?.Data}
+								refetch={refetch}
+								RoleID={newUser?.UserGroupId}
+							/>
+						</div>
+					</Panel>
+				)
+			}
+		}
+	}
+	const renderFee = () => {
+		if (!!data?.Data) {
+			return (
+				<Panel header="Chi phí đơn hàng" key="4">
+					<div id="surcharge-list" className={clsx(className, 'p-2 !pt-0', active === 3 && '')}>
+						{data?.Data.OrderType !== 4 ? (
+							<OrderSurChargeList
+								data={data?.Data}
+								loading={isFetching}
+								handleUpdate={_onUpdate}
+								RoleID={newUser?.UserGroupId}
+							/>
+						) : null}
+						<OrderCost data={data?.Data} RoleID={newUser?.UserGroupId} />
+					</div>
+				</Panel>
+			)
+		} else return null
+	}
 	return (
 		<div>
 			<Spin spinning={isFetching}>
@@ -145,73 +231,34 @@ const Index: TNextPageWithLayout = () => {
 								expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
 								defaultActiveKey={['1', '2', '3', '4', '5', '6', '7']}
 							>
-								{/* <Panel header={`Mã đơn hàng (${data?.Data?.MainOrderCodes?.length || 0})`} key="1">
-								<div id="order-code" className={clsx(className, active === 0 && '', 'px-4')}>
-									<OrderCode data={data?.Data} loading={isFetching} refetch={refetch} RoleID={newUser?.UserGroupId} />
-								</div>
-							</Panel>
-							<Panel header={`Mã vận đơn (${data?.Data?.SmallPackages.length || 0})`} key="2">
-								<div id="transfer-code-list" className={clsx(className, '!p-2 !py-0', active === 1 && '')}>
-									<OrderTransferCodeList
-										data={data?.Data}
-										loading={isFetching}
-										handleUpdate={_onUpdate}
-										RoleID={newUser?.UserGroupId}
-									/>
-								</div>
-							</Panel> */}
-								{/* <Panel header={`Danh sách sản phẩm (${data?.Data?.Orders?.length || 0})`} key="3">
-								<div id="product-list" className={clsx(className, active === 2 && '', '!px-2 !py-0')}>
-									<OrderProductList
-										dataOrderShop={data?.Data}
-										loading={isFetching}
-										refetch={refetch}
-										RoleID={newUser?.UserGroupId}
-									/>
-								</div>
-							</Panel> */}
-								<Panel header={`Danh sách cửa hàng (${data?.Data?.SubMainOrders?.length || 0})`} key="3">
-									<div id="product-list" className={clsx(className, active === 2 && '', '!px-2 !py-0')}>
-										<OrderShopList
-											onViewShopOrderDetail={onViewDetailShopOrder} //  view Detail
-											data={data?.Data}
-											refetch={refetch}
-											RoleID={newUser?.UserGroupId}
-										/>
-									</div>
-								</Panel>
-								<Panel header="Chi phí đơn hàng" key="4">
-									<div id="surcharge-list" className={clsx(className, 'p-2 !pt-0', active === 3 && '')}>
-										<OrderSurChargeList
-											data={data?.Data}
-											loading={isFetching}
-											handleUpdate={_onUpdate}
-											RoleID={newUser?.UserGroupId}
-										/>
-										<OrderCost loading={isFetching} data={data?.Data} RoleID={newUser?.UserGroupId} />
-									</div>
-								</Panel>
-								<Panel header="Nhân viên xử lý" key="5">
-									<div id="handling-staff" className={clsx(className, active === 5 && '', 'px-4 !pt-0')}>
-										<OrderHandlingStaff
-											data={data?.Data}
-											userSaleCatalogue={userSale}
-											userOrderCatalogue={userOrder}
-											loading={isFetching}
-											RoleID={newUser?.UserGroupId}
-										/>
-									</div>
-								</Panel>
-								<Panel header="Thông tin đặt hàng" key="6">
-									<div id="order-info" className={clsx(className, active === 6 && '')}>
-										<OrderInfo data={data?.Data} loading={isLoading} />
-									</div>
-								</Panel>
-								<Panel header="Lịch sử" key="7">
-									<div id="history" className={clsx(className, active === 7 && '')}>
-										<OrderHistory data={data?.Data} loading={isFetching} />
-									</div>
-								</Panel>
+								{renderShippingCode()}
+								{renderShopOrProductList()}
+								{renderFee()}
+								{!!data?.Data ? (
+									<>
+										<Panel header="Nhân viên xử lý" key="5">
+											<div id="handling-staff" className={clsx(className, active === 5 && '', 'px-4 !pt-0')}>
+												<OrderHandlingStaff
+													data={data?.Data}
+													userSaleCatalogue={userSale}
+													userOrderCatalogue={userOrder}
+													loading={isFetching}
+													RoleID={newUser?.UserGroupId}
+												/>
+											</div>
+										</Panel>
+										<Panel header="Thông tin đặt hàng" key="6">
+											<div id="order-info" className={clsx(className, active === 6 && '')}>
+												<OrderInfo data={data?.Data} loading={isLoading} />
+											</div>
+										</Panel>
+										<Panel header="Lịch sử" key="7">
+											<div id="history" className={clsx(className, active === 7 && '')}>
+												<OrderHistory data={data?.Data} loading={isFetching} />
+											</div>
+										</Panel>
+									</>
+								) : null}
 							</Collapse>
 						</div>
 					</div>
@@ -219,22 +266,12 @@ const Index: TNextPageWithLayout = () => {
 				{data && <MessageControlManager clientId={data.Data.UID} mainOrderId={+query?.id} />}
 			</Spin>
 			<div>
-				{/* <Modal
-					style={{
-						maxWidth: 1200
-					}}
-					width="100%"
-					title="Basic Modal"
-					onCancel={detailController.onClose}
-					visible={detailController.isOpen}
-				>
-					<>hehe</>
-				</Modal> */}
 				<OrderShopDetailModal
 					newUser={newUser}
 					orderShopId={orderShopId}
 					isOpen={detailController.isOpen}
 					onClose={detailController.onClose}
+					parentOrderID={orderId}
 				/>
 			</div>
 		</div>

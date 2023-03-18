@@ -14,30 +14,26 @@ type TProps = {
 }
 
 export const OrderProductList: React.FC<TProps> = ({ RoleID, dataOrderShop }) => {
-	// const mutationUpdate = useMutation(order.update, {
-	// 	onSuccess: () => {
-	// 		toast.success('Cập nhật sản phẩm thành công')
-	// 		// refetch()
-	// 		setLoadingUpdate(false)
-	// 	},
-	// 	onError: (error) => {
-	// 		setLoadingUpdate(false)
-	// 		showToast({
-	// 			message: (error as any)?.response?.data?.ResultMessage,
-	// 			type: 'error',
-	// 			title: 'Lỗi'
-	// 		})
-	// 	}
-	// })
+	const mutationUpdate = useMutation(order.update, {
+		onSuccess: () => {
+			toast.success('Cập nhật sản phẩm thành công')
+			// refetch()
+		},
+		onError: (error) => {
+			showToast({
+				message: (error as any)?.response?.data?.ResultMessage,
+				type: 'error',
+				title: 'Lỗi'
+			})
+		}
+	})
 
 	const handleUpdateProduct = (dataProduct: TOrder, Id?: number) => {
 		if (dataProduct?.Quantity === null || dataProduct?.Quantity === undefined) {
 			toast.error('Vui lòng nhập số lượng sản phẩm ')
 			return
 		}
-
-		// mutationUpdate.mutateAsync(dataProduct)
-		localStorage.removeItem('changeProduct')
+		mutationUpdate.mutateAsync(dataProduct)
 	}
 
 	return (
@@ -61,7 +57,7 @@ export const OrderProductList: React.FC<TProps> = ({ RoleID, dataOrderShop }) =>
 							order={order}
 							index={index}
 							handleUpdateProduct={handleUpdateProduct}
-							loading={false}
+							loading={mutationUpdate.isLoading}
 							RoleID={RoleID}
 							// setCheckUpdate={() => setCheckUpdate(true)}
 						/>

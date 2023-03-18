@@ -1,28 +1,29 @@
-import { Collapse, Modal } from 'antd'
 import { CaretRightOutlined } from '@ant-design/icons'
-import CollapsePanel from 'antd/lib/collapse/CollapsePanel'
-import { FC, useEffect } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { useMutation, useQuery } from 'react-query'
-import { mainOrder } from '~/api'
-import { OrderCode, OrderCost, OrderProductList, OrderSurChargeList, OrderTransferCodeList } from '~/components/screens/order/order-list'
+import { Collapse, Modal } from 'antd'
 import clsx from 'clsx'
-import { useAppSelector } from '~/store'
+import { FC } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
-import { showToast } from '~/components/toast'
+import { mainOrder } from '~/api'
+import { OrderCost, OrderHistory, OrderProductList, OrderSurChargeList, OrderTransferCodeList } from '~/components/screens/order/order-list'
 import { OrderCodeSecond } from '~/components/screens/order/order-list/detail/OrderCodeSecond'
+import { showToast } from '~/components/toast'
 
 type FCProps = {
 	isOpen: boolean
 	onClose: () => void
 	orderShopId: number | null
 	newUser?: TUser | null
+	parentOrderID: number
 }
+
 const className = 'TabPanel py-4'
-export const OrderShopDetailModal: FC<FCProps> = ({ orderShopId, isOpen, onClose, newUser }) => {
+export const OrderShopDetailModal: FC<FCProps> = ({ orderShopId, isOpen, onClose, newUser, parentOrderID }) => {
+	const queryClient = useQueryClient()
 	//----------FORM----------//
 	const form = useForm<TOrder>({})
-
+	const watchFormState = form.watch()
 	//----------QUERY---------//
 	const {
 		data: OrderShopDetailQuery,
@@ -39,12 +40,12 @@ export const OrderShopDetailModal: FC<FCProps> = ({ orderShopId, isOpen, onClose
 		},
 		{
 			onSuccess: (data) => {
-				console.log('OrderShopDetailModal', orderShopId, data)
 				form.reset(data?.Data)
 			},
 			onError: () => {},
-			enabled: !!orderShopId
-			// refetchOnMount: "always",
+			enabled: !!orderShopId,
+			refetchOnWindowFocus: false,
+			keepPreviousData: true
 		}
 	)
 
@@ -53,6 +54,8 @@ export const OrderShopDetailModal: FC<FCProps> = ({ orderShopId, isOpen, onClose
 		onSuccess: () => {
 			toast.success('Cập nhật đơn hàng thành công')
 			refetch()
+			refetch()
+			queryClient.invalidateQueries(['order-list', parentOrderID])
 		},
 		onError: (error) => {
 			showToast({
@@ -65,78 +68,71 @@ export const OrderShopDetailModal: FC<FCProps> = ({ orderShopId, isOpen, onClose
 
 	// ham update chi tiết đơn hàng
 	const _onUpdate = (data: TOrder) => {
+		console.log('clicked')
 		const { HistoryOrderChanges, PayOrderHistories, Complains, ...newData } = data
-		// await mutationUpdate.mutateAsync(newData)
-		console.log(data)
+		console.log(newData)
+		mutationUpdate.mutateAsync(newData)
 	}
 
+	const onError = (err: any) => {
+		console.log('err', err)
+	}
 	const renderView = () => {
 		if (!!OrderShopDetailQuery?.Data && !!isOpen) {
 			return (
 				<div>
-					<FormProvider {...form}>
-						<div className="p-4">
-							<Collapse
-								expandIconPosition="right"
-								expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-								defaultActiveKey={['shop1', 'shop2', 'shop3', 'shop4', 'shop5', 'shop6', 'shop7']}
-							>
-								<Collapse.Panel
-									header={`Mã đơn hàng (${OrderShopDetailQuery?.Data?.MainOrderCodes?.length || 0})`}
-									key="shop1"
-								>
-									<div id="order-code" className={clsx(className, 'px-4')}>
-										<OrderCodeSecond data={OrderShopDetailQuery?.Data} RoleID={newUser?.UserGroupId} />
-									</div>
-								</Collapse.Panel>
+					<div className="p-4">
+						<Collapse
+							expandIconPosition="right"
+							expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+							defaultActiveKey={['shop1', 'shop2']}
+						>
+							<Collapse.Panel header={`Mã đơn hàng (${OrderShopDetailQuery?.Data?.MainOrderCodes?.length || 0})`} key="shop1">
+								<div id="order-code" className={clsx(className, 'px-4')}>
+									<OrderCodeSecond data={OrderShopDetailQuery?.Data} RoleID={newUser?.UserGroupId} />
+								</div>
+							</Collapse.Panel>
 
-								<Collapse.Panel
-									header={`Mã vận đơn (${OrderShopDetailQuery?.Data?.SmallPackages.length || 0})`}
-									key="shop2"
-								>
-									<div id="transfer-code-list" className={clsx(className, '!p-2 !py-0')}>
-										<OrderTransferCodeList
-											data={OrderShopDetailQuery?.Data}
-											loading={isFetching}
-											handleUpdate={_onUpdate}
-											RoleID={newUser?.UserGroupId}
-										/>
-									</div>
-								</Collapse.Panel>
-								<Collapse.Panel
-									header={`Danh sách sản phẩm (${OrderShopDetailQuery?.Data?.Orders?.length || 0})`}
-									key="shop3"
-								>
-									<div id="product-list" className={clsx(className, '!px-2 !py-0')}>
-										<OrderProductList
-											dataOrderShop={OrderShopDetailQuery?.Data}
-											// loading={isFetching}
-											// refetch={refetch}
-											RoleID={newUser?.UserGroupId}
-										/>
-									</div>
-								</Collapse.Panel>
+							<Collapse.Panel header={`Mã vận đơn (${OrderShopDetailQuery?.Data?.SmallPackages.length || 0})`} key="shop2">
+								<div id="transfer-code-list" className={clsx(className, '!p-2 !py-0')}>
+									<OrderTransferCodeList
+										data={OrderShopDetailQuery?.Data}
+										loading={isFetching}
+										handleUpdate={_onUpdate}
+										RoleID={newUser?.UserGroupId}
+									/>
+								</div>
+							</Collapse.Panel>
+							<Collapse.Panel header={`Danh sách sản phẩm (${OrderShopDetailQuery?.Data?.Orders?.length || 0})`} key="shop3">
+								<div id="product-list" className={clsx(className, '!px-2 !py-0')}>
+									<OrderProductList
+										dataOrderShop={OrderShopDetailQuery?.Data}
+										// loading={isFetching}
+										// refetch={refetch}
+										RoleID={newUser?.UserGroupId}
+									/>
+								</div>
+							</Collapse.Panel>
 
-								<Collapse.Panel header="Chi phí đơn hàng" key="4">
-									<div id="surcharge-list" className={clsx(className, 'p-2 !pt-0')}>
-										<OrderSurChargeList
-											data={OrderShopDetailQuery?.Data}
-											loading={isFetching}
-											handleUpdate={_onUpdate}
-											RoleID={newUser?.UserGroupId}
-										/>
-										<OrderCost loading={isFetching} data={OrderShopDetailQuery?.Data} RoleID={newUser?.UserGroupId} />
-									</div>
-								</Collapse.Panel>
+							<Collapse.Panel header="Chi phí đơn hàng" key="4">
+								<div id="surcharge-list" className={clsx(className, 'p-2 !pt-0')}>
+									<OrderSurChargeList
+										data={OrderShopDetailQuery?.Data}
+										loading={isFetching}
+										handleUpdate={_onUpdate}
+										RoleID={newUser?.UserGroupId}
+									/>
+									<OrderCost data={OrderShopDetailQuery?.Data} RoleID={newUser?.UserGroupId} />
+								</div>
+							</Collapse.Panel>
 
-								{/* <Collapse.Panel header="Lịch sử" key="7">
-									<div id="history" className={clsx(className, active === 7 && '')}>
-										<OrderHistory data={data?.Data} loading={isFetching} />
-									</div>
-								</Collapse.Panel> */}
-							</Collapse>
-						</div>
-					</FormProvider>
+							<Collapse.Panel header="Lịch sử thay đổi" key="7">
+								<div id="history" className={clsx(className)}>
+									<OrderHistory data={OrderShopDetailQuery?.Data} loading={isFetching} />
+								</div>
+							</Collapse.Panel>
+						</Collapse>
+					</div>
 				</div>
 			)
 		} else {
@@ -148,6 +144,7 @@ export const OrderShopDetailModal: FC<FCProps> = ({ orderShopId, isOpen, onClose
 			style={{
 				maxWidth: 1200
 			}}
+			className="Manager-OrderShopDetailModal"
 			width="100%"
 			title={
 				<>
@@ -158,8 +155,21 @@ export const OrderShopDetailModal: FC<FCProps> = ({ orderShopId, isOpen, onClose
 			onCancel={onClose}
 			maskClosable={false}
 			visible={isOpen}
+			cancelText="Đóng"
+			cancelButtonProps={{
+				className: 'px-[16px] rounded bg-transparent text-[#626262]',
+				size: 'large'
+			}}
+			okText="Cập nhật"
+			okButtonProps={{
+				size: 'large',
+				title: 'Cập nhật chi tiết đơn hàng của shop này'
+			}}
+			onOk={form.handleSubmit(_onUpdate, onError)}
 		>
-			<div>{renderView()}</div>
+			<FormProvider {...form}>
+				<div>{renderView()}</div>
+			</FormProvider>
 		</Modal>
 	)
 }

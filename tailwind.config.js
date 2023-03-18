@@ -40,8 +40,9 @@ module.exports = {
 			blueLight: '#0084ff',
 			lightGray: '#E4E6EB',
 			main: '#008d4b',
-			mainDark: '#007941'
-
+			mainDark: '#007941',
+			second: '#00898d',
+			secondHover: '#009ca1'
 			// main: "#0c5963",
 		},
 		extend: {

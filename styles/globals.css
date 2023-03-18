@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import url("./myTable.css");
+@import url("./manager.css");
 @import url("../src/fonts/stylesheet.css");
 
 @layer component {

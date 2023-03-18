@@ -119,37 +119,37 @@ export const NestedTableUserItemOrder: FC<any> = ({ handleModal, type, q, GroupM
 							opacity: delLoading ? '0.8' : '1'
 						}}
 					>
-						{/* <ActionButton
+						<ActionButton
 							onClick={() =>
 								Modal.confirm({
 									title: 'Xác nhận muốn mua lại đơn hàng này?',
 									onOk: () => {
-										alert('Bạn vưa click mua lại đơn hàng của shop này')
-										// const id = toast.loading('Đang thêm ...')
-										// orderShopTemp
-										// 	.addSame({ Id: record?.Id })
-										// 	.then((res) => {
-										// 		toast.update(id, {
-										// 			render: 'Thêm đơn thành công, vui lòng kiểm tra giỏ hàng!',
-										// 			type: 'success',
-										// 			autoClose: 1000,
-										// 			closeOnClick: true,
-										// 			isLoading: false
-										// 		})
-										// 	})
-										// 	.catch((error) => {
-										// 		toast.update(id, {
-										// 			render: 'Thêm đơn thất bại!',
-										// 			type: 'error',
-										// 			isLoading: false
-										// 		})
-										// 	})
+										const id = toast.loading('Đang thêm ...')
+										orderShopTemp
+											.addSame({ Id: record?.Id })
+											.then((res) => {
+												toast.update(id, {
+													render: 'Thêm đơn thành công, vui lòng kiểm tra giỏ hàng!',
+													type: 'success',
+													autoClose: 1000,
+													closeOnClick: true,
+													isLoading: false
+												})
+											})
+											.catch((error) => {
+												toast.update(id, {
+													render: 'Thêm đơn thất bại!',
+													type: 'error',
+													autoClose: 1000,
+													isLoading: false
+												})
+											})
 									}
 								})
 							}
 							icon="fas fa-cart-arrow-down"
 							title="Mua lại đơn hàng này"
-						/> */}
+						/>
 						<Link
 							href={{
 								pathname: '/user/order-list/detailShopOrder',

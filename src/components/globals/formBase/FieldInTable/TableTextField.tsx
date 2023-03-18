@@ -1,14 +1,14 @@
 import { ErrorMessage } from '@hookform/error-message'
-import { InputNumber } from 'antd'
+import { Input } from 'antd'
 import clsx from 'clsx'
-import _ from 'lodash'
+import _, { round } from 'lodash'
 import React, { ComponentProps } from 'react'
 import { Control, Controller, FieldValues, Path, RegisterOptions, useController } from 'react-hook-form'
 import Select, { components, DropdownIndicatorProps, GroupBase, StylesConfig } from 'react-select'
 import { TFieldSelect } from '~/types/field'
 import { checkIsArray, _format } from '~/utils'
 
-type TableMoneyFieldProps<T extends FieldValues> = {
+type TableTextFieldProps<T extends FieldValues> = {
 	control: Control<T>
 	name: Path<T>
 	hideMessage?: boolean
@@ -16,7 +16,7 @@ type TableMoneyFieldProps<T extends FieldValues> = {
 	min?: number
 }
 
-export const TableMoneyField = <T extends FieldValues = FieldValues, TFieldDatas extends object = object>({
+export const TableTextField = <T extends FieldValues = FieldValues, TFieldDatas extends object = object>({
 	control,
 	name,
 	hideMessage,
@@ -25,7 +25,7 @@ export const TableMoneyField = <T extends FieldValues = FieldValues, TFieldDatas
 	onChange: onChangeFromOutside,
 	min = 0,
 	...rest
-}: Omit<ComponentProps<typeof InputNumber>, keyof TableMoneyFieldProps<T>> & TableMoneyFieldProps<T>) => {
+}: Omit<ComponentProps<typeof Input>, keyof TableTextFieldProps<T>> & TableTextFieldProps<T>) => {
 	return (
 		<div className={clsx('w-full')}>
 			<div>
@@ -34,8 +34,7 @@ export const TableMoneyField = <T extends FieldValues = FieldValues, TFieldDatas
 					name={name}
 					render={({ field, fieldState }) => (
 						<>
-							<InputNumber
-								min={min}
+							<Input
 								size="large"
 								className={clsx(!!fieldState.isDirty && 'ring-1 ring-offset-1 ring-[#40a9ff]')}
 								{...field}

@@ -1,9 +1,9 @@
 import { Popconfirm } from 'antd'
 import router from 'next/router'
-import React, { useMemo } from 'react'
-import { useFieldArray, useFormContext, useForm } from 'react-hook-form'
+import React from 'react'
+import { useFieldArray, useForm, useFormContext } from 'react-hook-form'
 import { smallPackage } from '~/api'
-import { ActionButton, DataTable, FormCheckbox, FormInput, FormInputNumber, FormSelect, IconButton, toast } from '~/components'
+import { ActionButton, DataTable, FormCheckbox, IconButton, TableMoneyField, TableSelectField, TableTextField, toast } from '~/components'
 import { ESmallPackageStatusData, smallPackageStatusData } from '~/configs/appConfigs'
 import { TColumnsType } from '~/types/table'
 
@@ -16,11 +16,10 @@ type TProps = {
 
 export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleUpdate, RoleID }) => {
 	const { control, watch, handleSubmit } = useFormContext<TOrder>()
-	const formValue = useMemo(() => watch(), [watch() as TOrder])
+	const watchFormState = watch()
+
 	const SmallPackages = data?.SmallPackages
-	const methods = useForm<TOrder>({
-		mode: 'onBlur'
-	})
+
 	const { fields, append, remove } = useFieldArray({
 		control,
 		name: 'SmallPackages'
@@ -33,14 +32,15 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 			render: (_, __, index) => {
 				return (
 					<>
-						<FormInput
+						<TableTextField control={control} name={`SmallPackages.${index}.OrderTransactionCode`} />
+						{/* <FormInput
 							control={control}
 							name={`SmallPackages.${index}.OrderTransactionCode` as const}
 							placeholder=""
 							hideError
 							disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
 							rules={{ required: 'This field is required' }}
-						/>
+						/> */}
 					</>
 				)
 			},
@@ -50,28 +50,40 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 			dataIndex: 'MainOrderCodeId',
 			title: 'Mã đơn hàng',
 			render: (_, __, index) => (
-				<FormSelect
+				// <SecondFormSelect />
+				<TableSelectField
+					required
+					options={watchFormState.MainOrderCodes || []}
+					// name={`orderShopID`}
+					name={`SmallPackages.${index}.MainOrderCodeId`}
+					placeholder="Chọn shop"
 					control={control}
-					data={formValue.MainOrderCodes}
-					name={`SmallPackages.${index}.MainOrderCodeId` as const}
-					select={{ label: 'Code', value: 'Id' }}
-					defaultValue={SmallPackages[index]}
-					placeholder=""
-					hideError
-					disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
-					rules={{ required: 'This field is required' }}
-					menuPortalTarget={document.querySelector('div.ant-table-wrapper')}
-					styles={{
-						menuPortal: (base) => {
-							return {
-								...base,
-								top: (base?.['top'] as number) - 150,
-								left: (base?.['left'] as number) - 265
-								// width: (base?.["width"] as number) + 60,
-							}
-						}
-					}}
+					getOptionValue={(x) => x.Id}
+					getOptionLabel={(x) => x.Code}
 				/>
+
+				// <FormSelect
+				// 	control={control}
+				// 	data={watchFormState.MainOrderCodes}
+				// 	name={`SmallPackages.${index}.MainOrderCodeId` as const}
+				// 	select={{ label: 'Code', value: 'Id' }}
+				// 	defaultValue={SmallPackages[index]}
+				// 	placeholder=""
+				// 	hideError
+				// 	disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+				// 	rules={{ required: 'This field is required' }}
+				// 	menuPortalTarget={document.querySelector('div.ant-table-wrapper')}
+				// 	styles={{
+				// 		menuPortal: (base) => {
+				// 			return {
+				// 				...base,
+				// 				top: (base?.['top'] as number) - 150,
+				// 				left: (base?.['left'] as number) - 265
+				// 				// width: (base?.["width"] as number) + 60,
+				// 			}
+				// 		}
+				// 	}}
+				// />
 			),
 			width: 250
 		},
@@ -80,18 +92,19 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 			align: 'center',
 			title: () => <>Cân thực (kg)</>,
 			render: (_, __, index) => (
-				<FormInputNumber
-					control={control}
-					name={`SmallPackages.${index}.Weight` as const}
-					placeholder=""
-					// disabled
-					// disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
-					allowNegative={false}
-					hideError
-					rules={{ required: 'This field is required' }}
-					// inputContainerClassName="max-w-[50px] mx-auto"
-					inputClassName="text-center"
-				/>
+				<TableMoneyField control={control} name={`SmallPackages.${index}.Weight` as const} />
+				// <FormInputNumber
+				// 	control={control}
+				// 	name={`SmallPackages.${index}.Weight` as const}
+				// 	placeholder=""
+				// 	// disabled
+				// 	// disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+				// 	allowNegative={false}
+				// 	hideError
+				// 	rules={{ required: 'This field is required' }}
+				// 	// inputContainerClassName="max-w-[50px] mx-auto"
+				// 	inputClassName="text-center"
+				// />
 			),
 			responsive: ['md'],
 			width: 100
@@ -101,18 +114,19 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 			align: 'center',
 			title: () => <>Thể tích</>,
 			render: (_, __, index) => (
-				<FormInputNumber
-					control={control}
-					name={`SmallPackages.${index}.VolumePayment` as const}
-					placeholder=""
-					disabled
-					// disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
-					allowNegative={false}
-					hideError
-					rules={{ required: 'This field is required' }}
-					// inputContainerClassName="max-w-[50px] mx-auto"
-					inputClassName="text-center"
-				/>
+				<TableMoneyField control={control} name={`SmallPackages.${index}.VolumePayment` as const} />
+				// <FormInputNumber
+				// 	control={control}
+				// 	name={`SmallPackages.${index}.VolumePayment` as const}
+				// 	placeholder=""
+				// 	disabled
+				// 	// disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+				// 	allowNegative={false}
+				// 	hideError
+				// 	rules={{ required: 'This field is required' }}
+				// 	// inputContainerClassName="max-w-[50px] mx-auto"
+				// 	inputClassName="text-center"
+				// />
 			),
 			responsive: ['md'],
 			width: 100
@@ -128,15 +142,16 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 				</>
 			),
 			render: (_, __, index) => (
-				<FormInput
-					control={control}
-					disabled
-					name={`SmallPackages.${index}.LWH` as const}
-					placeholder=""
-					hideError
-					// inputContainerClassName="w-[120px] mx-auto"
-					inputClassName="text-center"
-				/>
+				<TableTextField control={control} disabled name={`SmallPackages.${index}.LWH` as const} />
+				// <FormInput
+				// 	control={control}
+				// 	disabled
+				// 	name={`SmallPackages.${index}.LWH` as const}
+				// 	placeholder=""
+				// 	hideError
+				// 	// inputContainerClassName="w-[120px] mx-auto"
+				// 	inputClassName="text-center"
+				// />
 			),
 			width: 120
 		},
@@ -144,40 +159,55 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 			dataIndex: 'Status',
 			title: 'Trạng thái',
 			render: (_, __, index) => (
-				<FormSelect
-					control={control}
+				<TableSelectField
+					required
+					options={smallPackageStatusData}
+					// name={`orderShopID`}
 					name={`SmallPackages.${index}.Status` as const}
-					data={smallPackageStatusData}
-					defaultValue={fields[index].Status && smallPackageStatusData.find((x) => x.id === fields[index].Status)}
-					disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
-					placeholder=""
-					hideError
-					rules={{ required: 'This field is required' }}
-					menuPortalTarget={document.querySelector('div.ant-table-wrapper')}
-					styles={{
-						menuPortal: (base) => {
-							return {
-								...base,
-								top: (base?.['top'] as number) - 160,
-								left: (base?.['left'] as number) - 265
-								// width: (base?.["width"] as number) + 60,
-							}
-						}
-					}}
+					placeholder="Chọn shop"
+					control={control}
+					getOptionValue={(x) => x.id}
+					getOptionLabel={(x) => x.name}
 				/>
+				// <FormSelect
+				// 	control={control}
+				// 	name={`SmallPackages.${index}.Status` as const}
+				// 	data={smallPackageStatusData}
+				// 	defaultValue={fields[index].Status && smallPackageStatusData.find((x) => x.id === fields[index].Status)}
+				// 	disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+				// 	placeholder=""
+				// 	hideError
+				// 	rules={{ required: 'This field is required' }}
+				// 	menuPortalTarget={document.querySelector('div.ant-table-wrapper')}
+				// 	styles={{
+				// 		menuPortal: (base) => {
+				// 			return {
+				// 				...base,
+				// 				top: (base?.['top'] as number) - 160,
+				// 				left: (base?.['left'] as number) - 265
+				// 				// width: (base?.["width"] as number) + 60,
+				// 			}
+				// 		}
+				// 	}}
+				// />
 			)
 		},
 		{
 			dataIndex: 'Description',
 			title: 'Ghi chú',
 			render: (_, record: any, index) => (
-				<FormInput
+				<TableTextField
 					disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
 					control={control}
 					name={`SmallPackages.${index}.Description` as const}
-					placeholder=""
-					hideError
 				/>
+				// <FormInput
+				// 	disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+				// 	control={control}
+				// 	name={`SmallPackages.${index}.Description` as const}
+				// 	placeholder=""
+				// 	hideError
+				// />
 			)
 		},
 		{
@@ -237,14 +267,15 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 				data={fields}
 				style="secondary"
 				rowKey={'id' as any}
+
 				// expandable={expandable}
 			/>
 			{(RoleID === 1 || RoleID === 3 || RoleID === 4) && (
 				<div className="flex items-center my-2 justify-between">
 					<div>
 						<IconButton
-							title="Tạo"
-							btnClass="!mr-4"
+							title="Thêm mã vận đơn"
+							btnClass="mr-4"
 							icon="fas fa-plus"
 							onClick={() => {
 								append({
