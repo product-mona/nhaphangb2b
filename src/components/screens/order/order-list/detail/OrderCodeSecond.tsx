@@ -1,12 +1,10 @@
-import { Popconfirm, List, Typography } from 'antd'
-import React, { useEffect } from 'react'
+import { List, Popconfirm, Typography } from 'antd'
+import React from 'react'
 
-import { useFieldArray, useFormContext } from 'react-hook-form'
 import { useMutation, useQueryClient } from 'react-query'
 import { mainOrderCode } from '~/api'
-import { ActionButton, FormInput } from '~/components'
+import { ActionButton } from '~/components'
 import { toast } from '~/components/toast'
-import { useDeepEffect } from '~/hooks'
 import { toastApiErr } from '~/utils'
 import { AddOrderCode } from './AddOrderCode'
 
@@ -14,16 +12,10 @@ type TProps = {
 	data?: TOrder
 	RoleID: number
 }
-const divStyles = {}
 
 export const OrderCodeSecond: React.FC<TProps> = ({ data, RoleID }) => {
 	const queryClient = useQueryClient()
-	const { control, getValues, watch } = useFormContext<TOrder>()
 
-	const { fields, append, remove } = useFieldArray({
-		control,
-		name: 'MainOrderCodes'
-	})
 	const mutationDelete = useMutation(mainOrderCode.delete, {
 		onSuccess: (res) => {
 			toast.success('Xoá mã vận đơn thành công')

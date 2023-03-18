@@ -218,7 +218,7 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 							}}
 							className="justify-end flex-wrap"
 						>
-							<ActionButton
+							{/* <ActionButton
 								onClick={() =>
 									Modal.confirm({
 										title: 'Xác nhận muốn mua lại đơn hàng này?',
@@ -247,7 +247,7 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 								}
 								icon="fas fa-cart-arrow-down"
 								title="Mua lại đơn hàng này"
-							/>
+							/> */}
 							<Link
 								href={{
 									pathname: '/user/order-list/detail',

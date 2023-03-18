@@ -1,0 +1,25 @@
+.Manager-OrderShopDetailModal .ant-modal-content .ant-modal-footer {
+    background-color: #FFF;
+    position: sticky;
+    bottom: 0;
+    z-index: 1001;
+    padding: 16px;
+    box-shadow: rgba(161, 191, 159, 0.18) 0px -9px 16px, rgba(159, 167, 191, 0.32) 0px -2px 2px;
+}
+.Manager-OrderShopDetailModal .ant-modal-content .ant-modal-footer .ant-btn {
+    padding-left:  20px;
+    padding-right: 20px;
+    border-radius: 6px;
+}
+.Manager-OrderShopDetailModal .ant-modal-content .ant-modal-footer .ant-btn {
+    padding-left:  20px;
+    padding-right: 20px;
+    border-radius: 6px;
+}
+.Manager-OrderShopDetailModal .ant-modal-content .ant-modal-footer .ant-btn {
+    padding-left:  20px;
+    padding-right: 20px;
+    border-radius: 6px;
+}
+
+

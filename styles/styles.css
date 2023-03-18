@@ -842,13 +842,7 @@ span.create .ant-upload.ant-upload-select-picture-card {
   border: 1px solid lightgrey;
 }
 
-.ant-btn {
-  background-color: #f8dfd5 !important;
-  color: rgb(237, 70, 48) !important;
-  border: #f8dfd5 !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-}
+
 
 .ant-popover-title {
   text-align: left !important;
@@ -899,7 +893,7 @@ span.create .ant-upload.ant-upload-select-picture-card {
 
 .ant-collapse-header:hover {
   /* color: #f4e5c2 !important; */
-  background-color: #00743d;
+  background-color: #00a155;
 }
 
 .anticon-caret-right {

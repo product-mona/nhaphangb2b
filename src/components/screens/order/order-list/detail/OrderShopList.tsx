@@ -1,16 +1,10 @@
-import { Collapse, List, Typography } from 'antd'
+import { List, Typography } from 'antd'
 import { useRouter } from 'next/dist/client/router'
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { order } from '~/api'
 import { ActionButton } from '~/components/globals/button/ActionButton'
-import { IconButton } from '~/components/globals/button/IconButton'
-import { OrderShopDetailModal } from '~/components/screens/Modal'
 import { toast } from '~/components/toast'
-import { useDisclosure } from '~/modules/core/hooks'
-import { IOrderShop } from '~/types'
-import { _format } from '~/utils'
-import { OrderProductItem } from './OrderProductItem'
-import { OrderProductList } from './OrderProductList'
+import { numberWithCommas } from '~/utils'
 
 type OrderIDShopListProps = {
 	data?: TOrder
@@ -56,9 +50,9 @@ export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch,
 								/>
 							]}
 						>
-							<Typography.Text mark>{item?.Id}</Typography.Text>
+							<Typography.Text mark>{item?.MainOrderCustomID}</Typography.Text>
 							<Typography.Text>{item?.ProductQuantity}</Typography.Text>
-							<Typography.Text>{item?.TotalPriceVND}</Typography.Text>
+							<Typography.Text>{numberWithCommas(item?.TotalPriceVND)}</Typography.Text>
 						</List.Item>
 					)}
 				/>
@@ -67,51 +61,8 @@ export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch,
 	}
 	return (
 		<React.Fragment>
-			{/* <div className="orderProductItem  flex justify-between items-center">
-				<div className="flex flex-col">
-					<Typography.Text className="">
-						Tổng số lượng: <span className="text-lg font-semibold text-[#F5851E]">{dataOrderShop.TotalItem}</span>
-					</Typography.Text>
-					<Typography.Text className="">
-						Tổng tiền sản phẩm:{' '}
-						<span className="text-lg font-semibold text-[#2686ED]">{_format.getVND(dataOrderShop?.PriceVND)}</span>{' '}
-					</Typography.Text>
-				</div>
-				<div>
-					{(RoleID === 1 || RoleID === 3 || RoleID === 4) && (
-						<IconButton
-							onClick={() => onExportExcel()}
-							title="Xuất"
-							icon="fas fa-file-export"
-							showLoading
-							toolip="Xuất thống kê"
-							green
-							btnClass="ml-4"
-						/>
-					)}
-				</div>
-			</div> */}
-
-			{/*     max-h-[700px] overflow-y-auto */}
 			<div>
-				<div className="h-full">
-					{/* {data?.SubMainOrders.map((x, idx) => {
-						return (
-							<div>
-								<Collapse defaultActiveKey={idx} expandIconPosition="right">
-									<Collapse.Panel header={x.CustomID} key={idx}>
-										<div>
-											<OrderProductList dataOrderShop={x} refetch={refetch} RoleID={RoleID} />
-										</div>
-									</Collapse.Panel>
-								</Collapse>
-
-								
-							</div>
-						)
-					})} */}
-					{renderView()}
-				</div>
+				<div className="h-full">{renderView()}</div>
 			</div>
 		</React.Fragment>
 	)
