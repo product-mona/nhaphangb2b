@@ -8,38 +8,38 @@ type SecondOrderIDProductListProps = {
 	dataOrder?: TOrder
 }
 export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> = ({ data, dataOrder }) => {
-	// const totalFeeEachOne = useMemo(() => {
-	// 	//InsuranceMoney  phí bảo hiểm
-	// 	//IsFastDeliveryPrice   Phí giao hàng tận nhà
-	// 	//IsPackedPrice  Phí đóng gỗ
-	// 	//IsCheckProductPrice Phí kiểm đếm
-	// 	//FeeWeight  Phí cân nặng
-	// 	//FeeBuyPro Phí mua hàng
-	// 	if (!!dataOrder) {
-	// 		const totalItem = onCalTotalNumber(data, 'Quantity')
-	// 		const totalFee =
-	// 			dataOrder.InsuranceMoney + // 0
-	// 			dataOrder.IsFastDeliveryPrice + // 0
-	// 			dataOrder.IsPackedPrice + // 0
-	// 			dataOrder.IsCheckProductPrice + // 0
-	// 			dataOrder.FeeWeight +
-	// 			dataOrder.FeeBuyPro
-	// 		console.log('totalFee', totalFee, 'totalItem', totalItem)
-	// 		if (!!totalItem) {
-	// 			return 2 / totalItem
-	// 		} else {
-	// 			return 0
-	// 		}
-	// 	} else return 0
-	// }, [dataOrder])
+	const totalFeeEachOne = useMemo(() => {
+		//InsuranceMoney  phí bảo hiểm
+		//IsFastDeliveryPrice   Phí giao hàng tận nhà
+		//IsPackedPrice  Phí đóng gỗ
+		//IsCheckProductPrice Phí kiểm đếm
+		//FeeWeight  Phí cân nặng
+		//FeeBuyPro Phí mua hàng
+		if (!!dataOrder) {
+			const totalItem = onCalTotalNumber(data, 'Quantity')
+			const totalFee =
+				dataOrder.InsuranceMoney + // 0
+				dataOrder.IsFastDeliveryPrice + // 0
+				dataOrder.IsPackedPrice + // 0
+				dataOrder.IsCheckProductPrice + // 0
+				dataOrder.FeeWeight +
+				dataOrder.FeeBuyPro
+			console.log('totalFee', totalFee, 'totalItem', totalItem)
+			if (!!totalItem) {
+				return 2 / totalItem
+			} else {
+				return 0
+			}
+		} else return 0
+	}, [dataOrder])
 
-	// const renderCostPrice = useCallback(
-	// 	(price: number) => {
-	// 		const resut = price + totalFeeEachOne
-	// 		return numberWithCommas(resut.toFixed(2))
-	// 	},
-	// 	[totalFeeEachOne]
-	// )
+	const renderCostPrice = useCallback(
+		(price: number) => {
+			const resut = price + totalFeeEachOne
+			return numberWithCommas(resut.toFixed(2))
+		},
+		[totalFeeEachOne]
+	)
 	return (
 		<div className="tableBox">
 			<div className="flex justify-between">
@@ -129,12 +129,7 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 								<div className="text-orange">
 									<div className="text-sm text-center">
 										<Tooltip title={`Đơn giá (VNĐ) + Tổng chi phí trên từng sản phẩm`} placement="bottom">
-											<InputNumber
-												addonBefore="VNĐ"
-												size="middle"
-												value={_format.getVND(dataOrder.TotalOrderAmount, '')}
-												readOnly
-											/>
+											<InputNumber addonBefore="VNĐ" size="middle" value={renderCostPrice(item?.PriceVND)} readOnly />
 										</Tooltip>
 									</div>
 								</div>

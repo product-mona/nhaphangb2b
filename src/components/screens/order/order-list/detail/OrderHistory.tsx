@@ -155,18 +155,18 @@ export const OrderHistory: React.FC<TProps> = ({ data, loading }) => {
 					/>
 				</div>
 			) : null}
-			{data?.OrderType === 4 ? null : (
-				<div className="mt-8 border-t pt-4 mx-2">
-					<History
-						title="LỊCH SỬ THAY ĐỔI"
-						columns={changeHistoryColumns}
-						data={data?.HistoryOrderChanges}
-						pagination={pagination}
-						handlePagination={(pagination) => setPagination(pagination)}
-						// expandable={expandableChange}
-					/>
-				</div>
-			)}
+
+			<div className="mt-8 border-t pt-4 mx-2">
+				<History
+					title="LỊCH SỬ THAY ĐỔI"
+					columns={changeHistoryColumns}
+					data={data?.HistoryOrderChanges}
+					pagination={pagination}
+					handlePagination={(pagination) => setPagination(pagination)}
+					// expandable={expandableChange}
+				/>
+			</div>
+
 			{data?.OrderType === 4 ? null : (
 				<div className="mt-8 border-t pt-4 mx-2">
 					<History

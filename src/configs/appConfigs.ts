@@ -2017,15 +2017,14 @@ export const orderStatus = [
 		money: null,
 		value: null
 	},
-	{
-		id: 100,
-		name: 'Chờ báo giá',
-		color: 'red',
-		col: 1,
-		money: null,
-		value: null
-	},
-
+	// {
+	// 	id: 100,
+	// 	name: 'Chờ báo giá',
+	// 	color: 'red',
+	// 	col: 1,
+	// 	money: null,
+	// 	value: null
+	// },
 	{
 		id: 2,
 		name: 'Đã đặt cọc',

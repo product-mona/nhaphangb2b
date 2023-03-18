@@ -118,6 +118,7 @@ const ShopOrderDetail: TNextPageWithLayout = () => {
 									loading={isFetching}
 									refetch={refetch}
 									RoleID={newUser?.UserGroupId}
+									isShopOrder
 								/>
 							</div>
 						</div>
