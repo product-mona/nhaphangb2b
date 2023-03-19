@@ -23,6 +23,7 @@ type TProps = {
 	disabledPayment?: boolean
 	refetch?: any
 	RoleID: number
+	isShopOrder?: boolean
 }
 
 const nameContent = 'w-2/4 py-1 text-sm font-bold text-[#3E3C6A] tracking-normal'
@@ -36,7 +37,17 @@ const IsShouldAffix: React.FC<{}> = ({ children }) => {
 	return isBigScreen ? <Affix offsetTop={20}>{children}</Affix> : <>{children}</>
 }
 
-const ComponentAffix: React.FC<TProps> = ({ data, loading, active, handleActive, handleUpdate, disabledPayment, refetch, RoleID }) => {
+const ComponentAffix: React.FC<TProps> = ({
+	data,
+	loading,
+	active,
+	handleActive,
+	handleUpdate,
+	disabledPayment,
+	refetch,
+	RoleID,
+	isShopOrder = false
+}) => {
 	const { warehouseTQ, warehouseVN, shippingTypeToWarehouse } = useCatalogue({
 		warehouseTQEnabled: !!RoleID,
 		warehouseVNEnabled: !!RoleID,
@@ -96,7 +107,7 @@ const ComponentAffix: React.FC<TProps> = ({ data, loading, active, handleActive,
 								</div>
 							</div>
 						)}
-						{data?.Status === 101 && data?.OrderType === 1 && (
+						{data?.Status === 101 && data?.OrderType === 4 && (
 							<div className={clsx(contentItem, 'w-full')}>
 								<div className={clsx(contentValue, '!w-full')}>
 									<IconButton
@@ -161,20 +172,18 @@ const ComponentAffix: React.FC<TProps> = ({ data, loading, active, handleActive,
 							<div className={clsx(nameContent)}>Tổng tiền</div>
 							<div className={clsx(contentValue)}>{_format.getVND(data?.TotalOrderAmount)}</div>
 						</div>
-						<div className={clsx(contentItem)}>
-							<div className={clsx(nameContent)}>Đã trả</div>
-							<div className={clsx(contentValue)}>{_format.getVND(data?.Deposit)}</div>
-						</div>
-						{/* <div className={clsx(contentItem)}>
-              <div className={clsx(nameContent)}>Tiền phải cọc</div>
-              <div className={clsx(contentValue, "text-[#008000]")}>
-                {_format.getVND(data?.AmountDeposit)}
-              </div>
-            </div> */}
-						<div className={clsx(contentItem)}>
-							<div className={clsx(nameContent)}>Còn lại</div>
-							<div className={clsx(contentValue, '!text-warning')}>{_format.getVND(data?.RemainingAmount)}</div>
-						</div>
+						{!isShopOrder ? (
+							<>
+								<div className={clsx(contentItem)}>
+									<div className={clsx(nameContent)}>Đã trả</div>
+									<div className={clsx(contentValue)}>{_format.getVND(data?.Deposit)}</div>
+								</div>
+								<div className={clsx(contentItem)}>
+									<div className={clsx(nameContent)}>Còn lại</div>
+									<div className={clsx(contentValue, '!text-warning')}>{_format.getVND(data?.RemainingAmount)}</div>
+								</div>
+							</>
+						) : null}
 					</div>
 					<div className="col-span-1">
 						<div className={clsx(contentItem, 'xl:mt-4 border-none')}>
@@ -199,6 +208,7 @@ const ComponentAffix: React.FC<TProps> = ({ data, loading, active, handleActive,
 									Id: data?.FromPlace,
 									Name: data?.FromPlaceName
 								}}
+								disabled={isShopOrder}
 							/>
 						</div>
 						<div className={clsx(contentItem, 'border-none')}>
@@ -213,6 +223,7 @@ const ComponentAffix: React.FC<TProps> = ({ data, loading, active, handleActive,
 									Id: data?.ReceivePlace,
 									Name: data?.ReceivePlaceName
 								}}
+								disabled={isShopOrder}
 							/>
 						</div>
 						<div className={clsx(contentItem, 'border-none')}>
@@ -227,6 +238,7 @@ const ComponentAffix: React.FC<TProps> = ({ data, loading, active, handleActive,
 									Id: data?.ShippingType,
 									Name: data?.ShippingTypeName
 								}}
+								disabled={isShopOrder}
 							/>
 						</div>
 					</div>
@@ -241,54 +253,58 @@ const ComponentAffix: React.FC<TProps> = ({ data, loading, active, handleActive,
 							showLoading
 							toolip=""
 						/>
-						{!disabledPayment && (RoleID === 1 || RoleID === 3) && data?.TotalOrderAmount !== data?.Deposit && (
-							<a
-								style={{
-									pointerEvents: data?.TotalOrderAmount === data?.Deposit ? 'none' : 'all'
-								}}
-							>
-								<IconButton
-									onClick={() => {
-										const id = toast.loading('Đang xử lý ...')
-										mainOrder
-											.payment({
-												Id: data?.Id,
-												Note: undefined,
-												PaymentMethod: 2,
-												PaymentType: data?.Status === 0 ? 1 : 2,
-												Amount: data?.Status === 0 ? data?.AmountDeposit : data?.RemainingAmount
-											})
-											.then(() => {
-												toast.update(id, {
-													render: `${data?.Status === 0 ? 'Đặt cọc thành công!' : 'Thanh toán thành công!'}`,
-													autoClose: 0,
-													isLoading: false,
-													type: 'success'
-												})
-												refetch()
-											})
-											.catch((error) => {
-												toast.update(id, {
-													render: (error as any)?.response?.data?.ResultMessage,
-													autoClose: 0,
-													isLoading: false,
-													type: 'error'
-												})
-											})
+						{data?.Status !== 101 &&
+							data?.Status !== 102 &&
+							!disabledPayment &&
+							(RoleID === 1 || RoleID === 3) &&
+							data?.TotalOrderAmount !== data?.Deposit && (
+								<a
+									style={{
+										pointerEvents: data?.TotalOrderAmount === data?.Deposit ? 'none' : 'all'
 									}}
-									icon="fas fa-credit-card"
-									// title="Thanh toán"
-									title={data?.Status === 0 ? 'Đặt cọc' : 'Thanh toán'}
-									showLoading
-									toolip=""
-									blue
-								/>
-							</a>
-						)}
+								>
+									<IconButton
+										onClick={() => {
+											const id = toast.loading('Đang xử lý ...')
+											mainOrder
+												.payment({
+													Id: data?.Id,
+													Note: undefined,
+													PaymentMethod: 2,
+													PaymentType: data?.Status === 0 ? 1 : 2,
+													Amount: data?.Status === 0 ? data?.AmountDeposit : data?.RemainingAmount
+												})
+												.then(() => {
+													toast.update(id, {
+														render: `${data?.Status === 0 ? 'Đặt cọc thành công!' : 'Thanh toán thành công!'}`,
+														autoClose: 0,
+														isLoading: false,
+														type: 'success'
+													})
+													refetch()
+												})
+												.catch((error) => {
+													toast.update(id, {
+														render: (error as any)?.response?.data?.ResultMessage,
+														autoClose: 0,
+														isLoading: false,
+														type: 'error'
+													})
+												})
+										}}
+										icon="fas fa-credit-card"
+										// title="Thanh toán"
+										title={data?.Status === 0 ? 'Đặt cọc' : 'Thanh toán'}
+										showLoading
+										toolip=""
+										blue
+									/>
+								</a>
+							)}
 					</div>
 				)}
 			</div>
-			<div className="tableBox xl:block hidden my-4 py-3">
+			{/* <div className="tableBox xl:block hidden my-4 py-3">
 				<ul className="mb-0">
 					<li>
 						<Link
@@ -351,9 +367,9 @@ const ComponentAffix: React.FC<TProps> = ({ data, loading, active, handleActive,
 						</Link>
 					</li>
 				</ul>
-			</div>
+			</div> */}
 
-			<IconButton
+			{/* <IconButton
 				onClick={() => router.push(`/manager/order/order-list${data?.OrderType === 3 ? '?q=3' : ''}`)}
 				// onClick={() => router.back()}
 				icon="fas fa-undo-alt"
@@ -361,7 +377,7 @@ const ComponentAffix: React.FC<TProps> = ({ data, loading, active, handleActive,
 				btnClass="mr-2 !bg-orange !text-white md:hidden xl:block"
 				showLoading
 				toolip=""
-			/>
+			/> */}
 		</>
 	)
 }

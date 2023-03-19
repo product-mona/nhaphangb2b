@@ -161,7 +161,8 @@ export const ShopOrderOverView: React.FC<TProps> = ({ data, updatePaid }) => {
 		newFee.forEach((fee) => {
 			fee.value.forEach((f) => {
 				if (convertNDT.match(f.key)) {
-					f.value = Math.ceil(f.value / data?.CurrentCNYVN)
+					// f.value = Math.ceil(f.value / data?.CurrentCNYVN)
+					f.value = (f.value / data?.CurrentCNYVN).toFixed(2)
 				}
 			})
 		})
@@ -182,7 +183,14 @@ export const ShopOrderOverView: React.FC<TProps> = ({ data, updatePaid }) => {
 						<Tag color={orderStatus.find((x) => x.id === data?.Status)?.color}>{data?.StatusName}</Tag>
 					</div>
 					{renderFee.map((item) => (
-						<div className={styleLi} key={`${item?.id}-${item?.id}`}>
+						<div
+							onClick={() => {
+								console.log(item)
+								console.log('data', data)
+							}}
+							className={styleLi}
+							key={`${item?.id}-${item?.id}`}
+						>
 							<div className={styleWrapIcon}>
 								<i className={`${item?.icon} ${styleIcon}`}></i>
 								<span>{item?.label}</span>

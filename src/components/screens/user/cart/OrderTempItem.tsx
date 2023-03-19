@@ -61,12 +61,6 @@ export const OrderTempItem: React.FC<TProps> = ({ index, orderTempData, updatePr
 					</Tooltip>
 
 					<div className="flex items-center">
-						{/* <ActionButton
-							iconContainerClassName="border-none"
-							title="Cập nhật"
-							icon={isLoading ? 'fas fa-sync fa-spin' : 'fas fa-sync-alt'}
-							onClick={() => updateProduct(quantity, brand)}
-						/> */}
 						<ActionButton
 							iconContainerClassName="border-none"
 							title="Xóa sản phẩm này!"
@@ -110,23 +104,6 @@ export const OrderTempItem: React.FC<TProps> = ({ index, orderTempData, updatePr
 					<div className="grid grid-cols-1 xl:!grid-cols-2">
 						<div className="col-span-1 lg:!col-span-1 xl:block flex justify-between ml-2 mb-2 xl:mb-0">
 							<div className="text-[10px] py-[2px] uppercase font-bold">Số lượng (cái)</div>
-							{/* <div className="text-sm text-center">
-								<InputNumber
-									size="middle"
-									min={1}
-									max={100000}
-									value={quantity}
-									onChange={handleQuantity}
-									// style={{height: "30px"}}
-								/>
-							</div> */}
-							{/* <FormInputNumber
-								control={control}
-								name={`OrderTemps.${index}.Quantity`}
-								// label="Tỉ giá riêng (VNĐ)"
-								placeholder={`OrderTemps.${index}.Quantity`}
-								required={false}
-							/> */}
 							<TableMoneyField control={control} name={`OrderTemps.${index}.Quantity`} />
 						</div>
 						<div className="col-span-1 lg:!col-span-1 xl:block flex justify-between ml-2 mb-2 xl:mb-0">

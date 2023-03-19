@@ -33,6 +33,7 @@ module.exports = {
 			green: '#388E3C',
 			red: '#d32240',
 			redDark: '#c21f3b',
+			redHover: '#e03d58',
 			black: '#000',
 			yellow: '#fbc02d',
 			dark: '#242526',
@@ -41,8 +42,11 @@ module.exports = {
 			lightGray: '#E4E6EB',
 			main: '#008d4b',
 			mainDark: '#007941',
+			main10: 'rgb(85 255 141 / 10%)',
 			second: '#00898d',
-			secondHover: '#009ca1'
+			secondHover: '#009ca1',
+
+			textSub: '#205437b3'
 			// main: "#0c5963",
 		},
 		extend: {

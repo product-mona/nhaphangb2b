@@ -78,7 +78,11 @@ const Index: TNextPageWithLayout = () => {
 
 	return (
 		<React.Fragment>
-			<div className="titlePageUser">Chi tiết đơn hàng #{id}</div>
+			<div className="titlePageUser">
+				<span className="text-[#666565]">Chi tiết đơn hàng </span>
+				{data?.Data.MainOrderCustomID}
+			</div>
+
 			<div className="mb-4 ">
 				<div className="sm:grid sm:grid-cols-2 gap-4">
 					<div className="col-span-1">

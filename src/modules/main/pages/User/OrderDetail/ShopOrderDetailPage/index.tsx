@@ -21,10 +21,9 @@ import { TNextPageWithLayout } from '~/types/layout'
 export const ShopOrderDetailPage: TNextPageWithLayout = () => {
 	const { id } = router.query
 	const { query } = useRouter()
-	// const router = useRouter()
+
 	const { data, isError, isLoading, refetch } = useQuery(['orderList', +query?.id], () => mainOrder.getByID(+query?.id), {
 		onSuccess: (data) => {
-			console.log('onSuccess', data?.Data?.OrderType)
 			if (data?.Data?.OrderType !== 1) {
 				router.push('/user/order-list')
 			}
@@ -62,7 +61,10 @@ export const ShopOrderDetailPage: TNextPageWithLayout = () => {
 
 	return (
 		<React.Fragment>
-			<div className="titlePageUser">Chi tiết đơn hàng của shop #{id}</div>
+			<div className="titlePageUser">
+				<span className="text-[#666565]">Chi tiết đơn cửa hàng </span>
+				{data?.Data.MainOrderCustomID}
+			</div>
 			<div className="mb-4 ">
 				<div className="sm:grid sm:grid-cols-2 gap-4">
 					<div className="col-span-1">

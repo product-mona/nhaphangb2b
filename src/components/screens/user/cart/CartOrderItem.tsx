@@ -43,7 +43,7 @@ const TopContainer = ({ checked, toggleShopId, cart, onHandleShop, loading, disa
 					title=""
 					showLoading
 					toolip="Xóa cửa hàng"
-					btnClass="!text-white hover:!bg-[#cc3a00]"
+					btnClass="bg-red hover:bg-redHover"
 					btnIconClass="!mr-0"
 					disabled={disabled}
 				/>
@@ -311,7 +311,6 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 												methods.reset()
 											}}
 										>
-											{/* <i className="fas fa-undo"></i> */}
 											<svg
 												focusable="false"
 												aria-hidden="true"

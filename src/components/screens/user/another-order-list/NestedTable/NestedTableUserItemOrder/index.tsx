@@ -163,19 +163,6 @@ export const NestedTableUserItemOrder: FC<any> = ({ handleModal, type, q, GroupM
 								<ActionButton onClick={() => {}} icon="far fa-info-square" title="Xem chi tiết shop này" />
 							</a>
 						</Link>
-						{record?.Status === 0 && (
-							<ActionButton
-								onClick={() =>
-									Modal.confirm({
-										title: 'Xác nhận xóa đơn cửa hàng này?',
-										onOk: () => handleDeleteProd(record?.Id)
-									})
-								}
-								icon="fas fa-trash"
-								title="Xóa đơn cửa hàng này"
-								btnYellow
-							/>
-						)}
 					</Space>
 				)
 			}

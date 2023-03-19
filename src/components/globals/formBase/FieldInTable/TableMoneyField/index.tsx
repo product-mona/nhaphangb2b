@@ -14,6 +14,7 @@ type TableMoneyFieldProps<T extends FieldValues> = {
 	hideMessage?: boolean
 	hideError?: boolean
 	min?: number
+	size?: ComponentProps<typeof InputNumber>['size']
 }
 
 export const TableMoneyField = <T extends FieldValues = FieldValues, TFieldDatas extends object = object>({
@@ -24,6 +25,7 @@ export const TableMoneyField = <T extends FieldValues = FieldValues, TFieldDatas
 	// labelSx,
 	onChange: onChangeFromOutside,
 	min = 0,
+	size = 'middle',
 	...rest
 }: Omit<ComponentProps<typeof InputNumber>, keyof TableMoneyFieldProps<T>> & TableMoneyFieldProps<T>) => {
 	return (
@@ -36,7 +38,7 @@ export const TableMoneyField = <T extends FieldValues = FieldValues, TFieldDatas
 						<>
 							<InputNumber
 								min={min}
-								size="large"
+								size={size}
 								className={clsx(!!fieldState.isDirty && 'ring-1 ring-offset-1 ring-[#40a9ff]')}
 								{...field}
 								{...rest}
