@@ -24,6 +24,7 @@ import {
 	showToast,
 	toast
 } from '~/components'
+import { MyBreadcrumb } from '~/components/others'
 import { OrderShopDetailModal } from '~/components/screens/Modal'
 import { breadcrumb } from '~/configs'
 import { SEOConfigs } from '~/configs/SEOConfigs'
@@ -161,8 +162,8 @@ const Index: TNextPageWithLayout = () => {
 				)
 			} else {
 				return (
-					<Panel header={`Danh sách cửa hàng (${data?.Data?.SubMainOrders?.length || 0})`} key="3">
-						<div id="product-list" className={clsx(className, active === 2 && '', '!px-2 !py-0')}>
+					<Panel header={`Danh sách đơn nhỏ (${data?.Data?.SubMainOrders?.length || 0})`} key="3">
+						<div id="product-list" className={clsx(className, active === 2 && '', '!px-0 !py-0')}>
 							<OrderShopList data={data?.Data} refetch={refetch} RoleID={newUser?.UserGroupId} />
 						</div>
 					</Panel>
@@ -191,25 +192,16 @@ const Index: TNextPageWithLayout = () => {
 	}
 	return (
 		<div>
-			<div className="mt-[50px] mb-[20px] flex items-center">
-				<div className="mr-[18px]">
-					<IconButton
-						onClick={() => router.push(`/manager/order/order-list${data?.Data.OrderType === 3 ? '?q=3' : ''}`)}
-						icon={'far fa-arrow-left'}
-						title=""
-						toolip="Trở lại"
-						btnClass="!p-[18px] !bg-[transparent] !h-auto hover:!shadow-none hover:!bg-main10 rounded-[8px]"
-						btnIconClass="text-main !w-[24px] !m-0 before:text-[24px]"
-					/>
-				</div>
-				<div>
-					<div className="titlePageUser p-0 m-0">Chi tiết đơn hàng</div>
-					<p className="text-textSub">Bạn đang ở chi tiết đơn hàng {data?.Data.MainOrderCustomID}</p>
-				</div>
-			</div>
+			<MyBreadcrumb
+				onBack={() => {
+					router.push(`/manager/order/order-list${data?.Data.OrderType === 3 ? '?q=3' : ''}`)
+				}}
+				title="Chi tiết đơn hàng"
+				subTitle={`Bạn đang ở chi tiết đơn hàng ${data?.Data.MainOrderCustomID}`}
+			/>
 			<Spin spinning={isFetching}>
 				<FormProvider {...form}>
-					<div className="xl:grid xl:grid-cols-10 gap-4 h-full w-full">
+					<div className="xl:grid xl:grid-cols-10 gap-1 h-full w-full">
 						<div className="xl:col-span-2">
 							<div
 								style={{

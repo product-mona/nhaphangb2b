@@ -26,9 +26,9 @@ type TProps = {
 	isShopOrder?: boolean
 }
 
-const nameContent = 'w-2/4 py-1 text-sm font-bold text-[#3E3C6A] tracking-normal'
+const nameContent = 'w-2/4 py-1 text-sm text-[#3E3C6A] tracking-normal'
 const contentItem = 'flex items-center border-b border-[#EDF1F7] py-[4px]'
-const contentValue = 'w-2/4 py-1 text-sm font-medium text-black'
+const contentValue = 'w-2/4 py-1 text-sm font-medium text-black text-right'
 const linkMenu = 'cursor-pointer py-[2px] text-[#0000005a] text-sm block'
 const linkMenuActive = 'border-l-2 border-orange !text-black font-medium'
 
@@ -159,28 +159,31 @@ const ComponentAffix: React.FC<TProps> = ({
 								</div>
 							</div>
 						)}
-
-						<div className={clsx(contentItem)}>
-							<div className={clsx(nameContent)}>Order ID</div>
-							<div className={clsx(contentValue, 'truncate')}>{data?.MainOrderCustomID}</div>
-						</div>
+						{!isShopOrder ? (
+							<div className={clsx(contentItem)}>
+								<div className={clsx(nameContent)}>Order ID</div>
+								<div className={clsx(contentValue, 'truncate')}>{data?.Id}</div>
+							</div>
+						) : null}
 						<div className={clsx(contentItem)}>
 							<div className={clsx(nameContent)}>Loại đơn hàng</div>
-							<div className={clsx(contentValue)}>{data?.OrderType == 4 ? 'Đơn trọn gói' : data?.OrderTypeName}</div>
+							<div className={clsx(contentValue)}>
+								{data?.OrderType == 4 ? 'Đơn trọn gói' : data?.OrderType == 1 ? 'Đơn nhỏ' : 'Đơn dịch vụ'}
+							</div>
 						</div>
 						<div className={clsx(contentItem)}>
-							<div className={clsx(nameContent)}>Tổng tiền</div>
-							<div className={clsx(contentValue)}>{_format.getVND(data?.TotalOrderAmount)}</div>
+							<div className={clsx(nameContent)}>{data?.OrderType == 1 ? 'Tổng tiền' : 'Tổng tiền'} VNĐ</div>
+							<div className={clsx(contentValue)}>{_format.getVND(data?.TotalOrderAmount, '')}</div>
 						</div>
 						{!isShopOrder ? (
 							<>
 								<div className={clsx(contentItem)}>
 									<div className={clsx(nameContent)}>Đã trả</div>
-									<div className={clsx(contentValue)}>{_format.getVND(data?.Deposit)}</div>
+									<div className={clsx(contentValue)}>{_format.getVND(data?.Deposit, '')}</div>
 								</div>
 								<div className={clsx(contentItem)}>
 									<div className={clsx(nameContent)}>Còn lại</div>
-									<div className={clsx(contentValue, '!text-warning')}>{_format.getVND(data?.RemainingAmount)}</div>
+									<div className={clsx(contentValue, '!text-warning')}>{_format.getVND(data?.RemainingAmount, '')}</div>
 								</div>
 							</>
 						) : null}

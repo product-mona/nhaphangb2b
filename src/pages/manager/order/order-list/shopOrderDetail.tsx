@@ -1,6 +1,7 @@
 import { CaretRightOutlined } from '@ant-design/icons'
-import { Collapse, Modal, Spin } from 'antd'
+import { Breadcrumb, Collapse, Modal, Spin } from 'antd'
 import clsx from 'clsx'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -23,6 +24,7 @@ import {
 	showToast,
 	toast
 } from '~/components'
+import { MyBreadcrumb } from '~/components/others'
 import { OrderShopDetailModal } from '~/components/screens/Modal'
 import { OrderCodeSecond } from '~/components/screens/order/order-list/detail/OrderCodeSecond'
 import { breadcrumb } from '~/configs'
@@ -100,9 +102,40 @@ const ShopOrderDetail: TNextPageWithLayout = () => {
 
 	return (
 		<div>
+			<MyBreadcrumb
+				onBack={() => {
+					router.back()
+				}}
+				title="Chi tiết đơn nhỏ"
+				subTitle={
+					<>
+						<Breadcrumb>
+							<Breadcrumb.Item>
+								<a href={`/manager/order/order-list${OrderShopDetailQuery?.Data.OrderType === 3 ? '?q=3' : ''}`}>
+									Danh sách đơn hàng
+								</a>
+							</Breadcrumb.Item>
+							<Breadcrumb.Item>
+								<Link
+									href={{
+										pathname: '/manager/order/order-list/detail',
+										query: {
+											id: orderId
+										}
+									}}
+									passHref
+								>
+									<a rel="noopener noreferrer">Đơn hàng {orderId}</a>
+								</Link>
+							</Breadcrumb.Item>
+							<Breadcrumb.Item>{OrderShopDetailQuery?.Data.MainOrderCustomID}</Breadcrumb.Item>
+						</Breadcrumb>
+					</>
+				}
+			/>
 			<Spin spinning={isFetching}>
 				<FormProvider {...form}>
-					<div className="xl:grid xl:grid-cols-10 gap-4 h-full w-full">
+					<div className="xl:grid xl:grid-cols-10 gap-1 h-full w-full">
 						<div className="xl:col-span-2">
 							<div
 								style={{
@@ -190,8 +223,8 @@ const ShopOrderDetail: TNextPageWithLayout = () => {
 		</div>
 	)
 }
-ShopOrderDetail.displayName = 'Chi tiết đơn của cửa hàng'
-ShopOrderDetail.breadcrumb = 'Chi tiết đơn của cửa hàng'
+ShopOrderDetail.displayName = 'Chi tiết đơn cửa hàng'
+
 ShopOrderDetail.Layout = Layout
 
 export default ShopOrderDetail
