@@ -21,9 +21,7 @@ export const ConfirmCompleteForm: React.FC<TProps> = ({ control, onPress, totalP
 		},
 		{
 			select: (data) => data.Data,
-			onSuccess: (res) => {
-				console.log('res', res)
-			}
+			onSuccess: (res) => {}
 		}
 	)
 	return (

@@ -304,7 +304,7 @@ const ComponentAffix: React.FC<TProps> = ({
 					</div>
 				)}
 			</div>
-			<div className="tableBox xl:block hidden my-4 py-3">
+			{/* <div className="tableBox xl:block hidden my-4 py-3">
 				<ul className="mb-0">
 					<li>
 						<Link
@@ -367,9 +367,9 @@ const ComponentAffix: React.FC<TProps> = ({
 						</Link>
 					</li>
 				</ul>
-			</div>
+			</div> */}
 
-			<IconButton
+			{/* <IconButton
 				onClick={() => router.push(`/manager/order/order-list${data?.OrderType === 3 ? '?q=3' : ''}`)}
 				// onClick={() => router.back()}
 				icon="fas fa-undo-alt"
@@ -377,7 +377,7 @@ const ComponentAffix: React.FC<TProps> = ({
 				btnClass="mr-2 !bg-orange !text-white md:hidden xl:block"
 				showLoading
 				toolip=""
-			/>
+			/> */}
 		</>
 	)
 }

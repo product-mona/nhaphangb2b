@@ -17,6 +17,7 @@ type TProps = TControl<TUserPayment> & {
 
 const ItemProduct = ({ orderTemp, index, maxLength }) => {
 	//bg-[#e9eff1]
+	console.log(orderTemp)
 	return (
 		<div
 			style={{
@@ -63,20 +64,18 @@ const ItemProduct = ({ orderTemp, index, maxLength }) => {
 				</div>
 				<div className="flex xl:w-4/12">
 					<div className="xl:block flex justify-between ml-2 xl:w-2/4">
-						<div className="text-sm font-medium text-black text-center mb-2">
-							Số lượng <br /> (cái)
-						</div>
+						<div className="text-sm font-medium text-black text-center mb-2">Số lượng</div>
 						<div className="text-sm text-center">
 							<InputNumber width={'100%'} size="middle" min={1} max={100000} value={orderTemp?.Quantity} readOnly />
 						</div>
 					</div>
 					<div className="xl:block flex justify-between ml-2 xl:w-2/4">
-						<div className="text-sm font-medium text-black text-center mb-2">
-							Đơn giá <br /> (¥)
-						</div>
+						<div className="text-sm font-medium text-black text-center mb-2">Đơn giá (¥)</div>
 						<div className="text-orange">
 							<div className="text-sm text-center">
-								<InputNumber size="middle" value={_format.getVND(orderTemp?.UPriceBuy, '')} readOnly />
+								<Tooltip title={_format.getVND(orderTemp?.UPriceBuyVN, '')} placement="bottom">
+									<InputNumber size="middle" value={_format.getVND(orderTemp?.UPriceBuy, '')} readOnly />
+								</Tooltip>
 							</div>
 						</div>
 					</div>

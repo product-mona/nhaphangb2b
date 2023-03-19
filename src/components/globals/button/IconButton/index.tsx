@@ -18,8 +18,7 @@ type TProps = {
 	type?: 'button' | 'submit' | 'reset'
 }
 
-const styleBtn =
-	'bg-main h-[38px] mx-0 py-[6px] px-[12px] rounded-md text-white !font-semibold tracking-wide hover:bg-mainDark hover:shadow'
+const styleBtn = 'bg-main h-[38px] mx-0 py-[6px] px-[12px] rounded-md text-white !font-semibold tracking-wide hover:bg-mainDark'
 const styleBtnGreen =
 	'text-white !bg-[#1f8f2b] hover:bg-[#d0f5d5] h-[36px] mx-0 py-[6px] px-[12px] rounded-md font-medium tracking-wide hover:shadow'
 const styleBtnRed = 'text-white !bg-[#f02b02] h-[36px] mx-0 py-[6px] px-[12px] rounded-md font-medium tracking-wide hover:shadow'

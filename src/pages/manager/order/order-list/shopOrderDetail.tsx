@@ -185,6 +185,7 @@ const ShopOrderDetail: TNextPageWithLayout = () => {
 						</div>
 					</div>
 				</FormProvider>
+				{OrderShopDetailQuery && <MessageControlManager clientId={OrderShopDetailQuery.Data.UID} mainOrderId={+shopOrderId} />}
 			</Spin>
 		</div>
 	)
