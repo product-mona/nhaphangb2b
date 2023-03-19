@@ -1173,7 +1173,7 @@ div.order .ant-drawer-body {
   border-radius: 8px !important;
 }
 
-tr:nth-child(even) {
+tr:nth-child(odd) {
   background-color: #f9fbff;
 }
 
