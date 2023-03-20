@@ -1,4 +1,4 @@
-import { Typography } from 'antd'
+import { Tag, Typography } from 'antd'
 import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
 import React, { FC, useMemo } from 'react'
@@ -6,6 +6,7 @@ import { order } from '~/api'
 import { ActionButton } from '~/components/globals/button/ActionButton'
 import { DataTable } from '~/components/globals/table'
 import { toast } from '~/components/toast'
+import { orderStatus } from '~/configs'
 import { TColumnsType } from '~/types/table'
 import { _format } from '~/utils'
 
@@ -34,12 +35,29 @@ export const OrderShopList: FC<OrderShopListProps> = ({ data, RoleID, refetch })
 				title: 'Mã đơn nhỏ'
 				// render: (id) => <Typography.Text mark>{id}</Typography.Text>
 			},
+			// {
+			// 	dataIndex: 'StatusName',
+			// 	title: 'Trạng thái'
+			// 	// align: 'right',
+			// 	// width: 150
+			// },
+			{
+				dataIndex: 'Status',
+				title: 'Trạng thái hiện tại',
+				render: (status, record) => {
+					const color = orderStatus.find((x) => x.id === status)
+					return <Tag color={color?.color}>{record?.StatusName}</Tag>
+				},
+				responsive: ['xl'],
+				width: 160
+			},
 			{
 				dataIndex: 'ProductQuantity',
 				title: 'Số lượng sản phẩm',
 				align: 'right',
 				width: 150
 			},
+
 			{
 				dataIndex: 'TotalPriceVND',
 				title: 'Tổng tiền (VNĐ)',

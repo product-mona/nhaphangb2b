@@ -213,43 +213,7 @@ export const OrderListTable: React.FC<
 			},
 			width: 200
 		},
-		// {
-		// 	dataIndex: 'MainOrderTransactionCodeDetails',
-		// 	align: 'center',
-		// 	title: () => <p>Mã đơn hàng - mã vận đơn</p>,
-		// 	width: 300,
-		// 	render: (data: TOrder['MainOrderTransactionCodeDetails'], record) => {
-		// 		// if (!record?.IsCheckNotiPrice && record?.OrderType === 3) {
-		// 		//   return <Tag color="#D32F2F">Đơn chưa báo giá</Tag>;
-		// 		// } else {
-		// 		return (
-		// 			<React.Fragment>
-		// 				{data.map((item, itemIndex) =>
-		// 					item.OrderTransactionCode.map((code, codeIndex) => (
-		// 						<div
-		// 							key={`${code}--${codeIndex}`}
-		// 							className={clsx('flex', {
-		// 								'mt-2': !(itemIndex === 0 && codeIndex === 0)
-		// 							})}
-		// 						>
-		// 							<div className="w-1/2 text-black bg-[#0000000a] outline-none text-xs mr-2 px-2 py-1">
-		// 								{item.MainOrderCode}
-		// 							</div>
-		// 							<div className="w-1/2 text-black bg-[#0000000a] outline-none text-xs px-2 py-1">{code}</div>
-		// 						</div>
-		// 					))
-		// 				)}
-		// 				{record.IsDoneSmallPackage && (
-		// 					<Tag color="#2196F3" className="!mt-2 !mr-0">
-		// 						Đã đủ MVĐ
-		// 					</Tag>
-		// 				)}
-		// 			</React.Fragment>
-		// 		)
-		// 		// }
-		// 	},
-		// 	responsive: ['xl']
-		// },
+
 		{
 			dataIndex: 'DepositDate',
 			title: 'TimeLine',
