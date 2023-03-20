@@ -106,7 +106,7 @@ export const UserOrder = ({ data, isLoading, isFetching, pagination }) => {
 					data: data?.Items,
 					bordered: true,
 					loading: isFetching,
-					title: 'Đơn hàng mua hộ',
+					title: 'Đơn hàng trọn gói',
 					// expandable: expandable,
 					pagination
 				}}

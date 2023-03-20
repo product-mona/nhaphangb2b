@@ -112,7 +112,7 @@ class Format {
 		if (Number.isInteger(price)) {
 			return (price?.toString() || '0').replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix
 		}
-		return price
+		return price + suffix
 	}
 
 	// format phần trăm

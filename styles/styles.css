@@ -910,15 +910,10 @@ span.create .ant-upload.ant-upload-select-picture-card {
   border: none !important;
 }
 
-.ant-input-number-input {
-  border-radius: 0px !important;
-
-}
-
 .ant-input-number {
-  width: auto !important;
-  border-radius: 0px !important;
+  width: 100% !important;
 }
+
 
 .ant-table-thead > tr > th {
   background-color: #edf1f7 !important;

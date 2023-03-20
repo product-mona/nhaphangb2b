@@ -1,21 +1,9 @@
 import router, { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useQuery } from 'react-query'
 import { toast } from 'react-toastify'
 import { mainOrder } from '~/api'
-import {
-	MessageControlUser,
-	OrderIDDetail,
-	OrderIDPaymentHistory,
-	OrderIDProductList,
-	OrderOverView,
-	UserLayout,
-	OrderIDShopList,
-	ShopOrderOverView,
-	ShopOrderGeneralInfo,
-	SecondOrderIDProductList
-} from '~/components'
-import { SEOConfigs } from '~/configs/SEOConfigs'
+import { MessageControlUser, SecondOrderIDProductList, ShopOrderGeneralInfo, ShopOrderOverView, UserLayout } from '~/components'
 import { TNextPageWithLayout } from '~/types/layout'
 
 export const ShopOrderDetailPage: TNextPageWithLayout = () => {
@@ -34,31 +22,6 @@ export const ShopOrderDetailPage: TNextPageWithLayout = () => {
 		enabled: !!+query?.id
 	})
 
-	const updatePaid = (type: 'deposit' | 'payment') => {
-		const id = toast.loading('Đang xử lý ...')
-		mainOrder
-			.updateOrder([data?.Data?.Id], {
-				Status: type === 'deposit' ? 2 : 7
-			})
-			.then((res) => {
-				toast.update(id, {
-					render: type === 'deposit' ? 'Đặt cọc thành công!' : 'Thanh toán thành công!',
-					isLoading: false,
-					type: 'success',
-					autoClose: 1000
-				})
-				refetch()
-			})
-			.catch((error) => {
-				toast.update(id, {
-					render: (error as any)?.response?.data?.ResultMessage,
-					isLoading: false,
-					type: 'success',
-					autoClose: 1000
-				})
-			})
-	}
-
 	return (
 		<React.Fragment>
 			<div className="titlePageUser">
@@ -68,7 +31,7 @@ export const ShopOrderDetailPage: TNextPageWithLayout = () => {
 			<div className="mb-4 ">
 				<div className="sm:grid sm:grid-cols-2 gap-4">
 					<div className="col-span-1">
-						<ShopOrderOverView data={data?.Data} updatePaid={updatePaid} />
+						<ShopOrderOverView data={data?.Data} />
 					</div>
 					<div className="col-span-1">
 						<ShopOrderGeneralInfo data2={data?.Data?.Orders} dataAll={data?.Data} data={data?.Data?.FeeSupports} />
@@ -79,8 +42,7 @@ export const ShopOrderDetailPage: TNextPageWithLayout = () => {
 					<SecondOrderIDProductList data={data?.Data?.Orders} dataOrder={data?.Data} />
 				</div>
 				{/* <OrderIDProductList data={data?.Data?.Orders} /> */}
-				{/* danh sách shop*/}
-				{/* <OrderIDShopList dataOrder={data?.Data} orderShopList={data?.Data?.OrderShops || []} /> */}
+
 				{/* <OrderIDPaymentHistory data={data?.Data?.PayOrderHistories} /> */}
 				{data && <MessageControlUser clientId={data.Data.UID} mainOrderId={+query?.id} />}
 			</div>

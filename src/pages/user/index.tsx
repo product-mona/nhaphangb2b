@@ -15,7 +15,7 @@ const boxItem = 'lg:col-span-2 col-span-2 mb-4'
 const dataBoxItem = [
 	{
 		key: 'mainOrderTotal',
-		label: 'Mua hàng hộ',
+		label: 'Đơn hàng trọn gói',
 		path: '/user/order-list',
 		icon: 'fad fa-shopping-basket',
 		color: '#2A8BD5',
@@ -23,7 +23,7 @@ const dataBoxItem = [
 	},
 	{
 		key: 'mainOrderOtherTotal',
-		label: 'Mua hàng hộ khác',
+		label: 'Đơn hàng dịch vụ',
 		path: '/user/order-list?q=3',
 		icon: 'fad fa-shopping-basket',
 		color: '#27A689',
@@ -64,7 +64,7 @@ const Index: TNextPageWithLayout = () => {
 				PageSize: 10,
 				OrderBy: 'Created desc',
 				UID: user?.UserId,
-				OrderType: 1
+				OrderType: 4
 			}
 		],
 		() =>
@@ -74,7 +74,7 @@ const Index: TNextPageWithLayout = () => {
 					PageSize: 10,
 					OrderBy: 'Created desc',
 					UID: user?.UserId,
-					OrderType: 1
+					OrderType: 4
 				})
 				.then((res) => {
 					dataBoxItem[0].value = res.Data.TotalItem
@@ -134,90 +134,9 @@ const Index: TNextPageWithLayout = () => {
 		}
 	)
 
-	// const {
-	//   isFetching: isFetchingPayment,
-	//   data: paymentData,
-	//   isLoading: isLoadingPayment,
-	// } = useQuery(
-	//   [
-	//     "requestPaymentData",
-	//     {
-	//       PageCurrent: 1,
-	//       PageSize: 10,
-	//       OrderBy: "Created desc",
-	//       UID: user?.UserId,
-	//     },
-	//   ],
-	//   () =>
-	//     payHelp
-	//       .getList({
-	//         PageIndex: 1,
-	//         PageSize: 10,
-	//         OrderBy: "Created desc",
-	//         UID: user?.UserId,
-	//       })
-	//       .then((res) => {
-	//         dataBoxItem[3].value = res.Data.TotalItem;
-	//         return res.Data;
-	//       }),
-	//   {
-	//     onError: (error) => {
-	//       showToast({
-	//         // title: (error as any)?.response?.data?.ResultCode,
-	//         title: "Đã xảy ra lỗi!",
-	//         message: (error as any)?.response?.data?.ResultMessage,
-	//         type: "error",
-	//       });
-	//     },
-	//     enabled: !!user,
-	//   }
-	// );
-
-	// const {
-	//   isFetching: isFetchingTransport,
-	//   data: transportData,
-	//   isLoading: isLoadingTransport,
-	// } = useQuery(
-	//   [
-	//     "deliveryOrder",
-	//     {
-	//       Current: 1,
-	//       PageSize: 10,
-	//       UID: user?.UserId,
-	//     },
-	//   ],
-	//   () =>
-	//     transportationOrder
-	//       .getList({
-	//         PageIndex: 1,
-	//         PageSize: 10,
-	//         OrderBy: "Created desc",
-	//         UID: user?.UserId,
-	//       })
-	//       .then((res) => {
-	//         dataBoxItem[2].value = res.Data.TotalItem;
-	//         return res.Data;
-	//       }),
-	//   {
-	//     onError: (error) => {
-	//       showToast({
-	//         // title: (error as any)?.response?.data?.ResultCode,
-	//         title: "Đã xảy ra lỗi!",
-	//         message: (error as any)?.response?.data?.ResultMessage,
-	//         type: "error",
-	//       });
-	//     },
-	//     enabled: !!user,
-	//   }
-	// );
-
-	// useEffect(() => {
-	//   setTotal(dataBoxItem);
-	// }, [transportData, paymentData, orderData, otherOrderData]);
-
 	useEffect(() => {
 		setTotal(dataBoxItem)
-	}, [orderData])
+	}, [orderData, otherOrderData])
 
 	return (
 		<React.Fragment>

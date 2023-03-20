@@ -1,30 +1,21 @@
-import { FC } from 'react';
-import { useForm } from 'react-hook-form';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { feeBuyPro } from '~/api/fee-buy-pro';
-import {
-	Button,
-	FormCard,
-	FormInputNumber,
-	Modal, toast
-} from '~/components';
-import { useDeepEffect } from '~/hooks';
-import { TForm } from '~/types/table';
-import { _format } from '~/utils';
+import { FC } from 'react'
+import { useForm } from 'react-hook-form'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { feeBuyPro } from '~/api/fee-buy-pro'
+import { Button, FormCard, FormInputNumber, Modal, toast } from '~/components'
+import { useDeepEffect } from '~/hooks'
+import { TForm } from '~/types/table'
+import { _format } from '~/utils'
 
-export const TariffBuyProForm: FC<TForm<TTariffBuyPro>> = ({
-	onCancel,
-	defaultValues,
-	visible
-}) => {
+export const TariffBuyProForm: FC<TForm<TTariffBuyPro>> = ({ onCancel, defaultValues, visible }) => {
 	const { handleSubmit, reset, control } = useForm<TTariffBuyPro>({
 		defaultValues,
 		mode: 'onBlur'
-	});
+	})
 
 	useDeepEffect(() => {
-		reset(defaultValues);
-	}, [defaultValues]);
+		reset(defaultValues)
+	}, [defaultValues])
 
 	// get item by id
 	const { isFetching, isError, error, data } = useQuery(
@@ -36,30 +27,28 @@ export const TariffBuyProForm: FC<TForm<TTariffBuyPro>> = ({
 			onSuccess: (data) => reset(data),
 			onError: toast.error
 		}
-	);
+	)
 
 	// Update item
-	const queryClient = useQueryClient();
+	const queryClient = useQueryClient()
 	const mutationUpdate = useMutation(feeBuyPro.update, {
 		// refresh item + table data after updating successfully
 		onSuccess: async (_, variables) => {
-			queryClient.invalidateQueries('feeBuyProData');
-			queryClient.setQueryData(['feeBuyProId', defaultValues?.Id], variables);
-			onCancel();
+			queryClient.invalidateQueries('feeBuyProData')
+			queryClient.setQueryData(['feeBuyProId', defaultValues?.Id], variables)
+			onCancel()
 		}
-	});
+	})
 	const _onPress = (data: TTariffBuyPro) => {
-		mutationUpdate.mutate({ ...data });
-	};
+		mutationUpdate.mutate({ ...data })
+	}
 
 	return (
 		<Modal onCancel={onCancel} visible={visible}>
 			<FormCard loading={isFetching || mutationUpdate?.isLoading}>
 				<FormCard.Header onCancel={onCancel}>
 					<div className="w-full">
-						<p className="md:text-base text-sm">
-							CẤU HÌNH DỊCH VỤ MUA HÀNG {defaultValues?.Id}
-						</p>
+						<p className="md:text-base text-sm">CẤU HÌNH DỊCH VỤ MUA HÀNG {defaultValues?.Id}</p>
 					</div>
 				</FormCard.Header>
 				<FormCard.Body>
@@ -67,30 +56,26 @@ export const TariffBuyProForm: FC<TForm<TTariffBuyPro>> = ({
 						<div className="col-span-1">
 							<FormInputNumber
 								control={control}
-								name="PriceTo"
+								name="PriceFrom"
 								label="Giá từ"
 								placeholder="Giá từ"
 								suffix=" VNĐ"
 								rules={{
-									required: 'Không bỏ trống giá từ',
-									validate: (val: number) =>
-										_format.isNumber(val.toString()) ||
-										'Không đúng định dạng số'
+									required: 'Không bỏ trống giá đến',
+									validate: (val: number) => _format.isNumber(val.toString()) || 'Không đúng định dạng số'
 								}}
 							/>
 						</div>
 						<div className="col-span-1">
 							<FormInputNumber
 								control={control}
-								name="PriceFrom"
+								name="PriceTo"
 								label="Giá đến"
 								placeholder="Giá đến"
 								suffix=" VNĐ"
 								rules={{
-									required: 'Không bỏ trống giá đến',
-									validate: (val: number) =>
-										_format.isNumber(val.toString()) ||
-										'Không đúng định dạng số'
+									required: 'Không bỏ trống giá từ',
+									validate: (val: number) => _format.isNumber(val.toString()) || 'Không đúng định dạng số'
 								}}
 							/>
 						</div>
@@ -103,9 +88,7 @@ export const TariffBuyProForm: FC<TForm<TTariffBuyPro>> = ({
 								placeholder="Phí dịch vụ"
 								rules={{
 									required: 'Không bỏ trống phí dịch vụ',
-									validate: (val: number) =>
-										_format.isNumber(val.toString()) ||
-										'Không đúng định dạng số'
+									validate: (val: number) => _format.isNumber(val.toString()) || 'Không đúng định dạng số'
 								}}
 							/>
 						</div>
@@ -127,14 +110,10 @@ export const TariffBuyProForm: FC<TForm<TTariffBuyPro>> = ({
 					</div>
 				</FormCard.Body>
 				<FormCard.Footer>
-					<Button
-						title="Cập nhật"
-						btnClass="!bg-active"
-						onClick={handleSubmit(_onPress)}
-					/>
+					<Button title="Cập nhật" btnClass="!bg-active" onClick={handleSubmit(_onPress)} />
 					<Button title="Hủy" btnClass="!bg-pending" onClick={onCancel} />
 				</FormCard.Footer>
 			</FormCard>
 		</Modal>
-	);
-};
+	)
+}

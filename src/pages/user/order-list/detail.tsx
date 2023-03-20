@@ -31,26 +31,6 @@ const Index: TNextPageWithLayout = () => {
 		enabled: !!+query?.id
 	})
 
-	const { data: itemOrderListQuery, isFetching } = useQuery(
-		['ItemOrderListQuery', id],
-		() => mainOrder.getSubGroupOrder({ id: +id, PageSize: 1000 }),
-		{
-			onSuccess: (data) => {
-				console.log('ItemOrderListQuery', data)
-			},
-			onError: (error) => {
-				showToast({
-					title: 'Đã xảy ra lôi!',
-					message: (error as any)?.response?.data?.ResultMessage,
-					type: 'error'
-				})
-			},
-			retry: true,
-			enabled: !!id,
-			refetchOnWindowFocus: false
-		}
-	)
-
 	const updatePaid = (type: 'deposit' | 'payment') => {
 		const id = toast.loading('Đang xử lý ...')
 		mainOrder
@@ -92,11 +72,8 @@ const Index: TNextPageWithLayout = () => {
 						<OrderIDDetail data2={data?.Data?.Orders} dataAll={data?.Data} data={data?.Data?.FeeSupports} />
 					</div>
 				</div>
-				{/* <OrderTransportList data={data?.Data?.SmallPackages} /> */}
-
-				{/* danh sách shop*/}
-				{/* <OrderIDShopList dataOrder={data?.Data} orderShopList={itemOrderListQuery.Data || []} /> */}
-				{/* <OrderIDPaymentHistory data={data?.Data?.PayOrderHistories} /> */}
+				<OrderIDShopList dataOrder={data?.Data} orderShopList={data?.Data.SubMainOrders || []} />
+				<OrderIDPaymentHistory data={data?.Data?.PayOrderHistories} />
 				{data && <MessageControlUser clientId={data.Data.UID} mainOrderId={+query?.id} />}
 			</div>
 		</React.Fragment>

@@ -83,53 +83,32 @@ export const ShopOrderGeneralInfo: React.FC<TTable<TFeeSupports> & { dataAll; da
 		setRenderMethods(newMethod)
 	}, [dataAll])
 
-	const columns: TColumnsType<TFeeSupports> = [
-		{
-			dataIndex: 'Id',
-			render: (value, record, index) => <>{index + 1}</>,
-			title: 'STT'
-		},
-		{
-			dataIndex: 'SupportName',
-			title: 'Tên phụ phí'
-		},
-		{
-			title: 'Số tiền (VNĐ)',
-			dataIndex: 'SupportInfoVND',
-			render: (_, record) => {
-				return <>{_format.getVND(record?.SupportInfoVND)}</>
-			}
-		}
-	]
-
 	return (
-		<Collapse defaultActiveKey={[]} expandIconPosition="right">
-			<Panel header="THÔNG TIN" key="1">
-				<div className="p-2">
-					<div className="mb-4 pb-4 border-b">
-						<div className="titleTable p-2">Dịch vụ đơn hàng</div>
+		<div className="tableBox px-4">
+			<div className="p-2">
+				<div className="mb-4  ">
+					<div className="titleTable p-2">Dịch vụ đơn hàng</div>
 
-						<div className="px-[10px]">
-							{renderMethods.map((item) => (
-								<div className={styleLi} key={`${item?.id}-${item?.id}`}>
-									<div className={styleWrapIcon}>
-										<i className={`${item.icon} ${styleIcon}`}></i>
-										<span>{item?.label}</span>
-									</div>
-									{item.key.includes('Is') && (
-										<i
-											className={`far text-[16px] !font-bold ${
-												item.value ? 'fa-check text-[#388E3C]' : 'fa-times text-[#be2c2c]'
-											}`}
-										></i>
-									)}
-									{!item.key.includes('Is') && <p className={styleValue}>{item?.value}</p>}
+					<div className="px-[10px]">
+						{renderMethods.map((item) => (
+							<div className={styleLi} key={`${item?.id}-${item?.id}`}>
+								<div className={styleWrapIcon}>
+									<i className={`${item.icon} ${styleIcon}`}></i>
+									<span>{item?.label}</span>
 								</div>
-							))}
-						</div>
+								{item.key.includes('Is') && (
+									<i
+										className={`far text-[16px] !font-bold ${
+											item.value ? 'fa-check text-[#388E3C]' : 'fa-times text-[#be2c2c]'
+										}`}
+									></i>
+								)}
+								{!item.key.includes('Is') && <p className={styleValue}>{item?.value}</p>}
+							</div>
+						))}
 					</div>
 				</div>
-			</Panel>
-		</Collapse>
+			</div>
+		</div>
 	)
 }
