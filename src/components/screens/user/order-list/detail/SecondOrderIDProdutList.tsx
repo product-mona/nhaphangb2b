@@ -1,4 +1,4 @@
-import { InputNumber, Tooltip } from 'antd'
+import { Input, InputNumber, Tooltip } from 'antd'
 import React, { useCallback, useMemo } from 'react'
 
 import { numberWithCommas, _format, onCalTotalNumber } from '~/utils'
@@ -37,7 +37,8 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 		(price: number) => {
 			const resut = price + totalFeeEachOne
 
-			return numberWithCommas(resut.toFixed(2))
+			return numberWithCommas(resut)
+			// return '1,000,000,000,000 VND'
 		},
 		[totalFeeEachOne]
 	)
@@ -96,41 +97,49 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 							</div>
 						</div>
 						<div className="flex w-7/12">
-							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
-								<div className="text-sm mr-4 text-[#484747] font-semibold">Số lượng</div>
+							<div className="block flex md:flex-col justify-between ml-2 ">
+								<div className="text-sm mr-4 text-[#484747] font-semibold text-right">Số lượng</div>
 								<div className="text-sm text-center">
-									<InputNumber size="middle" value={_format.getVND(item?.Quantity, '')} readOnly />
+									<Input className="text-right" size="middle" value={_format.getVND(item?.Quantity, '')} readOnly />
 								</div>
 							</div>
-							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
-								<div className="text-sm mr-4 text-[#484747] font-semibold">Đơn giá (¥)</div>
+							<div className="block flex md:flex-col justify-between ml-2 ">
+								<div className="text-sm mr-4 text-[#484747] font-semibold text-right">Đơn giá (¥)</div>
 								<div className="text-orange">
-									<div className="text-sm text-center">
+									<div className="text-sm">
 										<Tooltip title={`${_format.getVND(item?.PriceVND, '')} VNĐ`} placement="bottom">
-											<InputNumber size="middle" value={_format.getVND(item?.PriceCNY, '')} readOnly />
+											<Input
+												className="text-right"
+												size="middle"
+												value={_format.getVND(item?.PriceCNY, '')}
+												readOnly
+											/>
 										</Tooltip>
 									</div>
 								</div>
 							</div>
-							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
-								<div className="text-sm mr-4 text-[#484747] font-semibold">Thành tiền (¥)</div>
+							<div className="block flex md:flex-col justify-between ml-2 w-3/12">
+								<div className="text-sm mr-4 text-[#484747] font-semibold text-right">Thành tiền (¥)</div>
 								<div className="text-sm text-center">
 									<Tooltip title={`${_format.getVND(item?.PriceVND * item?.Quantity, '')} VNĐ`} placement="bottom">
-										<InputNumber
+										<Input
+											className="text-right"
 											size="middle"
 											value={_format.getVND(item?.PriceCNY * item?.Quantity, '')}
 											readOnly
-											className="text-center"
 										/>
 									</Tooltip>{' '}
 								</div>
 							</div>
-							<div className="block flex md:flex-col justify-between ml-2 w-1/4">
-								<div className="text-sm mr-4 text-[#484747]  font-semibold truncate">Giá vốn 1 sản phẩm</div>
+							<div className="block flex md:flex-col justify-between ml-2 w-4/12">
+								<div className="text-sm mr-4 text-[#484747] text-right font-semibold truncate">
+									Giá vốn 1 sản phẩm (VNĐ)
+								</div>
 								<div className="text-orange">
-									<div className="text-sm text-center">
+									<div className="text-sm ">
 										<Tooltip title={`Đơn giá (VNĐ) + Tổng chi phí trên từng sản phẩm`} placement="bottom">
-											<InputNumber addonBefore="VNĐ" size="middle" value={renderCostPrice(item?.PriceVND)} readOnly />
+											{/* <InputNumber size="middle" value={renderCostPrice(item?.PriceVND)} readOnly /> */}
+											<Input className="text-right" size="middle" value={renderCostPrice(item?.PriceVND)} readOnly />
 										</Tooltip>
 									</div>
 								</div>

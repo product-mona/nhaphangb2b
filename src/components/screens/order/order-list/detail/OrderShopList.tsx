@@ -9,12 +9,12 @@ import { toast } from '~/components/toast'
 import { TColumnsType } from '~/types/table'
 import { _format } from '~/utils'
 
-type OrderIDShopListProps = {
+type OrderShopListProps = {
 	data?: TOrder
 	RoleID: number
 	refetch: () => void
 }
-export const OrderShopList: FC<OrderIDShopListProps> = ({ data, RoleID, refetch }) => {
+export const OrderShopList: FC<OrderShopListProps> = ({ data, RoleID, refetch }) => {
 	const router = useRouter()
 	const orderId = Number(router.query.id)
 	const onExportExcel = async () => {

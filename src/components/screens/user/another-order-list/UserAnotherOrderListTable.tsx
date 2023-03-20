@@ -359,12 +359,13 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 				}}
 				className=" p-4"
 			>
-				<div className="mb-4 text-white">
+				<div className="mb-4">
 					<p
 						style={{
 							fontSize: '16px',
 							fontWeight: 600
 						}}
+						className="text-white"
 					>
 						Chi tiết danh sách cửa hàng
 					</p>

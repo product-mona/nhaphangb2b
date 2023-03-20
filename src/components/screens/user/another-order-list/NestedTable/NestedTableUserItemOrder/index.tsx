@@ -99,7 +99,7 @@ export const NestedTableUserItemOrder: FC<any> = ({ handleModal, type, q, GroupM
 
 		{
 			dataIndex: 'Status',
-			title: 'Trạng thái đơn cửa hàng này',
+			title: 'Trạng thái',
 			render: (status, record) => {
 				const color = orderStatus.find((x) => x.id === status)
 				return <Tag color={color?.color}>{record?.StatusName}</Tag>

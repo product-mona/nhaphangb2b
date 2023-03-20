@@ -2,7 +2,7 @@ import { Tooltip } from 'antd'
 import React, { useCallback, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FormInputNumber } from '~/components'
-import { FormCheckbox } from '~/components/globals/formBase'
+import { FormCheckbox, TableMoneyField } from '~/components/globals/formBase'
 import { toast } from 'react-toastify'
 type TProps = {
 	data:
@@ -542,7 +542,7 @@ export const OrderCost: React.FC<TProps> = ({ data, RoleID }) => {
 			return <></>
 		}
 	}
-	//renderDepositFee dont render for orderType = 1
+	//render Deposit Fee dont render for orderType = 1
 	const renderDepositFee = () => {
 		if ((data as TOrder)?.OrderType !== 1) {
 			return (
@@ -560,7 +560,6 @@ export const OrderCost: React.FC<TProps> = ({ data, RoleID }) => {
 									allowNegative={false}
 									disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 8 || RoleID === 6) && RoleID === 4}
 									callback={(val) => {
-										localStorage.setItem('AmountDeposit', JSON.stringify(val))
 										if (val > data?.TotalPriceVND) {
 											toast.error('Số tiền phải cọc không lớn hơn tổng tiền đơn hàng!')
 										}

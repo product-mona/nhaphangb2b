@@ -1,4 +1,5 @@
-import { Tag } from 'antd'
+import { Tag, Tooltip } from 'antd'
+import Link from 'next/link'
 import router from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { IconButton } from '~/components'
@@ -137,12 +138,11 @@ const templateFee = [
 const convertNDT =
 	' FeeBuyPro |IsCheckProductPrice |IsPackedPrice |InsuranceMoney |IsFastDeliveryPrice |FeeShipCN |FeeShipCNCNY |FeeWeight |FeeSupports |'
 
-const styleLi = `flex items-center justify-between pb-3 border-b border-[#56545454] pt-[10px] last:border-none`
-const styleWrapIcon = `text-sm text-[#000]`
-const styleIcon = `mr-2 pt-[2px] text-[#ffa500] text-[18px]`
-const styleValue = `text-sm text-[#666565] font-semibold`
+const styleWrapIcon = `text-sm text-[#666565] mr-4`
 
-export const ShopOrderOverView: React.FC<TProps> = ({ data }) => {
+const styleValue = `text-sm text-textMain font-semibold`
+
+export const ShopOrderOverViewShort: React.FC<TProps> = ({ data }) => {
 	const [renderFee, setRenderFee] = useState(templateFee)
 
 	useEffect(() => {
@@ -171,43 +171,48 @@ export const ShopOrderOverView: React.FC<TProps> = ({ data }) => {
 
 	return (
 		<>
-			<div className="tableBox px-4">
-				<div className="titleTable">Tổng quan đơn hàng</div>
-				<div className="px-[10px]">
-					<div className={styleLi}>
-						<div className={styleWrapIcon}>
-							<i className={`far fa-calendar-minus ${styleIcon}`}></i>
-							<span>Trạng thái đơn hàng: </span>
-						</div>
-						<Tag color={orderStatus.find((x) => x.id === data?.Status)?.color}>{data?.StatusName}</Tag>
-					</div>
+			<div className="px-[10px]">
+				<div className=" p-4 flex justify-between">
+					<p className="text-[16px] cursor-pointer font-semibold w-auto ">Tổng quan chi phí của đơn shop này</p>
+					<Link
+						href={{
+							pathname: '/user/order-list/detailShopOrder',
+							query: {
+								id: data?.Id
+							}
+						}}
+						passHref
+					>
+						<a rel="noopener noreferrer">
+							<p className="text-blue italic">Đi tới chi tiết</p>
+						</a>
+					</Link>
+				</div>
+
+				<div className="sm:grid lg:grid-cols-2 md:grid-cols-1  gap-[120px] gap-y-3 px-[32px]">
 					{renderFee.map((item) => (
-						<div className={styleLi} key={`${item?.id}-${item?.id}`}>
-							<div className={styleWrapIcon}>
-								<i className={`${item?.icon} ${styleIcon}`}></i>
-								<span>{item?.label}</span>
-							</div>
-							<div className={styleValue}>
-								{item?.value.length > 1 &&
-									item.value.map((x) => {
-										if (x.key.includes('TQ') || x.key.includes('CNY') || x.key.includes('TQ')) {
-											if (x.key.includes('Price') || x.key.includes('FeeShip')) {
-												return ` - (${_format.getVND(x?.value, ' ¥')})`
+						<div className="col-span-1" key={`${item?.id}-${item?.id}`}>
+							<div className="flex justify-start items-center">
+								<p className={styleWrapIcon}>{item?.label}:</p>
+								<div className={styleValue}>
+									{item?.value.length > 1 &&
+										item.value.map((x) => {
+											if (x.key.includes('TQ') || x.key.includes('CNY') || x.key.includes('TQ')) {
+												if (x.key.includes('Price') || x.key.includes('FeeShip')) {
+													return ` - (${_format.getVND(x?.value, ' ¥')})`
+												} else {
+													return ` - (${x?.value} kg)`
+												}
 											} else {
-												return ` - (${x?.value} kg)`
+												return _format.getVND(x?.value, convertNDT.match(item?.value[0]?.key) ? ' ¥' : ' VNĐ')
 											}
-										} else {
-											return _format.getVND(x?.value, convertNDT.match(item?.value[0]?.key) ? ' ¥' : ' VNĐ')
-										}
-									})}
-								{item?.value.length === 1 &&
-									_format.getVND(item?.value[0].value, convertNDT.match(item?.value[0]?.key) ? ' ¥' : ' VNĐ')}
+										})}
+									{item?.value.length === 1 &&
+										_format.getVND(item?.value[0].value, convertNDT.match(item?.value[0]?.key) ? ' ¥' : ' VNĐ')}
+								</div>
 							</div>
 						</div>
 					))}
-				</div>
-				<div className="flex justify-between mt-4">
-					<IconButton onClick={() => router.back()} title="Trở về" icon="fas fa-undo-alt" showLoading />
 				</div>
 			</div>
 		</>

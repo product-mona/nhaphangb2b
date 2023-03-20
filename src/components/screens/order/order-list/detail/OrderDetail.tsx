@@ -256,7 +256,8 @@ const ComponentAffix: React.FC<TProps> = ({
 							showLoading
 							toolip=""
 						/>
-						{data?.Status !== 101 &&
+						{!isShopOrder &&
+							data?.Status !== 101 &&
 							data?.Status !== 102 &&
 							!disabledPayment &&
 							(RoleID === 1 || RoleID === 3) &&

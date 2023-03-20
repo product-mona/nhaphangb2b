@@ -46,6 +46,7 @@ module.exports = {
 			second: '#00898d',
 			secondHover: '#009ca1',
 
+			textMain: '#345422',
 			textSub: '#205437b3'
 			// main: "#0c5963",
 		},
