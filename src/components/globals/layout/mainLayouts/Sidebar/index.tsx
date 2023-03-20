@@ -49,14 +49,14 @@ const Sidebar: FC<TProps> = ({ handleHover, hover, tabbar }) => {
 					const data = res?.Data
 					// const newMenuRouter = [...renderMenuRouter];
 					const newMenuRouter = cloneDeep(menuRouter)
-					newMenuRouter.forEach((menu) => {
-						if (menu?.group === 'Danh sách đơn hàng') {
-							const newControllers = [...menu?.controllers]
-							newControllers[0].childrens.forEach((newC) => {
-								newC.name = `${newC.name} (${data.find((x) => x.Key === newC.key)?.Value})`
-							})
-						}
-					})
+					// newMenuRouter.forEach((menu) => {
+					// 	if (menu?.group === 'Danh sách đơn hàng') {
+					// 		const newControllers = [...menu?.controllers]
+					// 		newControllers[0].childrens.forEach((newC) => {
+					// 			newC.name = `${newC.name} (${data.find((x) => x.Key === newC.key)?.Value})`
+					// 		})
+					// 	}
+					// })
 					setRenderMenuRouter(newMenuRouter)
 				}),
 		{

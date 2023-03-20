@@ -1,7 +1,8 @@
-import { Collapse } from 'antd'
+import { Collapse, Tag } from 'antd'
 import React, { FC } from 'react'
 import { useQueries, UseQueryResult } from 'react-query'
 import { mainOrder } from '~/api'
+import { orderStatus } from '~/configs'
 import { IOrderShop } from '~/types'
 import { SecondOrderIDProductList } from './SecondOrderIDProdutList'
 import { ShopOrderOverViewShort } from './ShopOrder'
@@ -29,6 +30,9 @@ export const OrderIDShopList: FC<OrderIDShopListProps> = ({ orderShopList, dataO
 		} else {
 			return (
 				<div>
+					{/* <Tag color={orderStatus.find((x) => x.id === vl?.data?.Data.Status)?.color}>
+										{vl?.data?.Data?.StatusName}
+									</Tag> */}
 					<ShopOrderOverViewShort data={vl.data.Data} />
 					<SecondOrderIDProductList dataOrder={vl.data.Data} data={vl.data.Data.Orders} />
 				</div>

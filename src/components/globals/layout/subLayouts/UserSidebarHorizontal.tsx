@@ -69,8 +69,8 @@ export const UserLayout: FC<{}> = ({ children }) => {
 					gradient={false}
 					style={{
 						height: '36px',
-						background: '#0c5964db',
-						color: '#fff',
+						background: '#f2f9f4',
+						color: '#007941',
 						fontSize: '20px',
 						fontWeight: 'bold',
 						textTransform: 'uppercase'
