@@ -142,7 +142,7 @@ export const Layout: TlayoutWithChild & React.FC<TProps> = ({ children, userPage
 						</div>
 						<BackTop className="!right-[2%]">
 							<div className="hover:animate-bounce delay-1000">
-								<i className="fas fa-angle-double-up text-[#fff] hover:text-[#eea387] bg-[#0c5963] text-xl py-[14px] px-[18px] rounded-3xl shadow-xl hover:bg-[#f8dfd5]"></i>
+								<i className="fas fa-angle-double-up text-[#fff] hover:text-[#eea387] bg-main text-xl py-[14px] px-[18px] rounded-3xl shadow-xl hover:bg-[#f8dfd5]"></i>
 							</div>
 						</BackTop>
 						<Footer {...{ hover, userPage }} />

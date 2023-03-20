@@ -2059,7 +2059,7 @@ export const orderStatus = [
 	},
 	{
 		id: 9,
-		name: 'Đã thanh toán',
+		name: 'Có phiên thanh toán',
 		color: '#096dd9',
 		col: 1,
 		money: null,

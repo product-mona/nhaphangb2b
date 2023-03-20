@@ -54,7 +54,8 @@ const ComponentAffix: React.FC<TProps> = ({
 		shippingTypeToWarehouseEnabled: !!RoleID
 	})
 
-	const { handleSubmit, control } = useFormContext<TOrder>()
+	const { handleSubmit, control, watch } = useFormContext<TOrder>()
+	const allFormState = watch()
 
 	return (
 		<>
@@ -73,7 +74,8 @@ const ComponentAffix: React.FC<TProps> = ({
 												mainOrder
 													.updateDepositStatus({
 														Id: data?.Id,
-														AmountDeposit: JSON.parse(localStorage.getItem('AmountDeposit'))
+														// AmountDeposit: JSON.parse(localStorage.getItem('AmountDeposit'))
+														AmountDeposit: allFormState.AmountDeposit
 													})
 													.then((res) => {
 														localStorage.removeItem('AmountDeposit')
@@ -112,9 +114,10 @@ const ComponentAffix: React.FC<TProps> = ({
 								<div className={clsx(contentValue, '!w-full')}>
 									<IconButton
 										onClick={async () => {
+											console.log(allFormState.AmountDeposit)
 											const id = toast.loading('Đang xử lý ...')
-											const AmountDepositMoney = JSON.parse(localStorage.getItem('AmountDeposit'))
-											if (!AmountDepositMoney) {
+											// const AmountDepositMoney = JSON.parse(localStorage.getItem('AmountDeposit'))
+											if (!allFormState.AmountDeposit) {
 												toast.update(id, {
 													render: 'Vui lòng nhập số tiền phải cọc!',
 													autoClose: 0,
@@ -126,7 +129,7 @@ const ComponentAffix: React.FC<TProps> = ({
 											await mainOrder
 												.updateDepositStatus({
 													Id: data?.Id,
-													AmountDeposit: AmountDepositMoney
+													AmountDeposit: allFormState.AmountDeposit
 												})
 												.then((res) => {
 													localStorage.removeItem('AmountDeposit')

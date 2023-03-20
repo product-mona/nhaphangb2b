@@ -104,7 +104,12 @@ const ShopOrderDetail: TNextPageWithLayout = () => {
 		<div>
 			<MyBreadcrumb
 				onBack={() => {
-					router.back()
+					router.push({
+						pathname: '/manager/order/order-list/detail',
+						query: {
+							id: orderId
+						}
+					})
 				}}
 				title="Chi tiết đơn nhỏ"
 				subTitle={
