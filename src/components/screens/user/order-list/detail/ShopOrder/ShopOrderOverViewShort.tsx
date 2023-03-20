@@ -1,4 +1,5 @@
 import { Tag, Tooltip } from 'antd'
+import clsx from 'clsx'
 import Link from 'next/link'
 import router from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -146,7 +147,8 @@ export const ShopOrderOverViewShort: React.FC<TProps> = ({ data }) => {
 	const [renderFee, setRenderFee] = useState(templateFee)
 
 	useEffect(() => {
-		const newFee = renderFee.map((item) => {
+		// const newFee = renderFee.map((item) => {
+		const newFee = templateFee.map((item) => {
 			item?.value.forEach((v) => {
 				if (v?.key === 'FeeSupports') {
 					v.value = data?.[v.key].reduce((acc, cur) => (acc += cur?.SupportInfoVND), 0)
@@ -194,7 +196,7 @@ export const ShopOrderOverViewShort: React.FC<TProps> = ({ data }) => {
 						<div className="col-span-1" key={`${item?.id}-${item?.id}`}>
 							<div className="flex justify-start items-center">
 								<p className={styleWrapIcon}>{item?.label}:</p>
-								<div className={styleValue}>
+								<div className={clsx(styleValue, item?.value[0]?.key == 'TotalOrderAmount' && 'text-orange')}>
 									{item?.value.length > 1 &&
 										item.value.map((x) => {
 											if (x.key.includes('TQ') || x.key.includes('CNY') || x.key.includes('TQ')) {

@@ -30,11 +30,11 @@ export const UserOrder = ({ data, isLoading, isFetching, pagination }) => {
 			render: (record) => _format.getVND(record, '')
 		},
 		{
-			title: 'Số tiền đã cọc',
+			title: 'Công nợ đơn hàng',
 			dataIndex: 'Deposit',
 			responsive: ['lg'],
 			align: 'right',
-			render: (record) => _format.getVND(record, '')
+			render: (deposit, record) => _format.getVND(record.TotalPriceVND - record.Deposit, ' ')
 		},
 		{
 			title: 'Trạng thái',

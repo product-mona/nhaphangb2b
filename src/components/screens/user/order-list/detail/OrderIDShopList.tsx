@@ -29,10 +29,6 @@ export const OrderIDShopList: FC<OrderIDShopListProps> = ({ orderShopList, dataO
 		} else {
 			return (
 				<div>
-					{/* <div className="sm:grid sm:grid-cols-2 gap-4">
-						<div className="col-span-1"></div>
-						<div className="col-span-1"></div>
-					</div> */}
 					<ShopOrderOverViewShort data={vl.data.Data} />
 					<SecondOrderIDProductList dataOrder={vl.data.Data} data={vl.data.Data.Orders} />
 				</div>
