@@ -2,7 +2,7 @@
   background-image: url(/service.png);
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 80px 0 80px;
+  padding: 60px 0 ;
 }
 
 .innerServicesWrap {
@@ -22,7 +22,7 @@
 
 .boxLeft,
 .boxRight {
-  padding: 20px;
+  padding: 0 20px;
 }
 
 .boxRight {
@@ -91,7 +91,7 @@
 }
 
 .innerBoxRight {
-  padding: 32px;
+  padding: 28px;
   background: #FFF;
   border: 1px solid #4e8c1c;
   border-radius: 8px;
@@ -135,7 +135,7 @@
 }
 
 .innerBoxRight a {
-  margin-top: 55px;
+  margin-top: 28px;
   color: #4e8c1c !important;
   font-size: 18px !important;
   width: fit-content;
@@ -175,7 +175,8 @@
   color: #333;
   text-align: center;
   text-transform: uppercase;
-  transform: translateY(16px);
+  margin-bottom: 32px;
+  /* transform: translateY(16px); */
 }
 
 @media screen and (max-width: 768px) {

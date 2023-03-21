@@ -11,13 +11,14 @@ type TProps = {
 	dataOrderShop: TOrder
 	// dataOrderShop: IOrderShop
 	RoleID: number
+	refetch?: () => void
 }
 
-export const OrderProductList: React.FC<TProps> = ({ RoleID, dataOrderShop }) => {
+export const OrderProductList: React.FC<TProps> = ({ RoleID, dataOrderShop, refetch }) => {
 	const mutationUpdate = useMutation(order.update, {
 		onSuccess: () => {
 			toast.success('Cập nhật sản phẩm thành công')
-			// refetch()
+			refetch?.()
 		},
 		onError: (error) => {
 			showToast({

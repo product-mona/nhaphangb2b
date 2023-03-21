@@ -472,7 +472,7 @@ span.create .ant-upload.ant-upload-select-picture-card {
 }
 
 .mySwiper.homeCard .swiper-wrapper .swiper-slide .ant-card .ant-card-body {
-  padding: 20px 10px !important;
+  padding: 20px 10px 0 !important;
 }
 
 .mySwiper.homeCard {

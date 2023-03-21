@@ -37,7 +37,7 @@
 .contentActive {
   padding-top: 24px;
   padding-bottom: 24px;
-  height: 100px;
+  height: 100%;
   margin-bottom: 24px;
 }
 
@@ -78,6 +78,7 @@
   color: #fafafa;
   text-align: center;
   text-transform: uppercase;
+  margin-bottom: 32px;
 }
 
 .mainDes {

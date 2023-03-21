@@ -196,7 +196,7 @@ const ShopOrderDetail: TNextPageWithLayout = () => {
 										<OrderProductList
 											dataOrderShop={OrderShopDetailQuery?.Data}
 											// loading={isFetching}
-											// refetch={refetch}
+											refetch={refetch}
 											RoleID={newUser?.UserGroupId}
 										/>
 									</div>
