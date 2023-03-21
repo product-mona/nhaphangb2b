@@ -1,15 +1,15 @@
-import router from "next/router";
-import {FormEditor, FormInput, FormSelect, FormSwitch, FormTextarea, FormUpload, IconButton} from "~/components";
-import {useCatalogue} from "~/hooks/useCatalogue";
-import {TControl} from "~/types/field";
+import router from 'next/router'
+import { FormEditor, FormInput, FormInputNumber, FormSelect, FormSwitch, FormTextarea, FormUpload, IconButton } from '~/components'
+import { useCatalogue } from '~/hooks/useCatalogue'
+import { TControl } from '~/types/field'
 
 type TProps = TControl<TArticleList> & {
-	type: "add" | "edit";
-	data?: any;
-};
+	type: 'add' | 'edit'
+	data?: any
+}
 
-export const ArticleListForm: React.FC<TProps> = ({control, type, data}) => {
-	const {pageType} = useCatalogue({pageTypeEnabled: !!data});
+export const ArticleListForm: React.FC<TProps> = ({ control, type, data }) => {
+	const { pageType } = useCatalogue({ pageTypeEnabled: !!data })
 
 	return (
 		<>
@@ -21,7 +21,7 @@ export const ArticleListForm: React.FC<TProps> = ({control, type, data}) => {
 						placeholder=""
 						name="Title"
 						rules={{
-							required: "This field is required",
+							required: 'This field is required'
 						}}
 					/>
 				</div>
@@ -37,15 +37,15 @@ export const ArticleListForm: React.FC<TProps> = ({control, type, data}) => {
 						placeholder="Chọn chuyên mục"
 						name="PageTypeId"
 						data={pageType}
-						select={{label: "Name", value: "Id"}}
+						select={{ label: 'Name', value: 'Id' }}
 						rules={{
-							required: "This field is required",
+							required: 'This field is required'
 						}}
 						defaultValue={
-							type === "edit"
+							type === 'edit'
 								? {
 										Name: pageType?.find((item) => item?.Id === data?.PageTypeId)?.Name,
-										Id: data?.PageTypeId,
+										Id: data?.PageTypeId
 								  }
 								: null
 						}
@@ -57,11 +57,14 @@ export const ArticleListForm: React.FC<TProps> = ({control, type, data}) => {
 				<div className="col-span-1 md:mb-0 mb-4">
 					<FormSwitch control={control} name="Active" label="Trạng thái" required={false} />
 				</div>
-				{type === "edit" && (
+				{type === 'edit' && (
 					<div className="col-span-1">
 						<FormSwitch control={control} name="sidebar" label="Sidebar" required={false} />
 					</div>
 				)}
+				<div className="col-span-1 md:mb-0 mb-4">
+					<FormInputNumber placeholder="vị trí" control={control} name="OrderNumber" label="Vị trí" required={false} />
+				</div>
 				<div className="col-span-4 md:mb-0 mb-4">
 					<FormTextarea
 						control={control}
@@ -76,5 +79,5 @@ export const ArticleListForm: React.FC<TProps> = ({control, type, data}) => {
 				</div>
 			</div>
 		</>
-	);
-};
+	)
+}

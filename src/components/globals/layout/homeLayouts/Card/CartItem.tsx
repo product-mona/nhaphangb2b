@@ -13,16 +13,16 @@ const CartItem: React.FC<TProps> = ({ Title, IMG, Created, Summary }) => {
 	return (
 		<React.Fragment>
 			<Card
-				style={{ overflow: 'hidden' }}
-				cover={<img alt={Title} src={IMG || '/pro-empty.jpg'} style={{ width: '100%', height: '150px' }} />}
+				style={{ overflow: 'hidden', height: '100%' }}
+				cover={<img alt={Title} src={IMG || '/pro-empty.jpg'} style={{ objectFit: 'cover', width: '100%', height: '150px' }} />}
 			>
 				<p
 					className="font-bold !mb-3 overflow-hidden"
 					style={{
 						display: '-webkit-box',
 						WebkitLineClamp: 2,
-						WebkitBoxOrient: 'vertical',
-						height: '44px'
+						WebkitBoxOrient: 'vertical'
+						// height: '44px'
 					}}
 				>
 					{Title}

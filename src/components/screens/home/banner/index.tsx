@@ -93,13 +93,8 @@ export const HomeBanner = ({ data }) => {
 					<div className={styles.containerHome}>
 						<div className={styles.content}>
 							<h1 className="font-bold uppercase">
-								{/* {data?.BannerText ?? (
-									<>
-										B2B NHẬP HÀNG TRUNG QUỐC <br /> CHUYÊN NGHIỆP - TẬN TÂM - UY TÍN
-									</>
-								)} */}
 								<>
-									B2B NHẬP HÀNG TRUNG QUỐC <br /> CHUYÊN NGHIỆP - TẬN TÂM - UY TÍN
+									DỊCH VỤ NHẬP HÀNG QUỐC TẾ <br /> CHUYÊN NGHIỆP - TẬN TÂM - UY TÍN
 								</>
 							</h1>
 							<div className={styles.extension}>

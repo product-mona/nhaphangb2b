@@ -34,7 +34,7 @@ export const NestedTableUserItemOrder: FC<any> = ({ handleModal, type, q, GroupM
 			},
 			retry: true,
 			enabled: !!expandItemId && expandItemId == GroupMainOrderID,
-			refetchOnWindowFocus: false
+			refetchOnWindowFocus: true
 		}
 	)
 	const [delLoading, setDelLoading] = useState(false)
