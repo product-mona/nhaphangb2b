@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("./mySwiper.css");
 @import url("./myTable.css");
 @import url("./manager.css");
 @import url("../src/fonts/stylesheet.css");

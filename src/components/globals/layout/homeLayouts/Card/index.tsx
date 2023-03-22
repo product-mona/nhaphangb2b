@@ -28,10 +28,9 @@ export const HomeCard: React.FC<TProps> = ({ data }) => {
 						(item) =>
 							item?.Active === true && (
 								<div
-									className="col-span-1 h-auto transition-transform rounded-[10px] hover:shadow-[0px_5px_4px_#0000001a] hover:translate-y-[-5px]"
+									className=" col-span-1 h-auto transition-transform rounded-[10px] hover:shadow-[0px_5px_4px_#0000001a] hover:translate-y-[-5px]"
 									key={item?.Code}
 								>
-									{/* <SwiperSlide style={{ height: 'auto' }} key={item?.Code}> */}
 									<a
 										onClick={() =>
 											router.push({
@@ -42,7 +41,6 @@ export const HomeCard: React.FC<TProps> = ({ data }) => {
 									>
 										<CartItem {...item} />
 									</a>
-									{/* </SwiperSlide> */}
 								</div>
 							)
 					)}

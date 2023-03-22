@@ -1,10 +1,10 @@
 import { Popconfirm, Switch, Tooltip } from 'antd'
 import React, { FC, useState } from 'react'
 import { Control } from 'react-hook-form'
-import { FormEditor, FormInput, FormRangeDate, FormUpload, SecondFormTextArea } from '~/components'
+import { FormEditor, FormInput, FormRangeDate, FormUpload, FormUploadList, SecondFormTextArea } from '~/components'
 
 type TProps<T extends object = object> = {
-	control: Control<T, object>
+	control: Control<Partial<TConfig>>
 	data: T
 }
 
@@ -26,7 +26,8 @@ export const ConfigurationGeneral: FC<TProps<TConfig1>> = ({ control, data }) =>
 						<FormUpload control={control} name="LogoIMG" label="Logo" required={false} />
 					</div>
 					<div className="mr-8">
-						<FormUpload control={control} name="BannerIMG" label="Banner trang chủ" required={false} />
+						<FormUploadList control={control} name="thumbnailList" label="Banner trang chủ" />
+						{/* <FormUpload control={control} name="BannerIMG" label="Banner trang chủ" required={false} /> */}
 					</div>
 					{/* <div className="mr-8">
 						<FormUpload
