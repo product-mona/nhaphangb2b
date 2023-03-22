@@ -1,3 +1,4 @@
+import { Input } from 'antd'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -92,11 +93,27 @@ export const HomeBanner = ({ data }) => {
 				<div className="container z-2 relative">
 					<div className={styles.containerHome}>
 						<div className={styles.content}>
-							<h1 className="font-bold uppercase">
-								<>
-									DỊCH VỤ NHẬP HÀNG QUỐC TẾ <br /> CHUYÊN NGHIỆP - TẬN TÂM - UY TÍN
-								</>
-							</h1>
+							{data?.BannerText ? (
+								<Input.TextArea
+									className="font-bold uppercase"
+									style={{
+										fontSize: '26px',
+										padding: 0,
+										background: 'transparent',
+
+										border: 'none',
+										boxShadow: 'none'
+									}}
+									defaultValue={data?.BannerText}
+									placeholder=""
+									autoSize
+								/>
+							) : (
+								<h1 className="font-bold uppercase">
+									DỊCH VỤ NHẬP HÀNG QUỐC TẾ <br /> CHUYÊN NGHIỆP -TẬN TÂM - UY TÍN
+								</h1>
+							)}
+
 							<div className={styles.extension}>
 								<p className=" text-[20px]">Cài đặt công cụ đặt hàng:</p>
 								<div className="mt-3 flex">
