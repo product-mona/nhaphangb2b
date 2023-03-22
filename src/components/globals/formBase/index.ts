@@ -17,5 +17,5 @@ export * from './FormAsyncSelect'
 export * from './SecondFormSelect'
 export * from './SecondFormInput'
 export * from './SecondFormTextArea'
-
+export * from './FormUploadList'
 export * from './FieldInTable'

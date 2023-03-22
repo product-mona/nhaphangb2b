@@ -1,19 +1,30 @@
 .banner {
+  width: 100%;
+  height: calc(100vh - 112px);
+  position: relative;
+}
+.bannerSwipper {
+  width: 100%;
+  height: 100%;
+}
+.bannerSliderSwipper {
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
-  position: relative;
-  margin-top: -40px;
-  overflow-y: hidden;
- 
 }
+
+.slogan {
+  font-size: 26px;
+}
+
+
+
 .bannerContainer {
   width: 100%;
-  height: 800px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF2a;
+
 }
 .content {
   width: 50%;
@@ -152,9 +163,9 @@
 }
 
 @media screen and (max-width: 1400px) {
-  .banner {
+  /* .banner {
     padding: 200px 40px 100px;
-  }
+  } */
 
   .content {
     width: 100%;
@@ -162,10 +173,10 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .banner {
+  /* .banner {
     padding-top: 14%;
     padding-bottom: 30%;
-  }
+  } */
   .containerHome {
     padding: 60px 20px 0;
   }
@@ -184,15 +195,15 @@
 }
 
 @media screen and (max-width: 980px) {
-  .banner {
+  /* .banner {
     padding: 220px 0 120px;
-  }
+  } */
 }
 
 @media screen and (max-width: 768px) {
-  .slogan h1 {
+  /* .slogan h1 {
     font-size: 32px;
-  }
+  } */
 
   .containerHome {
     padding: 60px 20px;
@@ -200,15 +211,11 @@
 }
 
 @media screen and (max-width: 576px) {
-  .slogan h1 {
-    font-size: 18px;
+  .slogan  {
+    font-size: 22px;
   }
   .extension {
     margin-top: 15px;
-  }
-
-  .banner {
-    padding: 36% 0 0%;
   }
 
   .btnExt img {
