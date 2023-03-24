@@ -5,3 +5,6 @@
 .swiperBanner .swiper-button-prev {
     color: #38b448 !important
 }
+.swiper-pagination-bullet-active {
+    background: #38b448 !important
+}

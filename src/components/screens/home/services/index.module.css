@@ -116,8 +116,7 @@
 
 .innerBoxRight img {
   width: 100%;
-  min-height: 130px;
-  max-height: 200px;
+  height: 150px;
   display: initial;
   border-radius: 8px;
 }
@@ -167,17 +166,7 @@
 
 
 
-.mainTitle {
-  font-weight: 700;
-  font-size: 40px !important;
-  line-height: 56px;
-  letter-spacing: 0.02em;
-  color: #333;
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 32px;
-  /* transform: translateY(16px); */
-}
+
 
 @media screen and (max-width: 768px) {
   .innerContent {

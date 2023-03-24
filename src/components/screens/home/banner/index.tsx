@@ -10,7 +10,7 @@ import { FormInput, FormSelect } from '~/components'
 import { dataSearchProduct } from '~/configs'
 import styles from './index.module.css'
 import { TrackingForm } from './TrackingForm'
-import { Navigation } from 'swiper'
+import { Navigation, Autoplay } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import clsx from 'clsx'
@@ -23,7 +23,16 @@ export const HomeBanner = ({ data }) => {
 	return (
 		<>
 			<div className={styles.banner}>
-				<Swiper navigation={true} modules={[Navigation]} className={clsx(styles.bannerSwipper, 'swiperBanner')}>
+				<Swiper
+					// navigation={true}
+					autoplay={{
+						delay: 2500,
+						disableOnInteraction: false
+					}}
+					loop={true}
+					modules={[Autoplay, Navigation]}
+					className={clsx(styles.bannerSwipper, 'swiperBanner')}
+				>
 					<SwiperSlide>
 						<div
 							className={clsx(styles.bannerSliderSwipper, 'w-full h-full')}
@@ -93,9 +102,7 @@ export const HomeBanner = ({ data }) => {
 				>
 					<div className={styles.bannerContainer}>
 						<div className="w-full mx-auto z-2 relative px-0">
-							<div
-							// className={styles.containerHome}
-							>
+							<div>
 								{data?.BannerText ? (
 									<Input.TextArea
 										className={clsx(styles.slogan, 'font-bold uppercase')}

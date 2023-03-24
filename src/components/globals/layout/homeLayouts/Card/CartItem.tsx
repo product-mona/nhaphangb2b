@@ -14,7 +14,7 @@ const CartItem: React.FC<TProps> = ({ Title, IMG, Created, Summary }) => {
 		<React.Fragment>
 			<Card
 				style={{ overflow: 'hidden', height: '100%', borderColor: '#d3d3d3' }}
-				cover={<img alt={Title} src={IMG || '/pro-empty.jpg'} style={{ objectFit: 'cover', width: '100%', height: '150px' }} />}
+				cover={<img alt={Title} src={IMG || '/pro-empty.jpg'} style={{ objectFit: 'contain', width: '100%', height: '150px' }} />}
 			>
 				<p
 					className="font-bold !mb-3 overflow-hidden hover:text-[#008d4b]"

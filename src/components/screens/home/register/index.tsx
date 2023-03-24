@@ -1,4 +1,4 @@
-import { Steps } from 'antd'
+import { Input, Steps } from 'antd'
 import styles from './index.module.css'
 
 import 'antd/dist/antd.css'
@@ -31,7 +31,7 @@ export const HomeRegister = ({ data }) => {
 			<div className="container">
 				<div className={styles.inner}>
 					<div className={styles.left}>
-						<h1 className={styles.mainTitle}>Hướng dẫn đăng ký</h1>
+						<h1 className={'titleSection text-white text-left'}>Hướng dẫn đăng ký</h1>
 						<Steps
 							current={current}
 							onChange={(current) => {
@@ -44,8 +44,21 @@ export const HomeRegister = ({ data }) => {
 						</Steps>
 						<div className={styles.stepContent}>
 							<h3 className="secondTitle">{steps[current]?.Name}</h3>
-							<p className="mainDes">{steps[current]?.Description}</p>
-							<a className={styles.link} href={steps[current]?.Link ?? '/'}>
+							<Input.TextArea
+								style={{
+									padding: 0,
+									background: 'transparent',
+
+									border: 'none',
+									boxShadow: 'none'
+								}}
+								value={steps[current]?.Description}
+								placeholder=""
+								autoSize
+								readOnly
+							/>
+
+							<a className={`${styles.link} italic`} href={steps[current]?.Link ?? '/'}>
 								Chi tiết
 							</a>
 						</div>

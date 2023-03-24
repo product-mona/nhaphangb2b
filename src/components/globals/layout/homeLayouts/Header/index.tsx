@@ -72,21 +72,23 @@ const Header = ({ dataConfig, dataMenu }) => {
 									</a>
 								</Link>
 							</div>
-							<div className="flex font-semibold text text-orange h-8 items-center">
-								<a href={`tel:${dataConfig?.HotlineSupport}`}>
-									<div className="flex w-fit text-[18px] !mx-2">
-										<span className={styles.headerTopLinkAuth}>Tư vấn:</span>
-										<span className="text-[#4A8916]">{dataConfig?.HotlineSupport}</span>
-									</div>
-								</a>
+							<div className="flex w-full sm:w-auto justify-between sm:justify-start font-semibold text text-orange h-8 items-center">
+								<div className="mr-2 ">
+									<a href={`tel:${dataConfig?.HotlineSupport} `}>
+										<div className="flex w-fit text-sm sm:text-[18px]">
+											<span className={styles.headerTopLinkAuth}>Tư vấn:</span>
+											<span className="text-[#4A8916]">{dataConfig?.HotlineSupport}</span>
+										</div>
+									</a>
+								</div>
 								<a href={`tel:${dataConfig?.Hotline}`}>
-									<div className="flex w-fit text-[18px] !mx-2">
+									<div className="flex w-fit text-sm sm:text-[18px] ">
 										<span className={styles.headerTopLinkAuth}>Hotline:</span>
 										<span className="text-[#4A8916]">{dataConfig?.Hotline}</span>
 									</div>
 								</a>
 							</div>
-							<div className="flex items-center">
+							<div className="flex items-center hidden sm:block">
 								{!user?.UserId || isLogOut === null ? (
 									<div className="login-user flex items-center justify-end">
 										<a className={styles.headerTopLinkAuth} onClick={() => setOpenModal('register')}>

@@ -3,6 +3,7 @@ import 'antd/dist/antd.css'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { IconButton } from '~/components/globals/button/IconButton'
 import styles from './index.module.css'
 
 const { useBreakpoint } = Grid
@@ -134,7 +135,7 @@ const Navbar = ({ dataConfig, dataMenu }) => {
 								src={`${dataConfig?.LogoIMG}` ?? '/new_logo.png'}
 								// src="/main-logo.png"
 								alt=""
-								width={'100%'}
+								width={'auto'}
 								style={{
 									filter: ' drop-shadow(3px 6px 2px rgba(0, 0, 0, 0.2))'
 								}}
@@ -144,10 +145,29 @@ const Navbar = ({ dataConfig, dataMenu }) => {
 						</a>
 					</Link>
 				</div>
+				{/* <div className="flex font-semibold text text-orange h-8 items-center">
+					<a href={`tel:${dataConfig?.HotlineSupport}`}>
+						<div className="flex w-fit text-[18px] mr-2">
+							<span className={styles.headerTopLinkAuth}>Tư vấn:</span>
+							<span className="text-[#4A8916]">{dataConfig?.HotlineSupport}</span>
+						</div>
+					</a>
+					<a href={`tel:${dataConfig?.Hotline}`}>
+						<div className="flex w-fit text-[18px] ">
+							<span className={styles.headerTopLinkAuth}>Hotline:</span>
+							<span className="text-[#4A8916]">{dataConfig?.Hotline}</span>
+						</div>
+					</a>
+				</div> */}
 				<div>
-					<Button className={styles.bgColor} onClick={() => setVisible(true)}>
-						<i className="fas fa-bars"></i>
-					</Button>
+					<Button
+						type="primary"
+						onClick={() => setVisible(true)}
+						className={styles.bgColor}
+						icon={<i className="fas fa-bars "></i>}
+						size="large"
+					/>
+
 					<Drawer
 						title={`${dataConfig?.CompanyLongName}`}
 						placement="left"
@@ -166,7 +186,7 @@ const Navbar = ({ dataConfig, dataMenu }) => {
 									router.push('/')
 								}}
 							>
-								<a>Trang chủ</a>
+								<a>TRANG CHỦ</a>
 							</li>
 							{newMenu?.map((item) => (
 								<li
