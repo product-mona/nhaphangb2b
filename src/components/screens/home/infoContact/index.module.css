@@ -147,7 +147,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px;
+
   font-size: 28px;
   color: #fff;
   border-radius: 4px;
@@ -156,6 +156,7 @@
   box-shadow: 0 10px 7px 0 #00000040;
   transition: all 0.3s ease-in-out;
   z-index: 999;
+  @apply p-[10px] md:p-[14px];
 }
 
 .showForm:hover {

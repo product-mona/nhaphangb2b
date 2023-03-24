@@ -53,9 +53,8 @@
 
 .bgColor {
   background-color: transparent !important;
-  color: #fff !important;
-  font-size: 30px !important;
-  height: auto !important;
+  border: none;
+  box-shadow: none;
 }
 
 .MenuList span {
@@ -72,7 +71,9 @@
   width: 5rem;
   filter: drop-shadow(2px 4px 6px #0000001a);
 }
-
+.mobileHidden ul {
+  background: none !important;
+}
 @media screen and (max-width: 1025px) {
   .MenuList li {
     margin: 0;
@@ -98,6 +99,3 @@
   }
 }
 
-.mobileHidden ul {
-  background: none !important;
-}

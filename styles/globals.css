@@ -1,9 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("./homePage.css");
 @import url("./mySwiper.css");
 @import url("./myTable.css");
 @import url("./manager.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import url("../src/fonts/stylesheet.css");
 
 @layer component {

@@ -48,6 +48,7 @@ const Content = ({ item, active, setActive }) => {
 						defaultValue={item?.Description}
 						placeholder=""
 						autoSize
+						readOnly
 					/>
 				) : (
 					<></>
@@ -63,7 +64,7 @@ export const HomeBenefit = ({ data }) => {
 		<div className={styles.benefitWrap}>
 			<div className="container">
 				<div className={styles.innerBenefit}>
-					<h1 className={styles.mainTitle}>Quyền lợi khách hàng</h1>
+					<h1 className={'titleSection text-white'}>Quyền lợi khách hàng</h1>
 					<UlContent data={data} />
 				</div>
 			</div>

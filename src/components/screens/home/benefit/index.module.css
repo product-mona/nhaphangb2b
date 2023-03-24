@@ -3,6 +3,7 @@
   background-image: url(/benefit.png);
   background-size: cover;
   background-repeat: no-repeat;
+  @apply !py-[30px] sm:!py-[40px] lg:!py-[60px]
 }
 
 .innerBenefit {
@@ -12,8 +13,7 @@
 
 .left {
   @apply col-span-1;
-  /*  transform: translate(-35%, 27%) scale(1.4);
-  filter: drop-shadow(0 0 10px #bdbdbd); */
+
 }
 
 .left img {
@@ -28,10 +28,10 @@
 
 .content {
   height: 0;
-  transition: all 0.3s ease-in-out;
+  /* transition: all 0.3s ease-in-out; */
   background: rgba(0, 0, 0, 0.18);
   color: #fff;
-  padding: 0px 510px 0px 105px;
+  padding: 0px 60px 0px 60px;
 }
 
 .contentActive {
@@ -51,8 +51,9 @@
 .h3 {
   margin-bottom: 0;
   font-weight: 500;
-  font-size: 20px !important;
+  /* font-size: 20px ; */
   color: #fafafa;
+  @apply !text-[14px] sm:!text-[16px] lg:!text-[20px]
 }
 
 .icon {
@@ -70,16 +71,7 @@
   opacity: 1;
 }
 
-.mainTitle {
-  font-weight: 700;
-  font-size: 40px !important;
-  line-height: 56px;
-  letter-spacing: 0.02em;
-  color: #fafafa;
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 32px;
-}
+
 
 .mainDes {
   font-size: 16px;
@@ -136,7 +128,7 @@
     @apply col-span-2;
   }
   .benefitWrap {
-    padding: 80px 0;
+ 
     background-position: 60% center;
   }
   .mySwiper {
@@ -154,24 +146,23 @@
     padding-right: 90px;
     padding-left: 65px;
   }
+}
+@media screen and (max-width: 768px) {
   .contentActive {
-    height: 120px;
+    padding: 22px 30px;
   }
+
 }
 
 @media screen and (max-width: 425px) {
   .contentActive {
-    height: 150px;
     padding: 22px 20px;
   }
-  .h3 {
-    font-size: 16px !important;
-  }
+
 }
 
 @media screen and (max-width: 425px) {
   .contentActive {
-    height: 200px;
     padding: 22px 20px;
   }
 }

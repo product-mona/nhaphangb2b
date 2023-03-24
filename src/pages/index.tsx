@@ -62,7 +62,7 @@ const Index: TNextPageWithLayout = () => {
 		<>
 			<MetaTags dataConfig={dataConfig} />
 			<div className="fontFamilyRoboto">
-				<div className="col-span-2">
+				<div className="col-span-2 homePage">
 					<HomeBanner data={dataConfig} />
 					<HomeServices data={dataService} />
 					<HomeBenefit data={dataBenefits?.filter((item) => item.ItemType === 2)} />

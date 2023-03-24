@@ -30,7 +30,7 @@ export const HomeSidebar = () => {
 			pageType.getList({
 				PageIndex: pagination.current,
 				PageSize: 1000,
-				OrderBy: 'Id desc',
+				OrderBy: ' PT.Position ',
 				Active: true
 			}),
 		{

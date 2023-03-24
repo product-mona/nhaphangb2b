@@ -43,7 +43,9 @@ const handleSetMenu = (dataConfig) => {
 const Footer = ({ dataConfig, dataMenu }) => {
 	if (!dataConfig || !dataMenu) return null
 	const [socialListRender, setSocialListRender] = useState(handleSetMenu(dataConfig))
-	useEffect(() => setSocialListRender(handleSetMenu(dataConfig)), [dataConfig, dataMenu])
+	useEffect(() => {
+		setSocialListRender(handleSetMenu(dataConfig))
+	}, [dataConfig, dataMenu])
 
 	// const { data: articalList } = useQuery(["articalList"], () =>
 	//   Page.getList({
@@ -77,34 +79,41 @@ const Footer = ({ dataConfig, dataMenu }) => {
 							</Link>
 						</div>
 						<div className="col-span-4 md:col-span-4 lg:col-span-2 xl:col-span-1">
-							<div className={styles.socialFoot}>
-								{socialListRender.map((item, index) => {
-									return (
-										<React.Fragment key={index}>
-											<Link href={item?.link ?? '/'}>
-												<a style={{ display: !item?.link && 'none' }}>
-													{item.icon ? (
-														<i className={item.icon}></i>
-													) : (
-														<div
-															style={{
-																backgroundImage: `url(${item.imgSrc})`,
-																width: '100%',
-																height: '100%',
-																backgroundSize: 'cover',
-																backgroundPosition: 'center'
-															}}
-														></div>
-													)}
-												</a>
-											</Link>
-										</React.Fragment>
-									)
-								})}
+							<div
+								className={styles.socialFoot}
+								onClick={() => {
+									console.log(socialListRender.filter((x) => !!x.link))
+								}}
+							>
+								{socialListRender
+									.filter((x) => !!x.link)
+									.map((item, index) => {
+										return (
+											<React.Fragment key={index}>
+												<Link href={item?.link ?? '/'}>
+													<a style={{ display: !item?.link && 'none' }}>
+														{item.icon ? (
+															<i className={item.icon}></i>
+														) : (
+															<div
+																style={{
+																	backgroundImage: `url(${item.imgSrc})`,
+																	width: '100%',
+																	height: '100%',
+																	backgroundSize: 'cover',
+																	backgroundPosition: 'center'
+																}}
+															></div>
+														)}
+													</a>
+												</Link>
+											</React.Fragment>
+										)
+									})}
 							</div>
 							<p className="mt-3">
-								Chúng tôi chuyên nhận order và vận chuyển hộ hàng hóa từ Trung Quốc về Việt Nam, với chi phí ưu đãi thấp
-								nhất có thể. Hàng về nhanh chóng đúng thời gian cam kết.
+								Dịch vụ Nhập Hàng B2B ra đời với mục tiêu hỗ trợ các doanh nghiệp và cá nhân Việt Nam tìm kiếm và nhập khẩu
+								hàng hóa từ thị trường quốc tế được tối ưu và hiệu quả nhất.
 							</p>
 						</div>
 						<div className="col-span-4 md:col-span-4 lg:col-span-2 xl:col-span-1 pl-0 xl:pl-6">

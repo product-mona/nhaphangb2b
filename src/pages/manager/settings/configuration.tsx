@@ -95,7 +95,7 @@ const Index: TNextPageWithLayout = () => {
 				}
 			}
 			if (!!data.Data.ImageBanner3) {
-				fmThumbnails[3] = {
+				fmThumbnails[2] = {
 					uid: `-3`,
 					name: data.Data.ImageBanner3,
 					status: 'done',
