@@ -1,11 +1,7 @@
 .titleSection {
     font-weight: 700;
-    /* font-size: 40px !important;
-    line-height: 56px; */
     letter-spacing: 0.02em;
     text-align: center;
     text-transform: uppercase;
-    margin-bottom: 32px;
-    @apply !text-xl sm:!text-3xl lg:!text-4xl
-    /* @apply rounded-t-sm px-4 py-3 text-center text-xl text-white font-medium; */
+    @apply !text-xl sm:!text-3xl lg:!text-4xl    mb-4 sm:mb-8
 }

@@ -1,7 +1,7 @@
 .regisWrap {
-  padding: 60px 0;
-  background-image: url(/register.png);
 
+  @apply !py-[30px] sm:!py-[40px] lg:!py-[60px];
+  background-image: url(/register.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -188,6 +188,9 @@
   .right {
     @apply col-span-1 grid grid-cols-2;
 
+  }
+  .inner {
+    gap: 0
   } 
   .boxRight {
     width: auto;

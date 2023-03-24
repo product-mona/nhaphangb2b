@@ -19,5 +19,5 @@
 }
 .BoxImage {
     padding: 0 16px;
-    @apply w-full md:w-8/12 
+    @apply w-full md:w-9/12 
 }

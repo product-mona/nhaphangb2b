@@ -1152,18 +1152,18 @@ export const searchData = [
 		id: ESearchData.All,
 		name: 'Tất cả'
 	},
-	{
-		id: ESearchData.ID,
-		name: 'Mã đơn hàng'
-	},
+	// {
+	// 	id: ESearchData.ID,
+	// 	name: 'Mã đơn hàng'
+	// },
 	{
 		id: ESearchData.ID_Don,
 		name: 'ID đơn hàng'
 	},
-	{
-		id: ESearchData.Transport,
-		name: 'Mã vận đơn'
-	},
+	// {
+	// 	id: ESearchData.Transport,
+	// 	name: 'Mã vận đơn'
+	// },
 	{
 		id: ESearchData.Website,
 		name: 'Website'

@@ -55,7 +55,15 @@ const InnerContent = ({ data }) => {
 					<Link href="">
 						<>
 							<div className={styles.img}>
-								<Image src={itemActive?.IMG} preview={false} width="100%" height="100%" />
+								<Image
+									// style={{
+									// 	objectFit: 'contain'
+									// }}
+									src={itemActive?.IMG}
+									preview={false}
+									width="100%"
+									height={200}
+								/>
 							</div>
 							<p>{itemActive?.Description}</p>
 							<a target={'_blank'} href={itemActive.Link}>
@@ -93,7 +101,7 @@ const SwiperServices = ({ data }) => {
 									<Link href="">
 										<>
 											<div className={styles.img}>
-												<Image src={item?.IMG} preview={false} width="100%" />
+												<Image src={item?.IMG} preview={false} width="100%" height={200} />
 											</div>
 											<p>{item?.Description}</p>
 											<a target={'_blank'} href={item.Link}>
