@@ -6,7 +6,7 @@ export const CustomizeOnlyForB2b = ({}) => {
 		<div className={styles.BoxCustomize}>
 			<div className={styles.BoxCustomizeContent}>
 				<div className={styles.BoxTitle}>
-					<h1 className={'titleSection text-[#4e8c1c] hidden md:block'}>VÌ SAO NÊN CHỌN NHẬP HÀNG B2B</h1>
+					<h1 className={'titleSection text-[#4e8c1c]'}>VÌ SAO NÊN CHỌN NHẬP HÀNG B2B</h1>
 				</div>
 				<div className={styles.BoxImage}>
 					<div
