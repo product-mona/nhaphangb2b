@@ -87,18 +87,19 @@ export const HomeBanner = ({ data }) => {
 					) : null}
 				</Swiper>
 				<div
-					style={{
-						position: 'absolute',
-						width: 'calc(100vw - 100px)',
-						maxWidth: '1200px',
-						// marginLeft: '50px',
-						// marginRight: '50px',
-						height: '100%',
-						top: 0,
-						left: '50%',
-						transform: 'translateX(-50%)',
-						zIndex: 2
-					}}
+					className={styles.bannerLayout}
+					style={
+						{
+							// position: 'absolute',
+							// width: 'calc(100vw - 100px)',
+							// maxWidth: '1200px',
+							// height: '100%',
+							// top: 0,
+							// left: '50%',
+							// transform: 'translateX(-50%)',
+							// zIndex: 2
+						}
+					}
 				>
 					<div className={styles.bannerContainer}>
 						<div className="w-full mx-auto z-2 relative px-0">

@@ -40,11 +40,11 @@ const Index: TNextPageWithLayout = () => {
 				<HomeBreadcrumb currentRoute={Data} />
 				<div className="container min-h-[60vh]">
 					<div className="grid grid-cols-12 gap-8 mb-8">
-						<div className="order-2 col-span-12 lg:col-span-3 lg:order-1">
+						<div className="order-2 col-span-12 md:col-span-3 md:order-1">
 							<HomeSidebar />
 						</div>
-						<div className="order-1 col-span-12 lg:col-span-9">
-							<h1 className="font-bold uppercase text-left mb-[27px] pl-[10px]">{Data?.Name}</h1>
+						<div className="order-1 col-span-12 md:col-span-9">
+							<h1 className="font-bold uppercase text-left mb-[27px] pl-[10px] titleSection">{Data?.Name}</h1>
 							<ContentItem
 								data={Data}
 								code={router?.query?.Code}
@@ -54,6 +54,7 @@ const Index: TNextPageWithLayout = () => {
 								Created={undefined}
 								PageContent={undefined}
 							/>
+
 							<HomeCard data={Data?.Pages} code={router?.query?.Code} />
 						</div>
 					</div>

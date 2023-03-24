@@ -1,10 +1,10 @@
-import {Breadcrumb} from "antd";
-import Link from "next/link";
-import React from "react";
+import { Breadcrumb } from 'antd'
+import Link from 'next/link'
+import React from 'react'
 
-export const HomeBreadcrumb: React.FC<{currentRoute: any}> = React.memo(({currentRoute}) => {
+export const HomeBreadcrumb: React.FC<{ currentRoute: any }> = React.memo(({ currentRoute }) => {
 	return (
-		<div className="py-4 bg-[#464646] mb-10">
+		<div className="py-4 bg-[#464646] mb-4 md:mb-6 lg:mb-10">
 			<div className="container">
 				<Breadcrumb className="breadcrumb uppercase">
 					<Breadcrumb.Item className="text-white">
@@ -20,5 +20,5 @@ export const HomeBreadcrumb: React.FC<{currentRoute: any}> = React.memo(({curren
 				</Breadcrumb>
 			</div>
 		</div>
-	);
-});
+	)
+})

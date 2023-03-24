@@ -8,6 +8,7 @@ import router from 'next/router'
 import 'swiper/css'
 import 'swiper/css/grid'
 import 'swiper/css/pagination'
+import { CardHorizontal } from './CardHorizontal'
 
 const count = `z-100 absolute text-[#333] bottom-[10px] right-[42px] text-[16px]`
 
@@ -21,14 +22,14 @@ export const HomeCard: React.FC<TProps> = ({ data }) => {
 
 	return (
 		<>
-			<div className="sm:grid lg:grid-cols-3 md:grid-cols-2  gap-4">
+			<div className="sm:grid  md:grid-cols-1 lg:grid-cols-3 gap-4">
 				{data
 					?.filter((item) => item.Active === true)
 					?.map(
 						(item) =>
 							item?.Active === true && (
 								<div
-									className=" col-span-1 h-auto transition-transform rounded-[10px] hover:shadow-[0px_5px_4px_#0000001a] hover:translate-y-[-5px]"
+									className=" col-span-1 h-auto transition-transform rounded-[10px] lg:hover:shadow-[0px_5px_4px_#0000001a] lg:hover:translate-y-[-5px]"
 									key={item?.Code}
 								>
 									<a
@@ -39,7 +40,12 @@ export const HomeCard: React.FC<TProps> = ({ data }) => {
 											})
 										}
 									>
-										<CartItem {...item} />
+										<div className="hidden lg:block">
+											<CartItem {...item} />
+										</div>
+										<div className="block lg:hidden">
+											<CardHorizontal {...item} />
+										</div>
 									</a>
 								</div>
 							)

@@ -39,9 +39,6 @@ const CartItem: React.FC<TProps> = ({ Title, IMG, Created, Summary }) => {
 				>
 					{Summary ?? '...'}
 				</p>
-				{/* <p className="text-xs pt-4 text-[#c0bfbf]">
-          {_format.getVNDate(Created)}
-        </p> */}
 			</Card>
 		</React.Fragment>
 	)
