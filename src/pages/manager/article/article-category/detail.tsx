@@ -1,45 +1,47 @@
-import {Tabs} from "antd";
-import router, {useRouter} from "next/router";
-import {Control, useForm} from "react-hook-form";
-import {useMutation, useQuery} from "react-query";
-import {pageType} from "~/api";
-import {ArticleSEOForm, EditArticleCategoryForm, IconButton, Layout, toast} from "~/components";
-import {breadcrumb} from "~/configs";
-import {SEOConfigs} from "~/configs/SEOConfigs";
-import {TNextPageWithLayout} from "~/types/layout";
+import { Tabs } from 'antd'
+import router, { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { Control, useForm } from 'react-hook-form'
+import { useMutation, useQuery } from 'react-query'
+import { pageType } from '~/api'
+import { ArticleSEOForm, EditArticleCategoryForm, IconButton, Layout, toast } from '~/components'
+import { breadcrumb } from '~/configs'
+import { SEOConfigs } from '~/configs/SEOConfigs'
+import { TNextPageWithLayout } from '~/types/layout'
 
-type TForm = Partial<TArticleCategory & TArticleSEO>;
+type TForm = Partial<TArticleCategory & TArticleSEO>
 
 const Index: TNextPageWithLayout = () => {
-	const {query} = useRouter();
-	const {control, handleSubmit, reset} = useForm<TForm>({
-		mode: "onBlur",
-	});
+	const { query } = useRouter()
+	const { control, handleSubmit, reset } = useForm<TForm>({
+		mode: 'onBlur'
+	})
 
-	const {data, isFetching, isError} = useQuery(
-		["articleCategoryData", +query?.id],
-		() => pageType.getByID(+query?.id),
-		{
-			onSuccess: (data) => {
-				reset(data.Data);
-			},
-			refetchOnWindowFocus: false,
-			refetchOnReconnect: false,
-			retry: false,
-			enabled: !!query?.id,
+	const { data, isFetching, isError, refetch } = useQuery(['articleCategoryData', +query?.id], () => pageType.getByID(+query?.id), {
+		onSuccess: (data) => {},
+		refetchOnWindowFocus: false,
+		refetchOnReconnect: false,
+		retry: false,
+		enabled: !!query?.id
+	})
+	useEffect(() => {
+		if (!!data.Data) {
+			reset(data.Data)
 		}
-	);
-
+	}, [data])
 	const mutationUpdate = useMutation((data: TForm) => pageType.update(data), {
-		onSuccess: () => toast.success("Cập nhật thành công"),
-		onError: toast.error,
-	});
+		onSuccess: () => {
+			toast.success('Cập nhật thành công')
+			refetch()
+		},
+		onError: toast.error
+	})
 
 	const _onPress = async (data: TForm) => {
 		try {
-			await mutationUpdate.mutateAsync(data);
+			await mutationUpdate.mutateAsync(data)
 		} catch (error) {}
-	};
+	}
 
 	return (
 		<div className="tableBox">
@@ -58,19 +60,19 @@ const Index: TNextPageWithLayout = () => {
 					</div>
 				}
 			>
-				<Tabs.TabPane key={"1"} tab={"Nội dung chuyên mục"}>
+				<Tabs.TabPane key={'1'} tab={'Nội dung chuyên mục'}>
 					<EditArticleCategoryForm control={control as Control<TArticleCategory, object>} />
 				</Tabs.TabPane>
-				<Tabs.TabPane key={"2"} tab={"Cấu hình SEO"}>
+				<Tabs.TabPane key={'2'} tab={'Cấu hình SEO'}>
 					<ArticleSEOForm control={control as Control<TArticleSEO, object>} />
 				</Tabs.TabPane>
 			</Tabs>
 		</div>
-	);
-};
+	)
+}
 
-Index.displayName = SEOConfigs.post.editCategories;
-Index.breadcrumb = breadcrumb.article.articleCategory.detail;
-Index.Layout = Layout;
+Index.displayName = SEOConfigs.post.editCategories
+Index.breadcrumb = breadcrumb.article.articleCategory.detail
+Index.Layout = Layout
 
-export default Index;
+export default Index

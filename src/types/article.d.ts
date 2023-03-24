@@ -7,6 +7,7 @@ type TArticleCategory = {
 	Name: string
 	Code: string
 	Active: boolean
+	Position: number
 }
 
 type TArticleList = {
