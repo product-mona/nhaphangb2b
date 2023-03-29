@@ -27,7 +27,7 @@ export const AddOrderCode: React.FC<TProps> = ({ orderId, dataList, realPriceCNY
 	})
 	const _onPress = () => {
 		if (!realPriceCNY) {
-			toast.error('Bạn chưa cập nhật tổng số tiền mua thật')
+			toast.error('Vui lòng nhập tổng sô tiền mua thật và nhấn cập nhật trước khi thực hiện thao tác tạo mã đơn hàng')
 		} else {
 			const fmCode = code.trim()
 			if (!fmCode.length) {

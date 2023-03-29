@@ -18,15 +18,16 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 		if (!!dataOrder) {
 			const totalItem = onCalTotalNumber(data, 'Quantity')
 			const totalFee =
-				dataOrder.InsuranceMoney + // 0
-				dataOrder.IsFastDeliveryPrice + // 0
-				dataOrder.IsPackedPrice + // 0
-				dataOrder.IsCheckProductPrice + // 0
-				dataOrder.FeeWeight +
-				dataOrder.FeeBuyPro
+				dataOrder.FeeBuyPro + //phí mua hàng == 25740   //
+				dataOrder.IsCheckProductPrice + // phí kiểm đếm  == 18000
+				dataOrder.IsPackedPrice + // phí đóng gỗ 0   == 0
+				dataOrder.InsuranceMoney + // phí bảo hiểm    == 0
+				dataOrder.IsFastDeliveryPrice + // phí giao tận nhà 0   == 0
+				dataOrder.FeeShipCN + //phí ship nội địa == 25740   //
+				dataOrder.FeeWeight //Phí cân nặng = 50000
 
 			if (!!totalItem) {
-				return totalFee / totalItem
+				return totalFee / totalItem /// 244800
 			} else {
 				return 0
 			}
@@ -34,11 +35,12 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 	}, [dataOrder])
 
 	const renderCostPrice = useCallback(
-		(price: number) => {
-			const resut = price + totalFeeEachOne
+		// dataOrder.CurrentCNYVN : tỉ giá của đơn lớn
+		//PriceOrigin : đơn giá tệ origin 1 sản phẩm
+		(PriceOrigin: number) => {
+			const resut = PriceOrigin * dataOrder.CurrentCNYVN + totalFeeEachOne
 
-			return numberWithCommas(resut)
-			// return '1,000,000,000,000 VND'
+			return numberWithCommas(Math.round(resut))
 		},
 		[totalFeeEachOne]
 	)
@@ -140,7 +142,12 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 									<div className="text-sm ">
 										<Tooltip title={`Đơn giá (VNĐ) + Tổng chi phí trên từng sản phẩm`} placement="bottom">
 											{/* <InputNumber size="middle" value={renderCostPrice(item?.PriceVND)} readOnly /> */}
-											<Input className="text-right" size="middle" value={renderCostPrice(item?.PriceVND)} readOnly />
+											<Input
+												className="text-right"
+												size="middle"
+												value={renderCostPrice(item?.PriceOrigin)}
+												readOnly
+											/>
 										</Tooltip>
 									</div>
 								</div>

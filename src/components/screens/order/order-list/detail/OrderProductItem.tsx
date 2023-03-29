@@ -71,7 +71,7 @@ export const OrderProductItem: React.FC<TProps> = ({
 				<div className="flex w-full items-center mb-5 justify-between px-3 borderBottom">
 					<Tooltip title="Link đến sản phẩm" placement="topLeft">
 						<a href={order?.LinkOrigin} target="_blank" className="mainTitle">
-							{order?.ShopId}
+							{order?.ItemId}
 						</a>
 					</Tooltip>
 					{(RoleID === 1 || RoleID === 3 || RoleID === 4) && (
