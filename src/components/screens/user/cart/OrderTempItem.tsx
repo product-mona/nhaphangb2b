@@ -2,7 +2,7 @@ import { InputNumber, Tooltip } from 'antd'
 import { useFormContext } from 'react-hook-form'
 import Link from 'next/link'
 import React from 'react'
-import { ActionButton, FormInputNumber, TableMoneyField } from '~/components'
+import { ActionButton, FormInput, FormInputNumber, TableMoneyField, TableTextField } from '~/components'
 import { _format } from '~/utils'
 
 type TProps = {
@@ -16,8 +16,6 @@ type TProps = {
 export const OrderTempItem: React.FC<TProps> = ({ index, orderTempData, updateProduct, deleteProduct, isLoading }) => {
 	const { control } = useFormContext()
 
-	const [quantity, setQuantity] = React.useState(orderTempData?.Quantity)
-	const [brand, setBrand] = React.useState(orderTempData?.Brand)
 	const [priceCNY, setPriceCNY] = React.useState(() => {
 		if (orderTempData?.PricePromotion !== 0) {
 			return orderTempData?.PriceOrigin > orderTempData?.PricePromotion
@@ -27,18 +25,6 @@ export const OrderTempItem: React.FC<TProps> = ({ index, orderTempData, updatePr
 
 		return _format.getVND(orderTempData?.PriceOrigin, ' ')
 	})
-
-	const handleQuantity = (val: number) => {
-		if (!val) {
-			setQuantity(1)
-		} else {
-			setQuantity(val)
-		}
-	}
-
-	function onChangeOrderBrand(e: React.ChangeEvent<HTMLInputElement>) {
-		setBrand(e.target.value)
-	}
 
 	return (
 		<div
@@ -91,12 +77,15 @@ export const OrderTempItem: React.FC<TProps> = ({ index, orderTempData, updatePr
 						</div>
 						<div className="flex flex-wrap items-end">
 							<span className="text-sm mr-4 text-[#484747] font-semibold">* Ghi chú:</span>
-							<input
+							<div>
+								<TableTextField size="small" control={control} name={`OrderTemps.${index}.Brand`} />
+							</div>
+							{/* <input
 								type="text"
 								className="border-b !rounded-none border-[#0000003a] text-[#000] bg-[transparent] max-w-[140px] outline-0"
 								value={brand ?? ''}
 								onChange={(e) => onChangeOrderBrand(e)}
-							/>
+							/> */}
 						</div>
 					</div>
 				</div>

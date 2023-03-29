@@ -203,15 +203,11 @@
 }
 
 @media screen and (max-width: 980px) {
-  /* .banner {
-    padding: 220px 0 120px;
-  } */
+
 }
 
 @media screen and (max-width: 768px) {
-  /* .slogan h1 {
-    font-size: 32px;
-  } */
+
   
   .slogan  {
     font-size: 22px;

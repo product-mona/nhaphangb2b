@@ -74,7 +74,7 @@ export const OrderCodeSecond: React.FC<TProps> = ({ data, RoleID }) => {
 	const renderBtn = () => {
 		if (data) {
 			if (RoleID == 1 || RoleID == 2 || RoleID == 4) {
-				return <AddOrderCode orderId={data.Id} dataList={data.MainOrderCodes || []} />
+				return <AddOrderCode orderId={data.Id} dataList={data.MainOrderCodes || []} realPriceCNY={data.TotalPriceRealCNY} />
 			} else {
 				return <></>
 			}

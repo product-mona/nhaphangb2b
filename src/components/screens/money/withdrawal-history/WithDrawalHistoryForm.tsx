@@ -1,60 +1,48 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { withdraw } from '~/api';
-import {
-	Button, FormCard,
-	FormInput,
-	FormInputNumber,
-	FormSelect,
-	FormTextarea, Modal
-} from '~/components';
-import { toast } from '~/components/toast';
-import { EPaymentStatusData, paymentStatusData } from '~/configs';
-import { TForm } from '~/types/table';
+import React, { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { withdraw } from '~/api'
+import { Button, FormCard, FormInput, FormInputNumber, FormSelect, FormTextarea, Modal } from '~/components'
+import { toast } from '~/components/toast'
+import { EPaymentStatusData, paymentStatusData } from '~/configs'
+import { TForm } from '~/types/table'
 
-export const WithDrawalHistoryForm: React.FC<TForm<TWithDraw>> = ({
-	onCancel,
-	visible,
-	defaultValues
-}) => {
+export const WithDrawalHistoryForm: React.FC<TForm<TWithDraw>> = ({ onCancel, visible, defaultValues }) => {
 	const { handleSubmit, reset, control } = useForm<TWithDraw>({
 		mode: 'onBlur'
-	});
+	})
+	useEffect(() => {
+		reset(defaultValues)
+	}, [defaultValues])
+	// const { data, isLoading } = useQuery(['clientWithdrawData', defaultValues?.Id], () => withdraw.getByID(defaultValues?.Id), {
+	// 	enabled: !!defaultValues,
+	// 	refetchOnWindowFocus: false,
+	// 	onSuccess: (data) => {
+	// 		// console.log('rút tiền data', data)
+	// 		reset(data?.Data)
+	// 	},
+	// 	onError: toast.error
+	// })
 
-	const { data, isLoading } = useQuery(
-		['clientWithdrawData', defaultValues?.Id],
-		() => withdraw.getByID(defaultValues?.Id),
-		{
-			enabled: !!defaultValues?.Id,
-			refetchOnWindowFocus: false,
-			onSuccess: (data) => reset(data?.Data),
-			onError: toast.error
-		}
-	);
-
-	const queryClient = useQueryClient();
+	const queryClient = useQueryClient()
 	const mutationUpdate = useMutation(withdraw.update, {
 		onSuccess: (data) => {
-			toast.success('Cập nhật thông tin rút tiền thành công');
-			queryClient.setQueryData(
-				['clientWithdrawData', defaultValues?.Id],
-				data.Data
-			);
-			queryClient.invalidateQueries(['clientWithdrawData']);
-			onCancel();
+			toast.success('Cập nhật thông tin rút tiền thành công')
+			queryClient.setQueryData(['clientWithdrawData', defaultValues?.Id], data.Data)
+			queryClient.invalidateQueries(['clientWithdrawData'])
+			onCancel()
 		},
 		onError: toast.error
-	});
+	})
 
 	const _onPress = (data: TWithDraw) => {
-		const { Updated, UpdatedBy, ...props } = data;
-		return mutationUpdate.mutateAsync(props);
-	};
+		const { Updated, UpdatedBy, ...props } = data
+		return mutationUpdate.mutateAsync(props)
+	}
 
 	return (
 		<Modal visible={visible} onCancel={onCancel}>
-			<FormCard loading={isLoading}>
+			<FormCard loading={false}>
 				<FormCard.Header onCancel={onCancel}>
 					<div className="w-full">
 						<p>Thông tin rút tiền #{defaultValues?.Id}</p>
@@ -88,25 +76,15 @@ export const WithDrawalHistoryForm: React.FC<TForm<TWithDraw>> = ({
 							/>
 						</div>
 						<div className="col-span-2">
-							<FormTextarea
-								control={control}
-								name="Note"
-								label="Nội dung"
-								placeholder=""
-								required={false}
-							/>
+							<FormTextarea control={control} name="Note" label="Nội dung" placeholder="" required={false} />
 						</div>
 						<div className="col-span-2">
 							<FormSelect
 								control={control}
 								name="Status"
 								data={paymentStatusData.slice(1)}
-								disabled={
-									defaultValues?.Status !== EPaymentStatusData.Unapproved
-								}
-								defaultValue={paymentStatusData.find(
-									(x) => x.id === defaultValues?.Status
-								)}
+								disabled={defaultValues?.Status !== EPaymentStatusData.Unapproved}
+								defaultValue={paymentStatusData.find((x) => x.id === defaultValues?.Status)}
 								label="Trạng thái"
 								placeholder=""
 								rules={{
@@ -117,15 +95,10 @@ export const WithDrawalHistoryForm: React.FC<TForm<TWithDraw>> = ({
 					</div>
 				</FormCard.Body>
 				<FormCard.Footer>
-					<Button
-						title="Cập nhật"
-						btnClass="!bg-active"
-						showLoading
-						onClick={handleSubmit(_onPress)}
-					/>
+					<Button title="Cập nhật" btnClass="!bg-active" showLoading onClick={handleSubmit(_onPress)} />
 					<Button title="Hủy" btnClass="bg-pending" onClick={onCancel} />
 				</FormCard.Footer>
 			</FormCard>
 		</Modal>
-	);
-};
+	)
+}

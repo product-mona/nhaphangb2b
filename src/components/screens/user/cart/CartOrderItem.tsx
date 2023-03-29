@@ -284,6 +284,7 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 										<button
 											className={styles.snackBarSubmitBtn}
 											onClick={() => {
+												// console.log(allFormState.OrderTemps)
 												const fmData = {
 													orderShopId: allFormState.Id,
 													orders: allFormState.OrderTemps.map((vl) => {

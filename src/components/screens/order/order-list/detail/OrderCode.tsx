@@ -78,7 +78,9 @@ export const OrderCode: React.FC<TProps> = ({ data, loading, refetch, RoleID }) 
 		<React.Fragment>
 			<div>{renderViewList()}</div>
 			<div className="mt-4">
-				{(RoleID === 1 || RoleID === 3 || RoleID === 4) && <AddOrderCode dataList={data.MainOrderCodes} orderId={data?.Id} />}
+				{(RoleID === 1 || RoleID === 3 || RoleID === 4) && (
+					<AddOrderCode realPriceCNY={data.TotalPriceRealCNY} dataList={data.MainOrderCodes} orderId={data?.Id} />
+				)}
 			</div>
 		</React.Fragment>
 	)

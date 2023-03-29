@@ -105,20 +105,22 @@ export const HomeBanner = ({ data }) => {
 						<div className="w-full mx-auto z-2 relative px-0">
 							<div>
 								{data?.BannerText ? (
-									<Input.TextArea
-										className={clsx(styles.slogan, 'font-bold uppercase')}
-										style={{
-											padding: 0,
-											background: 'transparent',
-
-											border: 'none',
-											boxShadow: 'none'
-										}}
-										defaultValue={data?.BannerText}
-										placeholder=""
-										autoSize
-										readOnly
-									/>
+									<div className={clsx(styles.slogan, 'font-bold uppercase')}>
+										<Input.TextArea
+											style={{
+												font: 'inherit',
+												padding: 0,
+												background: 'transparent',
+												border: 'none',
+												boxShadow: 'none',
+												overflow: 'hidden'
+											}}
+											defaultValue={data?.BannerText}
+											placeholder=""
+											autoSize
+											readOnly
+										/>
+									</div>
 								) : (
 									<h1 className="font-bold uppercase">
 										DỊCH VỤ NHẬP HÀNG QUỐC TẾ <br /> CHUYÊN NGHIỆP -TẬN TÂM - UY TÍN

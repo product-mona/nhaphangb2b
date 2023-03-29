@@ -8,9 +8,10 @@ import { IconButton, toast } from '~/components'
 type TProps = {
 	orderId: number
 	dataList: any[]
+	realPriceCNY: number
 }
 
-export const AddOrderCode: React.FC<TProps> = ({ orderId, dataList }) => {
+export const AddOrderCode: React.FC<TProps> = ({ orderId, dataList, realPriceCNY }) => {
 	const queryClient = useQueryClient()
 	const [code, setCode] = useState<string>('')
 
@@ -25,17 +26,21 @@ export const AddOrderCode: React.FC<TProps> = ({ orderId, dataList }) => {
 		}
 	})
 	const _onPress = () => {
-		const fmCode = code.trim()
-		if (!fmCode.length) {
-			toast.warning('Mã đơn hàng không được để trống')
+		if (!realPriceCNY) {
+			toast.error('Bạn chưa cập nhật tổng số tiền mua thật')
 		} else {
-			if (!dataList.find((x) => x.Code.toLowerCase() === fmCode.toLowerCase())) {
-				createMutation.mutateAsync({
-					MainOrderId: orderId,
-					Code: fmCode
-				})
+			const fmCode = code.trim()
+			if (!fmCode.length) {
+				toast.warning('Mã đơn hàng không được để trống')
 			} else {
-				toast.error('Đã trùng mã đơn hàng')
+				if (!dataList.find((x) => x.Code.toLowerCase() === fmCode.toLowerCase())) {
+					createMutation.mutateAsync({
+						MainOrderId: orderId,
+						Code: fmCode
+					})
+				} else {
+					toast.error('Đã trùng mã đơn hàng')
+				}
 			}
 		}
 	}
