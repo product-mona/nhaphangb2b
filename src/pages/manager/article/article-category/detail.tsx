@@ -17,16 +17,22 @@ const Index: TNextPageWithLayout = () => {
 		mode: 'onBlur'
 	})
 
-	const { data, isFetching, isError, refetch } = useQuery(['articleCategoryData', +query?.id], () => pageType.getByID(+query?.id), {
-		onSuccess: (data) => {},
-		refetchOnWindowFocus: false,
-		refetchOnReconnect: false,
-		retry: false,
-		enabled: !!query?.id
-	})
+	const { data, isFetching, isError, refetch } = useQuery(
+		['articleCategoryData', +query?.id],
+		() => {
+			return pageType.getByID(+query?.id)
+		},
+		{
+			onSuccess: (data) => {},
+			refetchOnWindowFocus: false,
+			refetchOnReconnect: false,
+			retry: false,
+			enabled: !!query?.id
+		}
+	)
 	useEffect(() => {
-		if (!!data.Data) {
-			reset(data.Data)
+		if (!!data?.Data) {
+			reset(data?.Data)
 		}
 	}, [data])
 	const mutationUpdate = useMutation((data: TForm) => pageType.update(data), {

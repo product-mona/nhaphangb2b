@@ -65,18 +65,32 @@
 }
 
 .boxAction {
+  padding-top: 8px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 .smBtn {
+  /* background: #4e8c1c; */
+  border-color: #4e8c1c;
   background: #4e8c1c;
+
   color: #fff;
-  margin-top: 16px;
   padding: 8px 24px;
+  /* padding-left: 24px;
+  padding-right: 24px; */
   font-size: 16px;
   border-radius: 4px;
-  box-shadow: 0px 10px 20px 0 #00000075;
+
+}
+
+.smBtn:hover {
+  border-color: #5ba51f;
+  background: #5ba51f;
+}
+.smBtn:focus {
+  border-color: #5ba51f;
+  background: #5ba51f;
 }
 .button {
   background: #4e8c1c;
@@ -97,10 +111,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* .button:hover {
-  box-shadow: 0px 10px 20px 0 transparent;
-  transform: translateY(2px);
-} */
+
 
 .button:hover a {
   color: #fff !important;
@@ -179,13 +190,6 @@
     position: relative;
   }
 
-  /* .form {
-    position: absolute;
-    top: 50%;
-    right: 40px;
-    transform: translateY(-50%);
-    box-shadow: 0 0 10px 0 #00000059;
-  } */
 
   .innerContactDetail {
     flex-wrap: wrap;
@@ -204,6 +208,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    height: fit-content;
+    padding: 16px;
   }
   .innerForm textarea {
     height: auto

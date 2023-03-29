@@ -527,4 +527,6 @@ type TUserRegister = {
 	FirstName?: string
 	LastName?: string
 	FullName: string
+	Address?: string
+	Gender: 0 | 1
 }

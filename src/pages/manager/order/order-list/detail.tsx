@@ -60,7 +60,7 @@ const Index: TNextPageWithLayout = () => {
 
 	// useEffect(() => {
 	// 	if (!connectionId) return
-	// 	console.log('connection', connection)
+
 	// 	// let timeout = null
 	// 	connection.on('change', (mainOrders: TOrder[]) => {
 	// 		if (!!mainOrders?.length) {

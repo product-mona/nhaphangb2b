@@ -150,14 +150,14 @@ const ComponentAffix: React.FC<TProps> = ({
 													})
 												})
 										}}
-										title="Báo cọc"
+										title={`Báo cọc`}
 										icon="far fa-credit-card"
 										btnClass="mr-4 mb-4 lg:mb-0 w-full"
 										btnIconClass="mr-4"
 										showLoading
 										toolip="Click để báo giá / báo cọc cho khách"
 										yellow
-										disabled={data?.IsCheckNotiPrice || !(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+										disabled={data?.IsCheckNotiPrice || !(RoleID === 1 || RoleID === 3 || RoleID === 4 || RoleID === 7)}
 									/>
 								</div>
 							</div>
@@ -311,80 +311,6 @@ const ComponentAffix: React.FC<TProps> = ({
 					</div>
 				)}
 			</div>
-			{/* <div className="tableBox xl:block hidden my-4 py-3">
-				<ul className="mb-0">
-					<li>
-						<Link
-							onFocus={() => handleActive(0)}
-							offsetTop={120}
-							to="order-code"
-							className={clsx(linkMenu, active === 0 && linkMenuActive)}
-						>
-							<a className="pl-2">Mã đơn hàng</a>
-						</Link>
-					</li>
-					<li>
-						<Link
-							onFocus={() => handleActive(1)}
-							offsetTop={120}
-							to="transfer-code-list"
-							className={clsx(linkMenu, active === 1 && linkMenuActive)}
-						>
-							<a className="pl-2">Mã vận đơn</a>
-						</Link>
-					</li>
-					<li>
-						<Link
-							onFocus={() => handleActive(2)}
-							offsetTop={120}
-							to="product-list"
-							className={clsx(linkMenu, active === 2 && linkMenuActive)}
-						>
-							<a className="pl-2">Danh sách sản phẩm</a>
-						</Link>
-					</li>
-					<li>
-						<Link
-							onFocus={() => handleActive(4)}
-							offsetTop={120}
-							to="surcharge-list"
-							className={clsx(linkMenu, active === 4 && linkMenuActive)}
-						>
-							<a className="pl-2">Chi phí đơn hàng</a>
-						</Link>
-					</li>
-					<li>
-						<Link
-							onFocus={() => handleActive(6)}
-							offsetTop={120}
-							to="order-info"
-							className={clsx(linkMenu, active === 6 && linkMenuActive)}
-						>
-							<a className="pl-2">Thông tin người đặt - nhận hàng</a>
-						</Link>
-					</li>
-					<li>
-						<Link
-							onFocus={() => handleActive(7)}
-							offsetTop={120}
-							to="history"
-							className={clsx(linkMenu, active === 7 && linkMenuActive)}
-						>
-							<a className="pl-2">Lịch sử thanh toán - thay đổi</a>
-						</Link>
-					</li>
-				</ul>
-			</div> */}
-
-			{/* <IconButton
-				onClick={() => router.push(`/manager/order/order-list${data?.OrderType === 3 ? '?q=3' : ''}`)}
-				// onClick={() => router.back()}
-				icon="fas fa-undo-alt"
-				title="Về danh sách"
-				btnClass="mr-2 !bg-orange !text-white md:hidden xl:block"
-				showLoading
-				toolip=""
-			/> */}
 		</>
 	)
 }

@@ -1,17 +1,17 @@
-import clsx from "clsx";
-import {FC} from "react";
-import {FormSelect, IconButton} from "~/components";
-import {useAppSelector} from "~/store";
-import {TControl} from "~/types/field";
+import clsx from 'clsx'
+import { FC } from 'react'
+import { FormSelect, IconButton, TableSelectField } from '~/components'
+import { useAppSelector } from '~/store'
+import { TControl } from '~/types/field'
 
 type TProps = TControl<TUserCreateOrder> & {
-	warehouseTQCatalogue: TWarehouseTQCatalogue[];
-	warehouseVNCatalogue: TWarehouseVNCatalogue[];
-	shippingTypeToWarehouseCatalogue: TShippingTypeToWarehouse[];
-	user?: any;
-};
-const infoContainer = "flex items-center";
-const listBox = "lg:flex items-center justify-end mt-4 w-full mb-4 px-4";
+	warehouseTQCatalogue: TWarehouseTQCatalogue[]
+	warehouseVNCatalogue: TWarehouseVNCatalogue[]
+	shippingTypeToWarehouseCatalogue: TShippingTypeToWarehouse[]
+	user?: any
+}
+const infoContainer = 'flex items-center'
+const listBox = 'lg:flex items-center justify-end mt-4 w-full mb-4 px-4'
 
 export const CreateOrderSelect: FC<TProps> = ({
 	control,
@@ -19,11 +19,11 @@ export const CreateOrderSelect: FC<TProps> = ({
 	shippingTypeToWarehouseCatalogue,
 	warehouseVNCatalogue,
 	append,
-	user,
+	user
 }) => {
-	const {current: newUser} = useAppSelector((state) => state.user);
+	const { current: newUser } = useAppSelector((state) => state.user)
 
-	if (!newUser) return null;
+	if (!newUser) return null
 
 	return (
 		<>
@@ -41,8 +41,8 @@ export const CreateOrderSelect: FC<TProps> = ({
 									name="UID"
 									placeholder=""
 									label="Username"
-									select={{label: "UserName", value: "Id"}}
-									defaultValue={{UserName: newUser?.UserName, Id: newUser?.UserId}}
+									select={{ label: 'UserName', value: 'Id' }}
+									defaultValue={{ UserName: newUser?.UserName, Id: newUser?.UserId }}
 									disabled
 									required={false}
 								/>
@@ -55,8 +55,8 @@ export const CreateOrderSelect: FC<TProps> = ({
 									control={control}
 									name="UID"
 									placeholder="Chọn khách hàng"
-									select={{label: "UserName", value: "Id"}}
-									rules={{required: "This field is required"}}
+									select={{ label: 'UserName', value: 'Id' }}
+									rules={{ required: 'This field is required' }}
 								/>
 							</div>
 						)}
@@ -74,13 +74,13 @@ export const CreateOrderSelect: FC<TProps> = ({
 							name="ShippingType"
 							label="Phương thức vận chuyển"
 							placeholder="Chọn phương thức vận chuyển"
-							rules={{required: "This field is required"}}
-							select={{label: "Name", value: "Id"}}
+							rules={{ required: 'This field is required' }}
+							select={{ label: 'Name', value: 'Id' }}
 						/>
 					</div>
 				</div>
 
-				<div className={infoContainer}>
+				{/* <div className={infoContainer}>
 					<div className="IconFilter text-white bg-[#F1A934] text-center">
 						<i className="fas fa-warehouse"></i>
 					</div>
@@ -95,7 +95,7 @@ export const CreateOrderSelect: FC<TProps> = ({
 							select={{label: "Name", value: "Id"}}
 						/>
 					</div>
-				</div>
+				</div> */}
 				<div className={infoContainer}>
 					<div className="IconFilter text-white bg-[#E54C36] text-center">
 						<i className="fas fa-warehouse"></i>
@@ -107,8 +107,8 @@ export const CreateOrderSelect: FC<TProps> = ({
 							name="WarehouseVN"
 							label="Kho đích"
 							placeholder="Chọn kho VN"
-							rules={{required: "This field is required"}}
-							select={{label: "Name", value: "Id"}}
+							rules={{ required: 'This field is required' }}
+							select={{ label: 'Name', value: 'Id' }}
 						/>
 					</div>
 				</div>
@@ -127,7 +127,7 @@ export const CreateOrderSelect: FC<TProps> = ({
 							NoteProduct: null,
 							PriceProduct: null,
 							PropertyProduct: null,
-							QuantityProduct: null,
+							QuantityProduct: null
 						})
 					}
 					showLoading
@@ -136,5 +136,5 @@ export const CreateOrderSelect: FC<TProps> = ({
 				/>
 			</div>
 		</>
-	);
-};
+	)
+}

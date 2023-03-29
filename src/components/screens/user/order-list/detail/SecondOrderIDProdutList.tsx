@@ -106,29 +106,30 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 							<div className="block flex md:flex-col justify-between ml-2 ">
 								<div className="text-sm mr-4 text-[#484747] font-semibold text-right">Đơn giá (¥)</div>
 								<div className="text-orange">
-									<div className="text-sm">
-										<Tooltip title={`${_format.getVND(item?.PriceVND, '')} VNĐ`} placement="bottom">
-											<Input
-												className="text-right"
-												size="middle"
-												value={_format.getVND(item?.PriceCNY, '')}
-												readOnly
-											/>
-										</Tooltip>
+									<div
+										className="text-sm"
+										onClick={() => {
+											console.log('item', item)
+										}}
+									>
+										<Input
+											className="text-right"
+											size="middle"
+											value={_format.getVND(item?.PriceOrigin, '')}
+											readOnly
+										/>
 									</div>
 								</div>
 							</div>
 							<div className="block flex md:flex-col justify-between ml-2 w-3/12">
 								<div className="text-sm mr-4 text-[#484747] font-semibold text-right">Thành tiền (¥)</div>
 								<div className="text-sm text-center">
-									<Tooltip title={`${_format.getVND(item?.PriceVND * item?.Quantity, '')} VNĐ`} placement="bottom">
-										<Input
-											className="text-right"
-											size="middle"
-											value={_format.getVND(item?.PriceCNY * item?.Quantity, '')}
-											readOnly
-										/>
-									</Tooltip>{' '}
+									<Input
+										className="text-right"
+										size="middle"
+										value={_format.getVND(item?.PriceOrigin * item?.Quantity, '')}
+										readOnly
+									/>
 								</div>
 							</div>
 							<div className="block flex md:flex-col justify-between ml-2 w-4/12">

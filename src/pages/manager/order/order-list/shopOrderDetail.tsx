@@ -1,37 +1,27 @@
 import { CaretRightOutlined } from '@ant-design/icons'
-import { Breadcrumb, Collapse, Modal, Spin } from 'antd'
+import { Breadcrumb, Collapse, Spin } from 'antd'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useMutation, useQuery } from 'react-query'
 import { mainOrder } from '~/api'
 import {
-	Empty,
 	Layout,
 	MessageControlManager,
-	OrderCode,
 	OrderCost,
 	OrderDetail,
-	OrderHandlingStaff,
 	OrderHistory,
-	OrderInfo,
 	OrderProductList,
-	OrderShopList,
 	OrderSurChargeList,
 	OrderTransferCodeList,
 	showToast,
 	toast
 } from '~/components'
 import { MyBreadcrumb } from '~/components/others'
-import { OrderShopDetailModal } from '~/components/screens/Modal'
 import { OrderCodeSecond } from '~/components/screens/order/order-list/detail/OrderCodeSecond'
-import { breadcrumb } from '~/configs'
-import { SEOConfigs } from '~/configs/SEOConfigs'
-import { useCatalogue } from '~/hooks'
-import { useDisclosure } from '~/modules/core/hooks'
-import { selectConnection, useAppSelector } from '~/store'
+import { useAppSelector } from '~/store'
 import { TNextPageWithLayout } from '~/types/layout'
 
 const className = 'TabPanel py-4'

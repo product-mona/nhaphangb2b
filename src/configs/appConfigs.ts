@@ -1761,7 +1761,7 @@ export const firstPageDirect = [
 	{
 		id: 3,
 		page: '/dashboard',
-		denyPath: ['manager/employee/decentralization-management', 'manager/settings']
+		denyPath: ['manager/employee/decentralization-management', 'manager/settings', ]
 	},
 	{
 		id: 4,
@@ -1771,7 +1771,9 @@ export const firstPageDirect = [
 			'/manager/order/order-list/detail',
 			'/manager/order/order-list?q=3',
 			'/manager/statistical/sales',
-			'/manager/employee/bonus-management'
+			'/manager/employee/bonus-management',
+			'/manager/order/order-list/shopOrderDetail'
+			
 		]
 	},
 	{
@@ -1810,7 +1812,8 @@ export const firstPageDirect = [
 			'/manager/order/buy-for/create-order',
 			'/manager/order/buy-for/create-deposit',
 			'/manager/statistical/sales',
-			'/manager/employee/bonus-management'
+			'/manager/employee/bonus-management',
+			'/manager/order/order-list/shopOrderDetail'
 		]
 	},
 	{

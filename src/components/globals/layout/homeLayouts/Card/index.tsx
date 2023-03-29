@@ -40,10 +40,10 @@ export const HomeCard: React.FC<TProps> = ({ data }) => {
 											})
 										}
 									>
-										<div className="hidden lg:block">
+										<div className="hidden lg:block h-full">
 											<CartItem {...item} />
 										</div>
-										<div className="block lg:hidden">
+										<div className="block lg:hidden h-full">
 											<CardHorizontal {...item} />
 										</div>
 									</a>

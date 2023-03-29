@@ -29,9 +29,9 @@ const ItemProduct = ({ orderTemp, index, maxLength }) => {
 		>
 			<div className="xl:flex flex-wrap">
 				<div className="xl:flex xl:w-full items-center mb-5 justify-between px-3 borderBottom">
-					<Tooltip title="Link đến sản phẩm">
+					<Tooltip title="Link đến sản phẩm" placement="left">
 						<a href={orderTemp?.LinkOrigin} target="_blank" className="mainTitle">
-							{orderTemp?.LinkOrigin}
+							{orderTemp?.ShopId}
 						</a>
 					</Tooltip>
 				</div>
@@ -73,9 +73,7 @@ const ItemProduct = ({ orderTemp, index, maxLength }) => {
 						<div className="text-sm font-medium text-black text-center mb-2">Đơn giá (¥)</div>
 						<div className="text-orange">
 							<div className="text-sm text-center">
-								<Tooltip title={_format.getVND(orderTemp?.UPriceBuyVN, '')} placement="bottom">
-									<InputNumber size="middle" value={_format.getVND(orderTemp?.UPriceBuy, '')} readOnly />
-								</Tooltip>
+								<InputNumber size="middle" value={_format.getVND(orderTemp?.UPriceBuy, '')} readOnly />
 							</div>
 						</div>
 					</div>
