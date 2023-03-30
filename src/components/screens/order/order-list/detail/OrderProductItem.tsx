@@ -1,6 +1,7 @@
 import { InputNumber, Tooltip } from 'antd'
 import React, { useState } from 'react'
 import { ActionButton, toast } from '~/components'
+import { orderStatus, orderStatusCanChage } from '~/configs'
 import { _format } from '~/utils'
 
 type TProps = {
@@ -9,6 +10,7 @@ type TProps = {
 	handleUpdateProduct: any
 	loading: boolean
 	RoleID: number
+	dataOrderStop?: TOrder
 	// setCheckUpdate: () => void;
 }
 
@@ -17,7 +19,8 @@ export const OrderProductItem: React.FC<TProps> = ({
 	index,
 	handleUpdateProduct,
 	loading,
-	RoleID
+	RoleID,
+	dataOrderStop
 	// setCheckUpdate,
 }) => {
 	const [changeValue, setChangeValue] = useState(false)
@@ -139,6 +142,7 @@ export const OrderProductItem: React.FC<TProps> = ({
 								max={100000}
 								value={quantity}
 								onChange={handleQuantity}
+								// readOnly={!orderStatusCanChage.some((x) => x == dataOrderStop?.Status)}
 							/>
 						</div>
 					</div>

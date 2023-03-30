@@ -1,14 +1,12 @@
 import { CaretRightOutlined } from '@ant-design/icons'
-import { Collapse, Modal, Spin } from 'antd'
+import { Collapse, Spin } from 'antd'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useMutation, useQuery } from 'react-query'
 import { mainOrder } from '~/api'
 import {
-	Empty,
-	IconButton,
 	Layout,
 	MessageControlManager,
 	OrderCode,
@@ -25,8 +23,7 @@ import {
 	toast
 } from '~/components'
 import { MyBreadcrumb } from '~/components/others'
-import { OrderShopDetailModal } from '~/components/screens/Modal'
-import { breadcrumb } from '~/configs'
+
 import { SEOConfigs } from '~/configs/SEOConfigs'
 import { useCatalogue } from '~/hooks'
 import { useDisclosure } from '~/modules/core/hooks'
@@ -40,12 +37,11 @@ const Index: TNextPageWithLayout = () => {
 	const router = useRouter()
 	const { current: newUser } = useAppSelector((state) => state.user)
 	if (!newUser) return null
-
 	const { query } = useRouter()
 	const orderId = Number(router.query.id)
 
 	const [active, setActive] = React.useState(0)
-
+	const editExchangeController = useDisclosure()
 	const connection = useAppSelector(selectConnection)
 	const connectionId = connection?.connectionId
 
@@ -109,15 +105,11 @@ const Index: TNextPageWithLayout = () => {
 		}
 	})
 	// ham update chi tiết đơn hàng
-	const _onUpdate = async (data: TOrder) => {
+	const _onUpdate = (data: TOrder) => {
 		const { HistoryOrderChanges, PayOrderHistories, Complains, ...newData } = data
-		localStorage.removeItem('AmountDeposit')
-		await mutationUpdate.mutateAsync(newData)
+		mutationUpdate.mutateAsync(newData)
 	}
 
-	// if (isError) {
-	// 	return <Empty description={`Không tìm thấy đơn hàng #${query?.id}`} />
-	// }
 	const renderShippingCode = () => {
 		if (data?.Data) {
 			if (data?.Data.OrderType == 3) {
@@ -213,6 +205,7 @@ const Index: TNextPageWithLayout = () => {
 									active={active}
 									handleActive={(val) => setActive(val)}
 									handleUpdate={_onUpdate}
+									handleOpenEditExchangeModal={editExchangeController.onOpen}
 									data={data?.Data}
 									loading={isFetching}
 									refetch={refetch}
@@ -257,18 +250,16 @@ const Index: TNextPageWithLayout = () => {
 							</Collapse>
 						</div>
 					</div>
-				</FormProvider>
-				{data && <MessageControlManager clientId={data.Data.UID} mainOrderId={+query?.id} />}
-			</Spin>
-			<div>
-				{/* <OrderShopDetailModal
-					newUser={newUser}
-					orderShopId={orderShopId}
-					isOpen={detailController.isOpen}
-					onClose={detailController.onClose}
-					parentOrderID={orderId}
+					{/* <EditExchangeModal
+					onClose={editExchangeController.onClose}
+					isOpen={editExchangeController.isOpen}
+					SubMainOrders={data?.Data?.SubMainOrders || []}
 				/> */}
-			</div>
+				</FormProvider>
+			</Spin>
+			{data && <MessageControlManager clientId={data.Data.UID} mainOrderId={+query?.id} />}
+
+			<div></div>
 		</div>
 	)
 }

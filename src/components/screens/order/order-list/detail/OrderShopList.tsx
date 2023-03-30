@@ -11,7 +11,7 @@ import { TColumnsType } from '~/types/table'
 import { _format } from '~/utils'
 
 type OrderShopListProps = {
-	data?: TOrder
+	data?: TOrder //data From API
 	RoleID: number
 	refetch: () => void
 }

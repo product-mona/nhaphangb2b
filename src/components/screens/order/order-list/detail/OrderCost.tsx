@@ -561,9 +561,9 @@ export const OrderCost: React.FC<TProps> = ({ data, RoleID }) => {
 									disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 8 || RoleID === 6) && RoleID === 4}
 									callback={(val) => {
 										// localStorage.removeItem('AmountDeposit')
-										if (val > data?.TotalPriceVND) {
-											toast.error('Số tiền phải cọc không lớn hơn tổng tiền đơn hàng!')
-										}
+										// if (val > data?.TotalPriceVND) {
+										// 	toast.error('Số tiền phải cọc không lớn hơn tổng tiền đơn hàng!')
+										// }
 									}}
 								/>
 							</div>
