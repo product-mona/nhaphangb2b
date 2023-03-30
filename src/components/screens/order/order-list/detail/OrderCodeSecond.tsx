@@ -9,7 +9,7 @@ import { toastApiErr } from '~/utils'
 import { AddOrderCode } from './AddOrderCode'
 
 type TProps = {
-	data?: TOrder
+	data?: TOrder // data from API
 	RoleID: number
 }
 
@@ -20,6 +20,7 @@ export const OrderCodeSecond: React.FC<TProps> = ({ data, RoleID }) => {
 		onSuccess: (res) => {
 			toast.success('Xoá mã vận đơn thành công')
 			queryClient.invalidateQueries(['OrderShopDetailModal', data.Id])
+			queryClient.invalidateQueries(['order-list', data.Id])
 		},
 		onError: (err) => {
 			toastApiErr(err)

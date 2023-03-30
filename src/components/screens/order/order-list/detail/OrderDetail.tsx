@@ -1,13 +1,14 @@
-import { Affix } from 'antd'
+import { Affix, Popconfirm } from 'antd'
 import clsx from 'clsx'
 import router from 'next/router'
 import { Link } from 'rc-scroll-anim'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { useMutation, useQueries, useQueryClient } from 'react-query'
 import { useMediaQuery } from 'react-responsive'
 import { toast } from 'react-toastify'
 import { mainOrder, order } from '~/api'
-import { FormSelect } from '~/components'
+import { ActionButton, FormInputNumber, FormSelect } from '~/components'
 import { IconButton } from '~/components/globals/button/IconButton'
 import { orderStatus, statusData } from '~/configs/appConfigs'
 import { useWareHouseTQ } from '~/hooks'
@@ -17,13 +18,14 @@ import { _format } from '~/utils'
 type TProps = {
 	active: number
 	handleActive: (active: number) => void
-	handleUpdate: (data: TOrder) => Promise<void>
+	handleUpdate: (data: TOrder) => void
 	data: TOrder
 	loading: boolean
 	disabledPayment?: boolean
 	refetch?: any
 	RoleID: number
 	isShopOrder?: boolean
+	handleOpenEditExchangeModal?: () => void
 }
 
 const nameContent = 'w-2/4 py-1 text-sm text-[#3E3C6A] tracking-normal'
@@ -46,16 +48,64 @@ const ComponentAffix: React.FC<TProps> = ({
 	disabledPayment,
 	refetch,
 	RoleID,
-	isShopOrder = false
+	isShopOrder = false,
+	handleOpenEditExchangeModal
 }) => {
 	const { warehouseTQ, warehouseVN, shippingTypeToWarehouse } = useCatalogue({
 		warehouseTQEnabled: !!RoleID,
 		warehouseVNEnabled: !!RoleID,
 		shippingTypeToWarehouseEnabled: !!RoleID
 	})
-
+	const queryClient = useQueryClient()
 	const { handleSubmit, control, watch } = useFormContext<TOrder>()
 	const allFormState = watch()
+	const updateExchangeRateFoprAllSubOrder = useMutation(
+		(dataList: any[]) => {
+			return Promise.all(
+				dataList.map((vl) =>
+					mainOrder.update({
+						...vl,
+						CurrentCNYVN: allFormState.CurrentCNYVN
+					})
+				)
+			)
+		},
+		{
+			onSuccess: () => {
+				toast.success('Cập nhật đơn hàng thành công')
+				queryClient.invalidateQueries(['order-list'])
+			},
+			onError: () => {
+				toast.error('Thao tác thất bại. Vui lòng kiểm tra lại')
+			}
+		}
+	)
+	const getAllSubOrder = useMutation(
+		(ids: number[]) => {
+			return Promise.all(ids.map((id) => mainOrder.getByID(id)))
+		},
+		{
+			onSuccess: (res) => {
+				const resFm = res.filter((vl) => vl.ResultCode == 200).map((el) => el.Data)
+				updateExchangeRateFoprAllSubOrder.mutateAsync(resFm)
+			},
+			onError: (error) => {}
+		}
+	)
+
+	const mutationUpdate = useMutation(mainOrder.update, {
+		onSuccess: () => {
+			getAllSubOrder.mutateAsync(data?.SubMainOrders?.map((vl) => vl.Id) || [])
+			// refetch()
+		},
+		onError: (error) => {
+			toast.error('Thao tác thất bại. Vui lòng thử lại')
+		}
+	})
+	const hanldeEdit = () => {
+		toast.info('Đang thực hiện việc, vui lòng đợi trong giây lát...')
+		return mutationUpdate.mutateAsync(allFormState)
+	}
 
 	return (
 		<>
@@ -114,7 +164,6 @@ const ComponentAffix: React.FC<TProps> = ({
 								<div className={clsx(contentValue, '!w-full')}>
 									<IconButton
 										onClick={async () => {
-											console.log(allFormState.AmountDeposit)
 											const id = toast.loading('Đang xử lý ...')
 											// const AmountDepositMoney = JSON.parse(localStorage.getItem('AmountDeposit'))
 											if (!allFormState.AmountDeposit) {
@@ -168,6 +217,46 @@ const ComponentAffix: React.FC<TProps> = ({
 								<div className={clsx(contentValue, 'truncate')}>{data?.Id}</div>
 							</div>
 						) : null}
+						{!isShopOrder ? (
+							<div className={clsx(contentItem)}>
+								<div className={clsx(nameContent, 'flex')}>
+									<span className="truncate">Tỷ giá đơn hàng</span>
+								</div>
+								<div className={clsx(contentValue, 'truncate')}>
+									{!!(RoleID === 1 || RoleID === 3 || RoleID === 4) ? (
+										<span>
+											<Popconfirm
+												title={
+													<div>
+														<p className="text-base pb-4">Cập nhật tỷ giá cho toàn bộ đơn hàng.</p>
+														<FormInputNumber
+															suffix=" VNĐ"
+															control={control}
+															name="CurrentCNYVN"
+															placeholder=""
+															allowNegative={false}
+														/>
+													</div>
+												}
+												onConfirm={hanldeEdit}
+												okText="Cập nhật"
+												cancelText="Hủy"
+											>
+												<ActionButton
+													onClick={() => {}}
+													iconContainerClassName="!text-blue !p-0 h-auto border-none"
+													icon="fas fa-pen"
+													title="Chỉnh sửa tỷ giá đơn hàng này"
+													placement="bottom"
+												/>
+											</Popconfirm>
+										</span>
+									) : null}
+									{_format.getVND(data?.CurrentCNYVN, '')}
+								</div>
+							</div>
+						) : null}
+
 						<div className={clsx(contentItem)}>
 							<div className={clsx(nameContent)}>Loại đơn hàng</div>
 							<div className={clsx(contentValue)}>
@@ -198,7 +287,7 @@ const ComponentAffix: React.FC<TProps> = ({
 								name="Status"
 								label="Trang thái"
 								placeholder=""
-								data={orderStatus?.slice(1, orderStatus.length - 1)}
+								data={orderStatus?.slice(1, orderStatus.length)}
 								defaultValue={orderStatus?.slice(1, orderStatus.length - 1).find((x) => x.id === data?.Status)}
 							/>
 						</div>
@@ -301,7 +390,8 @@ const ComponentAffix: React.FC<TProps> = ({
 										}}
 										icon="fas fa-credit-card"
 										// title="Thanh toán"
-										title={data?.Status === 0 ? 'Đặt cọc' : 'Thanh toán'}
+
+										title={data?.Status === 0 ? 'Đặt cọc' : data?.RemainingAmount > 0 ? 'Thanh toán' : 'Hoàn tiền'}
 										showLoading
 										toolip=""
 										blue

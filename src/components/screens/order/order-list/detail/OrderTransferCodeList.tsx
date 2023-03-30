@@ -201,13 +201,6 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 					control={control}
 					name={`SmallPackages.${index}.Description` as const}
 				/>
-				// <FormInput
-				// 	disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
-				// 	control={control}
-				// 	name={`SmallPackages.${index}.Description` as const}
-				// 	placeholder=""
-				// 	hideError
-				// />
 			)
 		},
 		{

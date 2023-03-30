@@ -13,12 +13,13 @@ type OrderIDShopListProps = {
 }
 export const OrderIDShopList: FC<OrderIDShopListProps> = ({ orderShopList, dataOrder }) => {
 	const results = useQueries(
-		orderShopList.map((vl) => {
+		orderShopList.map((vl, idx) => {
 			return {
 				queryKey: ['OrderDetail', vl.Id],
 				queryFn: () => {
 					return mainOrder.getByID(vl?.Id)
 				},
+
 				enabled: !!vl.Id,
 				refetchOnWindowFocus: false
 			}

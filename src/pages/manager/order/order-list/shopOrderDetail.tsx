@@ -80,10 +80,10 @@ const ShopOrderDetail: TNextPageWithLayout = () => {
 		}
 	})
 	// ham update chi tiết đơn hàng
-	const _onUpdate = async (data: TOrder) => {
+	const _onUpdate = (data: TOrder) => {
 		const { HistoryOrderChanges, PayOrderHistories, Complains, ...newData } = data
-		localStorage.removeItem('AmountDeposit')
-		await mutationUpdate.mutateAsync(newData)
+
+		mutationUpdate.mutateAsync(newData)
 	}
 
 	const onViewDetailShopOrder = (newId: number) => {

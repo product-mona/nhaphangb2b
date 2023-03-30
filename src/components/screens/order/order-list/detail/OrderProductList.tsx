@@ -60,6 +60,7 @@ export const OrderProductList: React.FC<TProps> = ({ RoleID, dataOrderShop, refe
 							handleUpdateProduct={handleUpdateProduct}
 							loading={mutationUpdate.isLoading}
 							RoleID={RoleID}
+							dataOrderStop={dataOrderShop}
 							// setCheckUpdate={() => setCheckUpdate(true)}
 						/>
 					))}

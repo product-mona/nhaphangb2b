@@ -2093,7 +2093,7 @@ export const orderStatus = [
 	// 	value: null
 	// }
 ]
-
+export const orderStatusCanChage = [102,101,0,2]
 export const packageStatus = [
 	{
 		id: 0,

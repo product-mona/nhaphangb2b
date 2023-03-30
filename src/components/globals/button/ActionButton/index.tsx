@@ -7,6 +7,7 @@ type TProps = {
 	title: string
 	onClick?: () => void
 	iconContainerClassName?: string
+
 	btnGreen?: boolean
 	btnRed?: boolean
 	btnYellow?: boolean
@@ -40,7 +41,7 @@ export const ActionButton: FC<TProps> = ({
 		<Tooltip title={disabled ? '' : title} placement={placement}>
 			<div
 				{...props}
-				className="group inline-block p-1 "
+				className={clsx('group inline-block p-1 ')}
 				style={{ opacity: disabled ? '0.3' : '1', pointerEvents: disabled ? 'none' : 'all' }}
 			>
 				<div className="cursor-pointer" onClick={onClick}>
