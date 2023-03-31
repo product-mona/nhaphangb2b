@@ -12,6 +12,17 @@ type TProps = {
 
 const templateFee = [
 	{
+		id: 20,
+		label: 'Tỷ giá đơn hàng',
+		value: [
+			{
+				key: 'CurrentCNYVN',
+				value: null
+			}
+		],
+		icon: 'far fa-yen-sign'
+	},
+	{
 		id: 10,
 		label: 'Tổng tiền đơn hàng',
 		value: [

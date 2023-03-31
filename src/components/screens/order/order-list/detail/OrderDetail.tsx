@@ -223,7 +223,7 @@ const ComponentAffix: React.FC<TProps> = ({
 									<span className="truncate">Tỷ giá đơn hàng</span>
 								</div>
 								<div className={clsx(contentValue, 'truncate')}>
-									{!!(RoleID === 1 || RoleID === 3 || RoleID === 4) ? (
+									{!!(RoleID === 1 || RoleID === 3 || RoleID === 4 || RoleID === 7) ? (
 										<span>
 											<Popconfirm
 												title={
