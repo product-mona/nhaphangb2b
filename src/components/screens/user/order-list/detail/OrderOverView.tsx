@@ -9,7 +9,141 @@ type TProps = {
 	data: TOrder
 	updatePaid: (type: 'payment' | 'deposit') => void
 }
-
+const templateFeeForOrderType3 = [
+	{
+		id: 20,
+		label: 'Tỷ giá đơn hàng',
+		value: [
+			{
+				key: 'CurrentCNYVN',
+				value: null
+			}
+		],
+		icon: 'far fa-yen-sign'
+	},
+	{
+		id: 1,
+		label: 'Tiền hàng',
+		value: [
+			{
+				key: 'PriceVND',
+				value: null
+			},
+			{
+				key: 'PriceCNY',
+				value: null
+			}
+		],
+		icon: 'far fa-box-usd'
+	},
+	{
+		id: 2,
+		label: 'Phí mua hàng',
+		value: [
+			{
+				key: 'FeeBuyPro',
+				value: null
+			}
+		],
+		icon: 'far fa-badge-dollar'
+	},
+	{
+		id: 3,
+		label: 'Phí kiểm đếm',
+		value: [
+			{
+				key: 'IsCheckProductPrice',
+				value: null
+			}
+		],
+		icon: 'far fa-badge-dollar'
+	},
+	{
+		id: 4,
+		label: 'Phí đóng gỗ',
+		value: [
+			{
+				key: 'IsPackedPrice',
+				value: null
+			}
+		],
+		icon: 'far fa-badge-dollar'
+	},
+	{
+		id: 5,
+		label: 'Phí bảo hiểm',
+		value: [
+			{
+				key: 'InsuranceMoney',
+				value: null
+			}
+		],
+		icon: 'far fa-badge-dollar'
+	},
+	{
+		id: 6,
+		label: 'Phí giao hàng tận nhà',
+		value: [
+			{
+				key: 'IsFastDeliveryPrice',
+				value: null
+			}
+		],
+		icon: 'far fa-badge-dollar'
+	},
+	{
+		id: 7,
+		label: 'Phí ship nội địa trung quốc',
+		value: [
+			{
+				key: 'FeeShipCN',
+				value: null
+			}
+			// {
+			//   key: "FeeShipCNCNY",
+			//   value: null,
+			// },
+		],
+		icon: 'far fa-badge-dollar'
+	},
+	{
+		id: 8,
+		label: 'Phí cân nặng',
+		value: [
+			{
+				key: 'FeeWeight',
+				value: null
+			},
+			{
+				key: 'TQVNWeight',
+				value: null
+			}
+		],
+		icon: 'far fa-badge-dollar'
+	},
+	{
+		id: 9,
+		label: 'Tổng tiền phụ phí',
+		value: [
+			{
+				key: 'FeeSupports',
+				value: null
+			}
+		],
+		icon: 'far fa-coins'
+	},
+	{
+		id: 10,
+		label: 'Tổng tiền đơn hàng',
+		value: [
+			{
+				key: 'TotalOrderAmount',
+				value: null
+			}
+		],
+		icon: 'far fa-coins'
+	}
+]
 const templateFee = [
 	{
 		id: 20,
@@ -77,29 +211,51 @@ const styleIcon = `mr-2 pt-[2px] text-[#ffa500] text-[18px]`
 const styleValue = `text-sm text-[#666565] font-semibold`
 
 export const OrderOverView: React.FC<TProps> = ({ data, updatePaid }) => {
-	const [renderFee, setRenderFee] = useState(templateFee)
+	const [renderFee, setRenderFee] = useState<any>([])
 
 	useEffect(() => {
-		const newFee = renderFee.map((item) => {
-			item?.value.forEach((v) => {
-				if (v?.key === 'FeeSupports') {
-					v.value = data?.[v.key].reduce((acc, cur) => (acc += cur?.SupportInfoVND), 0)
-				} else {
-					v.value = data?.[v.key]
-				}
+		if (data?.OrderType == 3) {
+			const newFee = templateFeeForOrderType3.map((item) => {
+				item?.value.forEach((v) => {
+					if (v?.key === 'FeeSupports') {
+						v.value = data?.[v.key].reduce((acc, cur) => (acc += cur?.SupportInfoVND), 0)
+					} else {
+						v.value = data?.[v.key]
+					}
+				})
+				return item
 			})
-			return item
-		})
-
-		newFee.forEach((fee) => {
-			fee.value.forEach((f) => {
-				if (convertNDT.match(f.key)) {
-					f.value = Math.ceil(f.value / data?.CurrentCNYVN)
-				}
+			newFee.forEach((fee) => {
+				fee.value.forEach((f) => {
+					if (convertNDT.match(f.key)) {
+						f.value = Math.ceil(f.value / data?.CurrentCNYVN)
+					}
+				})
 			})
-		})
 
-		setRenderFee(newFee)
+			setRenderFee(newFee)
+		} else {
+			const newFee = templateFee.map((item) => {
+				item?.value.forEach((v) => {
+					if (v?.key === 'FeeSupports') {
+						v.value = data?.[v.key].reduce((acc, cur) => (acc += cur?.SupportInfoVND), 0)
+					} else {
+						v.value = data?.[v.key]
+					}
+				})
+				return item
+			})
+
+			newFee.forEach((fee) => {
+				fee.value.forEach((f) => {
+					if (convertNDT.match(f.key)) {
+						f.value = Math.ceil(f.value / data?.CurrentCNYVN)
+					}
+				})
+			})
+
+			setRenderFee(newFee)
+		}
 	}, [data])
 
 	return (

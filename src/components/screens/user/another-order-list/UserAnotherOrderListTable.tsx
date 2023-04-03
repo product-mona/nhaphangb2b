@@ -107,36 +107,34 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 							}}
 							className="justify-end flex-wrap"
 						>
-							{Number(q) !== 3 && (
+							{record?.Status === 102 && (
 								<ActionButton
-									onClick={() =>
+									onClick={() => {
 										Modal.confirm({
-											title: 'Xác nhận muốn mua lại đơn hàng này?',
+											title: 'Gửi yêu cầu báo cọc',
 											onOk: () => {
-												const id = toast.loading('Đang thêm ...')
-												orderShopTemp
-													.addSame({ Id: record?.Id })
-													.then((res) => {
-														toast.update(id, {
-															render: 'Thêm đơn thành công, vui lòng kiểm tra giỏ hàng!',
-															type: 'success',
-															autoClose: 1000,
-															closeOnClick: true,
-															isLoading: false
-														})
-													})
-													.catch((error) => {
-														toast.update(id, {
-															render: 'Thêm đơn thất bại!',
-															type: 'error',
-															isLoading: false
-														})
-													})
+												const id = toast.loading('"Đang xử lý ...')
+												mutationRequestDeposit.mutateAsync(
+													{
+														Id: record.Id
+													},
+													{
+														onSuccess: (res) => {
+															toast.update(id, {
+																render: 'Báo giá | báo cọc thành công!',
+																autoClose: 0,
+																isLoading: false,
+																type: 'success'
+															})
+														}
+													}
+												)
 											}
 										})
-									}
-									icon="fas fa-cart-arrow-down"
-									title="Mua lại đơn hàng này"
+									}}
+									icon="fas fa-comment-alt-dollar"
+									title="Yêu cầu báo cọc"
+									btnRed
 								/>
 							)}
 							<Link
@@ -218,36 +216,6 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 							}}
 							className="justify-end flex-wrap"
 						>
-							{/* <ActionButton
-								onClick={() =>
-									Modal.confirm({
-										title: 'Xác nhận muốn mua lại đơn hàng này?',
-										onOk: () => {
-											const id = toast.loading('Đang thêm ...')
-											orderShopTemp
-												.addSame({ Id: record?.Id })
-												.then((res) => {
-													toast.update(id, {
-														render: 'Thêm đơn thành công, vui lòng kiểm tra giỏ hàng!',
-														type: 'success',
-														autoClose: 1000,
-														closeOnClick: true,
-														isLoading: false
-													})
-												})
-												.catch((error) => {
-													toast.update(id, {
-														render: 'Thêm đơn thất bại!',
-														type: 'error',
-														isLoading: false
-													})
-												})
-										}
-									})
-								}
-								icon="fas fa-cart-arrow-down"
-								title="Mua lại đơn hàng này"
-							/> */}
 							<Link
 								href={{
 									pathname: '/user/order-list/detail',
