@@ -203,7 +203,7 @@ const Index: TNextPageWithLayout = () => {
 
 	return (
 		<React.Fragment>
-			<div className="titlePageUser">{query?.q === '3' ? 'Danh sách đơn mua hộ khác' : 'Danh sách đơn mua hộ'}</div>
+			<div className="titlePageUser">{query?.q === '3' ? 'Danh sách đơn dịch vụ' : 'Danh sách đơn trọn gói'}</div>
 			<div className="tableBox py-2">
 				<UserAnotherOrderInfo numberOfOrder={orderStatus} moneyOfOrders={moneyOfOrders} />
 				<div className="">

@@ -11,7 +11,8 @@ import {
 	OrderOverView,
 	UserLayout,
 	OrderIDShopList,
-	showToast
+	showToast,
+	SecondOrderIDProductList
 } from '~/components'
 import { SEOConfigs } from '~/configs/SEOConfigs'
 import { TNextPageWithLayout } from '~/types/layout'
@@ -55,7 +56,14 @@ const Index: TNextPageWithLayout = () => {
 				})
 			})
 	}
-
+	const renderDetailOrder = () => {
+		// shop list for OrderType = 1 or product for orderTpye =3
+		if (data?.Data.OrderType == 3) {
+			return <SecondOrderIDProductList dataOrder={data?.Data} data={data?.Data?.Orders || []} />
+		} else if (data?.Data.OrderType == 4) {
+			return <OrderIDShopList dataOrder={data?.Data} orderShopList={data?.Data.SubMainOrders || []} />
+		} else return null
+	}
 	return (
 		<React.Fragment>
 			<div className="titlePageUser">
@@ -72,7 +80,7 @@ const Index: TNextPageWithLayout = () => {
 						<OrderIDDetail data2={data?.Data?.Orders} dataAll={data?.Data} data={data?.Data?.FeeSupports} />
 					</div>
 				</div>
-				<OrderIDShopList dataOrder={data?.Data} orderShopList={data?.Data.SubMainOrders || []} />
+				<div className="mt-4">{renderDetailOrder()}</div>
 				<OrderIDPaymentHistory data={data?.Data?.PayOrderHistories} />
 				{data && <MessageControlUser clientId={data.Data.UID} mainOrderId={+query?.id} />}
 			</div>
