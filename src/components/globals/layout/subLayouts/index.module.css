@@ -285,9 +285,7 @@
     display: none;
   }
 }
-.link {
-  /* position: relative; */
-}
+
 .borderTopLeft {
     position: absolute;
 		height: 16px;
