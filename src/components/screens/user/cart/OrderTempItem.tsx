@@ -2,7 +2,7 @@ import { InputNumber, Tooltip } from 'antd'
 import { useFormContext } from 'react-hook-form'
 import Link from 'next/link'
 import React from 'react'
-import { ActionButton, FormInput, FormInputNumber, TableMoneyField, TableTextField } from '~/components'
+import { ActionButton, FormInput, FormInputNumber, TableMoneyField, TableTextAreaField, TableTextField } from '~/components'
 import { _format } from '~/utils'
 
 type TProps = {
@@ -55,7 +55,7 @@ export const OrderTempItem: React.FC<TProps> = ({ index, orderTempData, updatePr
 						/>
 					</div>
 				</div>
-				<div className="flex xl:w-7/12 items-center">
+				<div className="flex xl:w-7/12 items-center pr-2">
 					<div className="flex">
 						<div className="self-stretch flex items-center">
 							<div className="w-[20px] h-[20px] text-center rounded-[5px] border border-[#0c5963] flex items-center justify-center">
@@ -70,15 +70,20 @@ export const OrderTempItem: React.FC<TProps> = ({ index, orderTempData, updatePr
 							</Link>
 						</div>
 					</div>
-					<div className="ml-2">
-						<div className="flex flex-wrap items-end">
-							<span className="text-sm mr-4 text-[#484747] font-semibold">* Thuộc tính:</span>
+					<div className="ml-2 w-full">
+						<div className="flex flex-wrap items-end mb-[6px]">
+							<span className="text-sm mr-4 text-[#484747] font-semibold">Thuộc tính:</span>
 							<span>{orderTempData?.Property}</span>
 						</div>
-						<div className="flex flex-wrap items-end">
-							<span className="text-sm mr-4 text-[#484747] font-semibold">* Ghi chú:</span>
-							<div>
-								<TableTextField size="small" control={control} name={`OrderTemps.${index}.Brand`} />
+						<div className="flex flex-wrap items-start">
+							<span className="text-sm mr-4 text-[#484747] font-semibold">Ghi chú:</span>
+							<div className="flex-1">
+								<TableTextAreaField
+									autoSize={{ minRows: 1, maxRows: 3 }}
+									size="small"
+									control={control}
+									name={`OrderTemps.${index}.Brand`}
+								/>
 							</div>
 							{/* <input
 								type="text"
@@ -92,11 +97,11 @@ export const OrderTempItem: React.FC<TProps> = ({ index, orderTempData, updatePr
 				<div className="xl:w-5/12 flex items-center">
 					<div className="grid grid-cols-1 xl:!grid-cols-2">
 						<div className="col-span-1 lg:!col-span-1 xl:block flex justify-between ml-2 mb-2 xl:mb-0">
-							<div className="text-[10px] py-[2px] uppercase font-bold">Số lượng (cái)</div>
+							<div className="text-[10px] py-[2px] uppercase font-bold mb-[5px]">Số lượng (cái)</div>
 							<TableMoneyField control={control} name={`OrderTemps.${index}.Quantity`} />
 						</div>
 						<div className="col-span-1 lg:!col-span-1 xl:block flex justify-between ml-2 mb-2 xl:mb-0">
-							<div className="text-[10px] py-[2px] uppercase font-bold">Đơn giá (¥)</div>
+							<div className="text-[10px] py-[2px] uppercase font-bold mb-[5px]">Đơn giá (¥)</div>
 							<div className="text-orange">
 								<div className="text-sm text-center">
 									<InputNumber size="middle" disabled={true} value={priceCNY} />

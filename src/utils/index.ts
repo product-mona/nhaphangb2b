@@ -108,11 +108,22 @@ class Format {
 	}
 
 	// format tiền việt nam
-	getVND = (price: number, suffix: string = ' VNĐ') => {
-		if (Number.isInteger(price)) {
-			return (price?.toString() || '0').replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix
+	getVND = (price: number | string | null, suffix: string = ' VNĐ') => {
+		if (price == '' || price == undefined || price == null) {
+			return '0' + suffix
 		}
-		return price + suffix
+		let b = +price * 100
+		let c = Math.round(b)
+		let d = c / 100
+		price = `${d}`
+		let x = price.split('.')
+		let x1 = x[0]
+		let x2 = x.length > 1 ? '.' + x[1] : ''
+		let rgx = /(\d+)(\d{3})/
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + ',' + '$2')
+		}
+		return x1 + x2 + suffix
 	}
 
 	// format phần trăm

@@ -54,7 +54,7 @@ export const CardAmount = ({
 							<div className="!text-main !text-base mr-4 flex tracking-wide font-semibold">
 								<span className="mt-[2px] flex items-center">Tổng tiền</span>
 							</div>
-							<span className="text-xl text-orange">{_format.getVND(totalSelectPrice, ' ')}</span>
+							<span className="text-xl text-orange">{_format.getVND(5123.2333, '')}</span>
 						</div>
 						<div className="flex ml-auto justify-between">
 							<IconButton
@@ -143,9 +143,11 @@ export const CardAmount = ({
 						<div className="box !flex-row justify-between !m-0 w-full">
 							<span className="font-bold text-[24px] text-[#f78440]">
 								{_format.getVND(
-									currentCart?.reduce((acc, cur) => {
-										return (acc = acc + cur?.PriceVND)
-									}, 0),
+									currentCart
+										?.reduce((acc, cur) => {
+											return (acc = acc + cur?.PriceVND)
+										}, 0)
+										.toFixed(2),
 									' '
 								)}
 							</span>
