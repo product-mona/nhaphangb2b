@@ -12,6 +12,7 @@ import { PopupNoti } from '~/components/screens/home/popupNoti'
 import { SEOConfigs } from '~/configs/SEOConfigs'
 import { CustomizeOnlyForB2b } from '~/components/screens/home/CustomizeOnlyForB2b'
 import { TNextPageWithLayout } from '~/types/layout'
+import { FacebookMessenger } from '~/utils'
 
 const Index: TNextPageWithLayout = () => {
 	const { data: dataConfig } = useQuery({
@@ -60,6 +61,7 @@ const Index: TNextPageWithLayout = () => {
 
 	return (
 		<>
+			<FacebookMessenger />
 			<MetaTags dataConfig={dataConfig} />
 			<div className="fontFamilyRoboto">
 				<div className="col-span-2 homePage">

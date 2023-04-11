@@ -8,6 +8,7 @@ export * from './onCalTotalNumber'
 export * from './ToastError'
 export * from './numberWithCommas'
 export * from './dom'
+export * from './FacebookMessenger'
 
 class Format {
 	// format date

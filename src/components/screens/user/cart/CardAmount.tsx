@@ -50,11 +50,11 @@ export const CardAmount = ({
 						</Checkbox>
 					</div>
 					<div className="col-span-1 !w-full">
-						<div className="flex justify-between pb-4 items-center">
-							<div className="!text-main !text-base mr-4 flex tracking-wide font-semibold">
-								<span className="mt-[2px] flex items-center">Tổng tiền</span>
+						<div className="flex flex-col mb-3 justify-between items-end">
+							<div className="!text-[#7a7a7a] mb-[2px] !text-base flex tracking-wide font-semibold">
+								<span className="flex items-center">Tổng tiền shop đã chọn (VNĐ):</span>
 							</div>
-							<span className="text-xl text-orange">{_format.getVND(5123.2333, '')}</span>
+							<span className="text-[24px] text-orange">{_format.getVND(totalSelectPrice, ' ')}</span>
 						</div>
 						<div className="flex ml-auto justify-between">
 							<IconButton
@@ -141,7 +141,7 @@ export const CardAmount = ({
 				<div className="statistic tableBox !max-w-none md:w-[calc(4/12*100%)] xl:w-full md:!mb-4">
 					<div className="box !flex-row justify-between !m-0 w-full">
 						<div className="box !flex-row justify-between !m-0 w-full">
-							<span className="font-bold text-[24px] text-[#f78440]">
+							<span className="font-bold text-[24px] text-main">
 								{_format.getVND(
 									currentCart
 										?.reduce((acc, cur) => {
@@ -151,12 +151,12 @@ export const CardAmount = ({
 									' '
 								)}
 							</span>
-							<div className="iconBox !bg-[#f78440] !mb-0">
+							<div className="iconBox !bg-main !mb-0">
 								<i className="fas fa-dollar-sign icon"></i>
 							</div>
 						</div>
 						<span className="font-bold uppercase text-[12px] text-[#7a7a7a] mt-4">
-							<span className="">Tổng tiền</span>
+							<span className="">Tổng tiền tất cả(VNĐ)</span>
 						</span>
 					</div>
 				</div>
