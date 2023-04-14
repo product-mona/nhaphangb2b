@@ -1,0 +1,21 @@
+.UploadBox {
+    /* @apply bg-[#26c5351a] py-4 px-8 flex flex-col items-center justify-center rounded-[20px] pointer; */
+  
+    border: 1.6px solid #008d4b5a;
+    background-color: #f2f9f4;
+    padding:  16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.RenderBox {
+    border: 1.6px solid #008d4b5a;
+    border-radius: 4px;
+    @apply bg-white;
+    width:50%;
+    padding: 8px;
+    /* min-wi */
+}

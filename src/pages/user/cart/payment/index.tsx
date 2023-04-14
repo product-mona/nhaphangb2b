@@ -127,7 +127,6 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 				IsAgreement,
 				ShopPayments: ShopPayments.map((x) => x.ShopId)
 			}
-			console.log(fmData)
 			mutationPayment
 				.mutateAsync(fmData)
 				.then(() => {

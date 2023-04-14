@@ -68,9 +68,6 @@ const Index: TNextPageWithLayout = () => {
 					<HomeBanner data={dataConfig} />
 					<HomeServices data={dataService} />
 					<HomeBenefit data={dataBenefits?.filter((item) => item.ItemType === 2)} />
-					{/* <Choosen data={dataBenefits?.filter((item) => item.ItemType === 1)} /> */}
-					{/* <Experience /> */}
-					{/* <Customer /> */}
 					<CustomizeOnlyForB2b />
 					<HomeRegister data={dataRegisterSteps} />
 					<Partner />

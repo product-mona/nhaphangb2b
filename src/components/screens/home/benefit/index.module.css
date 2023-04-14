@@ -3,7 +3,7 @@
   background-image: url(/benefit.png);
   background-size: cover;
   background-repeat: no-repeat;
-  @apply !py-[30px] sm:!py-[40px] lg:!py-[60px]
+  @apply !py-[30px] sm:!py-[40px] lg:!py-[60px];
 }
 
 .innerBenefit {
