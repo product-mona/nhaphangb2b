@@ -18,18 +18,3 @@ export const useShippingTypeToWarehouse = () => {
 		}
 	)
 }
-
-// const { data: shippingTypeToWarehouse } = useQuery(
-//     ["shippingType"],
-//     () =>
-//       shipping
-//         .getList({
-//           PageSize: 9999,
-//           PageIndex: 1,
-//         })
-//         .then((res) => res.Data.Items),
-//     {
-//       enabled: !!ids,
-//       refetchOnWindowFocus: false,
-//     }
-//   );

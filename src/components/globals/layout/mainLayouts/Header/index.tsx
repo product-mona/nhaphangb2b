@@ -248,7 +248,7 @@ const Header: React.FC<TProps> = ({ hover, handleTabbar, handleHover, userPage }
 											Thông tin của bạn
 										</a>
 									</li>
-									<li className={`${styles.item} ${styles.link}`}>
+									<li className={`${styles.item} ${styles.link} hover:!bg-red`}>
 										<button
 											className={styles.link}
 											onClick={async () => {

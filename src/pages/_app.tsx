@@ -27,6 +27,8 @@ import '~/assets/css/main.scss'
 import '../../styles/globals.css'
 import '../../styles/styles.css'
 import '../assets/fontawesome/css/all.min.css'
+//
+import { FacebookMessenger } from '~/utils'
 // signalR
 import BlankLayout from '~/components/globals/layout/blankLayouts'
 import { ConfigProvider } from 'antd'

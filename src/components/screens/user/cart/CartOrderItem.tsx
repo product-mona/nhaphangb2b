@@ -30,7 +30,13 @@ const TopContainer = ({ checked, toggleShopId, cart, onHandleShop, loading, disa
 				<div className="">
 					{/* {checked && <div className="mb-3 text-xs font-semibold tracking-wide">Bạn đã chọn đơn hàng này!</div>} */}
 					<Tooltip title="Chọn đặt đơn hàng này">
-						<Checkbox onChange={() => toggleShopId(cart?.Id)} checked={checked}>
+						<Checkbox
+							onChange={(e) => {
+								e.stopPropagation()
+								toggleShopId(cart?.Id)
+							}}
+							checked={checked}
+						>
 							<span className="text-[#fff]">
 								Tên shop: <span className="font-bold">{cart?.ShopName}</span>
 							</span>

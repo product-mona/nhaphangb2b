@@ -1,5 +1,6 @@
 import router from 'next/router'
 import { FormEditor, FormInput, FormInputNumber, FormSelect, FormSwitch, FormTextarea, FormUpload, IconButton } from '~/components'
+import { BoxGetImageUrl } from '~/components/others'
 import { useCatalogue } from '~/hooks/useCatalogue'
 import { TControl } from '~/types/field'
 
@@ -75,6 +76,9 @@ export const ArticleListForm: React.FC<TProps> = ({ control, type, data }) => {
 					/>
 				</div>
 				<div className="col-span-4 md:mb-0 mb-4">
+					<div className="my-4">
+						<BoxGetImageUrl />
+					</div>
 					<FormEditor control={control} label="" name="PageContent" required={false} />
 				</div>
 			</div>

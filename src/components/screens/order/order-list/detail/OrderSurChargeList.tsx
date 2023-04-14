@@ -44,6 +44,7 @@ export const OrderSurChargeList: React.FC<TProps> = ({ data, loading, handleUpda
 			align: 'center',
 			render: (_, __, index) => (
 				<FormInputNumber
+					allowNegative
 					suffix=" VNĐ"
 					control={control}
 					name={`FeeSupports.${index}.SupportInfoVND` as const}

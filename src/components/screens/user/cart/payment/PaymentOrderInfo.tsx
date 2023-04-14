@@ -1,4 +1,4 @@
-import { Checkbox, Collapse, InputNumber, Tooltip } from 'antd'
+import { Checkbox, Collapse, Input, InputNumber, Tooltip } from 'antd'
 import { FormSelect } from '~/components'
 import { TControl } from '~/types/field'
 import { _format } from '~/utils'
@@ -14,7 +14,7 @@ type TProps = TControl<TUserPayment> & {
 	userPayment: any
 	index: number
 }
-
+const { TextArea } = Input
 const ItemProduct = ({ orderTemp, index, maxLength }) => {
 	//bg-[#e9eff1]
 	console.log(orderTemp)
@@ -46,19 +46,16 @@ const ItemProduct = ({ orderTemp, index, maxLength }) => {
 							</a>
 						</div>
 					</div>
-					<div className="ml-2">
-						<div className="flex flex-wrap items-end">
-							<span className="text-sm mr-4 text-[#484747] font-semibold">* Thuộc tính:</span>
+					<div className="ml-2 w-full">
+						<div className="flex flex-wrap items-end mb-[6px]">
+							<span className="text-sm mr-4 text-[#484747] font-semibold">Thuộc tính:</span>
 							<span>{orderTemp?.Property}</span>
 						</div>
-						<div className="flex flex-wrap items-end">
-							<span className="text-sm mr-4 text-[#484747] font-semibold">* Ghi chú:</span>
-							<input
-								type="text"
-								className="border-b !rounded-none border-[#0000003a] text-[#000] bg-[transparent] max-w-[140px] outline-0"
-								value={orderTemp?.Brand ?? ''}
-								disabled
-							/>
+						<div className="flex  items-start">
+							<span className="text-sm mr-4 text-[#484747] font-semibold">Ghi chú:</span>
+							<div className="flex-1">
+								<TextArea autoSize={{ minRows: 1, maxRows: 3 }} value={orderTemp?.Brand ?? ''} placeholder="" />
+							</div>
 						</div>
 					</div>
 				</div>

@@ -173,7 +173,8 @@
 }
 
 .dropdown ul li:hover {
-  background-color: #0c5963;
+  @apply bg-main
+
 }
 
 .dropdown ul li:hover a,
