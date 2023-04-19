@@ -62,9 +62,9 @@ const Index: TNextPageWithLayout = () => {
 		}
 	)
 
-	const handleExportExcel = () => {
+	const handleExportExcel = (storeIndex: 0 | 1, IsCurrencyCNY: boolean) => {
 		reportMainOrder
-			.exportProfit({ Status: 5, ...filter, PageSize: 99999 })
+			.exportProfit({ Status: 5, ...filter, PageSize: 99999, storeIndex, IsCurrencyCNY })
 			.then((res) => {
 				router.push(res?.Data)
 			})

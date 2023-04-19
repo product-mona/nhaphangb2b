@@ -1,0 +1,14 @@
+.boxRadio {
+    border: 1px solid #eaeaea;
+
+}
+.boxRadioTitle {
+    padding: 10px;
+    border-bottom: 1px solid #eaeaea;
+    
+}
+.boxRadioTitle p {
+    color: #1d1d1d;
+    font-size: 16px;
+    font-weight: 400;
+}
