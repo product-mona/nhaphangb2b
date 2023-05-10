@@ -19,7 +19,7 @@ export const TheMostBalance = () => {
 				.getList({
 					PageIndex: 1,
 					PageSize: 10,
-					OrderBy: 'Wallet desc',
+					OrderBy: 'SumAmount desc',
 					UserGroupId: 2
 				})
 				.then((res) => res.Data.Items),
@@ -105,7 +105,7 @@ export const TheMostBalance = () => {
 					data,
 					loading: isFetching,
 					style: 'secondary',
-					title: 'Khách hàng thanh toán nhiều nhất'
+					title: 'Khách hàng nạp tiền nhiều nhất'
 					// expandable: expandable,
 				}}
 			/>
