@@ -1,5 +1,5 @@
 import { CaretRightOutlined } from '@ant-design/icons'
-import { Collapse, Spin } from 'antd'
+import { Badge, Button, Collapse, Spin, Tooltip } from 'antd'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -7,6 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { useMutation, useQuery } from 'react-query'
 import { mainOrder } from '~/api'
 import {
+	IconButton,
 	Layout,
 	MessageControlManager,
 	OrderCode,
@@ -23,6 +24,7 @@ import {
 	toast
 } from '~/components'
 import { MyBreadcrumb } from '~/components/others'
+import { FeedbacksOrderModal } from '~/components/screens/Modal'
 
 import { SEOConfigs } from '~/configs/SEOConfigs'
 import { useCatalogue } from '~/hooks'
@@ -41,7 +43,10 @@ const Index: TNextPageWithLayout = () => {
 	const orderId = Number(router.query.id)
 
 	const [active, setActive] = React.useState(0)
+
 	const editExchangeController = useDisclosure()
+	const feedbackController = useDisclosure()
+
 	const connection = useAppSelector(selectConnection)
 	const connectionId = connection?.connectionId
 
@@ -250,16 +255,25 @@ const Index: TNextPageWithLayout = () => {
 							</Collapse>
 						</div>
 					</div>
-					{/* <EditExchangeModal
-					onClose={editExchangeController.onClose}
-					isOpen={editExchangeController.isOpen}
-					SubMainOrders={data?.Data?.SubMainOrders || []}
-				/> */}
 				</FormProvider>
 			</Spin>
 			{data && <MessageControlManager clientId={data.Data.UID} mainOrderId={+query?.id} />}
 
-			<div></div>
+			<div className="fixed right-5 z-10 top-[160px]">
+				<Tooltip title="Phản hồi/ghi chú">
+					<button type="button" onClick={feedbackController.onOpen}>
+						<i className="fas fa-comment-edit text-[#fff]  bg-[#1890ff] text-xl py-[14px] px-[14px] rounded-3xl shadow-xl"></i>
+					</button>
+				</Tooltip>
+			</div>
+			<div>
+				<FeedbacksOrderModal
+					orderId={orderId}
+					orderIdCustom={data?.Data.MainOrderCustomID || ''}
+					isOpen={feedbackController.isOpen}
+					onClose={feedbackController.onClose}
+				/>
+			</div>
 		</div>
 	)
 }
