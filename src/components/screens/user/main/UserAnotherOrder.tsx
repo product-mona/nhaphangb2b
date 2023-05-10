@@ -33,8 +33,16 @@ export const UserAnotherOrder = ({ data, isLoading, isFetching, pagination }) =>
 			render: (record) => _format.getVND(record, '')
 		},
 		{
-			title: 'Công nợ đơn hàng',
 			dataIndex: 'Deposit',
+			title: 'Tổng tiền đã thanh toán',
+			align: 'right',
+			width: 200,
+			responsive: ['lg'],
+			render: (price) => _format.getVND(price, ' ')
+		},
+		{
+			title: 'Công nợ đơn hàng',
+			dataIndex: 'Id',
 			responsive: ['lg'],
 			align: 'right',
 			render: (deposit, record) => _format.getVND(record.TotalPriceVND - record.Deposit, ' ')

@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import { cloneDeep } from 'lodash'
 import Link from 'next/link'
 import router, { useRouter } from 'next/router'
-import React, { FC, useCallback, useState } from 'react'
+import React, { FC, useCallback, useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { toast } from 'react-toastify'
 import { mainOrder } from '~/api'
@@ -25,6 +25,9 @@ const Sidebar: FC<TProps> = ({ handleHover, hover, tabbar }) => {
 	const connection = useAppSelector(selectConnection)
 	let menuRouter = useAppSelector(selectRouter)
 	const [renderMenuRouter, setRenderMenuRouter] = useState(menuRouter)
+	useEffect(() => {
+		console.log(menuRouter)
+	}, [menuRouter])
 	const { route } = useRouter()
 	const [dropdown, setDropdown] = useState('')
 	const handleDropdown = useCallback((name: string) => setDropdown((dropdown) => (dropdown != name ? name : '')), [])

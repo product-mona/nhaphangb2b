@@ -76,6 +76,14 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 		},
 		{
 			dataIndex: 'Deposit',
+			title: 'Tổng tiền đã thanh toán',
+			align: 'right',
+			width: 200,
+			responsive: ['lg'],
+			render: (price) => _format.getVND(price, ' ')
+		},
+		{
+			dataIndex: 'Id',
 			title: 'Công nợ đơn hàng',
 			// width: 150,
 			align: 'right',
@@ -90,7 +98,7 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 				const color = orderStatus.find((x) => x.id === status)
 				return <Tag color={color?.color}>{record?.StatusName}</Tag>
 			},
-			// width: 140,
+			width: 140,
 			responsive: ['xl']
 		},
 		{
