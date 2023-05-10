@@ -2,16 +2,14 @@ import { Tag } from 'antd'
 import React, { FC } from 'react'
 import { DataTable, IconButton } from '~/components'
 import { orderStatus } from '~/configs'
+import { useDisclosure } from '~/modules/core/hooks'
 import { TColumnsType, TTable } from '~/types/table'
 import { _format } from '~/utils'
+import { SelectTypeToExportExcelModal } from '../../Modal'
 
-const PurchaseProfitTable: FC<TTable<TStatisticalPurchaseProfit> & { handleExportExcel: () => void }> = ({
-	data,
-	pagination,
-	handlePagination,
-	loading,
-	handleExportExcel
-}) => {
+const PurchaseProfitTable: FC<
+	TTable<TStatisticalPurchaseProfit> & { handleExportExcel: (storeIndex: 0 | 1, isCurrencyCNY: boolean) => void }
+> = ({ data, pagination, handlePagination, loading, handleExportExcel }) => {
 	const columns: TColumnsType<TStatisticalPurchaseProfit> = [
 		{
 			dataIndex: 'Id',
@@ -225,12 +223,23 @@ const PurchaseProfitTable: FC<TTable<TStatisticalPurchaseProfit> & { handleExpor
 	// 		</ul>
 	// 	),
 	// };
-
+	const exportExcelController = useDisclosure()
 	return (
 		<React.Fragment>
 			<div className="w-full text-right">
-				<IconButton onClick={handleExportExcel} icon="fas fa-file-export" title="Xuất thống kê" showLoading btnClass="mb-4" />
+				<IconButton
+					onClick={exportExcelController.onOpen}
+					icon="fas fa-file-export"
+					title="Xuất thống kê"
+					showLoading
+					btnClass="mb-4"
+				/>
 			</div>
+			<SelectTypeToExportExcelModal
+				onExport={handleExportExcel}
+				onClose={exportExcelController.onClose}
+				isOpen={exportExcelController.isOpen}
+			/>
 			<DataTable
 				{...{
 					columns,

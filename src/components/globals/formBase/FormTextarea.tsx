@@ -1,4 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message'
+
+import { TextAreaProps } from 'antd/lib/input'
 import { Input } from 'antd'
 import clsx from 'clsx'
 import _ from 'lodash'
@@ -30,9 +32,9 @@ export const FormTextarea = <TFieldValues extends FieldValues = FieldValues>({
 	disabled = false,
 	hideError = false,
 	inputClassName,
-
-	onEnter
-}: TProps<TFieldValues>) => {
+	onEnter,
+	...rest
+}: TProps<TFieldValues> & Omit<TextAreaProps, 'onKeyPress' | keyof TProps<TFieldValues>>) => {
 	return (
 		<div className="w-full relative">
 			{label && (
@@ -55,6 +57,7 @@ export const FormTextarea = <TFieldValues extends FieldValues = FieldValues>({
 									onEnter?.()
 								}
 							}}
+							{...rest}
 							{...newField}
 							className={clsx(
 								disabled && 'cursor-not-allowed !border-[#dedede] !bg-[#f5f5f5] hover:!border-[#d9d9d9]',

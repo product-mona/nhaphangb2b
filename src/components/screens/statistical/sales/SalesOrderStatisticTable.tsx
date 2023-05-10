@@ -1,9 +1,11 @@
-import { Tag } from 'antd'
+import { Modal, Tag } from 'antd'
 import React from 'react'
 import { DataTable, IconButton } from '~/components'
 import { orderStatus } from '~/configs'
+import { useDisclosure } from '~/modules/core/hooks'
 import { TColumnsType } from '~/types/table'
 import { _format } from '~/utils/index'
+import { SelectTypeToExportExcelModal } from '../../Modal'
 
 export const SalesOrderStatisticTable = ({ loading, pagination, handlePagination, data, exportExcel, RoleID }) => {
 	const columns: TColumnsType<TStatisticalOrder> = [
@@ -175,6 +177,7 @@ export const SalesOrderStatisticTable = ({ loading, pagination, handlePagination
 		)
 	}
 
+	const exportExcelController = useDisclosure()
 	return (
 		<React.Fragment>
 			<div className="lg:flex items-end mb-4 justify-between">
@@ -182,13 +185,21 @@ export const SalesOrderStatisticTable = ({ loading, pagination, handlePagination
 				{(RoleID === 1 || RoleID === 3) && (
 					<IconButton
 						title="Xuất Thống Kê"
-						onClick={exportExcel}
+						onClick={() => {
+							exportExcelController.onOpen()
+							// exportExcel()
+						}}
 						btnClass={'lg:mx-4'}
 						icon="fas fa-file-export"
 						btnIconClass="!mr-2"
 						showLoading
 					/>
 				)}
+				<SelectTypeToExportExcelModal
+					onExport={exportExcel}
+					isOpen={exportExcelController.isOpen}
+					onClose={exportExcelController.onClose}
+				/>
 			</div>
 			<DataTable
 				{...{

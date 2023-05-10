@@ -95,8 +95,8 @@ export const RegisterForm = ({ visible, setOpenModal }) => {
 														return 'Tên đăng nhập không chưa ký tự đặt biệt!'
 													}
 
-													if (value.length < 8) {
-														return 'Tên đăng nhập phải lớn hơn hoặc bằng 8 ký tự'
+													if (value.length !== 8) {
+														return 'Tên đăng nhập phải bằng 8 ký tự và có ít nhất 2 chữ số'
 													}
 
 													if (value.trim().includes(' ')) {
