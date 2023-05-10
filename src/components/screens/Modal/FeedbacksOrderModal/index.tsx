@@ -16,8 +16,9 @@ type FCProps = {
 	onClose: () => void
 	orderId?: number
 	orderIdCustom: string
+	Uid: number
 }
-export const FeedbacksOrderModal: FC<FCProps> = ({ isOpen, onClose, orderId, orderIdCustom }) => {
+export const FeedbacksOrderModal: FC<FCProps> = ({ isOpen, onClose, orderId, orderIdCustom, Uid }) => {
 	return (
 		<Modal
 			visible={isOpen}
@@ -28,12 +29,12 @@ export const FeedbacksOrderModal: FC<FCProps> = ({ isOpen, onClose, orderId, ord
 			maskStyle={{ backgroundColor: 'rgba(252, 252, 252, 50%)' }}
 			width={1000}
 		>
-			<FeedbacksOrderForm isOpen={isOpen} onClose={onClose} orderId={orderId} orderIdCustom={orderIdCustom} />
+			<FeedbacksOrderForm Uid={Uid} isOpen={isOpen} onClose={onClose} orderId={orderId} orderIdCustom={orderIdCustom} />
 		</Modal>
 	)
 }
 
-const FeedbacksOrderForm: FC<FCProps> = ({ orderId, onClose, orderIdCustom }) => {
+const FeedbacksOrderForm: FC<FCProps> = ({ Uid, orderId, onClose, orderIdCustom }) => {
 	const { data, isError, isLoading, isFetching, refetch } = useQuery(
 		['FeedbacksOrderForm', orderId],
 		() => {
@@ -75,6 +76,7 @@ const FeedbacksOrderForm: FC<FCProps> = ({ orderId, onClose, orderIdCustom }) =>
 		defaultValues: {
 			isUserNote: true,
 			mainOrderID: orderId,
+			uid: Uid,
 			mainOrderIDCustom: orderIdCustom,
 			note: ''
 		}
@@ -91,9 +93,7 @@ const FeedbacksOrderForm: FC<FCProps> = ({ orderId, onClose, orderIdCustom }) =>
 		}
 	})
 	const onSubmit = (data: any) => {
-		console.log(data)
 		mutationCreate.mutateAsync(data)
-		// onClose()
 	}
 	return (
 		<div>

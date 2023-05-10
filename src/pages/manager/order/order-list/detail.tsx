@@ -268,6 +268,7 @@ const Index: TNextPageWithLayout = () => {
 			</div>
 			<div>
 				<FeedbacksOrderModal
+					Uid={data?.Data.UID}
 					orderId={orderId}
 					orderIdCustom={data?.Data.MainOrderCustomID || ''}
 					isOpen={feedbackController.isOpen}
