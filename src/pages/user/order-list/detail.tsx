@@ -1,4 +1,4 @@
-import { Tooltip } from 'antd'
+import { Badge, Tooltip } from 'antd'
 import router, { useRouter } from 'next/router'
 import React from 'react'
 import { useQuery } from 'react-query'
@@ -91,9 +91,15 @@ const Index: TNextPageWithLayout = () => {
 			</div>
 			<div className="fixed right-5 z-[9999] top-[160px]">
 				<Tooltip title="Phản hồi/ghi chú">
-					<button type="button" onClick={feedbackController.onOpen}>
-						<i className="fas fa-comment-edit text-[#fff]  bg-[#1890ff] text-xl py-[14px] px-[14px] rounded-3xl shadow-xl"></i>
-					</button>
+					<span className="relative inline-flex">
+						<button
+							className="wobble-hor-bottom flex items-center justify-center  bg-[#0A7CFF] h-[56px] w-[56px] rounded-full "
+							type="button"
+							onClick={feedbackController.onOpen}
+						>
+							<i className="fas fa-comment-alt-lines text-[#fff]   text-[24px] "></i>
+						</button>
+					</span>
 				</Tooltip>
 			</div>
 			<div>

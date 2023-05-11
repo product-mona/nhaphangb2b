@@ -1,4 +1,4 @@
-import { Modal } from 'antd'
+import { Input, Modal } from 'antd'
 import { FC } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { FormProvider, useForm, Controller } from 'react-hook-form'
@@ -68,7 +68,21 @@ const FeedbacksOrderForm: FC<FCProps> = ({ Uid, orderId, onClose, orderIdCustom 
 		},
 		{
 			dataIndex: 'Note',
-			title: 'Nội dung'
+			title: 'Nội dung',
+			render: (note) => (
+				<Input.TextArea
+					style={{
+						padding: 0,
+						background: 'transparent',
+						border: 'none',
+						boxShadow: 'none'
+					}}
+					defaultValue={note || ''}
+					placeholder=""
+					autoSize
+					readOnly
+				/>
+			)
 		}
 	]
 
