@@ -1,7 +1,5 @@
-import React from 'react'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
+import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { _format } from '~/utils'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -20,39 +18,29 @@ export const SalesMoneyStatisticChart = ({ type, dataChart }) => {
 		type === 'sum'
 			? [
 					{
-						label: 'Đã mua',
-						data: [dataChart[1]?.Total],
+						label: 'Đã đặt cọc',
+						data: [dataChart[9]?.Total],
 						backgroundColor: '#CD6155'
 					},
 					{
-						label: 'Hoàn thành',
-						data: [dataChart[7]?.Total],
+						label: 'Đã mua hàng',
+						data: [dataChart[10]?.Total],
 						backgroundColor: '#AF7AC5'
 					},
 					{
-						label: 'Đặt cọc - hoàn thành',
-						data: [dataChart[8]?.Total],
+						label: 'Đã về kho TQ',
+						data: [dataChart[11]?.Total],
 						backgroundColor: '#5499C7'
 					},
 					{
-						label: 'Tiền cọc',
-						data: [dataChart[9]?.Total],
+						label: 'Đã về kho VN',
+						data: [dataChart[12]?.Total],
 						backgroundColor: '#45B39D'
 					},
 					{
-						label: 'Chưa thanh toán',
-						data: [dataChart[10]?.Total],
+						label: 'Đã hoàn thành',
+						data: [dataChart[13]?.Total],
 						backgroundColor: '#616A6B'
-					},
-					{
-						label: 'Đơn hoả tốc',
-						data: [dataChart?.Total],
-						backgroundColor: '#D35400'
-					},
-					{
-						label: 'Ship',
-						data: [dataChart[11]?.Total],
-						backgroundColor: '#5499C7'
 					}
 			  ]
 			: [
@@ -90,6 +78,11 @@ export const SalesMoneyStatisticChart = ({ type, dataChart }) => {
 						label: 'Tiền phí bảo hiểm',
 						data: [dataChart[6]?.NotPay, dataChart[6]?.Pay],
 						backgroundColor: 'blue'
+					},
+					{
+						label: 'Phụ phí',
+						data: [dataChart[8]?.NotPay, dataChart[8]?.Pay],
+						backgroundColor: 'red'
 					}
 			  ]
 

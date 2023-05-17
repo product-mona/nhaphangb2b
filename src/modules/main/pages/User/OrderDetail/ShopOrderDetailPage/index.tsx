@@ -44,7 +44,7 @@ export const ShopOrderDetailPage: TNextPageWithLayout = () => {
 				{/* <OrderIDProductList data={data?.Data?.Orders} /> */}
 
 				{/* <OrderIDPaymentHistory data={data?.Data?.PayOrderHistories} /> */}
-				{data && <MessageControlUser clientId={data.Data.UID} mainOrderId={+query?.id} />}
+				{/* {data && <MessageControlUser clientId={data.Data.UID} mainOrderId={+query?.id} />} */}
 			</div>
 		</React.Fragment>
 	)

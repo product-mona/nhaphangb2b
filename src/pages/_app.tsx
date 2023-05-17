@@ -16,8 +16,8 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, store } from '~/store'
 
 // change locale to vietnamese
-import locale from 'antd/lib/locale/vi_VN'
-import 'moment/locale/en-in'
+import viVn from 'antd/lib/locale/vi_VN'
+import 'moment/locale/vi'
 
 // add styles and icons
 import 'antd/dist/antd.less'
@@ -27,8 +27,7 @@ import '~/assets/css/main.scss'
 import '../../styles/globals.css'
 import '../../styles/styles.css'
 import '../assets/fontawesome/css/all.min.css'
-//
-import { FacebookMessenger } from '~/utils'
+
 // signalR
 import BlankLayout from '~/components/globals/layout/blankLayouts'
 import { ConfigProvider } from 'antd'
@@ -71,7 +70,7 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }: TAppPropsWit
 	return (
 		// <SessionProvider session={session}>
 		<QueryClientProvider client={queryClient}>
-			<ConfigProvider locale={locale}>
+			<ConfigProvider locale={viVn}>
 				<Provider store={store}>
 					<PersistGate loading={null} persistor={persistor}>
 						<Head>

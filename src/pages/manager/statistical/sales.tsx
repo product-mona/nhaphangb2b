@@ -1,6 +1,6 @@
 import { TablePaginationConfig } from 'antd'
 import router from 'next/router'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useQuery } from 'react-query'
 import { reportMainOrder, reportPayOrderHistory } from '~/api'
 import {
@@ -34,55 +34,59 @@ const Index: TNextPageWithLayout = () => {
 	const [paymentPagination, setPaymentPagination] = useState<TablePaginationConfig>(defaultPagination)
 	const [orderPagination, setOrderPagination] = useState<TablePaginationConfig>(defaultPagination)
 
+	const handlePagination = useCallback((data: any) => {
+		setOrderPagination(data)
+	}, [])
+
 	const resetPagination = () => {
 		setPaymentPagination(defaultPagination)
 		setOrderPagination(defaultPagination)
 	}
 
-	const {
-		data: userPaymentReportData,
-		isFetching: isFetchingPayment,
-		isLoading: isLoadingPayment
-	} = useQuery(
-		[
-			'clientPaymentReportData',
-			{
-				Current: paymentPagination.current,
-				PageSize: paymentPagination.pageSize,
-				fromDate,
-				toDate,
-				UID: newUser?.UserId,
-				RoleID: newUser?.UserGroupId
-			}
-		],
-		() =>
-			reportPayOrderHistory
-				.getList({
-					PageIndex: paymentPagination.current,
-					PageSize: paymentPagination.pageSize,
-					OrderBy: 'Id desc',
-					FromDate: fromDate,
-					ToDate: toDate,
-					UID: newUser?.UserId,
-					RoleID: newUser?.UserGroupId
-				})
-				.then((res) => res.Data),
-		{
-			onSuccess: (data) => {
-				setPaymentPagination({
-					...paymentPagination,
-					total: data?.TotalItem
-				})
-			},
-			onError: () => {
-				showToast({
-					title: 'Lỗi!',
-					message: 'Đường truyền kết nối server bị lỗi! Vui lòng thử lại!',
-					type: 'error'
-				})
-			}
-		}
-	)
+	// const {
+	// 	data: userPaymentReportData,
+	// 	isFetching: isFetchingPayment,
+	// 	isLoading: isLoadingPayment
+	// } = useQuery(
+	// 	[
+	// 		'clientPaymentReportData',
+	// 		{
+	// 			Current: paymentPagination.current,
+	// 			PageSize: paymentPagination.pageSize,
+	// 			fromDate,
+	// 			toDate,
+	// 			UID: newUser?.UserId,
+	// 			RoleID: newUser?.UserGroupId
+	// 		}
+	// 	],
+	// 	() =>
+	// 		reportPayOrderHistory
+	// 			.getList({
+	// 				PageIndex: paymentPagination.current,
+	// 				PageSize: paymentPagination.pageSize,
+	// 				OrderBy: 'Id desc',
+	// 				FromDate: fromDate,
+	// 				ToDate: toDate,
+	// 				UID: newUser?.UserId,
+	// 				RoleID: newUser?.UserGroupId
+	// 			})
+	// 			.then((res) => res.Data),
+	// 	{
+	// 		onSuccess: (data) => {
+	// 			setPaymentPagination({
+	// 				...paymentPagination,
+	// 				total: data?.TotalItem
+	// 			})
+	// 		},
+	// 		onError: () => {
+	// 			showToast({
+	// 				title: 'Lỗi!',
+	// 				message: 'Đường truyền kết nối server bị lỗi! Vui lòng thử lại!',
+	// 				type: 'error'
+	// 			})
+	// 		}
+	// 	}
+	// )
 
 	const {
 		data: userOrderReportData,
@@ -91,14 +95,12 @@ const Index: TNextPageWithLayout = () => {
 	} = useQuery(
 		[
 			'clientOrderReportData',
-			{
-				Current: orderPagination.current,
-				PageSize: orderPagination.pageSize,
-				FromDate: fromDate,
-				ToDate: toDate,
-				UID: newUser?.UserId,
-				RoleID: newUser?.UserGroupId
-			}
+			orderPagination.current,
+			orderPagination.pageSize,
+			fromDate,
+			toDate,
+			newUser?.UserId,
+			newUser?.UserGroupId
 		],
 		() =>
 			reportMainOrder
@@ -127,15 +129,7 @@ const Index: TNextPageWithLayout = () => {
 	)
 
 	const { data: totalOverviewData } = useQuery(
-		[
-			'get-total-overview',
-			{
-				fromDate,
-				toDate,
-				UID: newUser?.UserId,
-				RoleID: newUser?.UserGroupId
-			}
-		],
+		['get-total-overview', fromDate, toDate, newUser?.UserId, newUser?.UserGroupId],
 		() =>
 			reportMainOrder.getTotalOverview({
 				FromDate: fromDate,
@@ -198,7 +192,7 @@ const Index: TNextPageWithLayout = () => {
 			<div className={`${styleBorder}`}>
 				<SalesOrderStatisticTable
 					pagination={orderPagination}
-					handlePagination={setOrderPagination}
+					handlePagination={handlePagination}
 					loading={isFetchingOrder}
 					data={userOrderReportData?.Items}
 					exportExcel={handleExportExcelOrder}

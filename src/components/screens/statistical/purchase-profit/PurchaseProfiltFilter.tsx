@@ -1,5 +1,6 @@
+import moment from 'moment'
 import React, { useRef } from 'react'
-import { FilterRangeDate, IconButton } from '~/components'
+import { FilterDate, FilterRangeDate, IconButton } from '~/components'
 
 type TProps = {
 	handleFilter: (newFilter) => void
@@ -10,13 +11,15 @@ export const PurchaseProfiltFilter: React.FC<TProps> = ({ handleFilter }) => {
 	const toDate = useRef<string>(null)
 
 	return (
-		<div className="grid grid-cols-3 gap-4">
+		<div className="grid grid-cols-4 gap-4">
 			<div className="col-span-1">
-				<FilterRangeDate
-					placeholder="Từ ngày/đến ngày"
-					handleDate={(val: string[]) => {
-						fromDate.current = val[0]
-						toDate.current = val[1]
+				<FilterDate
+					placeholder="Chọn tháng"
+					format="MM/YYYY"
+					picker="month"
+					handleDate={(val: any) => {
+						fromDate.current = !!val ? moment(val).startOf('month').format('YYYY-MM-DD') : val
+						toDate.current = !!val ? moment(val).endOf('month').format('YYYY-MM-DD') : val
 					}}
 				/>
 			</div>

@@ -1,4 +1,4 @@
-import { Modal, Tag } from 'antd'
+import { Modal, Pagination, Tag } from 'antd'
 import React from 'react'
 import { DataTable, IconButton } from '~/components'
 import { orderStatus } from '~/configs'
@@ -213,6 +213,14 @@ export const SalesOrderStatisticTable = ({ loading, pagination, handlePagination
 					scroll: { x: 1500, y: 700 }
 				}}
 			/>
+			<div className="mt-4 text-right">
+				<Pagination
+					total={pagination?.total}
+					current={pagination?.current}
+					pageSize={pagination?.pageSize}
+					onChange={(page, pageSize) => handlePagination({ ...pagination, current: page, pageSize: pageSize })}
+				/>
+			</div>
 		</React.Fragment>
 	)
 }

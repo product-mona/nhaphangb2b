@@ -1,25 +1,27 @@
-import router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { toast } from 'react-toastify'
 import { mainOrder } from '~/api'
 import {
 	MessageControlUser,
+	OrderFeedBacksTable,
 	OrderIDDetail,
 	OrderIDPaymentHistory,
-	OrderIDProductList,
-	OrderOverView,
-	UserLayout,
 	OrderIDShopList,
-	showToast,
-	SecondOrderIDProductList
+	OrderOverView,
+	SecondOrderIDProductList,
+	UserLayout
 } from '~/components'
 import { SEOConfigs } from '~/configs/SEOConfigs'
+import { useDisclosure } from '~/modules/core/hooks'
 import { TNextPageWithLayout } from '~/types/layout'
 
 const Index: TNextPageWithLayout = () => {
 	const { query } = useRouter()
 	const router = useRouter()
+
+	const feedbackController = useDisclosure()
 
 	const id = router.query.id as string | undefined
 
@@ -81,9 +83,35 @@ const Index: TNextPageWithLayout = () => {
 					</div>
 				</div>
 				<div className="mt-4">{renderDetailOrder()}</div>
+				<div className="tableBox rounded-b-none mt-4">
+					<div className="titleTable ">Phản hồi/ghi chú</div>
+					<OrderFeedBacksTable orderId={+id} orderIdCustom={data?.Data.MainOrderCustomID || ''} Uid={data?.Data.UID} />
+				</div>
 				<OrderIDPaymentHistory data={data?.Data?.PayOrderHistories} />
 				{data && <MessageControlUser clientId={data.Data.UID} mainOrderId={+query?.id} />}
 			</div>
+			{/* <div className="fixed right-5 z-[9999] top-[160px]">
+				<Tooltip title="Phản hồi/ghi chú">
+					<span className="relative inline-flex">
+						<button
+							className="wobble-hor-bottom flex items-center justify-center  bg-[#0A7CFF] h-[56px] w-[56px] rounded-full "
+							type="button"
+							onClick={feedbackController.onOpen}
+						>
+							<i className="fas fa-comment-alt-lines text-[#fff]   text-[24px] "></i>
+						</button>
+					</span>
+				</Tooltip>
+			</div>
+			<div>
+				<FeedbacksOrderModal
+					orderId={+id}
+					orderIdCustom={data?.Data.MainOrderCustomID || ''}
+					isOpen={feedbackController.isOpen}
+					onClose={feedbackController.onClose}
+					Uid={data?.Data.UID}
+				/>
+			</div> */}
 		</React.Fragment>
 	)
 }

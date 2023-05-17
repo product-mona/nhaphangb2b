@@ -1,10 +1,10 @@
 import { Typography } from 'antd'
 import router from 'next/router'
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useMutation } from 'react-query'
 import { order } from '~/api'
 import { IconButton, showToast, toast } from '~/components'
-import { _format } from '~/utils'
+import { _format, onCalTotalNumber } from '~/utils'
 import { OrderProductItem } from './OrderProductItem'
 
 type TProps = {
@@ -36,14 +36,19 @@ export const OrderProductList: React.FC<TProps> = ({ RoleID, dataOrderShop, refe
 		}
 		mutationUpdate.mutateAsync(dataProduct)
 	}
-
+	const totalItem = useMemo(() => {
+		// if()
+		// onCalTotalNumber(dataOrderShop?.Orders, 'Quantity')
+		const rs = onCalTotalNumber(dataOrderShop?.Orders || [], 'Quantity')
+		return rs
+	}, [dataOrderShop?.Orders])
 	return (
 		<React.Fragment>
 			<div className="orderProductItem  flex justify-between items-center">
 				<div className="flex flex-col">
-					{/* <Typography.Text className="">
-						Tổng số lượng: <span className="text-lg font-semibold text-[#F5851E]">{dataOrderShop.TotalItem}</span>
-					</Typography.Text> */}
+					<Typography.Text className="">
+						Tổng số lượng sản phẩm: <span className="text-lg font-semibold text-[#F5851E]">{totalItem}</span>
+					</Typography.Text>
 					<Typography.Text className="">
 						Tổng tiền sản phẩm:{' '}
 						<span className="text-lg font-semibold text-[#2686ED]">{_format.getVND(dataOrderShop?.PriceVND)}</span>{' '}
