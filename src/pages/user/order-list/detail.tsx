@@ -1,21 +1,18 @@
-import { Badge, Tooltip } from 'antd'
-import router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { toast } from 'react-toastify'
 import { mainOrder } from '~/api'
 import {
 	MessageControlUser,
+	OrderFeedBacksTable,
 	OrderIDDetail,
 	OrderIDPaymentHistory,
-	OrderIDProductList,
-	OrderOverView,
-	UserLayout,
 	OrderIDShopList,
-	showToast,
-	SecondOrderIDProductList
+	OrderOverView,
+	SecondOrderIDProductList,
+	UserLayout
 } from '~/components'
-import { FeedbacksOrderModal } from '~/components/screens/Modal'
 import { SEOConfigs } from '~/configs/SEOConfigs'
 import { useDisclosure } from '~/modules/core/hooks'
 import { TNextPageWithLayout } from '~/types/layout'
@@ -86,10 +83,14 @@ const Index: TNextPageWithLayout = () => {
 					</div>
 				</div>
 				<div className="mt-4">{renderDetailOrder()}</div>
+				<div className="tableBox rounded-b-none mt-4">
+					<div className="titleTable ">Phản hồi/ghi chú</div>
+					<OrderFeedBacksTable orderId={+id} orderIdCustom={data?.Data.MainOrderCustomID || ''} Uid={data?.Data.UID} />
+				</div>
 				<OrderIDPaymentHistory data={data?.Data?.PayOrderHistories} />
 				{data && <MessageControlUser clientId={data.Data.UID} mainOrderId={+query?.id} />}
 			</div>
-			<div className="fixed right-5 z-[9999] top-[160px]">
+			{/* <div className="fixed right-5 z-[9999] top-[160px]">
 				<Tooltip title="Phản hồi/ghi chú">
 					<span className="relative inline-flex">
 						<button
@@ -110,7 +111,7 @@ const Index: TNextPageWithLayout = () => {
 					onClose={feedbackController.onClose}
 					Uid={data?.Data.UID}
 				/>
-			</div>
+			</div> */}
 		</React.Fragment>
 	)
 }

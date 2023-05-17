@@ -25,11 +25,6 @@ const Index: TNextPageWithLayout = () => {
 			<div className="lg:col-span-4 col-span-2 mb-4 xl:mb-0">
 				<TotalRechargesPerWeek />
 			</div>
-
-			{/* <div className="col-span-1 mb-4 xl:mb-0 ">`
-				<PurchasePercent />
-			</div> */}
-
 			<div className="lg:col-span-2 col-span-2 mb-4 xl:mb-0">
 				<NewRecharges />
 			</div>

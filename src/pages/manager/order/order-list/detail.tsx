@@ -1,5 +1,5 @@
 import { CaretRightOutlined } from '@ant-design/icons'
-import { Badge, Button, Collapse, Spin, Tooltip } from 'antd'
+import { Collapse, Spin } from 'antd'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -7,12 +7,12 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { useMutation, useQuery } from 'react-query'
 import { mainOrder } from '~/api'
 import {
-	IconButton,
 	Layout,
 	MessageControlManager,
 	OrderCode,
 	OrderCost,
 	OrderDetail,
+	OrderFeedBacksTable,
 	OrderHandlingStaff,
 	OrderHistory,
 	OrderInfo,
@@ -24,7 +24,6 @@ import {
 	toast
 } from '~/components'
 import { MyBreadcrumb } from '~/components/others'
-import { FeedbacksOrderModal } from '~/components/screens/Modal'
 
 import { SEOConfigs } from '~/configs/SEOConfigs'
 import { useCatalogue } from '~/hooks'
@@ -187,6 +186,7 @@ const Index: TNextPageWithLayout = () => {
 			)
 		} else return null
 	}
+
 	return (
 		<div>
 			<MyBreadcrumb
@@ -245,8 +245,17 @@ const Index: TNextPageWithLayout = () => {
 												<OrderInfo data={data?.Data} loading={isLoading} />
 											</div>
 										</Panel>
-										<Panel header="Lịch sử" key="7">
-											<div id="history" className={clsx(className, active === 7 && '')}>
+										<Panel header="Phản hồi/ghi chú" key="7">
+											<div id="order-feedbacks" className={clsx(className, 'pt-0', active === 7 && '')}>
+												<OrderFeedBacksTable
+													Uid={data?.Data.UID}
+													orderId={orderId}
+													orderIdCustom={data?.Data.MainOrderCustomID || ''}
+												/>
+											</div>
+										</Panel>
+										<Panel header="Lịch sử" key="8">
+											<div id="history" className={clsx(className, active === 8 && '')}>
 												<OrderHistory data={data?.Data} loading={isFetching} />
 											</div>
 										</Panel>
@@ -259,7 +268,7 @@ const Index: TNextPageWithLayout = () => {
 			</Spin>
 			{data && <MessageControlManager clientId={data.Data.UID} mainOrderId={+query?.id} />}
 
-			<div className="fixed right-5 z-[9999] top-[160px]">
+			{/* <div className="fixed right-5 z-[9999] top-[160px]">
 				<Tooltip title="Phản hồi/ghi chú">
 					<span className="relative inline-flex">
 						<button
@@ -280,7 +289,7 @@ const Index: TNextPageWithLayout = () => {
 					isOpen={feedbackController.isOpen}
 					onClose={feedbackController.onClose}
 				/>
-			</div>
+			</div> */}
 		</div>
 	)
 }

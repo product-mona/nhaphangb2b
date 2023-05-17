@@ -1,4 +1,4 @@
-import { TablePaginationConfig } from 'antd'
+import { Pagination, TablePaginationConfig } from 'antd'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 import { reportUser } from '~/api'
@@ -82,6 +82,16 @@ const Index: TNextPageWithLayout = () => {
 						handlePagination: (pagination) => setPagination(pagination)
 					}}
 				/>
+				<div className="mt-4 text-right">
+					<Pagination
+						total={pagination?.total || 0}
+						current={pagination?.current}
+						pageSize={pagination?.pageSize}
+						onChange={(page, pageSize) => {
+							setPagination({ ...pagination, current: page, pageSize: pageSize })
+						}}
+					/>
+				</div>
 			</div>
 		</div>
 	)

@@ -179,7 +179,7 @@ const ShopOrderDetail: TNextPageWithLayout = () => {
 									</div>
 								</Collapse.Panel>
 								<Collapse.Panel
-									header={`Danh sách sản phẩm (${OrderShopDetailQuery?.Data?.Orders?.length || 0})`}
+									header={`Danh sách sản phẩm (${OrderShopDetailQuery?.Data?.Orders?.length || 0} mặt hàng)`}
 									key="shop3"
 								>
 									<div id="product-list" className={clsx(className, '!px-2 !py-0')}>

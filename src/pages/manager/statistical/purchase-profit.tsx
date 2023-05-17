@@ -1,5 +1,6 @@
+import { Pagination } from 'antd'
 import router from 'next/router'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useQuery } from 'react-query'
 import { reportMainOrder } from '~/api'
 import { Layout, PurchaseProfiltFilter, PurchaseProfitChart, PurchaseProfitTable, showToast } from '~/components'
@@ -14,7 +15,7 @@ const Index: TNextPageWithLayout = () => {
 
 	const [filter, setFilter] = useState({
 		TotalItems: null,
-		PageSize: 9999,
+		PageSize: 20,
 		PageIndex: 1,
 		OrderBy: 'Id desc',
 		Status: 5,
@@ -22,9 +23,9 @@ const Index: TNextPageWithLayout = () => {
 		toDate: null
 	})
 
-	const handleFilter = (newFilter) => {
+	const handleFilter = useCallback((newFilter) => {
 		setFilter({ ...filter, ...newFilter })
-	}
+	}, [])
 
 	const [chartData, setChartData] = useState<Record<string, number>>(null)
 
@@ -36,8 +37,8 @@ const Index: TNextPageWithLayout = () => {
 				setFilter({
 					...filter,
 					TotalItems: data?.TotalItem,
-					PageIndex: data?.PageIndex,
-					PageSize: data?.PageSize
+					PageIndex: filter.PageIndex,
+					PageSize: filter.PageSize
 				})
 				setChartData({
 					MaxTotalPriceVND: data?.Items[0]?.MaxTotalPriceVND,
@@ -91,6 +92,14 @@ const Index: TNextPageWithLayout = () => {
 						handleExportExcel: handleExportExcel
 					}}
 				/>
+				<div className="mt-4 text-right">
+					<Pagination
+						total={filter?.TotalItems}
+						current={filter?.PageIndex}
+						pageSize={filter?.PageSize}
+						onChange={(page, pageSize) => handleFilter({ PageIndex: page, PageSize: pageSize })}
+					/>
+				</div>
 			</div>
 		</div>
 	)
