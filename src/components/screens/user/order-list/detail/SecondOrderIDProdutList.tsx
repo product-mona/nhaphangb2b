@@ -9,14 +9,16 @@ type SecondOrderIDProductListProps = {
 }
 export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> = ({ data, dataOrder }) => {
 	const totalFeeEachOne = useMemo(() => {
+		//FeeBuyPro Phí mua hàng
+		//IsCheckProductPrice Phí kiểm đếm
+		//IsPackedPrice  Phí đóng gỗ
 		//InsuranceMoney  phí bảo hiểm
 		//IsFastDeliveryPrice   Phí giao hàng tận nhà
-		//IsPackedPrice  Phí đóng gỗ
-		//IsCheckProductPrice Phí kiểm đếm
+		// FeeShipCN phí ship nội địa
 		//FeeWeight  Phí cân nặng
-		//FeeBuyPro Phí mua hàng
 		if (!!dataOrder) {
 			const totalItem = onCalTotalNumber(data, 'Quantity')
+			const totalSurcharge = onCalTotalNumber(dataOrder.FeeSupports, 'SupportInfoVND') //toongr phu hpis
 			const totalFee =
 				dataOrder.FeeBuyPro + //phí mua hàng == 25740   //
 				dataOrder.IsCheckProductPrice + // phí kiểm đếm  == 18000
@@ -24,7 +26,8 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 				dataOrder.InsuranceMoney + // phí bảo hiểm    == 0
 				dataOrder.IsFastDeliveryPrice + // phí giao tận nhà 0   == 0
 				dataOrder.FeeShipCN + //phí ship nội địa == 25740   //
-				dataOrder.FeeWeight //Phí cân nặng = 50000
+				dataOrder.FeeWeight + //Phí cân nặng = 50000
+				totalSurcharge // toongr phu hpis
 
 			if (!!totalItem) {
 				return totalFee / totalItem /// 244800
