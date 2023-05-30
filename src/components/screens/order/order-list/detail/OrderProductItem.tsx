@@ -1,5 +1,5 @@
 import { InputNumber, Tooltip } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActionButton, toast } from '~/components'
 import { orderStatus, orderStatusCanChage } from '~/configs'
 import { _format } from '~/utils'
@@ -28,7 +28,17 @@ export const OrderProductItem: React.FC<TProps> = ({
 	const [quantity, setQuantity] = useState(order?.Quantity)
 	const [priceVND, setPriceVND] = useState(order?.UPriceBuyVN)
 	const [priceOrigin, setPriceOrigin] = useState(order?.PriceOrigin)
-	// const [total, setTotal] = useState(order?.PriceVND);
+
+	useEffect(() => {
+		if (!!order?.PriceOrigin) {
+			if (!!order?.PricePromotion) {
+				setPriceOrigin(order?.PriceOrigin <= order?.PricePromotion ? order?.PriceOrigin : order?.PricePromotion)
+			} else {
+				setPriceOrigin(order?.PriceOrigin)
+			}
+		}
+	}, [order?.PriceOrigin, order?.PricePromotion])
+
 	const [total, setTotal] = useState(order?.UPriceBuyVN * order?.Quantity)
 
 	function onChangeOrderBrand(e: React.ChangeEvent<HTMLInputElement>) {

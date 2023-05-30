@@ -47,6 +47,17 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 		},
 		[totalFeeEachOne]
 	)
+
+	const renderGoodPrice = useCallback((priceOrigin: number, pricePromotion: number) => {
+		if (!pricePromotion) {
+			return priceOrigin
+		} else {
+			if (priceOrigin <= pricePromotion) {
+				return priceOrigin
+			} else return pricePromotion
+		}
+	}, [])
+
 	return (
 		<div className="tableBox">
 			<div className="flex justify-between">
@@ -111,16 +122,11 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 							<div className="block flex md:flex-col justify-between ml-2 ">
 								<div className="text-sm mr-4 text-[#484747] font-semibold text-right">Đơn giá (¥)</div>
 								<div className="text-orange">
-									<div
-										className="text-sm"
-										onClick={() => {
-											console.log('item', item)
-										}}
-									>
+									<div className="text-sm">
 										<Input
 											className="text-right"
 											size="middle"
-											value={_format.getVND(item?.PriceOrigin, '')}
+											value={_format.getVND(renderGoodPrice(item?.PriceOrigin || 0, item?.PricePromotion || 0), '')}
 											readOnly
 										/>
 									</div>
@@ -132,7 +138,10 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 									<Input
 										className="text-right"
 										size="middle"
-										value={_format.getVND(item?.PriceOrigin * item?.Quantity, '')}
+										value={_format.getVND(
+											renderGoodPrice(item?.PriceOrigin || 0, item?.PricePromotion || 0) * item?.Quantity,
+											''
+										)}
 										readOnly
 									/>
 								</div>
