@@ -55,7 +55,6 @@ export const OrderFeedBacksTable: FC<FCProps> = ({ Uid, orderId, orderIdCustom }
 		},
 		{
 			onSuccess: (data) => {
-				console.log('FeedbacksOrderForm', data)
 				// if (!data?.Data?.IsCheckNotiPrice && data?.Data?.OrderType === 3) toast.warning('Đơn hàng chưa cập nhật báo giá cho khách!')
 				// form.reset(data?.Data)
 			},
