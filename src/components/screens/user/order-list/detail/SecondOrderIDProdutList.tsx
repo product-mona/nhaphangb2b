@@ -18,7 +18,6 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 		//FeeWeight  Phí cân nặng
 		if (!!dataOrder) {
 			const totalItem = onCalTotalNumber(data, 'Quantity')
-
 			const totalSurcharge = onCalTotalNumber(dataOrder.FeeSupports, 'SupportInfoVND') //toongr phu hpis
 			const totalFee =
 				dataOrder.FeeBuyPro + //phí mua hàng == 25740   //
@@ -42,7 +41,6 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 		// dataOrder.CurrentCNYVN : tỉ giá của đơn lớn
 		//PriceOrigin : đơn giá tệ origin 1 sản phẩm
 		(PriceOrigin: number) => {
-			console.log(PriceOrigin, dataOrder.CurrentCNYVN, totalFeeEachOne)
 			const resut = PriceOrigin * dataOrder.CurrentCNYVN + totalFeeEachOne
 
 			return numberWithCommas(Math.round(resut))
