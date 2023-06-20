@@ -1,8 +1,9 @@
-import { Input, InputNumber, Tooltip } from 'antd'
+import { Input, InputNumber, Tooltip, Typography } from 'antd'
 import React, { useCallback, useMemo } from 'react'
 
 import { numberWithCommas, _format, onCalTotalNumber } from '~/utils'
 
+const { Text } = Typography
 type SecondOrderIDProductListProps = {
 	data: TProduct[]
 	dataOrder?: TOrder
@@ -18,7 +19,6 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 		//FeeWeight  Phí cân nặng
 		if (!!dataOrder) {
 			const totalItem = onCalTotalNumber(data, 'Quantity')
-
 			const totalSurcharge = onCalTotalNumber(dataOrder.FeeSupports, 'SupportInfoVND') //toongr phu hpis
 			const totalFee =
 				dataOrder.FeeBuyPro + //phí mua hàng == 25740   //
@@ -42,13 +42,16 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 		// dataOrder.CurrentCNYVN : tỉ giá của đơn lớn
 		//PriceOrigin : đơn giá tệ origin 1 sản phẩm
 		(PriceOrigin: number) => {
-			console.log(PriceOrigin, dataOrder.CurrentCNYVN, totalFeeEachOne)
 			const resut = PriceOrigin * dataOrder.CurrentCNYVN + totalFeeEachOne
 
 			return numberWithCommas(Math.round(resut))
 		},
 		[totalFeeEachOne]
 	)
+	const totalQuantity = useMemo(() => {
+		const rs = onCalTotalNumber(dataOrder?.Orders || [], 'Quantity')
+		return rs
+	}, [dataOrder?.Orders])
 
 	const renderGoodPrice = useCallback((priceOrigin: number, pricePromotion: number) => {
 		if (!pricePromotion) {
@@ -62,9 +65,18 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 
 	return (
 		<div className="tableBox">
-			<div className="flex justify-between">
-				<div className="titleTable mb-[-6px]">Danh sách sản phẩm</div>
+			<div className="p-4 mb-[-6px]">
+				<div className="text-[16px] font-semibold">Danh sách sản phẩm:</div>
+				<div className="px-4">
+					<p className="text-blue font-[500]">
+						Số lượng mặt hàng: <span className="text-lg ">{dataOrder?.Orders.length}</span>
+					</p>
+					<p className="text-[#F5851E] font-[500]">
+						Số lượng sản phẩm: <span className="text-lg ">{totalQuantity}</span>
+					</p>
+				</div>
 			</div>
+
 			{data?.map((item, index) => (
 				<div
 					key={index}
@@ -105,11 +117,13 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 								</div>
 								<div className="flex flex-wrap items-end">
 									<span className="text-sm mr-4 text-[#484747] font-semibold">* Ghi chú:</span>
-									<input
-										type="text"
-										className="border-b !rounded-none border-[#0000003a] text-[#000] bg-[transparent] max-w-[140px] outline-0"
+
+									<Input.TextArea
+										className="py-0"
+										autoSize={{ minRows: 1, maxRows: 3 }}
+										// disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+										size="middle"
 										value={item?.Brand ?? ''}
-										disabled={true}
 									/>
 								</div>
 							</div>

@@ -37,8 +37,6 @@ export const OrderProductList: React.FC<TProps> = ({ RoleID, dataOrderShop, refe
 		mutationUpdate.mutateAsync(dataProduct)
 	}
 	const totalItem = useMemo(() => {
-		// if()
-		// onCalTotalNumber(dataOrderShop?.Orders, 'Quantity')
 		const rs = onCalTotalNumber(dataOrderShop?.Orders || [], 'Quantity')
 		return rs
 	}, [dataOrderShop?.Orders])

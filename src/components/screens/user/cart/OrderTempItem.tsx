@@ -85,12 +85,6 @@ export const OrderTempItem: React.FC<TProps> = ({ index, orderTempData, updatePr
 									name={`OrderTemps.${index}.Brand`}
 								/>
 							</div>
-							{/* <input
-								type="text"
-								className="border-b !rounded-none border-[#0000003a] text-[#000] bg-[transparent] max-w-[140px] outline-0"
-								value={brand ?? ''}
-								onChange={(e) => onChangeOrderBrand(e)}
-							/> */}
 						</div>
 					</div>
 				</div>

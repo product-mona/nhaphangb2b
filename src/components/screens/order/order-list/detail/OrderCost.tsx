@@ -1,7 +1,9 @@
-import { Tooltip } from 'antd'
+import { Tooltip, Typography } from 'antd'
 import React, { useCallback, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FormInputNumber } from '~/components'
+import { onCalTotalNumber } from '~/utils'
+
 import { FormCheckbox, TableMoneyField } from '~/components/globals/formBase'
 import { toast } from 'react-toastify'
 type TProps = {
@@ -18,7 +20,7 @@ type TProps = {
 		  })
 	RoleID: number
 }
-
+const { Text } = Typography
 const costTitle = 'w-1/4 text-sm font-semibold'
 const costBox = 'w-3/4 grid grid-cols-2 gap-4'
 
@@ -86,6 +88,12 @@ const ChangeChargeComponent = ({ control, data, RoleID }) => {
 
 export const OrderCost: React.FC<TProps> = ({ data, RoleID }) => {
 	const { control, watch, setValue, reset, getValues } = useFormContext<TOrder>()
+	const { Orders } = (data as any) || {}
+
+	const totalItem = useMemo(() => {
+		const rs = onCalTotalNumber(Orders || [], 'Quantity')
+		return rs
+	}, [Orders])
 
 	const formValue = useMemo(() => watch(), [watch() as TOrder])
 	const handleSetValue = useCallback((key: keyof TOrder, value: any) => setValue(key, value), [])
@@ -95,6 +103,11 @@ export const OrderCost: React.FC<TProps> = ({ data, RoleID }) => {
 			return (
 				<div>
 					<div className="mb-4 text-base font-bold py-2 uppercase border-b border-main">Phí cố định</div>
+					<div className="flex items-center mb-4">
+						<Text className="font-semibold">
+							Tổng số lượng sản phẩm của đơn nhỏ này: <span className="text-lg font-bold text-[#F5851E]">{totalItem}</span>
+						</Text>
+					</div>
 					<div className="flex items-center mb-4">
 						<div className={costTitle}>Tỷ giá</div>
 						<div className={costBox}>
@@ -600,6 +613,23 @@ export const OrderCost: React.FC<TProps> = ({ data, RoleID }) => {
 	}
 	return (
 		<React.Fragment>
+			<div>
+				<div className="flex items-center mb-4">
+					{/* <div className={costTitle}>Tổng số lượng sản phẩm của đơn shop này</div>
+						<div className={costBox}>
+							<div className="col-span-2">
+								<FormInputNumber
+									suffix="VNĐ"
+									control={control}
+									name="CurrentCNYVN"
+									placeholder=""
+									allowNegative={false}
+									disabled
+								/>
+							</div>
+						</div> */}
+				</div>
+			</div>
 			<div>{baseFee()}</div>
 			<div>{renderAttributeFee()}</div>
 			<div>{renderDepositFee()}</div>

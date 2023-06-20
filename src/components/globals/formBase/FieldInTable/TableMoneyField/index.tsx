@@ -34,13 +34,20 @@ export const TableMoneyField = <T extends FieldValues = FieldValues, TFieldDatas
 				<Controller
 					control={control}
 					name={name}
-					render={({ field, fieldState }) => (
+					render={({ field: { onChange, ...restField }, fieldState }) => (
 						<>
 							<InputNumber
 								min={min}
 								size={size}
 								className={clsx(!!fieldState.isDirty && 'ring-1 ring-offset-1 ring-[#40a9ff]')}
-								{...field}
+								onChange={(vl) => {
+									if (vl === null) {
+										onChange(0)
+									} else {
+										onChange(vl)
+									}
+								}}
+								{...restField}
 								{...rest}
 							/>
 							{!!fieldState.error && <p className="text-warning text-xs font-medium mt-1">{fieldState.error?.message}</p>}
