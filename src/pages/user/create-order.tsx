@@ -39,7 +39,7 @@ const Index: TNextPageWithLayout = () => {
 			IsCheckProduct: false,
 			IsInsurance: false,
 			IsFastDelivery: false,
-			WarehouseTQ: warehouseTQ?.[0]?.Id || 0
+			WarehouseTQ: warehouseTQ?.[0]?.Id || 1
 		}
 	})
 
@@ -56,7 +56,7 @@ const Index: TNextPageWithLayout = () => {
 			IsCheckProduct: false,
 			IsInsurance: false,
 			IsFastDelivery: false,
-			WarehouseTQ: warehouseTQ?.[0]?.Id || 0
+			WarehouseTQ: warehouseTQ?.[0]?.Id || 1
 		})
 	}, [warehouseTQ, warehouseVN, shippingTypeToWarehouse])
 

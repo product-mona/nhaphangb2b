@@ -208,12 +208,12 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 														Quantity: 0
 													}),
 												updateProduct: (Quantity, Brand) => {
-													console.log(cart)
-													console.log('upodate', {
-														Id: orderTempData?.Id, //id này là id của sản phẩm
-														Quantity,
-														Brand
-													})
+													// console.log(cart)
+													// console.log('upodate', {
+													// 	Id: orderTempData?.Id, //id này là id của sản phẩm
+													// 	Quantity,
+													// 	Brand
+													// })
 													onHandleProduct('update', {
 														Id: orderTempData?.Id,
 														Quantity,

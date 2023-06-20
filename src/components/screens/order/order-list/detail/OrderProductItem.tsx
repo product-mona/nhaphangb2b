@@ -1,6 +1,6 @@
-import { InputNumber, Tooltip } from 'antd'
-import React, { useEffect, useState } from 'react'
-import { ActionButton, toast } from '~/components'
+import { Input, InputNumber, Tooltip } from 'antd'
+import React, { useCallback, useEffect, useState } from 'react'
+import { ActionButton, TableTextAreaField, toast } from '~/components'
 import { orderStatus, orderStatusCanChage } from '~/configs'
 import { _format } from '~/utils'
 
@@ -24,7 +24,7 @@ export const OrderProductItem: React.FC<TProps> = ({
 	// setCheckUpdate,
 }) => {
 	const [changeValue, setChangeValue] = useState(false)
-	const [brand, setBrand] = useState(order?.Brand)
+	const [brand, setBrand] = useState(order?.Brand || '')
 	const [quantity, setQuantity] = useState(order?.Quantity)
 	const [priceVND, setPriceVND] = useState(order?.UPriceBuyVN)
 	const [priceOrigin, setPriceOrigin] = useState(order?.PriceOrigin)
@@ -41,10 +41,14 @@ export const OrderProductItem: React.FC<TProps> = ({
 
 	const [total, setTotal] = useState(order?.UPriceBuyVN * order?.Quantity)
 
-	function onChangeOrderBrand(e: React.ChangeEvent<HTMLInputElement>) {
+	// function onChangeOrderBrand(e: React.ChangeEvent<HTMLInputElement>) {
+	// 	setChangeValue(true)
+	// 	setBrand(e.target.value)
+	// }
+	const onChangeOrderBrand = useCallback((newVl: string) => {
 		setChangeValue(true)
-		setBrand(e.target.value)
-	}
+		setBrand(newVl)
+	}, [])
 
 	function handleQuantity(val: number) {
 		setChangeValue(true)
@@ -130,12 +134,16 @@ export const OrderProductItem: React.FC<TProps> = ({
 						</div>
 						<div className="flex flex-wrap items-end">
 							<span className="text-sm mr-4 text-[#484747] font-semibold">* Ghi chú:</span>
-							<input
+
+							<Input.TextArea
+								className="py-0"
+								autoSize={{ minRows: 1, maxRows: 3 }}
 								disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
-								type="text"
-								className="border-b !rounded-none border-[#0000003a] text-[#000] bg-[transparent] max-w-[140px] outline-0"
-								value={brand ?? ''}
-								onChange={(e) => onChangeOrderBrand(e)}
+								size="middle"
+								value={brand}
+								onChange={(e) => {
+									onChangeOrderBrand(e.target.value)
+								}}
 							/>
 						</div>
 					</div>

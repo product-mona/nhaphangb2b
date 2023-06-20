@@ -31,9 +31,6 @@ export const OrderIDShopList: FC<OrderIDShopListProps> = ({ orderShopList, dataO
 		} else {
 			return (
 				<div>
-					{/* <Tag color={orderStatus.find((x) => x.id === vl?.data?.Data.Status)?.color}>
-										{vl?.data?.Data?.StatusName}
-									</Tag> */}
 					<ShopOrderOverViewShort data={vl.data.Data} />
 					<SecondOrderIDProductList dataOrder={vl.data.Data} data={vl.data.Data.Orders} />
 				</div>
