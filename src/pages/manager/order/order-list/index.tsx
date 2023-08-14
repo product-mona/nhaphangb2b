@@ -95,8 +95,9 @@ const Index: TNextPageWithLayout = () => {
 					message: 'Đường truyền kết nối server bị lỗi! Vui lòng thử lại!',
 					type: 'error'
 				})
-			}
-		}
+			},
+			keepPreviousData: true
+		},
 	)
 
 	const { userOrder, userSale } = useCatalogue({

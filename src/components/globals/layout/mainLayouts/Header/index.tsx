@@ -3,11 +3,11 @@ import clsx from 'clsx'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import router, { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { default as AvatarName } from 'react-avatar'
 import { useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
-import { getAllNewNotify, user } from '~/api'
+import { getAllNewNotify, notification, user } from '~/api'
 import configHomeData from '~/api/config-home'
 import { showToast } from '~/components'
 import { getLevelId } from '~/configs'
@@ -15,6 +15,7 @@ import { selectConnection, selectFirstPageDashboard, useAppSelector } from '~/st
 import { _format } from '~/utils'
 import Notification from './box/Notification'
 import styles from './index.module.css'
+import { toast } from 'react-toastify'
 
 type TProps = {
 	tabbar: boolean
@@ -24,23 +25,47 @@ type TProps = {
 	userPage?: boolean
 }
 
-const Header: React.FC<TProps> = ({ hover, handleTabbar, handleHover, userPage }) => {
-	const userNew = useAppSelector((state) => state.user.current)
-	const ids = useAppSelector((state) => state?.user?.current)?.UserId
-	const firstPage = useAppSelector(selectFirstPageDashboard)
+const NotificationComponent = ({ userPage, userNew, ids }) => {
 	const [visible, setVisible] = useState(false)
-	const connection = useAppSelector(selectConnection)
-	const [dataList, setDataList] = useState([])
-	const [configData, setConfigData] = useState<any>({})
-	const { route } = useRouter()
-	const isUserRoute = route.split('/')[1].includes('user')
+	const router = useRouter()
 
-	const { reset } = useForm<TUser>({
-		mode: 'onBlur'
+	const [list, setList] = useState([])
+	const totalItems = useRef(0)
+	const TypeFilter = useRef(4)
+
+	const [filter, setFilter] = useState({
+		Type: TypeFilter.current,
+		OfEmployee: userPage ? false : true,
+		UID: userNew?.UserId,
+		PageIndex: 1,
+		PageSize: 20,
+		IsRead: 2
 	})
-	const connectionId = connection?.connectionId
 
-	const { data: dataNewNotify } = useQuery(
+	const { isLoading, isFetching, refetch } = useQuery(['notification', { filter }], () => notification.getList(filter), {
+		onSuccess: (res) => {
+			if (res?.Data.Items.length <= 0) {
+				setList([]);
+				return
+			}
+			totalItems.current = res?.Data?.TotalItem
+			let newList = []
+			if (filter.Type !== TypeFilter.current) {
+				newList = res?.Data?.Items
+			} else {
+				newList = [...list, ...res?.Data?.Items]
+			}
+			setList(newList)
+			TypeFilter.current = filter.Type
+		},
+		onError: (error) => toast.error(error),
+		retry: false,
+		refetchOnWindowFocus: false,
+		refetchOnReconnect: false,
+		enabled: !!userNew?.UserId
+	})
+
+	const { data: dataNewNotify, refetch: notiTotalRefetch } = useQuery(
 		['new-notification'],
 		() =>
 			getAllNewNotify
@@ -62,6 +87,91 @@ const Header: React.FC<TProps> = ({ hover, handleTabbar, handleHover, userPage }
 			retry: false
 		}
 	)
+
+	return (
+		<li className={clsx(styles.item, 'col-span-1 cursor-pointer', dataNewNotify >= 100 ? 'mr-[40px]' : 'mr-[10px]')}>
+			<div className={clsx(styles.block, styles.actionInfo, '!flex')} onClick={() => setVisible(true)}>
+				<div className={`text-[20px] text-[#fff] ${dataNewNotify > 0 && styles.bellIcon}`}>
+					<i className="fas fa-bell"></i>
+				</div>
+				{dataNewNotify > 0 && (
+					<div
+						className={`text-[12px]  items-center flex bg-[#ed6868] rounded-full absolute px-[10px] top-[50%] left-[50%] translate-y-[-90%]`}
+					>
+						<span className="items-center flex text-[#fff]">{dataNewNotify >= 100 ? '100+' : dataNewNotify}</span>
+					</div>
+				)}
+			</div>
+			<Drawer
+				title="Thông báo"
+				placement="right"
+				visible={visible}
+				width={'440px'}
+				maskStyle={{
+					backgroundColor: '#00000070'
+				}}
+				onClose={() => setVisible(false)}
+				closeIcon={false}
+				closable={false}
+				extra={
+					<div className="flex gap-4 items-center">
+						{dataNewNotify > 0 && (
+							<Tag
+								color="blue"
+								onClick={() => {
+									getAllNewNotify
+										.readAll({
+											uid: userNew?.UserId,
+											isEmployee: router.asPath.includes('/user') ? 0 : 1
+										})
+										.then(() => {
+											refetch();
+											notiTotalRefetch();
+										})
+								}}
+								className="cursor-pointer"
+							>
+								Đọc tất cả!
+							</Tag>
+						)}
+						<Link href={`${userPage === true ? '/user' : '/manager'}/notification`}>
+							<Tag color="#073238">
+								<a onClick={() => setVisible(false)} className="!text-[#fff]">
+									Tất cả thông báo!
+								</a>
+							</Tag>
+						</Link>
+					</div>
+				}
+			>
+				<Notification
+					onClose={() => setVisible(false)}
+					filter={filter}
+					setFilter={setFilter}
+					isFetching={isFetching}
+					list={list}
+					isLoading={isLoading}
+					totalItems={totalItems}
+				/>
+			</Drawer>
+		</li>
+	)
+}
+
+const Header: React.FC<TProps> = ({ hover, handleTabbar, handleHover, userPage }) => {
+	const userNew = useAppSelector((state) => state.user.current)
+	const ids = useAppSelector((state) => state?.user?.current)?.UserId
+	const firstPage = useAppSelector(selectFirstPageDashboard)
+	const connection = useAppSelector(selectConnection)
+	const [dataList, setDataList] = useState([])
+	const [configData, setConfigData] = useState<any>({})
+	const { route } = useRouter()
+	const isUserRoute = route.split('/')[1].includes('user')
+
+	const { reset } = useForm<TUser>({
+		mode: 'onBlur'
+	})
+	const connectionId = connection?.connectionId
 
 	useEffect(() => {
 		if (!connectionId) return
@@ -191,41 +301,7 @@ const Header: React.FC<TProps> = ({ hover, handleTabbar, handleHover, userPage }
 							}
 						</div>
 					</li>
-					<li className={clsx(styles.item, 'col-span-1 cursor-pointer mr-6')}>
-						<div className={clsx(styles.block, styles.actionInfo, '!flex')} onClick={() => setVisible(true)}>
-							<div className={`text-[20px] text-[#fff] ${dataNewNotify > 0 && styles.bellIcon}`}>
-								<i className="fas fa-bell"></i>
-							</div>
-							{dataNewNotify > 0 && (
-								<div
-									className={`text-[12px]  items-center flex bg-[#ed6868] rounded-full absolute px-[10px] top-[50%] left-[50%] translate-y-[-90%]`}
-								>
-									<span className="items-center flex text-[#fff]">{dataNewNotify}</span>
-								</div>
-							)}
-						</div>
-						<Drawer
-							title="Thông báo"
-							placement="right"
-							visible={visible}
-							width={'30vw'}
-							maskStyle={{
-								backgroundColor: '#00000070'
-							}}
-							onClose={() => setVisible(false)}
-							extra={
-								<Link href={`${userPage === true ? '/user' : '/manager'}/notification`}>
-									<Tag color="#073238">
-										<a onClick={() => setVisible(false)} className="!text-[#fff]">
-											Tất cả thông báo!
-										</a>
-									</Tag>
-								</Link>
-							}
-						>
-							<Notification userPage={userPage} UID={ids} onClose={() => setVisible(false)} />
-						</Drawer>
-					</li>
+					<NotificationComponent userPage={userPage} userNew={userNew} ids={ids} />
 					<li className={clsx(styles.item, 'col-span-1', isUserRoute && 'cursor-pointer')}>
 						<div className={clsx(styles.block, styles.profile)}>
 							<div className={styles.img}>
