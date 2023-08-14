@@ -827,7 +827,7 @@ span.create .ant-upload.ant-upload-select-picture-card {
 }
 
 .ant-popover {
-  width: 300px !important;
+  /* width: 300px !important; */
   padding-left: 14px !important;
 }
 
