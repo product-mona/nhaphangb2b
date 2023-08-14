@@ -591,7 +591,7 @@ export const OrderListTable: React.FC<
 				// onChange: handlePagination,
 				expandable: expandable,
 				// isExpand: true,
-				scroll: { y: 600 }
+				// scroll: { y: 900 }
 			}}
 		/>
 	)
