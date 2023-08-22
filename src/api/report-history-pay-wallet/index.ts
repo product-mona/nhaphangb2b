@@ -5,8 +5,13 @@ type TFilterParams = {
 	ToDate: string;
 };
 
-const { globalReport } = new BaseAPI<TReportHistoryPayWallet, TFilterParams>(
+const { globalReport, post } = new BaseAPI<TReportHistoryPayWallet, TFilterParams>(
 	'report-history-pay-wallet'
 );
 
-export const reportHistoryPayWallet = globalReport;
+export const reportHistoryPayWallet = {
+	...globalReport,
+
+	exportExcel: (params: Partial<TPaginationParams & TFilterParams>) =>
+		post('/export', undefined, { params })
+};

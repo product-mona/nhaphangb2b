@@ -222,13 +222,22 @@ const Index: TNextPageWithLayout = () => {
 							<Collapse
 								expandIconPosition="right"
 								expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-								defaultActiveKey={['1', '2', '3', '4', '5', '6', '7']}
+								defaultActiveKey={['1', '2', '3', '4', '7']}
 							>
 								{renderShippingCode()}
 								{renderShopOrProductList()}
-								{renderFee()}
 								{!!data?.Data ? (
 									<>
+										<Panel header="Phản hồi/ghi chú" key="7">
+											<div id="order-feedbacks" className={clsx(className, 'pt-0', active === 7 && '')}>
+												<OrderFeedBacksTable
+													Uid={data?.Data.UID}
+													orderId={orderId}
+													orderIdCustom={data?.Data.MainOrderCustomID || ''}
+												/>
+											</div>
+										</Panel>
+										{renderFee()}
 										<Panel header="Nhân viên xử lý" key="5">
 											<div id="handling-staff" className={clsx(className, active === 5 && '', 'px-4 !pt-0')}>
 												<OrderHandlingStaff
@@ -243,15 +252,6 @@ const Index: TNextPageWithLayout = () => {
 										<Panel header="Thông tin đặt hàng" key="6">
 											<div id="order-info" className={clsx(className, active === 6 && '')}>
 												<OrderInfo data={data?.Data} loading={isLoading} />
-											</div>
-										</Panel>
-										<Panel header="Phản hồi/ghi chú" key="7">
-											<div id="order-feedbacks" className={clsx(className, 'pt-0', active === 7 && '')}>
-												<OrderFeedBacksTable
-													Uid={data?.Data.UID}
-													orderId={orderId}
-													orderIdCustom={data?.Data.MainOrderCustomID || ''}
-												/>
 											</div>
 										</Panel>
 										<Panel header="Lịch sử" key="8">

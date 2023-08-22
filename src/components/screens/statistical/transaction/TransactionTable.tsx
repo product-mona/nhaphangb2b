@@ -1,10 +1,16 @@
 import { FC } from 'react'
-import { DataTable } from '~/components'
-import { transactionData } from '~/configs'
+import { ActionButton, DataTable, IconButton } from '~/components'
 import { TColumnsType, TTable } from '~/types/table'
 import { _format } from '~/utils'
 
-const TransactionTable: FC<TTable<TStatisticalTransaction>> = ({ data, pagination, handlePagination, loading }) => {
+const TransactionTable: FC<TTable<TStatisticalTransaction> & { RoleID: number; handleExport: () => void }> = ({
+	data,
+	pagination,
+	handlePagination,
+	loading,
+	RoleID,
+	handleExport
+}) => {
 	const columns: TColumnsType<TStatisticalTransaction> = [
 		{
 			dataIndex: 'Id',
@@ -69,18 +75,33 @@ const TransactionTable: FC<TTable<TStatisticalTransaction>> = ({ data, paginatio
 	}
 
 	return (
-		<DataTable
-			{...{
-				columns,
-				data,
-				bordered: true,
-				pagination,
-				onChange: handlePagination,
-				expandable: expandable,
-				loading,
-				scroll: { y: 700 }
-			}}
-		/>
+		<>
+			<div className="lg:flex items-end mb-4 justify-between">
+				<h2 className="text-base font-bold py-2 uppercase">THỐNG KÊ</h2>
+				{(RoleID === 1 || RoleID === 3) && (
+					<IconButton
+						title="Xuất Thống Kê"
+						onClick={() => handleExport()}
+						btnClass={'lg:mx-4'}
+						icon="fas fa-file-export"
+						btnIconClass="!mr-2"
+						showLoading
+					/>
+				)}
+			</div>
+			<DataTable
+				{...{
+					columns,
+					data,
+					bordered: true,
+					pagination,
+					onChange: handlePagination,
+					expandable: expandable,
+					loading,
+					scroll: { y: 700 }
+				}}
+			/>
+		</>
 	)
 }
 

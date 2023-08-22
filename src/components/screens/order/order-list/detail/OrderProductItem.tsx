@@ -1,7 +1,6 @@
 import { Input, InputNumber, Tooltip } from 'antd'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ActionButton, TableTextAreaField, toast } from '~/components'
-import { orderStatus, orderStatusCanChage } from '~/configs'
+import { ActionButton } from '~/components'
 import { _format } from '~/utils'
 
 type TProps = {
@@ -138,7 +137,7 @@ export const OrderProductItem: React.FC<TProps> = ({
 							<Input.TextArea
 								className="py-0"
 								autoSize={{ minRows: 1, maxRows: 3 }}
-								disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+								disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4 || RoleID === 7)}
 								size="middle"
 								value={brand}
 								onChange={(e) => {

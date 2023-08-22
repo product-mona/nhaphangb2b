@@ -1,6 +1,7 @@
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
-import { reportHistoryPayWallet } from '~/api'
+import { adminSendUserWallet, reportAdminSendUserWallet, reportHistoryPayWallet } from '~/api'
 import { Layout, showToast, TransactionChart, TransactionFilter, TransactionTable } from '~/components'
 import { breadcrumb } from '~/configs'
 import { SEOConfigs } from '~/configs/SEOConfigs'
@@ -10,7 +11,10 @@ import { _format } from '~/utils'
 
 const Index: TNextPageWithLayout = () => {
 	const { user: userStore } = useAppSelector(selectUser)
-	if (!userStore) return null
+	if (!userStore) return null;
+
+	const router = useRouter();
+
 	const [filter, setFilter] = useState({
 		PageIndex: 1,
 		PageSize: 999999,
@@ -51,6 +55,11 @@ const Index: TNextPageWithLayout = () => {
 		}
 	)
 
+	const handleExport = () => {
+		reportHistoryPayWallet.exportExcel(filter)
+			.then(res => router.push(res?.Data))
+	}
+
 	return (
 		<div className="tableBox">
 			<TransactionFilter handleFilter={handleFilter} />
@@ -62,7 +71,9 @@ const Index: TNextPageWithLayout = () => {
 				<TransactionTable
 					{...{
 						data: data?.Items,
-						loading: isFetching
+						loading: isFetching,
+						handleExport,
+						RoleID: userStore.UserGroupId
 					}}
 				/>
 			</div>

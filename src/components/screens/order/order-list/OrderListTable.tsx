@@ -1,4 +1,4 @@
-import { Space, Tag } from 'antd'
+import { Modal, Space, Tag } from 'antd'
 import clsx from 'clsx'
 import Link from 'next/link'
 import router from 'next/router'
@@ -349,31 +349,38 @@ export const OrderListTable: React.FC<
 						record?.Status !== 1 && (
 							<ActionButton
 								onClick={() => {
-									const id = toast.loading('Đang xử lý ...')
-									mainOrder
-										.payment({
-											Id: record?.Id,
-											Note: undefined,
-											PaymentMethod: 2,
-											PaymentType: record?.Status === 0 ? 1 : 2,
-											Amount: record?.Status === 0 ? record?.AmountDeposit : record?.RemainingAmount
-										})
-										.then(() => {
-											toast.update(id, {
-												render: `${record?.Status === 0 ? 'Đặt cọc thành công!' : 'Thanh toán thành công!'}`,
-												autoClose: 0,
-												isLoading: false,
-												type: 'success'
-											})
-										})
-										.catch((error) => {
-											toast.update(id, {
-												render: (error as any)?.response?.data?.ResultMessage,
-												autoClose: 0,
-												isLoading: false,
-												type: 'error'
-											})
-										})
+									return Modal.confirm({
+										title: `Xác nhận ${record?.Status === 0 ? 'Đặt cọc' : 'Thanh toán'} đơn này?`,
+										onOk: () => {
+											const id = toast.loading('Đang xử lý ...')
+											mainOrder
+												.payment({
+													Id: record?.Id,
+													Note: undefined,
+													PaymentMethod: 2,
+													PaymentType: record?.Status === 0 ? 1 : 2,
+													Amount: record?.Status === 0 ? record?.AmountDeposit : record?.RemainingAmount
+												})
+												.then(() => {
+													toast.update(id, {
+														render: `${
+															record?.Status === 0 ? 'Đặt cọc thành công!' : 'Thanh toán thành công!'
+														}`,
+														autoClose: 0,
+														isLoading: false,
+														type: 'success'
+													})
+												})
+												.catch((error) => {
+													toast.update(id, {
+														render: (error as any)?.response?.data?.ResultMessage,
+														autoClose: 0,
+														isLoading: false,
+														type: 'error'
+													})
+												})
+										}
+									})
 								}}
 								icon="fas fa-wallet"
 								title={record?.Status === 0 ? 'Đặt cọc' : 'Thanh toán'}
@@ -381,7 +388,7 @@ export const OrderListTable: React.FC<
 							/>
 						)}
 					<Link href={`/manager/order/order-list/detail/?id=${record?.Id}`}>
-						<a>
+						<a target='_blank'>
 							<ActionButton onClick={() => undefined} icon="fas fa-edit" title="Cập nhật" />
 						</a>
 					</Link>
@@ -589,7 +596,7 @@ export const OrderListTable: React.FC<
 				bordered: true,
 				// pagination: pagination,
 				// onChange: handlePagination,
-				expandable: expandable,
+				expandable: expandable
 				// isExpand: true,
 				// scroll: { y: 900 }
 			}}
