@@ -90,7 +90,7 @@ export const OrderProductItem: React.FC<TProps> = ({
 							{order?.ItemId}
 						</a>
 					</Tooltip>
-					{(RoleID === 1 || RoleID === 3 || RoleID === 4) && (
+					{(RoleID === 1 || RoleID === 3 || RoleID === 4 || RoleID === 7) && (
 						<div className="xl:block">
 							<ActionButton
 								iconContainerClassName="border-none"
@@ -156,7 +156,7 @@ export const OrderProductItem: React.FC<TProps> = ({
 								width={'100%'}
 								size="middle"
 								min={0}
-								max={100000}
+								// max={100000}
 								value={quantity}
 								onChange={handleQuantity}
 								// readOnly={!orderStatusCanChage.some((x) => x == dataOrderStop?.Status)}

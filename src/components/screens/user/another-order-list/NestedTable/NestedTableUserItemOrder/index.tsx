@@ -1,17 +1,15 @@
-import { DataTable } from '~/components/globals/table'
-import { Modal, Space, Tag, Tooltip } from 'antd'
-import { TableRowSelection } from 'antd/lib/table/interface'
-import router from 'next/router'
-import React, { FC, useState } from 'react'
+import { Modal, Space, Tag } from 'antd'
+import { FC, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { mainOrder, orderShopTemp } from '~/api'
 import { ActionButton, showToast } from '~/components'
-import { createdOrderStatusData, ECreatedOrderStatusData, orderStatus } from '~/configs/appConfigs'
-import { TColumnsType, TTable } from '~/types/table'
+import { DataTable } from '~/components/globals/table'
+import { orderStatus } from '~/configs/appConfigs'
+import { TColumnsType } from '~/types/table'
 
-import { toastApiErr, _format } from '~/utils'
 import Link from 'next/link'
+import { _format, toastApiErr } from '~/utils'
 
 export const NestedTableUserItemOrder: FC<any> = ({ handleModal, type, q, GroupMainOrderID, expandItemId }) => {
 	const {

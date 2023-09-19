@@ -1,20 +1,18 @@
-import { Modal, Space, Tag, Typography } from 'antd'
-import { TableRowSelection } from 'antd/lib/table/interface'
+import { Modal, Space, Tag } from 'antd'
+import Link from 'next/link'
 import router from 'next/router'
 import React, { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
-import { mainOrder, orderShopTemp } from '~/api'
+import { mainOrder } from '~/api'
 import { ActionButton, DataTable, showToast } from '~/components'
-import { createdOrderStatusData, ECreatedOrderStatusData, orderStatus } from '~/configs/appConfigs'
+import { ECreatedOrderStatusData, orderStatus } from '~/configs/appConfigs'
 import { TColumnsType, TTable } from '~/types/table'
+import { _format, toastApiErr } from '~/utils'
 import { NestedTableUserItemOrder } from './NestedTable'
-import { toastApiErr, _format } from '~/utils'
-import Link from 'next/link'
 
 export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> = ({
 	data,
-
 	loading,
 	handleModal,
 	type,
@@ -53,6 +51,7 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 
 	const columns: TColumnsType<TOrder> = [
 		{
+			key: 'MainOrderCustomID',
 			dataIndex: 'MainOrderCustomID',
 			title: 'ID đơn',
 			width: 100
@@ -354,7 +353,7 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 					expandItemId={record.Id}
 				/>
 			</div>
-		)
+		),
 	}
 
 	return (
@@ -364,7 +363,7 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 				data,
 				bordered: true,
 				loading,
-				expandOnlyOne: Number(q) === 3 ? false : true,
+				// expandOnlyOne: Number(q) === 3 ? false : true,
 				expandable: expandable,
 				isExpand: Number(q) === 3 ? false : true,
 				scroll: { y: 700 }
