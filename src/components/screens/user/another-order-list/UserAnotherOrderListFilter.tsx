@@ -15,7 +15,7 @@ const inputProps = {
 }
 
 const filterBox =
-	'py-2 font-bold uppercase text-[14px] flex items-center justify-center border shadow-lg cursor-pointer hover:shadow-sm transition-all duration-500 hover:bg-[#EDF1F7]'
+	'py-2 font-bold uppercase text-[12px] flex items-center justify-center border shadow-lg cursor-pointer hover:shadow-sm transition-all duration-500 hover:bg-[#EDF1F7]'
 
 type TProps = {
 	handleFilter: (newFilter) => void
@@ -58,7 +58,7 @@ export const UserAnotherOrderListFilter: React.FC<TProps> = ({ handleFilter, num
 			activeKey={activeKey}
 		>
 			<Collapse.Panel header={''} key="1">
-				<div className="sm:grid sm:grid-cols-4 sm:gap-4 w-full p-4">
+				<div className="sm:grid sm:grid-cols-5 sm:gap-4 w-full p-4">
 					<div className="col-span-1 sm:mb-0 mb-4">
 						<FilterSelect
 							isClearable={true}
@@ -95,29 +95,27 @@ export const UserAnotherOrderListFilter: React.FC<TProps> = ({ handleFilter, num
 							}}
 						/>
 					</div>
-					<div className="col-span-4 sm:mb-0">
-						<div className="sm:flex justify-end">
-							<IconButton
-								onClick={() =>
-									handleFilter({
-										TypeSearch: TypeSearch.current,
-										SearchContent: SearchContent.current,
-										Status: Status.current,
-										FromDate: FromDate.current,
-										ToDate: ToDate.current,
-										PageIndex: 1
-									})
-								}
-								title="Tìm kiếm"
-								icon="far fa-search"
-								btnClass=""
-								showLoading
-								toolip=""
-							/>
-						</div>
+					<div className="col-span-1 sm:mb-0 flex justify-end items-end">
+						<IconButton
+							onClick={() =>
+								handleFilter({
+									TypeSearch: TypeSearch.current,
+									SearchContent: SearchContent.current,
+									Status: Status.current,
+									FromDate: FromDate.current,
+									ToDate: ToDate.current,
+									PageIndex: 1
+								})
+							}
+							title="Tìm kiếm"
+							icon="far fa-search"
+							btnClass=""
+							showLoading
+							toolip=""
+						/>
 					</div>
 				</div>
-				<div className="lg:grid lg:grid-cols-3 gap-4 mb-4] px-4 py-6">
+				<div className="lg:grid lg:grid-cols-6 gap-2 mb-2 px-2 py-2">
 					{(query?.q !== '3' ? numberOfOrder.filter((x) => x.id !== 100) : numberOfOrder.filter((x) => x.id !== 101))?.map(
 						(item) => (
 							<div

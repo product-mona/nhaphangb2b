@@ -162,7 +162,7 @@ export const CartOrderItem: React.FC<TProps> = ({ cart, note, handleNote, toggle
 		mutationDeleteShop.mutateAsync(id)
 	}
 	const onSubmit = (data: any) => {
-		console.log('onSubmit', data)
+		// console.log('onSubmit', data)
 	}
 	return (
 		<FormProvider {...methods}>

@@ -12,7 +12,6 @@ export const ConfigurationGeneral: FC<TProps<TConfig1>> = ({ control, data }) =>
 	const [editChormeEx, setEditChormeEx] = useState(false)
 	const [editCocCocEx, setEditCocCocEx] = useState(false)
 	const [changeTimeWork, setChangeTimeWork] = useState(false)
-	console.log(data)
 	return (
 		<React.Fragment>
 			<div className="grid grid-cols-1 gap-4 px-6 mt-4">

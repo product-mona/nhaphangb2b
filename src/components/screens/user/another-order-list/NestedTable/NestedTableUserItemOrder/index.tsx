@@ -21,7 +21,7 @@ export const NestedTableUserItemOrder: FC<any> = ({ handleModal, type, q, GroupM
 		() => mainOrder.getSubGroupOrder({ id: GroupMainOrderID, PageSize: 1000 }).then((res) => res.Data),
 		{
 			onSuccess: (data) => {
-				console.log('ItemOrderListQuery', data)
+				// console.log('ItemOrderListQuery', data)
 			},
 			onError: (error) => {
 				showToast({
@@ -71,7 +71,7 @@ export const NestedTableUserItemOrder: FC<any> = ({ handleModal, type, q, GroupM
 		{
 			dataIndex: 'MainOrderCustomID',
 			title: 'ID đơn',
-			width: 80
+			width: 200
 		},
 		{
 			dataIndex: 'ImageOrigin',

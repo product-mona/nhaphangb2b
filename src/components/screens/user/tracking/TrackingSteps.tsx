@@ -12,8 +12,6 @@ type TProps = {
 };
 
 export const TrackingSteps: React.FC<TProps> = memo(({ current = 1 }) => {
-  console.log(current);
-
   return (
     <div className="mx-auto py-8 px-8">
       <div className="">

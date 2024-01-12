@@ -43,7 +43,6 @@ export const RegisterForm = ({ visible, setOpenModal }) => {
 
 	const { mutate, isLoading } = useMutation((data: TUserRegister) => authenticate.register(data), {
 		onSuccess: async (data) => {
-			console.log(data)
 			toast.success('Đăng ký tài khoản thành công')
 			Cookie.set('tokenNHTQ-OTMQ', data?.Data?.token)
 			setOpenModal('')

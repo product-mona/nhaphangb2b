@@ -16,6 +16,7 @@ type TProps = {
 	prefix?: React.ReactNode;
 	allowClear?: boolean;
 	label?: string;
+	iconSearch?: string;
 };
 
 export const FilterInput: FC<TProps> = ({
@@ -30,7 +31,8 @@ export const FilterInput: FC<TProps> = ({
 	defaultValue,
 	prefix,
 	allowClear = true,
-	label
+	label,
+	iconSearch = 'fal fa-search'
 }) => {
 	const input = useRef("");
 	const handleInput = useCallback((val: string) => (input.current = val), []);
@@ -57,7 +59,7 @@ export const FilterInput: FC<TProps> = ({
 							className="absolute right-0 top-0 h-10 px-3 cursor-pointer flex items-center justify-center"
 						>
 							<span className="leading-9 border-l pl-[10px] border-[#d9d9d9]">
-								<i className="fal fa-search text-base"></i>
+								<i className={`text-base ${iconSearch}`}></i>
 							</span>
 						</div>
 					)

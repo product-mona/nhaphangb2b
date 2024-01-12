@@ -17,7 +17,6 @@ type TProps = TControl<TUserPayment> & {
 const { TextArea } = Input
 const ItemProduct = ({ orderTemp, index, maxLength }) => {
 	//bg-[#e9eff1]
-	console.log(orderTemp)
 	return (
 		<div
 			style={{

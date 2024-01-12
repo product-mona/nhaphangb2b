@@ -170,7 +170,8 @@ export const OrderProductItem: React.FC<TProps> = ({
 								<InputNumber
 									disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
 									size="middle"
-									value={_format.getVND(priceOrigin, '')}
+									// value={_format.getVND(priceOrigin, '')}
+									value={_format.getYuan(priceOrigin, '')}
 									onChange={handleChangePriceCNY}
 								/>
 							</div>

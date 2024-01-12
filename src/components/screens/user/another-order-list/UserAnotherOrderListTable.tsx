@@ -1,23 +1,17 @@
 import { Modal, Space, Tag } from 'antd'
 import Link from 'next/link'
 import router from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { mainOrder } from '~/api'
-import { ActionButton, DataTable, showToast } from '~/components'
+import { ActionButton, DataTable, FilterInput, showToast } from '~/components'
 import { ECreatedOrderStatusData, orderStatus } from '~/configs/appConfigs'
 import { TColumnsType, TTable } from '~/types/table'
 import { _format, toastApiErr } from '~/utils'
 import { NestedTableUserItemOrder } from './NestedTable'
 
-export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> = ({
-	data,
-	loading,
-	handleModal,
-	type,
-	q
-}) => {
+export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> = ({ data, loading, handleModal, type, q }) => {
 	const [delLoading, setDelLoading] = useState(false)
 	const queryClient = useQueryClient()
 
@@ -49,14 +43,64 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 		}
 	})
 
+	const [expandedRowKeys, setExpandedRowKeys] = useState(data?.map((item) => item.Id) || [])
+
+	useEffect(() => {
+		setExpandedRowKeys(data?.map((item) => item.Id))
+	}, [data])
+
+	const handleExpand = (expanded, record) => {
+		const newExpandedRowKeys = expanded ? [...expandedRowKeys, record.Id] : expandedRowKeys.filter((key) => key !== record.Id)
+		setExpandedRowKeys(newExpandedRowKeys)
+	}
+
+	const mutationUpdateNote = useMutation({
+		mutationKey: ['update-note-order'],
+		mutationFn: async (data: { Id: number; Note: string }) => await mainOrder.updateNote(data),
+		onSuccess: () => {
+			toast.success('Cập nhật ghi chú thành công!')
+		},
+		onError: () => {
+			toast.error('Cập nhật ghi chú thất bại')
+		}
+	})
+
+	const handleUpdateNote = async (data: { Id: number; Note: string }) => {
+		await mutationUpdateNote.mutateAsync(data)
+	}
+
 	const columns: TColumnsType<TOrder> = [
 		{
 			key: 'MainOrderCustomID',
 			dataIndex: 'MainOrderCustomID',
 			title: 'ID đơn',
-			width: 100
+			width: 200
 		},
-
+		{
+			key: 'Note',
+			dataIndex: 'Note',
+			title: 'Ghi chú',
+			width: 200,
+			render: (value, record) => {
+				const [val, setVal] = useState(value)
+				return (
+					<FilterInput
+						name={'Note'}
+						id={'Note'}
+						placeholder={'Ghi chú đơn'}
+						value={val}
+						iconSearch='fas fa-check text-blue'
+						handleSubmit={() =>
+							handleUpdateNote({
+								Id: record?.Id,
+								Note: val
+							})
+						}
+						handleSearch={(val) => setVal(val)}
+					/>
+				)
+			}
+		},
 		{
 			dataIndex: 'TotalPriceVND',
 			title: 'Tổng tiền (VNĐ)',
@@ -89,7 +133,6 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 			responsive: ['lg'],
 			render: (deposit, record) => _format.getVND(record.TotalPriceVND - record.Deposit, ' ')
 		},
-
 		{
 			dataIndex: 'Status',
 			title: 'Trạng thái',
@@ -332,17 +375,17 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 				style={{
 					background: 'linear-gradient(90deg, #b53aa5 15%, #d06cc3 60%)'
 				}}
-				className=" p-4"
+				className="p-1"
 			>
-				<div className="mb-4">
+				<div className="p-2">
 					<p
 						style={{
-							fontSize: '16px',
+							fontSize: '14px',
 							fontWeight: 600
 						}}
-						className="text-white"
+						className="text-white uppercase"
 					>
-						Chi tiết danh sách cửa hàng
+						** Chi tiết danh sách cửa hàng
 					</p>
 				</div>
 				<NestedTableUserItemOrder
@@ -354,6 +397,8 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 				/>
 			</div>
 		),
+		expandedRowKeys: expandedRowKeys,
+		onExpand: handleExpand
 	}
 
 	return (
@@ -365,8 +410,8 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 				loading,
 				// expandOnlyOne: Number(q) === 3 ? false : true,
 				expandable: expandable,
-				isExpand: Number(q) === 3 ? false : true,
-				scroll: { y: 700 }
+				isExpand: Number(q) === 3 ? false : true
+				// scroll: { y: 700 }
 			}}
 			tableId={'secondTable'}
 		/>

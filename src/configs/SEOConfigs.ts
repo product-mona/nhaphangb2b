@@ -90,7 +90,7 @@ export const SEOConfigs = {
   signIn: "Đăng nhập",
   register: "Đăng ký",
   forgotPassword: "Khôi phục mật khẩu",
-  homePage: "NHAPHANGB2B",
+  homePage: "NHẬP HÀNG B2B",
   notification: "Thông báo",
 };
 

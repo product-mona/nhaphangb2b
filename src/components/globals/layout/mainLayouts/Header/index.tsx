@@ -233,14 +233,15 @@ const Header: React.FC<TProps> = ({ hover, handleTabbar, handleHover, userPage }
 				{isUserRoute && (
 					<div className="sm:hidden xl:block relative mr-auto p-3">
 						<Link href="/">
-							<a className={clsx(styles.logo, '')}>
+							<a className={clsx(styles.logo, 'block')}>
 								<div className={`${styles.img} w-[50px]`}>
 									<Image
 										src={configData?.LogoIMG ? configData?.LogoIMG : '/logo.png'}
-										width={'5rem'}
+										width={'3rem'}
 										height={'100%'}
 										alt="logo"
 										preview={false}
+										className='bg-white rounded-sm'
 									/>
 								</div>
 							</a>
