@@ -11,7 +11,6 @@ export const BoxGetImageUrl: FC<any> = () => {
 
 	const mutationUploadList = useMutation((FileList: any[]) => Promise.all(FileList.map((file) => baseFile.uploadFile(file))), {
 		onSuccess: (res) => {
-			console.log('resUPloadList', res)
 			setFiles((files) => {
 				const newFiles = files.concat(res)
 				return newFiles
@@ -55,7 +54,6 @@ export const BoxGetImageUrl: FC<any> = () => {
 						multiple={true}
 						handleChange={(files: any) => {
 							const updatedFiles = [...files]
-							console.log(files, updatedFiles)
 							mutationUploadList.mutateAsync(updatedFiles)
 						}}
 						name="file"

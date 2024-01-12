@@ -10,16 +10,12 @@ export const PopupNoti = () => {
 		const showNoti = JSON.parse(localStorage.getItem('showNoti'))
 		return showNoti === undefined ? false : showNoti
 	})
-	useEffect(() => {
-		console.log(notiShow.current)
-	}, [notiShow.current])
 	const [openModal, setOpenModal] = useState(false)
 
 	const { data, isFetching, isLoading } = useQuery(['confighome'], () => configHomeData.get(), {
 		onSuccess: (res) => {
 			const showNoti = JSON.parse(localStorage.getItem('showNoti'))
-			console.log('confighome', res)
-			console.log('res?.Data?.NotiPopupTitl', res?.Data?.NotiPopupTitle, !!res?.Data?.NotiPopupTitle)
+			// console.log('res?.Data?.NotiPopupTitl', res?.Data?.NotiPopupTitle, !!res?.Data?.NotiPopupTitle)
 			if (res?.Data?.NotiPopupTitle) {
 				// console.log('res?.Data?.NotiPopupTitl', res?.Data?.NotiPopupTitl)
 				localStorage.setItem('showNoti', JSON.stringify(true))

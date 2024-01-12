@@ -68,9 +68,8 @@ export const OrderShopDetailModal: FC<FCProps> = ({ orderShopId, isOpen, onClose
 
 	// ham update chi tiết đơn hàng
 	const _onUpdate = (data: TOrder) => {
-		console.log('clicked')
 		const { HistoryOrderChanges, PayOrderHistories, Complains, ...newData } = data
-		console.log(newData)
+		// console.log(newData)
 		mutationUpdate.mutateAsync(newData)
 	}
 

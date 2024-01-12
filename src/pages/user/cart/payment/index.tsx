@@ -117,7 +117,6 @@ const Index: TNextPageWithLayout & React.FC<{}> = () => {
 	const mutationPayment = useMutation(orderShopTemp.payment)
 
 	const onPress = async (data: TUserPayment) => {
-		console.log(data)
 		const { ShopPayments, IsAgreement, ...restData } = data
 		if (!IsAgreement) {
 			setError('IsAgreement', { type: 'custom', message: 'Quý khách lòng xác nhận điều khoản đặt hàng trước khi mua hàng.' })

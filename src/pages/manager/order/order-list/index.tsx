@@ -1,14 +1,15 @@
 import { Pagination } from 'antd'
-import router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { Fragment, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { mainOrder } from '~/api'
 import { Layout, OrderListFilter, OrderListTable, showToast } from '~/components'
-import { orderStatus } from '~/configs/appConfigs'
 import { SEOConfigs } from '~/configs/SEOConfigs'
+import { orderStatus } from '~/configs/appConfigs'
 import { useCatalogue } from '~/hooks/useCatalogue'
 import { useAppSelector } from '~/store'
 import { TNextPageWithLayout } from '~/types/layout'
+
 // import * as FileSaver from "file-saver";
 // import * as XLSX from "xlsx";
 // import { exportHead } from "~/configs";
@@ -30,8 +31,10 @@ import { TNextPageWithLayout } from '~/types/layout'
 
 const Index: TNextPageWithLayout = () => {
 	const { current: newUser } = useAppSelector((state) => state.user)
-	const { query } = useRouter()
-	const [numberOfOrder, setNumberOfOrder] = useState(orderStatus)
+	const router = useRouter()
+
+	const [numberOfOrder, setNumberOfOrder] = useState(orderStatus);
+
 	const [filter, setFilter] = useState({
 		TypeSearch: null,
 		SearchContent: null,
@@ -43,13 +46,14 @@ const Index: TNextPageWithLayout = () => {
 		IsNotMainOrderCode: false,
 		sorter: null,
 		TotalItems: null,
-		OrderType: query?.q === '3' ? 3 : 4,
+		OrderType: router.query?.q === '3' ? 3 : 4,
 		PageIndex: 1,
 		PageSize: 20,
 		OrderBy: 'Id desc',
 		UID: newUser?.UserId,
 		RoleID: newUser?.UserGroupId
 	})
+
 
 	useEffect(() => {
 		setFilter({
@@ -63,15 +67,16 @@ const Index: TNextPageWithLayout = () => {
 			IsNotMainOrderCode: false,
 			sorter: null,
 			TotalItems: null,
-			OrderType: query?.q === '3' ? 3 : 4,
+			OrderType: router.query?.q === '3' ? 3 : 4,
 			PageIndex: 1,
 			PageSize: 20,
 			OrderBy: 'Id desc',
 			UID: newUser?.UserId,
 			RoleID: newUser?.UserGroupId
 		})
+
 		setNumberOfOrder(orderStatus)
-	}, [query?.q])
+	}, [router.query?.q])
 
 	const handleFilter = (newFilter) => {
 		setFilter({ ...filter, ...newFilter })
@@ -97,7 +102,7 @@ const Index: TNextPageWithLayout = () => {
 				})
 			},
 			keepPreviousData: true
-		},
+		}
 	)
 
 	const { userOrder, userSale } = useCatalogue({
@@ -126,14 +131,14 @@ const Index: TNextPageWithLayout = () => {
 			{
 				UID: newUser?.UserId,
 				RoleID: newUser?.UserGroupId,
-				orderType: query?.q === '3' ? 3 : 4
+				orderType: router.query?.q === '3' ? 3 : 4
 			}
 		],
 		() =>
 			mainOrder.getNumberOfOrder({
 				UID: newUser?.UserId,
 				RoleID: newUser?.UserGroupId,
-				orderType: query?.q === '3' ? 3 : 4
+				orderType: router.query?.q === '3' ? 3 : 4
 			}),
 		{
 			onSuccess(res) {
@@ -158,7 +163,7 @@ const Index: TNextPageWithLayout = () => {
 
 	return (
 		<Fragment>
-			<div className="breadcrumb-2">{query?.q === '3' ? 'Đơn hàng mua hộ khác' : 'Đơn hàng mua hộ'}</div>
+			<div className="breadcrumb-2">{router.query?.q === '3' ? 'Đơn hàng mua hộ khác' : 'Đơn hàng mua hộ'}</div>
 			<div id="special" className="tableBox">
 				<div className="mb-4">
 					<OrderListFilter numberOfOrder={numberOfOrder} handleFilter={handleFilter} handleExportExcel={handleExportExcel} />

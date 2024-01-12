@@ -9,7 +9,6 @@ import { useMutation, useQuery } from 'react-query'
 import { mainOrder } from '~/api'
 import {
 	Layout,
-	MessageControlManager,
 	OrderCost,
 	OrderDetail,
 	OrderHistory,

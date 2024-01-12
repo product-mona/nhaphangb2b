@@ -1992,13 +1992,13 @@ export const orderStatus = [
 	{
 		id: -1,
 		name: 'Tất cả đơn',
-		col: 3,
+		col: 1,
 		money: null,
 		value: null
 	},
 	{
 		id: 102,
-		name: 'Chưa yêu cầu báo cọc',
+		name: 'Chưa y/c báo cọc',
 		color: '#6E6E6E',
 		col: 1,
 		money: null,

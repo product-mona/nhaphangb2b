@@ -251,7 +251,7 @@ export const OrderTransferCodeList: React.FC<TProps> = ({ data, loading, handleU
 		}
 	}
 	const onSubmit = (data: any) => {
-		console.log('onSubmit', data)
+		// console.log('onSubmit', data)
 	}
 	return (
 		<React.Fragment>

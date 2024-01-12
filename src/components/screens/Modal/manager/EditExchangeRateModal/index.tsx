@@ -43,7 +43,7 @@ export const EditExchangeRateModal: FC<FCProps> = ({ isOpen, onClose, SubMainOrd
 		},
 		{
 			onSuccess: (res) => {
-				console.log(res)
+				// console.log(res)
 			},
 			onError: (error) => {}
 		}

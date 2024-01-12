@@ -13,7 +13,7 @@ const InnerContent = ({ data }) => {
 	const [itemActive, setItemActive] = useState<any>({})
 
 	useEffect(() => {
-		console.log('data nè', data)
+		// console.log('data nè', data)
 		if (data) {
 			setItemActive(data[0])
 		}

@@ -2,7 +2,7 @@ import Cookie from 'js-cookie'
 import router from 'next/router'
 import { toast } from 'react-toastify'
 import { authenticate, setToken } from '~/api'
-import { getCartInfoByUserId, setRouter, setUser, useAppDispatch } from '~/store'
+import { setRouter, setUser, useAppDispatch } from '~/store'
 import { _format } from '~/utils'
 
 const inputStyle = 'border !rounded-none !outline-0 mx-2 p-2'

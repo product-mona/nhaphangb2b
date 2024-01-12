@@ -168,7 +168,7 @@ export const OrderListFilter: FC<TProps> = ({ handleFilter, handleExportExcel, n
 				{(query?.q !== '3' ? numberOfOrder.filter((x) => x.id !== 100) : numberOfOrder.filter((x) => x.id !== 101))?.map((item) => (
 					<div
 						key={item?.name}
-						className={`col-span-${item.col} ${filterBox}`}
+						className={`col-span-${item.col} ${filterBox}  ${item?.id === Status.current ? '!bg-[#a8d7dd] !text-[#333]' : ''} `}
 						onClick={() => {
 							Status.current = item.id
 							handleFilter({

@@ -80,9 +80,9 @@ export const SecondOrderIDProductList: React.FC<SecondOrderIDProductListProps> =
 			{data?.map((item, index) => (
 				<div
 					key={index}
-					onClick={() => {
-						console.log('item', item)
-					}}
+					// onClick={() => {
+					// 	console.log('item', item)
+					// }}
 					className="orderProductItem border"
 				>
 					<div className="flex flex-wrap">

@@ -147,7 +147,7 @@ const Menus: FC<TMenu> = ({
 						<Link href={path}>
 							<a className={clsx(styles.link, activeRouter ? styles.active : styles.unActive)}>
 								{<b className={clsx(`${styles.borderTopLeft}`, activeRouter ? 'block' : 'hidden')}></b>}
-								<span className={clsx(styles.span, 'mb-4')}>
+								<span className={clsx(styles.span, 'mr-2')}>
 									<i className={clsx(icon, styles.icon)}></i>
 								</span>
 								<span className="flex items-center">
@@ -165,7 +165,7 @@ const Menus: FC<TMenu> = ({
 				) : (
 					<a className={clsx(styles.link, activeRouter ? styles.active : styles.unActive)}>
 						{<b className={clsx(`${styles.borderTopLeft}`, activeRouter ? 'block' : 'hidden')}></b>}
-						<span className={clsx(styles.span, 'mb-4')}>
+						<span className={clsx(styles.span, 'mr-2')}>
 							<i className={clsx(icon, styles.icon)}></i>
 						</span>
 						<span className="flex items-center">

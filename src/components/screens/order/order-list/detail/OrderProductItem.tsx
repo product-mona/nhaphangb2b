@@ -1,7 +1,6 @@
 import { Input, InputNumber, Tooltip } from 'antd'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ActionButton, TableTextAreaField, toast } from '~/components'
-import { orderStatus, orderStatusCanChage } from '~/configs'
+import { ActionButton } from '~/components'
 import { _format } from '~/utils'
 
 type TProps = {
@@ -91,7 +90,7 @@ export const OrderProductItem: React.FC<TProps> = ({
 							{order?.ItemId}
 						</a>
 					</Tooltip>
-					{(RoleID === 1 || RoleID === 3 || RoleID === 4) && (
+					{(RoleID === 1 || RoleID === 3 || RoleID === 4 || RoleID === 7) && (
 						<div className="xl:block">
 							<ActionButton
 								iconContainerClassName="border-none"
@@ -138,7 +137,7 @@ export const OrderProductItem: React.FC<TProps> = ({
 							<Input.TextArea
 								className="py-0"
 								autoSize={{ minRows: 1, maxRows: 3 }}
-								disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
+								disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4 || RoleID === 7)}
 								size="middle"
 								value={brand}
 								onChange={(e) => {
@@ -157,7 +156,7 @@ export const OrderProductItem: React.FC<TProps> = ({
 								width={'100%'}
 								size="middle"
 								min={0}
-								max={100000}
+								// max={100000}
 								value={quantity}
 								onChange={handleQuantity}
 								// readOnly={!orderStatusCanChage.some((x) => x == dataOrderStop?.Status)}
@@ -171,7 +170,8 @@ export const OrderProductItem: React.FC<TProps> = ({
 								<InputNumber
 									disabled={!(RoleID === 1 || RoleID === 3 || RoleID === 4)}
 									size="middle"
-									value={_format.getVND(priceOrigin, '')}
+									// value={_format.getVND(priceOrigin, '')}
+									value={_format.getYuan(priceOrigin, '')}
 									onChange={handleChangePriceCNY}
 								/>
 							</div>

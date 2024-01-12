@@ -56,7 +56,6 @@ const Index: TNextPageWithLayout = () => {
 			ImageBanner2: data.thumbnailList[1]?.url || '',
 			ImageBanner3: data.thumbnailList[2]?.url || ''
 		}
-		console.log(fmData)
 		try {
 			setLoading(true)
 			await configuration.update({

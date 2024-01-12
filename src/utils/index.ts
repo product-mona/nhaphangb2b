@@ -127,6 +127,24 @@ class Format {
 		return x1 + x2 + suffix
 	}
 
+	// format đơn giá mới với 3 số phía sau
+	getYuan = (price: number, suffix: string = ' ¥') => {
+    if (price === null || price === undefined) return '--'
+    if (Number(price) && !price) return 0
+    if (Number.isInteger(price)) {
+      return (
+        (price?.toString() || '0').replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+        suffix
+      )
+    }
+
+    return (
+      (price > 0
+        ? price.toFixed(3).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        : price) + suffix
+    )
+  }
+
 	// format phần trăm
 	getPercent = (price: number, suffix: string = ' %') => (price?.toString() || '0') + suffix
 

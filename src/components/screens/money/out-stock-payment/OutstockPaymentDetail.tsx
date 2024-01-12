@@ -145,8 +145,6 @@ export const OutstockPaymentDetail: React.FC<TTable<TMoneyOutstockPaymentDetail>
 	//   ),
 	// };
 
-	console.log('item: ', item)
-
 	const summary = () => {
 		return (
 			<React.Fragment>

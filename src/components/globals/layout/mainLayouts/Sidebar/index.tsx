@@ -25,9 +25,6 @@ const Sidebar: FC<TProps> = ({ handleHover, hover, tabbar }) => {
 	const connection = useAppSelector(selectConnection)
 	let menuRouter = useAppSelector(selectRouter)
 	const [renderMenuRouter, setRenderMenuRouter] = useState(menuRouter)
-	useEffect(() => {
-		console.log(menuRouter)
-	}, [menuRouter])
 	const { route } = useRouter()
 	const [dropdown, setDropdown] = useState('')
 	const handleDropdown = useCallback((name: string) => setDropdown((dropdown) => (dropdown != name ? name : '')), [])
