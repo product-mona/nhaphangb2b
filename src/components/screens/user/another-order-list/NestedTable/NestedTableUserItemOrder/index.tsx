@@ -175,7 +175,7 @@ export const NestedTableUserItemOrder: FC<any> = ({ handleModal, type, q, GroupM
 				bordered: true,
 				// rowSelection,
 				loading: isFetching,
-
+				className: 'bg-[#d06cc3] p-[3px] rounded-md my-3',
 				scroll: { y: 700 }
 			}}
 		/>

@@ -2,12 +2,12 @@ import { Modal, Space, Tag } from 'antd'
 import clsx from 'clsx'
 import Link from 'next/link'
 import router from 'next/router'
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { mainOrder } from '~/api'
 import { ActionButton, DataTable } from '~/components'
-import { FilterSelect } from '~/components/globals/filterBase'
+import { FilterInput, FilterSelect } from '~/components/globals/filterBase'
 import { orderStatus } from '~/configs/appConfigs'
 import { TColumnsType, TTable } from '~/types/table'
 import { _format } from '~/utils'
@@ -29,11 +29,26 @@ export const OrderListTable: React.FC<
 		})
 	)
 
+	const mutationUpdateNote = useMutation({
+		mutationKey: ['update-note-order'],
+		mutationFn: async (data: { Id: number; Note: string }) => await mainOrder.updateNote(data),
+		onSuccess: () => {
+			toast.success('Cập nhật ghi chú thành công!')
+		},
+		onError: () => {
+			toast.error('Cập nhật ghi chú thất bại')
+		}
+	})
+
+	const handleUpdateNote = async (data: { Id: number; Note: string }) => {
+		await mutationUpdateNote.mutateAsync(data)
+	}
+
 	const columns: TColumnsType<TOrder> = [
 		{
 			dataIndex: 'MainOrderCustomID',
 			title: 'ID Đơn',
-			// width: 80,
+			width: 200,
 			fixed: 'left'
 		},
 		{
@@ -42,6 +57,31 @@ export const OrderListTable: React.FC<
 			responsive: ['md'],
 			width: 100,
 			fixed: 'left'
+		},
+		{
+			key: 'Note',
+			dataIndex: 'Note',
+			title: 'Ghi chú',
+			width: 200,
+			render: (value, record) => {
+				const [val, setVal] = useState(value)
+				return (
+					<FilterInput
+						name={'Note'}
+						id={'Note'}
+						placeholder={'Ghi chú đơn'}
+						value={val}
+						iconSearch='fas fa-check text-blue'
+						handleSubmit={() =>
+							handleUpdateNote({
+								Id: record?.Id,
+								Note: val
+							})
+						}
+						handleSearch={(val) => setVal(val)}
+					/>
+				)
+			}
 		},
 		// {
 		// 	dataIndex: 'ImageOrigin',

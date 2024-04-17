@@ -372,12 +372,12 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 	const expandable = {
 		expandedRowRender: (record) => (
 			<div
-				style={{
-					background: 'linear-gradient(90deg, #b53aa5 15%, #d06cc3 60%)'
-				}}
-				className="p-1"
+				// style={{
+				// 	background: 'linear-gradient(90deg, #b53aa5 15%, #d06cc3 60%)'
+				// }}
+				// className="rounded-md"
 			>
-				<div className="p-2">
+				{/* <div className="p-2">
 					<p
 						style={{
 							fontSize: '14px',
@@ -387,7 +387,7 @@ export const UserAnotherOrderListTable: React.FC<TTable<TOrder> & { type; q }> =
 					>
 						** Chi tiết danh sách cửa hàng
 					</p>
-				</div>
+				</div> */}
 				<NestedTableUserItemOrder
 					handleModal={handleModal}
 					type={type}

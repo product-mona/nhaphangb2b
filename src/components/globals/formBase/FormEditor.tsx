@@ -70,7 +70,7 @@ export const FormEditor = <TFieldValues extends FieldValues = FieldValues>({
 					<div>
 						<Editor
 							id={name}
-							apiKey={'iac8cfkdevssbiceknww2kkrpmblwb0ywmzork74l3kg1tlc'}
+							apiKey={'3wpuj0coeuqbm9iz4bmrzbal2p2re5100zbcmmqj6rvf8lni'}
 							init={{
 								...initSecond,
 								// content_style: "div { border: 5px solid red }",

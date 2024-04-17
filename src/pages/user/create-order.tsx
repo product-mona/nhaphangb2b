@@ -61,7 +61,7 @@ const Index: TNextPageWithLayout = () => {
 	}, [warehouseTQ, warehouseVN, shippingTypeToWarehouse])
 
 	const _onPress = async (data: TUserCreateOrder) => {
-		const id = toast.loading('Đang xử lý ...')
+		const id = toast.loading('Đang xử lý ...');
 		mainOrder
 			.addAnother({ ...data, UID: newUser?.UserId })
 			.then(() => {

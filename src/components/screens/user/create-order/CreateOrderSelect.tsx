@@ -27,9 +27,9 @@ export const CreateOrderSelect: FC<TProps> = ({
 
 	return (
 		<>
-			<div className="grid grid-cols-2 gap-4">
+			<div className="grid grid-cols-3 gap-4">
 				<div className={clsx(infoContainer)}>
-					<div className="IconFilter text-white bg-[#2A8BD5] text-center">
+					<div className="IconFilter text-white bg-[#2A8BD5] text-center rounded-md">
 						<i className="fas fa-user"></i>
 					</div>
 					<div className="w-full pl-5">
